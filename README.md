@@ -11,5 +11,6 @@ PACKY is a tech consultant app designed for newer developers interested in appli
 # How to run
 If not initialized:
 - npm i
+
 After has been initialized:
 - npm run dev
