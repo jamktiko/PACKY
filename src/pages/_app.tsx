@@ -1,6 +1,9 @@
 import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
+
+import Header from '../components/ui/header';
+
 import '../assets/CSS/globals.css';
 import { Montserrat } from 'next/font/google';
 
@@ -15,10 +18,14 @@ type AppPropsWithLayout = AppProps & {
 };
 
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-  // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? ((page) => page);
 
+  // Layout is defined here
   return getLayout(
-    <Component classname={montserrat.className} {...pageProps} />
+    <>
+      <Header />
+      <Component {...pageProps} />
+      <p>Footer</p>
+    </>
   );
 }
