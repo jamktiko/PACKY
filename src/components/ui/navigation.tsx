@@ -22,27 +22,38 @@ const Navigation = () => {
         </li>
         <li>
           {' '}
-          <IoGridOutline className='text-2xl ml-2 mr-4' />{' '}
-          <span>StackBuilder</span>
+          <Link href='/stackbuilder'>
+            <IoGridOutline className='text-2xl ml-2 mr-4' />
+            <span>Stack Builder</span>
+          </Link>
         </li>
         <li>
           {' '}
-          <IoLibraryOutline className='text-2xl ml-2 mr-4' />{' '}
-          <span>Library</span>
+          <Link href='/library'>
+            <IoLibraryOutline className='text-2xl ml-2 mr-4' />
+            <span>Library</span>
+          </Link>
         </li>
         <li>
           {' '}
-          <IoGitCompareOutline className='text-2xl ml-2 mr-4' />{' '}
-          <span>Compare</span>
+          <Link href='/compare'>
+            <IoGitCompareOutline className='text-2xl ml-2 mr-4' />
+            <span>Compare</span>
+          </Link>
         </li>
         <li>
           {' '}
-          <IoHelpCircleOutline className='text-2xl ml-2 mr-4' />{' '}
-          <span>About</span>
+          <Link href='/about'>
+            <IoHelpCircleOutline className='text-2xl ml-2 mr-4' />
+            <span>About</span>
+          </Link>
         </li>
         <li>
           {' '}
-          <IoMailOutline className='text-2xl ml-2 mr-4' /> <span>Contact</span>
+          <Link href='/contact'>
+            <IoMailOutline className='text-2xl ml-2 mr-4' />
+            <span>Contact</span>
+          </Link>
         </li>
       </ul>
     </nav>

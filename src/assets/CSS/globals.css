@@ -22,7 +22,7 @@ header nav {
   @apply shadow-inner-2 w-[16.7rem] z-50 bg-opacity-40 border-inherit border-r backdrop-blur-sm absolute left-0 top-16 bg-slate-800 rounded-br-lg h-screen;
 }
 
-header nav ul #Link {
+header nav ul {
   @apply flex flex-col border-inherit;
 }
 
@@ -30,7 +30,11 @@ header nav ul li {
   @apply hover:bg-white hover:text-black hover:bg-opacity-80 flex flex-row border-inherit my-4 py-4 mr-4 bg-teal-200 font-bold text-white bg-opacity-10 border-double border-8 border-y border-r pl-2 rounded-tr-2xl;
 }
 
-header nav ul li span {
+header nav ul li a {
+  @apply flex flex-row;
+}
+
+header nav ul li a span {
   @apply w-36 border-b;
 }
 
