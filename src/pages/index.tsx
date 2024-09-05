@@ -1,7 +1,12 @@
+import GridButton from '@/components/buttons/GridButton';
 import type { PageLayout } from './_app';
 
 const Page: PageLayout = () => {
-  return <p className='bg-blue-500'>asdasd</p>;
+  return (
+    <div>
+      <GridButton onClick={() => console.log('Clicked')}></GridButton>
+    </div>
+  );
 };
 
 export default Page;
