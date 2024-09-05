@@ -1,7 +1,7 @@
 import type { PageLayout } from './_app';
-
+import Grid from '../components/grid/grid';
 const StackBuilder: PageLayout = () => {
-  return <p className='bg-blue-500'>sdkgjsdgkjdskjsds</p>;
+  return <Grid></Grid>;
 };
 
 export default StackBuilder;
