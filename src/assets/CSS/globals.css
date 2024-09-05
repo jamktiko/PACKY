@@ -7,21 +7,37 @@
 }
 
 header {
-  @apply bg-slate-700 w-[15.3rem] h-16 border-b border-teal-800 text-teal-500;
+  @apply bg-opacity-80 shadow-inner-2 bg-slate-700 w-[17.5em] h-16 border-b border-teal-800 text-teal-500;
 }
 
 header h1 {
-  @apply text-6xl;
+  @apply text-6xl bg-gradient-to-r from-teal-600  to-cyan-400 inline-block text-transparent bg-clip-text;
+}
+
+header button {
+  @apply shadow-inner-2 h-16 w-16 bg-inherit text-3xl absolute top-[0.05rem] left-[15.3rem] rounded-full inline border-black border-8;
 }
 
 header nav {
-  @apply w-[15.3rem] z-50 bg-opacity-40 border-inherit border-r backdrop-blur-sm absolute left-0 top-16 bg-slate-800 rounded-br-lg h-full;
+  @apply shadow-inner-2 w-[16.7rem] z-50 bg-opacity-40 border-inherit border-r backdrop-blur-sm absolute left-0 top-16 bg-slate-800 rounded-br-lg h-screen;
 }
 
-header nav ul {
+header nav ul #Link {
   @apply flex flex-col border-inherit;
 }
 
 header nav ul li {
-  @apply flex flex-row border-inherit my-4 py-4 mr-4 bg-teal-200 font-bold text-white bg-opacity-10 border-double border-8 border-y border-r pl-2 rounded-tr-2xl;
+  @apply hover:bg-white hover:text-black hover:bg-opacity-80 flex flex-row border-inherit my-4 py-4 mr-4 bg-teal-200 font-bold text-white bg-opacity-10 border-double border-8 border-y border-r pl-2 rounded-tr-2xl;
+}
+
+header nav ul li span {
+  @apply w-36 border-b;
+}
+
+.shadow-inner-2 {
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
