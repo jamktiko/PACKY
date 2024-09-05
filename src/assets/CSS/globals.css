@@ -5,3 +5,23 @@
 :root {
   @apply bg-black text-white;
 }
+
+header {
+  @apply bg-slate-700 w-[15.3rem] h-16 border-b border-teal-800 text-teal-500;
+}
+
+header h1 {
+  @apply text-6xl;
+}
+
+header nav {
+  @apply w-[15.3rem] z-50 bg-opacity-40 border-inherit border-r backdrop-blur-sm absolute left-0 top-16 bg-slate-800 rounded-br-lg h-full;
+}
+
+header nav ul {
+  @apply flex flex-col border-inherit;
+}
+
+header nav ul li {
+  @apply flex flex-row border-inherit my-4 py-4 mr-4 bg-teal-200 font-bold text-white bg-opacity-10 border-double border-8 border-y border-r pl-2 rounded-tr-2xl;
+}

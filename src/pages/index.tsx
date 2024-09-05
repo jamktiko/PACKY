@@ -1,7 +1,7 @@
 import type { PageLayout } from './_app';
 
 const Index: PageLayout = () => {
-  return <p className='bg-blue-500'>asdasd</p>;
+  return <p className=''>asdasd</p>;
 };
 
 export default Index;

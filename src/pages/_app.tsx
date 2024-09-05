@@ -22,10 +22,10 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   // Layout is defined here
   return getLayout(
-    <>
+    <main className={montserrat.className}>
       <Header />
       <Component {...pageProps} />
       <p>Footer</p>
-    </>
+    </main>
   );
 }
