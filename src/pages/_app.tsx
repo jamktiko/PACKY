@@ -6,6 +6,7 @@ import Header from '../components/ui/header';
 
 import '../assets/CSS/globals.css';
 import { Montserrat } from 'next/font/google';
+import Image from 'next/image';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
@@ -24,8 +25,14 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   return getLayout(
     <main className={montserrat.className}>
       <Header />
+      <Image
+        src={'/bg.png'}
+        className=' blur-2xl fixed h-screen -z-50 overflow-hidden'
+        alt={'Background'}
+        width={1920}
+        height={1080}
+      />
       <Component {...pageProps} />
-      <p>Footer</p>
     </main>
   );
 }
