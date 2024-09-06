@@ -27,7 +27,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       <Header />
       <Image
         src={'/bg.png'}
-        className=' blur-2xl fixed h-screen -z-50 overflow-hidden'
+        className=' blur-3xl fixed h-screen -z-50 overflow-hidden'
         alt={'Background'}
         width={1920}
         height={1080}

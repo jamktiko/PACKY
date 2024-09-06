@@ -18,7 +18,7 @@ header h1 {
 }
 
 header button {
-  @apply transition-all hover:text-4xl shadow-inner-2 h-16 w-16 bg-slate-700 text-3xl absolute top-[0.05rem] left-[15.3rem] rounded-full inline border-black border-8;
+  @apply transition-all duration-500 hover:text-4xl shadow-inner-2 h-16 w-16 bg-slate-700 text-3xl absolute top-[0.05rem] left-[15.3rem] rounded-full inline border-black border-8;
 }
 
 header nav {
@@ -34,13 +34,65 @@ header nav ul li {
 }
 
 header nav ul li a {
-  @apply flex flex-row w-full  py-4;
+  @apply flex flex-row w-full  py-4 border-inherit;
 }
 
 header nav ul li a span {
-  @apply w-36 border-b;
+  @apply w-36 border-b border-inherit;
 }
 
+/* ______________________________________________ */
+/* CONTENT */
+.content {
+  @apply border-x-8 border-double border-slate-900 lg:mx-36 lg:px-36 md:ml-36 md:px-36 sm:ml-16 sm:mr-16 sm:px-16 ml-4 mr-4 px-4;
+}
+
+.content h1 {
+  @apply text-4xl mb-4 mt-2 first-letter:text-teal-100 first-letter:text-5xl;
+}
+
+/* ______________________________________________ */
+/* INDEX CARD */
+
+.indexcard {
+  @apply bg-black overflow-hidden border border-gray-800 cursor-pointer rounded-3xl  h-96 hover:bg-white transition-all;
+}
+
+.indexcard span {
+  @apply border-b border-inherit text-2xl font-bold relative -top-16 bg-gradient-to-b from-teal-100 via-teal-100 to-90% inline-block text-transparent bg-clip-text;
+}
+
+.indexcard-image {
+  @apply hover:scale-110 transition-all duration-500 w-fit h-full select-none opacity-90;
+}
+.indexcard-glow1 {
+  box-shadow: rgba(207, 35, 255, 0.25) 0px 54px 55px,
+    rgba(255, 23, 240, 0.12) 0px -12px 30px,
+    rgba(186, 36, 255, 0.12) 0px 4px 6px, rgba(255, 24, 144, 0.17) 0px 12px 13px,
+    rgba(106, 73, 255, 0.09) 0px -3px 5px;
+}
+
+.indexcard-glow2 {
+  box-shadow: rgba(35, 79, 255, 0.25) 0px 54px 55px,
+    rgba(23, 201, 255, 0.12) 0px -12px 30px,
+    rgba(36, 255, 244, 0.12) 0px 4px 6px, rgba(66, 24, 255, 0.17) 0px 12px 13px,
+    rgba(73, 88, 255, 0.09) 0px -3px 5px;
+}
+
+.indexcard-glow3 {
+  box-shadow: rgba(35, 255, 145, 0.25) 0px 54px 55px,
+    rgba(23, 201, 255, 0.12) 0px -12px 30px,
+    rgba(36, 255, 142, 0.12) 0px 4px 6px, rgba(24, 255, 62, 0.17) 0px 12px 13px,
+    rgba(73, 88, 255, 0.09) 0px -3px 5px;
+}
+
+.indexcard-innershadow {
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
 /* ______________________________________________ */
 /* CUSTOM CLASSES */
 
