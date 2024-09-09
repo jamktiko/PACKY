@@ -30,10 +30,10 @@ const Page: PageLayout = () => {
         height={1000}
         alt={''}
       />
-      <p className='text-2xl italic mt-3 mb-0 lg:w-1/2 w-full bg-gradient-to-r from-teal-300 via-teal-100 to-cyan-300 inline-block text-transparent bg-clip-text'>
+      <p className='text-2xl italic mt-6 mb-0 lg:w-1/2 w-full bg-gradient-to-r from-cyan-200 via-cyan-100 to-white text-transparent bg-clip-text'>
         <b>The next generation </b>of technology,
       </p>
-      <p className='text-2xl italic lg:w-1/2 w-full mb-16'>
+      <p className='text-2xl italic lg:w-1/2 w-full mb-16 bg-gradient-to-r from-cyan-100  to-cyan-200 text-transparent bg-clip-text'>
         at your fingertips.
       </p>
       <p className='border-b border-gray-500 pb-16 mb-36'>

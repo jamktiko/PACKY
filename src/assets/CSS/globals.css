@@ -55,7 +55,7 @@ header nav ul li a span {
 }
 
 .content h1 {
-  @apply text-5xl mb-4 mt-2 first-letter:text-teal-100 first-letter:text-5xl;
+  @apply first-letter:text-6xl text-5xl mb-4 mt-2 bg-gradient-to-r from-teal-400 to-teal-100 text-transparent bg-clip-text;
 }
 
 /* ______________________________________________ */

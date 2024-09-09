@@ -13,7 +13,9 @@ const Header = () => {
       </h1>
       <h1>PACKY</h1>
       <button onClick={() => setOpen(!open)}>☰</button>
-      <AnimatePresence>{open && <Navigation />}</AnimatePresence>
+      <AnimatePresence>
+        {open && <Navigation onLinkClick={() => setOpen(false)} />}
+      </AnimatePresence>
     </header>
   );
 };

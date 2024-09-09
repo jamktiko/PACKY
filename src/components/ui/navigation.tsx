@@ -7,11 +7,16 @@ import {
   IoMailOutline,
 } from 'react-icons/io5';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import Link from 'next/link';
+import { MouseEventHandler } from 'react';
 
-const Navigation = () => {
+interface NavigationProps {
+  onLinkClick: () => void;
+}
+
+const Navigation: React.FC<NavigationProps> = ({ onLinkClick }) => {
   return (
     <motion.nav
       initial={{ opacity: 0, x: -200 }}
@@ -20,37 +25,37 @@ const Navigation = () => {
     >
       <ul>
         <li>
-          <Link href='/'>
+          <Link href='/' onClick={onLinkClick}>
             <IoHome className='text-2xl ml-2 mr-4' />
             <span>Index</span>
           </Link>
         </li>
         <li>
-          <Link href='/stackbuilder'>
+          <Link href='/stackbuilder' onClick={onLinkClick}>
             <IoGridOutline className='text-2xl ml-2 mr-4' />
             <span>Stack Builder</span>
           </Link>
         </li>
         <li>
-          <Link href='/library'>
+          <Link href='/library' onClick={onLinkClick}>
             <IoLibraryOutline className='text-2xl ml-2 mr-4' />
             <span>Library</span>
           </Link>
         </li>
         <li>
-          <Link href='/compare'>
+          <Link href='/compare' onClick={onLinkClick}>
             <IoGitCompareOutline className='text-2xl ml-2 mr-4' />
             <span>Compare</span>
           </Link>
         </li>
         <li>
-          <Link href='/about'>
+          <Link href='/about' onClick={onLinkClick}>
             <IoHelpCircleOutline className='text-2xl ml-2 mr-4' />
             <span>About</span>
           </Link>
         </li>
         <li>
-          <Link href='/contact'>
+          <Link href='/contact' onClick={onLinkClick}>
             <IoMailOutline className='text-2xl ml-2 mr-4' />
             <span>Contact</span>
           </Link>
