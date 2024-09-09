@@ -2,6 +2,7 @@ import { initializeApp, getApps } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
+// Defining the firebase config object
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
@@ -11,7 +12,11 @@ const firebaseConfig = {
   appId: process.env.FIREBASE_APP_ID,
 };
 
+// Initialize the Firebase app if it hasn't been initialized yet
+// Otherwise, retrieve the existing app instance
 export let firebase_app =
   getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 
+// Exporting the database and auth instances
 export const db = getFirestore(firebase_app);
+export const auth = getFirestore(firebase_app);
