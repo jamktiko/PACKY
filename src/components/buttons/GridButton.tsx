@@ -2,12 +2,18 @@ import React, { useState, ReactNode } from 'react';
 
 interface Props {
   onClick: () => void;
+  initialColor?: string;
+  initialText?: string;
 }
 
-function GridButton({ onClick }: Props) {
+function GridButton({
+  onClick,
+  initialColor = 'bg-blue-500',
+  initialText = 'Inactive',
+}: Props) {
   // Starting stage for button and starting color
-  const [color, setColor] = useState('bg-blue-500');
-  const [text, setText] = useState('Inactive');
+  const [color, setColor] = useState(initialColor);
+  const [text, setText] = useState(initialText);
 
   const handleClick = () => {
     if (color === 'bg-blue-500') {
