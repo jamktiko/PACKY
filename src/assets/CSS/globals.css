@@ -10,7 +10,7 @@
 /* HEADER AND NAVIGATION */
 
 header {
-  @apply flex flex-row bg-opacity-80 shadow-inner-2 bg-slate-700 w-[17.5em] h-16 border-b border-teal-800 text-teal-500;
+  @apply backdrop-blur top-0 fixed flex flex-row bg-opacity-80 shadow-inner-2 bg-slate-700 h-16 border-b w-full border-teal-800 text-teal-500 z-30;
   -webkit-box-shadow: 10px 15px 22px 5px rgba(2, 6, 23, 1);
   -moz-box-shadow: 10px 15px 22px 5px rgba(2, 6, 23, 1);
   box-shadow: 10px 15px 22px 5px rgba(2, 6, 23, 1);
@@ -21,15 +21,15 @@ header img {
 }
 
 header h1 {
-  @apply mr-12 select-none text-5xl w-full content-center text-center bg-gradient-to-r from-teal-600  to-cyan-400 inline-block text-transparent bg-clip-text;
+  @apply mr-12 select-none text-5xl content-center text-center bg-gradient-to-r from-teal-600  to-cyan-400 inline-block text-transparent bg-clip-text;
 }
 
 header button {
-  @apply transition-all duration-500 hover:text-4xl shadow-inner-2 h-[3.3rem] w-[3.3rem] bg-slate-700 text-3xl absolute top-[0.25rem] left-[15.4rem] rounded-full outline outline-8 outline-slate-950;
+  @apply scale-110 transition-all duration-500 hover:text-4xl shadow-inner-2 h-[3.3rem] w-[3.3rem] bg-slate-700 text-3xl absolute top-[0.25rem] right-4 rounded-full outline outline-8 outline-slate-950;
 }
 
 header nav {
-  @apply shadow-inner-2 w-[16.7rem] z-50 bg-opacity-40 border-inherit border-r backdrop-blur-sm absolute left-0 top-16 bg-slate-800 rounded-br-lg h-[calc(100vh-4rem)] overflow-hidden;
+  @apply shadow-inner-2 sm:w-[16.7rem] px-4 w-full z-50 bg-opacity-40 border-inherit border-r backdrop-blur-sm absolute right-0 top-16 bg-slate-800 rounded-br-lg h-[calc(100vh-4rem)] overflow-hidden;
 }
 
 header nav ul {
@@ -51,7 +51,7 @@ header nav ul li a span {
 /* ______________________________________________ */
 /* CONTENT */
 .content {
-  @apply border-x-8 border-double border-slate-900 lg:mx-36 lg:px-36 md:ml-36 md:px-36 sm:ml-16 sm:mr-16 sm:px-16 ml-4 mr-4 px-4;
+  @apply mt-32 border-x-8 border-double border-slate-900 lg:mx-36 lg:px-36 md:ml-36 md:px-36 sm:ml-16 sm:mr-16 sm:px-16 ml-4 mr-4 px-4;
 }
 
 .content h1 {
