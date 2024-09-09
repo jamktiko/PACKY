@@ -1,46 +1,82 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import GridButton from '../buttons/GridButton';
-let length = 81;
-//functional component grid, creating an array with 9x9 buttons
+
 const Grid: React.FC = () => {
-  const cells = Array.from({ length }, (_, i) => {
-    let initialColor = 'bg-blue-500';
-    let initialText = 'Inactive';
+  const gridSize = 9;
+  const [activeCells, setActiveCells] = useState<
+    { row: number; col: number }[]
+  >([{ row: Math.floor(gridSize / 2), col: Math.floor(gridSize / 2) }]);
+  const [choosableCells, setChoosableCells] = useState<
+    { row: number; col: number }[]
+  >([]);
 
-    // Check if the button is the 40th one and set its initial state accordingly
-    if (i === (length - 1) / 2) {
-      initialColor = 'bg-yellow-500';
-      initialText = 'Choosable';
-    }
+  useEffect(() => {
+    const updateGridStates = () => {
+      const newChoosableCells: { row: number; col: number }[] = [];
 
-    return (
-      <GridButton
-        key={i}
-        onClick={() => console.log(i - 9, i - 1, i, i + 1, i + 9)}
-        initialColor={initialColor}
-        initialText={initialText}
-      >
-        {i}
-      </GridButton>
-    );
-  });
-  /*
-    <GridButton
-      key={i}
-      onClick={() => console.log(i - 9, i - 1, i, i + 1, i + 9)}
-      //näyttää ne mitkä pitäisi vaihtaa väriä
-      //tarvitsee oman deactivointi funktion
-      //ja jonkin systeemin ettei useampi activoidu choosabeleista
+      activeCells.forEach(({ row, col }) => {
+        const neighbors = [
+          { row: row - 1, col: col }, // Up
+          { row: row + 1, col: col }, // Down
+          { row: row, col: col - 1 }, // Left
+          { row: row, col: col + 1 }, // Right
+        ];
 
-      //mahollisesti niin että se kerää ympärillä olevat arrayhyn ja käy ne läpi
-      //ja muuttaa ne niiden tilojen mukaan inactivesta choosable jne
-      //ongelma: reuninmaiset osat niillä ei ole päällinmäistä/alempaa tai viereistä
+        neighbors.forEach(({ row: nRow, col: nCol }) => {
+          if (nRow >= 0 && nRow < gridSize && nCol >= 0 && nCol < gridSize) {
+            const isActive = activeCells.some(
+              (cell) => cell.row === nRow && cell.col === nCol
+            );
+            if (!isActive) {
+              newChoosableCells.push({ row: nRow, col: nCol });
+            }
+          }
+        });
+      });
+
+      setChoosableCells(newChoosableCells);
+    };
+
+    updateGridStates();
+  }, [activeCells]);
+
+  const handleGridButtonClick = (row: number, col: number) => {
+    setActiveCells((prevActiveCells) => [...prevActiveCells, { row, col }]);
+  };
+
+  return (
+    <div
+      className="grid grid-cols-9 gap-4"
+      style={{
+        display: 'grid',
+        gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
+      }}
     >
-      {i}
-    </GridButton>
-  });
-*/
-  return <div className="grid grid-cols-9 gap-4">{cells}</div>;
+      {Array.from({ length: gridSize * gridSize }, (_, index) => {
+        const row = Math.floor(index / gridSize);
+        const col = index % gridSize;
+        const isActive = activeCells.some(
+          (cell) => cell.row === row && cell.col === col
+        );
+        const isChoosable = choosableCells.some(
+          (cell) => cell.row === row && cell.col === col
+        );
+        const opacity = isActive || isChoosable ? 1 : 0.5; // Adjust opacity based on state
+
+        return (
+          <GridButton
+            key={`${row}-${col}`}
+            row={row}
+            col={col}
+            isActive={isActive}
+            isChoosable={isChoosable}
+            opacity={opacity}
+            onClick={handleGridButtonClick}
+          />
+        );
+      })}
+    </div>
+  );
 };
 
 export default Grid;

@@ -1,45 +1,54 @@
-import React, { useState, ReactNode } from 'react';
+import React, { useState } from 'react';
 
-interface Props {
-  onClick: () => void;
-  initialColor?: string;
-  initialText?: string;
+interface GridButtonProps {
+  row: number;
+  col: number;
+  isActive: boolean;
+  isChoosable: boolean;
+  opacity: number;
+  onClick: (row: number, col: number) => void;
 }
 
-function GridButton({
+const GridButton: React.FC<GridButtonProps> = ({
+  row,
+  col,
+  isActive,
+  isChoosable,
+  opacity,
   onClick,
-  initialColor = 'bg-blue-500',
-  initialText = 'Inactive',
-}: Props) {
-  // Starting stage for button and starting color
-  const [color, setColor] = useState(initialColor);
-  const [text, setText] = useState(initialText);
+}) => {
+  // Define initial color based on the state
+  const [color, setColor] = useState(
+    isActive ? 'bg-green-500' : isChoosable ? 'bg-yellow-500' : 'bg-blue-500'
+  );
 
-  const handleClick = () => {
-    if (color === 'bg-blue-500') {
-      setColor('bg-yellow-500');
-      setText('Choosable');
-    } else if (color === 'bg-yellow-500') {
+  // Update color when isActive or isChoosable props change
+  React.useEffect(() => {
+    if (isActive) {
       setColor('bg-green-500');
-      setText('Active');
+    } else if (isChoosable) {
+      setColor('bg-yellow-500');
     } else {
       setColor('bg-blue-500');
-      setText('Inactive');
     }
+  }, [isActive, isChoosable]);
 
-    // Kutsutaan mahdollisesti annettua onClick-tapahtumaa
-    if (onClick) {
-      onClick();
+  // Handle button click
+  const handleClick = () => {
+    if (isChoosable) {
+      onClick(row, col);
     }
   };
+
   return (
     <button
-      className={`${color} text-white px-5 py-5 pb-5 rounded hover:opacity-80`}
+      className={`${color} text-white px-5 py-5 rounded hover:opacity-10`}
       onClick={handleClick}
+      style={{ opacity }}
     >
-      {text}
+      {isActive ? 'Active' : isChoosable ? 'Choosable' : 'Inactive'}
     </button>
   );
-}
+};
 
 export default GridButton;
