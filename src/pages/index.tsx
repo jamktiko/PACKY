@@ -34,14 +34,33 @@ const Page: PageLayout = () => {
         <b>The next generation </b>of technology,
       </p>
       <p className='text-2xl italic lg:w-1/2 w-full mb-16 bg-gradient-to-r from-cyan-100  to-cyan-200 text-transparent bg-clip-text'>
-        at your fingertips.
+        yours to grasp.
       </p>
-      <p className='border-b border-gray-500 pb-16 mb-36'>
-        PACKY is a tech consultation app designed for newer developers. Our
-        stack builder tool and tech information library is implemented by a team
-        of experienced coders striving to improve the lives of our fellow
-        developers.
-      </p>
+      <article className='flex xl:flex-row flex-col-reverse justify-evenly border-b border-gray-500 '>
+        <div>
+          {' '}
+          <p className='pb-4'>
+            <b>PACKY is a tech consultation app</b> designed for newer
+            developers. Our stack builder tool and tech information library is
+            implemented by a team of experienced researchers striving to improve
+            the lives of our fellow coders - from developers to developers.
+          </p>
+          <p className='pb-16 mb-36'>
+            <b>PACKY offers a variety of tools</b> for organizations to use.
+            Using authorization keys, organizations can access our Stack
+            Builder, take a look at our technology library and gain personal
+            insight for their projects, work and learning alike.
+          </p>
+        </div>
+        <Image
+          className='xl:-mt-40 -mt-24 h-fit'
+          src={'/packyiconlarge.png'}
+          width={500}
+          height={500}
+          alt={''}
+        />
+      </article>
+
       <h2 className=' select-none lg:text-9xl md:text-7xl text-6xl absolute -mt-28 bg-gradient-to-b from-gray-600  to-90% inline-block text-transparent bg-clip-text '>
         Explore
       </h2>

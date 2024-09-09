@@ -32,10 +32,17 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
           <Header />
           <Image
             src={'/bg.png'}
-            className=" blur-3xl fixed h-screen -z-50 overflow-hidden"
+            className=' blur-3xl fixed h-screen -z-50 overflow-hidden'
             alt={'Background'}
             width={1920}
             height={1080}
+          />
+          <Image
+            src={'/packyiconlarge.png'}
+            className='fixed -z-10 md:-left-[40rem] -left-48 md:-top-32 top-16 opacity-5'
+            width={1600}
+            height={1600}
+            alt={'packy'}
           />
           <Component {...pageProps} />
         </main>
