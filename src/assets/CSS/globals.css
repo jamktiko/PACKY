@@ -10,15 +10,22 @@
 /* HEADER AND NAVIGATION */
 
 header {
-  @apply bg-opacity-80 shadow-inner-2 bg-slate-700 w-[17.5em] h-16 border-b border-teal-800 text-teal-500;
+  @apply flex flex-row bg-opacity-80 shadow-inner-2 bg-slate-700 w-[17.5em] h-16 border-b border-teal-800 text-teal-500;
+  -webkit-box-shadow: 10px 15px 22px 5px rgba(2, 6, 23, 1);
+  -moz-box-shadow: 10px 15px 22px 5px rgba(2, 6, 23, 1);
+  box-shadow: 10px 15px 22px 5px rgba(2, 6, 23, 1);
+}
+
+header img {
+  @apply w-[3.8rem] h-[3.8rem] ml-1;
 }
 
 header h1 {
-  @apply select-none text-6xl bg-gradient-to-r from-teal-600  to-cyan-400 inline-block text-transparent bg-clip-text;
+  @apply mr-12 select-none text-5xl w-full content-center text-center bg-gradient-to-r from-teal-600  to-cyan-400 inline-block text-transparent bg-clip-text;
 }
 
 header button {
-  @apply transition-all duration-500 hover:text-4xl shadow-inner-2 h-16 w-16 bg-slate-700 text-3xl absolute top-[0.05rem] left-[15.3rem] rounded-full inline border-black border-8;
+  @apply transition-all duration-500 hover:text-4xl shadow-inner-2 h-[3.3rem] w-[3.3rem] bg-slate-700 text-3xl absolute top-[0.25rem] left-[15.4rem] rounded-full outline outline-8 outline-slate-950;
 }
 
 header nav {
@@ -48,7 +55,7 @@ header nav ul li a span {
 }
 
 .content h1 {
-  @apply text-4xl mb-4 mt-2 first-letter:text-teal-100 first-letter:text-5xl;
+  @apply text-5xl mb-4 mt-2 first-letter:text-teal-100 first-letter:text-5xl;
 }
 
 /* ______________________________________________ */

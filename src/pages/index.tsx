@@ -30,16 +30,17 @@ const Page: PageLayout = () => {
         height={1000}
         alt={''}
       />
+      <p className='text-2xl italic mt-3 mb-0 lg:w-1/2 w-full bg-gradient-to-r from-teal-300 via-teal-100 to-cyan-300 inline-block text-transparent bg-clip-text'>
+        <b>The next generation </b>of technology,
+      </p>
+      <p className='text-2xl italic lg:w-1/2 w-full mb-16'>
+        at your fingertips.
+      </p>
       <p className='border-b border-gray-500 pb-16 mb-36'>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pulvinar
-        risus sed felis iaculis commodo. Cras vel turpis non lorem fermentum
-        ullamcorper et sed mi. Vestibulum commodo sed augue et dictum. Integer
-        justo arcu, euismod sed dui sed, fringilla facilisis risus. Aliquam
-        sodales nisl ut ligula malesuada lacinia. Cras dapibus ac nisl et
-        semper. Nunc vel aliquam dui. Pellentesque cursus rutrum lacus, sit amet
-        ornare nisi interdum non. Sed nibh massa, malesuada non aliquam vel,
-        iaculis in urna. Donec dui neque, dictum vel congue nec, tempus a elit.
-        Morbi ut lacinia nunc.
+        PACKY is a tech consultation app designed for newer developers. Our
+        stack builder tool and tech information library is implemented by a team
+        of experienced coders striving to improve the lives of our fellow
+        developers.
       </p>
       <h2 className=' select-none lg:text-9xl md:text-7xl text-6xl absolute -mt-28 bg-gradient-to-b from-gray-600  to-90% inline-block text-transparent bg-clip-text '>
         Explore
