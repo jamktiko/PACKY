@@ -1,6 +1,8 @@
 import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
+import { Provider } from 'react-redux';
+import { store } from '../store/store';
 
 import Header from '../components/ui/header';
 
@@ -22,17 +24,22 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
 
   // Layout is defined here
-  return getLayout(
-    <main className={montserrat.className}>
-      <Header />
-      <Image
-        src={'/bg.png'}
-        className=' blur-3xl fixed h-screen -z-50 overflow-hidden'
-        alt={'Background'}
-        width={1920}
-        height={1080}
-      />
-      <Component {...pageProps} />
-    </main>
+  return (
+    //entire app is wrapped with a Redux store provider
+    <Provider store={store}>
+      {getLayout(
+        <main className={montserrat.className}>
+          <Header />
+          <Image
+            src={'/bg.png'}
+            className=" blur-3xl fixed h-screen -z-50 overflow-hidden"
+            alt={'Background'}
+            width={1920}
+            height={1080}
+          />
+          <Component {...pageProps} />
+        </main>
+      )}
+    </Provider>
   );
 }
