@@ -29,7 +29,7 @@ header button {
 }
 
 header nav {
-  @apply shadow-inner-2 sm:w-[16.7rem] px-4 w-full z-50 bg-opacity-40 border-inherit border-r backdrop-blur-sm absolute right-0 top-16 bg-slate-800 rounded-br-lg h-[calc(100vh-4rem)] overflow-hidden;
+  @apply shadow-inner-2 sm:w-[16.7rem] px-4 w-full z-50 bg-opacity-40 border-inherit border-r backdrop-blur-sm absolute right-0 top-16 bg-slate-950 rounded-br-lg h-[calc(100vh-4rem)] overflow-hidden;
 }
 
 header nav ul {
@@ -51,7 +51,7 @@ header nav ul li a span {
 /* ______________________________________________ */
 /* CONTENT */
 .content {
-  @apply mt-32 border-x-8 border-double border-slate-900 lg:mx-36 lg:px-36 md:ml-36 md:px-36 sm:ml-16 sm:mr-16 sm:px-16 ml-4 mr-4 px-4;
+  @apply pt-32 border-x-8 border-double border-slate-900 lg:mx-36 lg:px-36 md:ml-36 md:px-36 sm:ml-16 sm:mr-16 sm:px-16 ml-4 mr-4 px-4;
 }
 
 .content h1 {

@@ -43,13 +43,14 @@ const Page: PageLayout = () => {
             <b>PACKY is a tech consultation app</b> designed for newer
             developers. Our stack builder tool and tech information library is
             implemented by a team of experienced researchers striving to improve
-            the lives of our fellow coders - from developers to developers.
+            the lives of our fellow coders -{' '}
+            <i>from developers to developers.</i>
           </p>
           <p className='pb-16 mb-36'>
-            <b>PACKY offers a variety of tools</b> for organizations to use.
-            Using authorization keys, organizations can access our Stack
-            Builder, take a look at our technology library and gain personal
-            insight for their projects, work and learning alike.
+            <b>We offer a variety of tools</b> for organizations to use. Using
+            authorization keys, organizations can access our Stack Builder, take
+            a look at our technology library and gain personal insight for their
+            projects, work and learning alike.
           </p>
         </div>
         <Image
