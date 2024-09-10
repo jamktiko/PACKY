@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import GridButton from '../buttons/GridButton';
 
-const Grid: React.FC = () => {
+//interface defines the props it receives from stackbuilder
+interface GridProps {
+  //setIsModalOpen is a function that updates the state of isModalOpen
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+//Grid component is constructed here and it receives setIsModalOpen as a prop from stackbuilder
+//setIsModalOpen is used to update the state of isModalOpen
+const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
   const gridSize = 9;
   const [activeCells, setActiveCells] = useState<
     { row: number; col: number }[]
@@ -41,6 +49,7 @@ const Grid: React.FC = () => {
   }, [activeCells]);
 
   const handleGridButtonClick = (row: number, col: number) => {
+    setIsModalOpen(true);
     setActiveCells((prevActiveCells) => [...prevActiveCells, { row, col }]);
   };
 
@@ -72,6 +81,10 @@ const Grid: React.FC = () => {
             isChoosable={isChoosable}
             opacity={opacity}
             onClick={handleGridButtonClick}
+            id={''}
+            handleGridButtonClick={function (id: string): void {
+              throw new Error('Function not implemented.');
+            }}
           />
         );
       })}

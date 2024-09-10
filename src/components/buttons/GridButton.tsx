@@ -6,10 +6,13 @@ interface GridButtonProps {
   isActive: boolean;
   isChoosable: boolean;
   opacity: number;
+  id: string;
   onClick: (row: number, col: number) => void;
+  handleGridButtonClick: (id: string) => void;
 }
 
 const GridButton: React.FC<GridButtonProps> = ({
+  id,
   row,
   col,
   isActive,
@@ -42,6 +45,7 @@ const GridButton: React.FC<GridButtonProps> = ({
 
   return (
     <button
+      id={id}
       className={`${color} text-white px-5 py-5 rounded hover:opacity-10`}
       onClick={handleClick}
       style={{ opacity }}
