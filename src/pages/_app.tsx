@@ -1,5 +1,6 @@
 import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
+import { motion } from 'framer-motion';
 
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
@@ -38,13 +39,16 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             width={1920}
             height={1080}
           />
-          <Image
-            src={'/packyiconlarge.png'}
-            className='fixed -z-10 md:-left-[40rem] -left-48 md:-top-32 top-16 opacity-5'
-            width={1600}
-            height={1600}
-            alt={'packy'}
-          />
+          <div className='spin'>
+            <Image
+              src={'/packyiconsmall.png'}
+              className='fixed -z-10 md:-left-[40rem] -left-48 md:-top-32 top-16 opacity-5'
+              width={3200}
+              height={3200}
+              alt={'packy'}
+            />
+          </div>
+
           <Component {...pageProps} />
         </main>
       )}

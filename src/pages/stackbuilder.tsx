@@ -2,6 +2,7 @@ import type { PageLayout } from './_app';
 import Grid from '../components/grid/grid';
 import GridModal from '@/components/modals/GridModal';
 import { useState } from 'react';
+import Head from 'next/head';
 
 // StackBuilder page is constructed here, it renders Grid component and conditionally renders GridModal
 const StackBuilder: PageLayout = () => {
@@ -14,6 +15,12 @@ const StackBuilder: PageLayout = () => {
   //of isModalOpen
   return (
     <>
+      {/* _____________________________ */}
+      {/* PAGE TITLE */}
+      <Head>
+        <title>Stack Builder | PACKY</title>
+      </Head>
+      {/* _____________________________ */}
       <Grid setIsModalOpen={setIsModalOpen} />
       {isModalOpen && <GridModal />}
     </>
