@@ -6,7 +6,6 @@ export default function Document() {
     <Html lang='en'>
       {/* Head can later be inserted to each page for page-related meta */}
       <Head>
-        <title>Tech Stack Consultation | PACKY</title>
         <meta
           name='description'
           content='PACKY is a web app that offers tech stack suggestions and solutions for app developers.'

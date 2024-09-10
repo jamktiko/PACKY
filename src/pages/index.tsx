@@ -2,6 +2,7 @@ import GridButton from '@/components/buttons/GridButton';
 import type { PageLayout } from './_app';
 import Link from 'next/link';
 import Image from 'next/image';
+import Head from 'next/head';
 
 const Page: PageLayout = () => {
   function greeter() {
@@ -22,6 +23,12 @@ const Page: PageLayout = () => {
   }
   return (
     <div className='content'>
+      {/* _____________________________ */}
+      {/* PAGE TITLE */}
+      <Head>
+        <title>Home | PACKY</title>
+      </Head>
+      {/* _____________________________ */}
       <h1>{greeter()}</h1>
       <Image
         src={'/HUD1.png'}
