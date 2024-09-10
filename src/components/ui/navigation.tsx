@@ -61,7 +61,7 @@ const Navigation: React.FC<NavigationProps> = ({ onLinkClick }) => {
           </Link>
         </li>
       </ul>
-      <p className=' select-none text-sm absolute bottom-0 opacity-40 text-center w-full'>
+      <p className=' select-none text-sm absolute bottom-0 opacity-40 w-full'>
         © 2024 - PACKY | JAMK Ticorporate
       </p>
     </motion.nav>

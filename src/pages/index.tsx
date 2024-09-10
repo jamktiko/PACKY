@@ -1,10 +1,11 @@
-import GridButton from '@/components/buttons/GridButton';
 import type { PageLayout } from './_app';
 import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
 
 const Page: PageLayout = () => {
+  // The greeter works as page title and
+  // greets the user based on time of day
   function greeter() {
     const hour = new Date().getHours();
     if (hour < 6) {
@@ -45,7 +46,6 @@ const Page: PageLayout = () => {
       </p>
       <article className='flex xl:flex-row flex-col-reverse justify-evenly border-b border-gray-500 '>
         <div>
-          {' '}
           <p className='pb-4'>
             <b>PACKY is a tech consultation app</b> designed for newer
             developers. Our stack builder tool and tech information library is
