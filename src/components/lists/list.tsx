@@ -17,7 +17,7 @@ const List = () => {
   // and a function to update the state variable
   const [selectedCollection, setSelectedCollection] = useState<string>('');
   // Defining an array of collection names
-  const collections = ['app type', 'frameworks', 'databases'];
+  const collections = ['frameworks', 'databases'];
   // Using the useState hook to create a state variable for the collection data
   // and a function to update the state variable
   const [data, setData] = useState<CollectionData[]>([]);
@@ -41,7 +41,6 @@ const List = () => {
         onChange={(e) => setSelectedCollection(e.target.value)}
         className="bg-slate-700 text-teal-500 border-teal-800 rounded-lg p-2"
       >
-        <option value=""></option>
         {collections.map((collection) => (
           <option key={collection} value={collection}>
             {collection}
