@@ -43,6 +43,24 @@ const GridButton: React.FC<GridButtonProps> = ({
     }
   }, [isActive, isChoosable]); // Trigger this effect whenever 'isActive' or 'isChoosable' changes
 
+  const [selectState, setSelectState] = useState(
+    isActive
+      ? 'cursor-default'
+      : isChoosable
+      ? 'cursor-pointer'
+      : 'pointer-events-none'
+  );
+
+  React.useEffect(() => {
+    if (isActive) {
+      setSelectState('cursor-default'); // Set to default cursor if button is active
+    } else if (isChoosable) {
+      setSelectState('cursor-pointer'); // Set to pointer cursor if button is choosable
+    } else {
+      setSelectState('pointer-events-none'); // Set to no interaction if button is not active or choosable
+    }
+  }, [isActive, isChoosable]); // Trigger this effect whenever 'isActive' or 'isChoosable' changes
+
   // Function that handles buttons clicks
   const handleClick = () => {
     if (isChoosable) {
@@ -53,7 +71,7 @@ const GridButton: React.FC<GridButtonProps> = ({
   return (
     <button
       id={id} // Assingning unique ID to the button
-      className={`${color} text-white px-5 py-5 rounded hover:opacity-10`} // Dynamically set styling
+      className={`${color} ${selectState} transition-all text-white px-5 py-5 rounded hover:opacity-10`} // Dynamically set styling
       onClick={handleClick} // Assingning handleClick function to the button's onClick event
       style={{ opacity }} // Set the button's opacity dynamically based on the 'opacity' prop
     >

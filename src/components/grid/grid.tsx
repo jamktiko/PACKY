@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import GridButton from '../buttons/GridButton';
 
+// Manhattan distance = abs(x1 - x2) + abs(y1 - y2)
+// The distance between two points measured along axes at right angles.
+
+// SUOMEKSI: Kahden pisteen välinen etäisyys mitattuna
+// suorassa kulmassa olevia akseleita pitkin.
+
+// calculate the Manhattan distance between each cell and the
+// closest choosable or active cell. Then, use this distance
+// to set the opacity of the inactive cells, with the opacity
+// reducing to 0
+
 //interface defines the props it receives from stackbuilder
 interface GridProps {
-  //setIsModalOpen is a function that updates the state of isModalOpen
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-//Grid component is constructed here and it receives setIsModalOpen as a prop from stackbuilder
-//setIsModalOpen is used to update the state of isModalOpen
 const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
   const gridSize = 9;
   const [activeCells, setActiveCells] = useState<
@@ -17,6 +25,14 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
   const [choosableCells, setChoosableCells] = useState<
     { row: number; col: number }[]
   >([]);
+
+  // Helper function to calculate Manhattan distance
+  const calculateDistance = (
+    cellA: { row: number; col: number },
+    cellB: { row: number; col: number }
+  ) => {
+    return Math.abs(cellA.row - cellB.row) + Math.abs(cellA.col - cellB.col);
+  };
 
   useEffect(() => {
     const updateGridStates = () => {
@@ -49,13 +65,12 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
   }, [activeCells]);
 
   const handleGridButtonClick = (row: number, col: number) => {
-    setIsModalOpen(true);
     setActiveCells((prevActiveCells) => [...prevActiveCells, { row, col }]);
   };
 
   return (
     <div
-      className="grid grid-cols-9 gap-4"
+      className='grid grid-cols-9 gap-4'
       style={{
         display: 'grid',
         gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
@@ -70,7 +85,29 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
         const isChoosable = choosableCells.some(
           (cell) => cell.row === row && cell.col === col
         );
-        const opacity = isActive || isChoosable ? 1 : 0.5; // Adjust opacity based on state
+
+        let minDistance = Infinity;
+
+        // Calculate the minimum distance to any active or choosable cell
+        if (!isActive && !isChoosable) {
+          [...activeCells, ...choosableCells].forEach((cell) => {
+            const distance = calculateDistance({ row, col }, cell);
+            if (distance < minDistance) {
+              minDistance = distance;
+            }
+          });
+        }
+
+        // Determine the opacity based on the distance
+        let opacity = 1;
+        if (!isActive && !isChoosable) {
+          // Reduce opacity as the distance increases, max distance is 4
+          if (minDistance > 4) {
+            opacity = 0;
+          } else {
+            opacity = 1 - minDistance * 0.45;
+          }
+        }
 
         return (
           <GridButton
@@ -80,7 +117,7 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
             isActive={isActive}
             isChoosable={isChoosable}
             opacity={opacity}
-            onClick={handleGridButtonClick}
+            onClick={() => handleGridButtonClick(row, col)}
             id={''}
             handleGridButtonClick={function (id: string): void {
               throw new Error('Function not implemented.');
