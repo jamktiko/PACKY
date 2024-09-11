@@ -6,6 +6,7 @@ type CollectionData = {
   id: string;
   name: string;
   info: string;
+  tags: string[];
 };
 
 /**
@@ -50,9 +51,10 @@ const List = () => {
       {data &&
         data.length > 0 &&
         data.map((item) => (
-          <div key={item.id}>
-            <h2>{item.name}</h2>
-            <p>{item.info}</p>
+          <div key={item.id} className="mt-4">
+            <h2 className="text-xl font-bold">{item.name}</h2>
+            <p>{item.tags[0]}</p>
+            <p className="text-teal-500 bg-teal100">{item.info}</p>
           </div>
         ))}
     </>

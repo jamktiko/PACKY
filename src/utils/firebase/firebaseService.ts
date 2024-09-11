@@ -14,6 +14,7 @@ export const getAllCollections = async (collectionName: string) => {
       id: doc.id,
       name: doc.data().name,
       info: doc.data().info,
+      tags: doc.data().tags,
     }));
     // and finally returning the data
     return data;
