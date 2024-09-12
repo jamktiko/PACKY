@@ -24,8 +24,8 @@ header img {
   @apply w-[3.8rem] h-[3.8rem] ml-1;
 }
 
-header h1 {
-  @apply mr-12 select-none text-5xl content-center text-center bg-gradient-to-r from-teal-600  to-cyan-400 inline-block text-transparent bg-clip-text;
+header a h1 {
+  @apply mr-12 text-5xl content-center text-center bg-gradient-to-r from-teal-600  to-cyan-400 inline-block text-transparent bg-clip-text;
 }
 
 header button {

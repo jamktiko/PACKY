@@ -1,62 +1,79 @@
+import { getDatabases, getFrameworks } from '@/utils/firebase/firebaseService';
 import React, { useState, useEffect } from 'react';
-import { getAllCollections } from '@/utils/firebase/firebaseService';
-
-// Typing for the collectionData object
-type CollectionData = {
-  id: string;
-  name: string;
-  info: string;
-  tags: string[];
-};
-
+import { Triangle } from 'react-loader-spinner';
+import { CollectionData } from '@/utils/collectionData';
 /**
  * THIS FILE IS GOING TO BE USED FOR THE LIBRARY PAGE AND IT WILL BE DIFFERENT THIS IS JUST THE DEMO
  */
 
 const List = () => {
-  // Using the useState hook to create a state variable for the selected collection
-  // and a function to update the state variable
-  const [selectedCollection, setSelectedCollection] = useState<string>('');
-  // Defining an array of collection names
-  const collections = ['frameworks', 'databases'];
-  // Using the useState hook to create a state variable for the collection data
-  // and a function to update the state variable
-  const [data, setData] = useState<CollectionData[]>([]);
+  // Declare two pieces of state using the useState hook
+  // 'frameworks' will store the data for frameworks, and 'setframeworks' will be used to update it
+  // 'database' will store the data for databases, and 'setDatabase' will be used to update it
+  const [frameworks, setframeworks] = useState<CollectionData[]>([]);
+  const [database, setDatabase] = useState<CollectionData[]>([]);
 
-  // useEffect hook runs when the selectedCollection state variable changes
+  //  useEffect hook to run code when the component mounts
+  // The empty dependency array `[]` ensures this effect runs only once after the component mounts
   useEffect(() => {
-    // async function to fetch the data from the selected collection
+    //  Define an async function 'fetchData' to fetch both frameworks and databases data
     const fetchData = async () => {
-      // calling getAllConncetions function from firebaseService.ts
-      const collections = await getAllCollections(selectedCollection);
-      // setting the data state variable to the fetched data
-      setData(collections as CollectionData[]);
+      try {
+        //  Using 'Promise.all' to fetch both frameworks and databases simultaneously
+        // 'getFrameworks' and 'getDatabases' are assumed to be functions that fetch the data from Firebase
+        const [frameworks, databases] = await Promise.all([
+          getFrameworks('frameworks'),
+          getDatabases('databases'),
+        ]);
+        //  Update the state with the fetched data
+        setframeworks(frameworks as CollectionData[]);
+        setDatabase(databases as CollectionData[]);
+      } catch (error) {
+        console.error(error);
+      }
     };
+    //  Invoke the fetchData function to trigger the data fetching
     fetchData();
-  }, [selectedCollection]);
-
+  }, []);
   return (
     <>
-      <select
-        value={selectedCollection}
-        onChange={(e) => setSelectedCollection(e.target.value)}
-        className="bg-slate-700 text-teal-500 border-teal-800 rounded-lg p-2"
-      >
-        {collections.map((collection) => (
-          <option key={collection} value={collection}>
-            {collection}
-          </option>
-        ))}
-      </select>
-      {data &&
-        data.length > 0 &&
-        data.map((item) => (
-          <div key={item.id} className="mt-4">
-            <h2 className="text-xl font-bold">{item.name}</h2>
+      {frameworks &&
+        frameworks.length > 0 &&
+        frameworks.map((item) => (
+          <div key={item.id} className='mt-4'>
+            <h2 className='text-xl font-bold'>{item.name}</h2>
             <p>{item.tags[0]}</p>
-            <p className="text-teal-500 bg-teal100">{item.info}</p>
+            <p className='text-teal-500 bg-teal100'>{item.info}</p>
           </div>
         ))}
+      <hr></hr>
+      {database &&
+        database.length > 0 &&
+        database.map((item) => (
+          <div key={item.id} className='mt-4'>
+            <h2 className='text-xl font-bold'>{item.name}</h2>
+            <p>{item.tags[0]}</p>
+            <p className='text-teal-500 bg-teal100'>{item.info}</p>
+          </div>
+        ))}{' '}
+      (
+      <div className='mt-4 text-center'>
+        <p className='font-bold'>Loading the library...</p>
+        <Triangle
+          visible={true}
+          height='100'
+          width='100'
+          color='#38B2AC'
+          ariaLabel='triangle-loading'
+          wrapperStyle={{
+            width: '100%',
+            position: 'flex',
+            justifyContent: 'center',
+          }}
+          wrapperClass=''
+        />
+      </div>
+      )
     </>
   );
 };
