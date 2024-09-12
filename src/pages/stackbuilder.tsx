@@ -3,7 +3,7 @@ import Grid from '../components/grid/grid';
 import GridModal from '@/components/modals/GridModal';
 import { useState } from 'react';
 import Head from 'next/head';
-
+import GridButton from '@/components/buttons/GridButton';
 // StackBuilder page is constructed here, it renders Grid component and conditionally renders GridModal
 const StackBuilder: PageLayout = () => {
   // useState hook manages a boolean state that controls wheter or not the modal is open and a function to update it
@@ -23,6 +23,8 @@ const StackBuilder: PageLayout = () => {
       {/* _____________________________ */}
       <Grid setIsModalOpen={setIsModalOpen} />
       {isModalOpen && <GridModal />}
+
+      <GridModal />
     </>
   );
 };

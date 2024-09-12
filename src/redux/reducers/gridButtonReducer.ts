@@ -1,7 +1,7 @@
-import { UPDATE_ACTIVE_CELLS } from '@/actions/gridButtonActions';
-import { UPDATE_CHOOSABLE_CELLS } from '@/actions/gridButtonActions';
-import { HANDLE_BUTTON_CLICK } from '@/actions/gridButtonActions';
-import { TOGGLE_BUTTON_STATE } from '@/actions/gridButtonActions';
+import { UPDATE_ACTIVE_CELLS } from '@/redux/actions/gridButtonActions';
+import { UPDATE_CHOOSABLE_CELLS } from '@/redux/actions/gridButtonActions';
+import { HANDLE_BUTTON_CLICK } from '@/redux/actions/gridButtonActions';
+import { TOGGLE_BUTTON_STATE } from '@/redux/actions/gridButtonActions';
 
 interface ButtonState {
   activeCells: [];

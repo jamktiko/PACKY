@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
-import { store } from '../store/store';
+import { store } from '../redux/store/store';
 
 import Header from '../components/ui/header';
 
@@ -34,15 +34,15 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
           <Header />
           <Image
             src={'/bg.png'}
-            className=' blur-3xl fixed h-screen -z-50 overflow-hidden'
+            className=" blur-3xl fixed h-screen -z-50 overflow-hidden"
             alt={'Background'}
             width={1920}
             height={1080}
           />
-          <div className='spin'>
+          <div className="spin">
             <Image
               src={'/packyiconsmall.png'}
-              className='fixed -z-10 md:-left-[40rem] -left-48 md:-top-32 top-16 opacity-5'
+              className="fixed -z-10 md:-left-[40rem] -left-48 md:-top-32 top-16 opacity-5"
               width={3200}
               height={3200}
               alt={'packy'}
