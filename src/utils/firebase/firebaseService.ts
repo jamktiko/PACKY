@@ -1,7 +1,7 @@
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from './firebaseConfig';
-import { getDoc } from 'firebase/firestore/lite';
 
+import { CollectionData } from '@/utils/collectionData';
 // export const getAllCollections = async (collectionName: string) => {
 //   try {
 //     // Reference to the specific collection, not the whole database
