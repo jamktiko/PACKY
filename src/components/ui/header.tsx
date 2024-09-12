@@ -2,16 +2,19 @@ import Navigation from './navigation';
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Header = () => {
   const [open, setOpen] = useState(false);
   return (
     <header>
       <Image src={'/packyicon2.png'} width={100} height={100} alt={'packy'} />
-      <h1 className='absolute text-start left-16 top-2 blur opacity-70'>
-        PACKY
-      </h1>
-      <h1>PACKY</h1>
+      <Link href={'/'}>
+        <h1 className='absolute text-start left-16 top-2 blur opacity-70'>
+          PACKY
+        </h1>
+        <h1 className='mt-2 ml-1'>PACKY</h1>
+      </Link>
       <button onClick={() => setOpen(!open)}>☰</button>
       <AnimatePresence>
         {open && (
