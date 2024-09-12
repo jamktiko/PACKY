@@ -36,7 +36,7 @@ Some image assets are in root folder public instead of assets for ease of use.
 In order to initialize your repo:
 ```
 git init
-git remote add origin [[url]](https://github.com/jamktiko/PACKY.git)
+git remote add origin https://github.com/jamktiko/PACKY.git
 git pull origin main
 npm i
 ```
