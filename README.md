@@ -1,7 +1,7 @@
-![packyiconsmall](https://github.com/user-attachments/assets/0f661e9a-48ba-4dbf-bcbb-c96d33fb1323)
+![packy3d2](https://github.com/user-attachments/assets/198989fa-e076-42f4-9424-e1c1df047f0a)
 # PACKY - Tech Consult App
+### Developed by team **PACKY** | **A TiCorporate project** of fall 2024 | **JAMK** 
 
-Developed by team **PACKY** | **A TiCorporate project** of fall 2024 | **JAMK**
 
 ## Team PACKY
 - [**Severi Boesen**](https://boesen.netlify.app/)       - *Product Owner, UI/UX Designer, Software Architect* - AD1871@student.jamk.fi
@@ -14,7 +14,7 @@ Developed by team **PACKY** | **A TiCorporate project** of fall 2024 | **JAMK**
 > PACKY is designed with starting developers in mind. The idea was born out of a need we and our peer students had when we first started to learn web development.
 > For many, understanding and tackling the scale of an application may seem like something unattainable at first; this is where PACKY comes in.
 
-PACKY is a web application that provides tools to help developers finding and realizing the technologies necessary for their own applications. The main feature of PACKY is the `Stack Builder` tool, which gives the user the ability to plan out their required technologies and gives them a list of suggestions and details regarding their chosen features. In addition, it has a curated library of technologies that can be expanded upon further research - the scope and possibilities are as vast as are the amount of technologies out there. While the field of development is constantly changing, PACKY strives to stay focused in strong technological foundations while looking out for newer possibilities.
+PACKY is a web application that provides tools to help developers finding and realizing the technologies necessary for their own applications. The main feature of PACKY is the `Stack Builder` tool, which gives the user the ability to plan out their required technologies and gives them a list of suggestions and details regarding their chosen features. In addition, it has a curated library of technologies that can be expanded upon further research - the scope and possibilities are as vast as are the amount of technologies out there. While the field of development is constantly changing, PACKY strives to stay focused in strong technological foundations while looking out for newer possibilities. 
 
 The app itself requires authentication keys in order to be used. These keys are sold for organizations for primarily educational and secondarily quality-of-life purposes. For example, someone with no earlier experience in planning out required technologies or understanding the scope of a developmental product can use PACKY to gain perspective on what truly is required. PACKY also offers a method for communication, since the end product itself is a list of suggested technologies - carefully chosen for cross functionality and ease. Planning and designing apps could ease up by a major factor.
 
