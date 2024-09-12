@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getAllCollections } from '@/utils/firebase/firebaseService';
-
+import { Triangle } from 'react-loader-spinner';
 // Typing for the collectionData object
 type CollectionData = {
   id: string;
@@ -27,7 +27,7 @@ const List = () => {
   useEffect(() => {
     // async function to fetch the data from the selected collection
     const fetchData = async () => {
-      // calling getAllConncetions function from firebaseService.ts
+      // calling getAllConnections function from firebaseService.ts
       const collections = await getAllCollections(selectedCollection);
       // setting the data state variable to the fetched data
       setData(collections as CollectionData[]);
@@ -40,7 +40,7 @@ const List = () => {
       <select
         value={selectedCollection}
         onChange={(e) => setSelectedCollection(e.target.value)}
-        className="bg-slate-700 text-teal-500 border-teal-800 rounded-lg p-2"
+        className='bg-slate-700 text-teal-500 border-teal-800 rounded-lg p-2'
       >
         {collections.map((collection) => (
           <option key={collection} value={collection}>
@@ -48,15 +48,32 @@ const List = () => {
           </option>
         ))}
       </select>
-      {data &&
-        data.length > 0 &&
+      {data && data.length > 0 ? (
         data.map((item) => (
-          <div key={item.id} className="mt-4">
-            <h2 className="text-xl font-bold">{item.name}</h2>
-            <p>{item.tags[0]}</p>
-            <p className="text-teal-500 bg-teal100">{item.info}</p>
+          <div key={item.id} className='mt-4'>
+            <h2 className='text-xl font-bold'>{item.name}</h2>
+            <p>{item.tags[1]}</p>
+            <p className='text-teal-500 bg-teal100'>{item.info}</p>
           </div>
-        ))}
+        ))
+      ) : (
+        <div className='mt-4 text-center'>
+          <p className='font-bold'>Loading the library...</p>
+          <Triangle
+            visible={true}
+            height='100'
+            width='100'
+            color='#38B2AC'
+            ariaLabel='triangle-loading'
+            wrapperStyle={{
+              width: '100%',
+              position: 'flex',
+              justifyContent: 'center',
+            }}
+            wrapperClass=''
+          />
+        </div>
+      )}
     </>
   );
 };
