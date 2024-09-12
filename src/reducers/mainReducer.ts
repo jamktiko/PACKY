@@ -1,6 +1,9 @@
 //will combine all the reducers
+/*import modalReducer from './modalReducer';
+import { combineReducers } from 'redux';
 
-//import { combineReducers } from 'redux';
-export default function mainReducer() {
-  return {};
-}
+const mainReducer = combineReducers({
+  modal: modalReducer,
+});
+
+export default mainReducer;*/
