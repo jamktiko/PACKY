@@ -35,7 +35,7 @@ All data is brought to pages, which in turn displays everything.
 Some image assets are in root folder public instead of assets for ease of use.
 
 ## Basic Git commands
-In order to initialize your repo:
+Initialize local repo:
 ```
 git init
 git remote add origin https://github.com/jamktiko/PACKY.git
@@ -43,7 +43,12 @@ git pull origin main
 npm i
 ```
 
-Default method of updating repo:
+Run the project:
+```
+npm run dev
+```
+
+Update repo:
 ```
 git add .
 git add -m [message]
