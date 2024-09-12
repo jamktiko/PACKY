@@ -9,8 +9,8 @@ Developed by team **PACKY** | **A TiCorporate project** of fall 2024 | **JAMK**
 - **Aatu Mäenpää**        - *Business Manager, Developer*  -  AD1741@student.jamk.fi
 
 ## About PACKY
-> ## PACKY is designed with starting developers in mind. The idea was born out of a need we and our peer students had when we first started to learn web development.
-> ## For many, understanding and tackling the scale of an application may seem like something unattainable at first; this is where PACKY comes in.
+> PACKY is designed with starting developers in mind. The idea was born out of a need we and our peer students had when we first started to learn web development.
+> For many, understanding and tackling the scale of an application may seem like something unattainable at first; this is where PACKY comes in.
 
 PACKY is a web application that provides tools to help developers finding and realizing the technologies necessary for their own applications. The main feature of PACKY is the `Stack Builder` tool, which gives the user the ability to plan out their required technologies and gives them a list of suggestions and details regarding their chosen features. In addition, it has a curated library of technologies that can be expanded upon further research - the scope and possibilities are as vast as are the amount of technologies out there. While the field of development is constantly changing, PACKY strives to stay focused in strong technological foundations while looking out for newer possibilities.
 
