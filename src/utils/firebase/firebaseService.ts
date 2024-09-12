@@ -47,3 +47,23 @@ export const getDatabases = async (collectionName: string) => {
     throw error;
   }
 };
+
+export const getLanguages = async (collectionName: string) => {
+  try {
+    // Get a reference to the specific collection
+    const collRef = collection(db, collectionName);
+    // Fetching all documents from the referenced Firestore collcetions
+    const snapshot = await getDocs(collRef);
+    // Mapping through each document, to extract the name, info and tags
+    const data = snapshot.docs.map((doc) => ({
+      id: doc.data().id,
+      name: doc.data().name,
+      info: doc.data().info,
+      tags: doc.data().tags,
+    }));
+    return data;
+  } catch (error) {
+    console.error(`Error retrieving frameworks: ${error}`);
+    throw error;
+  }
+};
