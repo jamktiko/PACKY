@@ -1,4 +1,6 @@
+![packyiconsmall](https://github.com/user-attachments/assets/0f661e9a-48ba-4dbf-bcbb-c96d33fb1323)
 # PACKY - Tech Consult App
+
 Developed by team **PACKY** | **A TiCorporate project** of fall 2024 | **JAMK**
 
 ## Team PACKY
