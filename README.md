@@ -1,4 +1,4 @@
-![packy3d2](https://github.com/user-attachments/assets/198989fa-e076-42f4-9424-e1c1df047f0a)
+![packy3d2](https://github.com/user-attachments/assets/198989fa-e076-42f4-9424-e1c1df047f0a) 
 # PACKY - Tech Consult App
 ### Developed by team **PACKY** | **A TiCorporate project** of fall 2024 | **JAMK** 
 
