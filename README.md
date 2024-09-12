@@ -3,7 +3,7 @@
 ### Developed by team **PACKY** | **A TiCorporate project** of fall 2024 | **JAMK** 
 
 
-## Team PACKY
+## Meet our team
 - [**Severi Boesen**](https://boesen.netlify.app/)       - *Product Owner, UI/UX Designer, Software Architect* - AD1871@student.jamk.fi
 - **Petri Paasila**       - *Stage Management, Lead Developer*  -  AD1782@student.jamk.fi
 - **Matias Juvonen**      - *Testing lead, Developer*  -  AD2069@student.jamk.fi
