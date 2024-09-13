@@ -29,7 +29,7 @@ header a h1 {
 }
 
 header button {
-  @apply scale-110 transition-all duration-500 hover:text-4xl shadow-inner-2 h-[3.3rem] w-[3.3rem] bg-slate-700 text-3xl absolute top-[0.25rem] right-4 rounded-full outline outline-8 outline-slate-950;
+  @apply scale-110 transition-all duration-500 hover:text-4xl shadow-inner-2 h-[3.3rem] w-[3.3rem] bg-slate-700 text-3xl absolute top-[0.25rem] right-4 rounded-full border border-teal-700 text-teal-700 hover:border-teal-500 hover:text-white hover:border-8 hover:bg-teal-500 hover:shadow-none outline outline-8 outline-slate-950;
 }
 
 header nav {
