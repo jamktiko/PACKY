@@ -1,9 +1,23 @@
+/*
+
+
+
+
+MUISTA KATSOA ETTÄ OLET OIKEALLA BRANCHILLA ENNEN KUIN ALAT TEKEMÄÄN ASIOITA SAATANA!!! 
+
+
+
+
+
+
+
+*/
+
 import React from 'react';
 import { toggleModal } from '@/redux/reducers/modalReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, type RootState } from '@/redux/store/store';
 
-//GridModal window is constructed here and it takes setIsModalOpen as a prop from stackbuilder
 const GridModal = () => {
   const modal = useSelector((state: RootState) => state.modalReducer.value);
   const dispatch = useDispatch<AppDispatch>();
