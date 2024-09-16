@@ -34,6 +34,12 @@ const List = () => {
         <option value="backendFrameworks">Backend Frameworks</option>
         <option value="mobileFrameworks">Mobile Frameworks</option>
         <option value="databases">Databases</option>
+        <option value="cloudservices">Cloudservices</option>
+        <option value="apis">Apis</option>
+        <option value="features">Features</option>
+        <option value="languages">Languages</option>
+        <option value="libraries">Libraries</option>
+        <option value="other_tools">Other toolss</option>
       </select>
       <div className="content">
         {data.map((item) => (
