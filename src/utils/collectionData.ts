@@ -1,6 +1,9 @@
 export interface CollectionData {
   id: string;
   name: string;
-  info: string;
+  description: string;
   tags: string[];
+  imageurl: string;
+  pros: string[];
+  cons: string[];
 }
