@@ -51,6 +51,6 @@ npm run dev
 Update repo:
 ```
 git add .
-git add -m [message]
+git commit -m [message]
 git push origin main
 ```
