@@ -49,6 +49,4 @@ const OutputModal = () => {
     </>
   );
 };
-
-// SAAATNAAN
 export default OutputModal;
