@@ -7,8 +7,16 @@ import { getAllCollections } from '@/utils/firebase/firebaseService';
  */
 
 const List = () => {
+  const options = [
+    { value: 'frontendFrameworks', label: 'Frontend Frameworks' },
+    { value: 'backendFrameworks', label: 'Backend Frameworks' },
+    { value: 'mobileFrameworks', label: 'Mobile Frameworks' },
+    { value: 'databases', label: 'Databases' },
+    { value: 'cloudservices', label: 'Cloudservices' },
+    { value: 'languages', label: 'Languages' },
+  ];
   // Initialize state with default values and empty array
-  const [collectionName, setCollectionName] = useState('frontendFrameworks');
+  const [collectionName, setCollectionName] = useState('frontendFrameworks'); // Default view is frontend frameworks
   const [data, setData] = useState<CollectionData[]>([]); // Data fetched from Firebase
   const [isLoading, setIsLoading] = useState(true); // Loading state
 
@@ -35,14 +43,13 @@ const List = () => {
       <select
         value={collectionName}
         onChange={handleCollectionChange}
-        className="py-2 pl-10 text-sm text-gray-700 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-600"
+        className=" text-gray-700 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-600"
       >
-        <option value="frontendFrameworks">Frontend Frameworks</option>
-        <option value="backendFrameworks">Backend Frameworks</option>
-        <option value="mobileFrameworks">Mobile Frameworks</option>
-        <option value="databases">Databases</option>
-        <option value="cloudservices">Cloudservices</option>
-        <option value="languages">Languages</option>
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
       </select>
       {/* Loading spinner */}
       {isLoading ? (
