@@ -38,7 +38,7 @@ const StackBuilder: PageLayout = () => {
       {isModalOpen && <GridModal />}
 
       <button onClick={handlesetOutputModal}>test</button>
-      {isOutputModalOpen && <OutputModal />}
+      <OutputModal />
     </>
   );
 };
