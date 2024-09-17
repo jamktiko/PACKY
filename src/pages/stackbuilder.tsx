@@ -27,14 +27,8 @@ const StackBuilder: PageLayout = () => {
       <Grid setIsModalOpen={setIsModalOpen} />
       {isModalOpen && <GridModal />}
 
-      {/*
-      <Grid setIsOutputModalOpen={setIsOutputModalOpen} />
-      {isOutputModalOpen && <GridModal />}
-       */}
-      {/* 
-      <GridModal />
       <button onClick={() => setIsOutputModalOpen(true)}>test</button>
-      {isOutputModalOpen && <OutputModal />} */}
+      {isOutputModalOpen && <OutputModal />}
     </>
   );
 };
