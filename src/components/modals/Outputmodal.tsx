@@ -6,7 +6,9 @@ import { fetchCollections } from '@/redux/reducers/dataReducer';
 
 const OutputModal = () => {
   // Haetaan modalin tila Redux-storesta
-  const modal = useSelector((state: RootState) => state.modalReducer.value);
+  const outputmodal = useSelector(
+    (state: RootState) => state.outputReducer.value
+  );
 
   // Määritellään dispatch-funktio, jota käytetään Redux-toimintojen kutsuun
   const dispatch = useDispatch<AppDispatch>();
@@ -21,10 +23,10 @@ const OutputModal = () => {
   const data = useSelector((state: RootState) => state.dataReducer.value);
 
   // Suodatetaan data, jossa on nimi
-  const modalData = data.filter((item) => item.name);
+
   return (
     <>
-      {modal && (
+      {outputmodal && (
         <div className="z-50 absolute top-0 left-0 w-screen h-screen bg-black backdrop-blur-sm bg-opacity-50">
           <h1 className="bg-blue-500">tähä jotai</h1>
           {/*

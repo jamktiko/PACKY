@@ -1,18 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 //määritellään interface ModalState
-interface ModalState {
+interface OutputState {
   value: boolean;
 }
 
 //määritellään modalReducerin tila aluksi falseksi
-const initialState: ModalState = {
+const initialState: OutputState = {
   value: false,
 };
 
 //käyttää createSlicea luomaan kopion tilasta ja päivittämään sen storeen
 const outputmodalslice = createSlice({
-  name: 'modal',
+  name: 'outputmodal',
   initialState,
   reducers: {
     //toggleModal on action, joka muuttaa modalReducerin tilan, ottaa kaksi argumenttia
