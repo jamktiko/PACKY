@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, type RootState } from '@/redux/store/store';
 import { fetchCollections } from '@/redux/reducers/dataReducer';
 import { addItem } from '@/redux/reducers/gridButtonReducer';
+import { CollectionData } from '@/utils/collectionData';
 
 const GridModal = () => {
   // Haetaan modalin tila Redux-storesta
@@ -41,8 +42,8 @@ const GridModal = () => {
   // Suodatetaan data, jossa on nimi
   const gridmodalData = data.filter((item) => item.name);
 
-  const handleClick = () => {
-    dispatch(addItem('vaihdatähänjotaintoimivaa'));
+  const handleClick = (item: CollectionData) => {
+    dispatch(addItem(item.name));
     dispatch(toggleModal(false));
   };
 
@@ -55,7 +56,7 @@ const GridModal = () => {
             <button
               key={id}
               className="bg-green-500 w-full hover:bg-red-800"
-              onClick={() => handleClick()}
+              onClick={() => handleClick(item)}
             >
               <h1>{item.name}</h1>
               <p>{item.description}</p>
