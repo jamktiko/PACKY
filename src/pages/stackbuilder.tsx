@@ -4,6 +4,8 @@ import GridModal from '@/components/modals/GridModal';
 import OutputModal from '@/components/modals/OutputModal';
 import { useState } from 'react';
 import Head from 'next/head';
+import { toggleOutputModal } from '@/redux/reducers/outputReducer';
+import { useDispatch } from 'react-redux';
 
 // StackBuilder page is constructed here, it renders Grid component and conditionally renders GridModal
 const StackBuilder: PageLayout = () => {
@@ -16,6 +18,14 @@ const StackBuilder: PageLayout = () => {
   // Grid component and GridModal are rendered here
   // setIsModalOpen is passed as a prop to Grid and GridModal, to allow them to update the state
   //of isModalOpen
+
+  const dispatch = useDispatch();
+
+  const handlesetOutputModal = () => {
+    dispatch(toggleOutputModal(true));
+  };
+
+  console.log('isOutputModalOpen', isOutputModalOpen);
   return (
     <>
       {/* _____________________________ */}
@@ -27,7 +37,7 @@ const StackBuilder: PageLayout = () => {
       <Grid setIsModalOpen={setIsModalOpen} />
       {isModalOpen && <GridModal />}
 
-      <button onClick={() => setIsOutputModalOpen(true)}>test</button>
+      <button onClick={handlesetOutputModal}>test</button>
       {isOutputModalOpen && <OutputModal />}
     </>
   );

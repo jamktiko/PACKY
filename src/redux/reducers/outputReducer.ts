@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 //määritellään interface ModalState
-interface OutputState {
+interface OutputModalState {
   value: boolean;
 }
 
 //määritellään modalReducerin tila aluksi falseksi
-const initialState: OutputState = {
+const initialState: OutputModalState = {
   value: false,
 };
 
@@ -19,6 +19,7 @@ const outputmodalslice = createSlice({
     //ja muuttaa tilan arvoa
     toggleOutputModal: (state, action: PayloadAction<boolean>) => {
       state.value = action.payload;
+      console.log('state', state.value);
     },
   },
 });

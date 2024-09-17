@@ -6,7 +6,7 @@ import { fetchCollections } from '@/redux/reducers/dataReducer';
 
 const OutputModal = () => {
   // Haetaan modalin tila Redux-storesta
-  const outputmodal = useSelector(
+  let outputmodal = useSelector(
     (state: RootState) => state.outputReducer.value
   );
 
