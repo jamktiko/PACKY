@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface ItemState {
-  item: any[];
+//kommentoi aamulla
+interface Item {
+  item: string[];
 }
 
-const initialState: ItemState = {
+const initialState: Item = {
   item: [],
 };
 
@@ -12,11 +12,11 @@ const itemSlice = createSlice({
   name: 'item',
   initialState,
   reducers: {
-    insert_item: (state, action: PayloadAction<any>) => {
+    addItem(state, action: PayloadAction<string>) {
       state.item.push(action.payload);
     },
   },
 });
 
-export const { insert_item } = itemSlice.actions;
+export const { addItem } = itemSlice.actions;
 export default itemSlice.reducer;
