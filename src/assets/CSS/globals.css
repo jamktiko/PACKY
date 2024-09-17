@@ -25,11 +25,11 @@ header img {
 }
 
 header a h1 {
-  @apply mr-12 text-5xl content-center text-center bg-gradient-to-r from-teal-600  to-cyan-400 inline-block text-transparent bg-clip-text;
+  @apply mr-12 mt-2 ml-1 text-5xl content-center text-center bg-gradient-to-r from-teal-600  to-cyan-400 inline-block text-transparent bg-clip-text;
 }
 
 header button {
-  @apply scale-110 transition-all duration-500 hover:text-4xl shadow-inner-2 h-[3.3rem] w-[3.3rem] bg-slate-700 text-3xl absolute top-[0.25rem] right-4 rounded-full outline outline-8 outline-slate-950;
+  @apply scale-110 transition-all duration-500 hover:text-4xl shadow-inner-2 h-[3.3rem] w-[3.3rem] bg-slate-700 text-3xl absolute top-[0.25rem] right-4 rounded-full border border-teal-700 text-teal-700 hover:border-teal-500 hover:text-white hover:border-8 hover:bg-teal-500 hover:shadow-none outline outline-8 outline-slate-950;
 }
 
 header nav {
@@ -53,7 +53,7 @@ header nav ul li a span {
 }
 
 /* ______________________________________________ */
-/* CONTENT */
+/* CONTENT CONTAINER FOR ALL PAGES */
 .content {
   @apply pt-32 border-x-8 border-double border-slate-900 lg:mx-36 lg:px-36 md:ml-36 md:px-36 sm:ml-16 sm:mr-16 sm:px-16 ml-4 mr-4 px-4;
 }
@@ -63,7 +63,7 @@ header nav ul li a span {
 }
 
 /* ______________________________________________ */
-/* INDEX CARD */
+/* INDEX CARD ELEMENT */
 
 .indexcard {
   @apply bg-black overflow-hidden border border-gray-800 cursor-pointer rounded-3xl  h-96 hover:bg-white transition-all;
@@ -149,4 +149,24 @@ header nav ul li a span {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -59%) rotate(0deg);
+}
+
+/* LIST COMPONENT DATA */
+
+.data-item {
+  @apply mt-4 p-2 border border-teal-300 rounded-xl bg-white bg-opacity-10;
+  box-shadow: rgb(14, 15, 19) 3px 3px 6px 0px inset,
+    rgba(0, 37, 28, 0.5) -3px -3px 6px 1px inset;
+}
+
+.data-header {
+  @apply text-2xl font-bold border-b;
+}
+
+.data-tags {
+  @apply italic my-1;
+}
+
+.data-description {
+  @apply text-teal-500 w-4/5;
 }

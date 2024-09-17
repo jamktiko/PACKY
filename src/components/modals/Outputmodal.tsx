@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { toggleModal } from '@/redux/reducers/modalReducer';
+import { toggleOutputModal } from '@/redux/reducers/outputReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, type RootState } from '@/redux/store/store';
 import { fetchCollections } from '@/redux/reducers/dataReducer';
@@ -39,7 +39,7 @@ const OutputModal = () => {
           */}
           <button
             className="bg-white p-2 rounded-md"
-            onClick={() => dispatch(toggleModal(false))}
+            onClick={() => dispatch(toggleOutputModal(false))}
             type="button"
           >
             Close
