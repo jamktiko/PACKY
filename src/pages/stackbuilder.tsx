@@ -1,7 +1,7 @@
 import type { PageLayout } from './_app';
 import Grid from '../components/grid/grid';
 import GridModal from '@/components/modals/GridModal';
-import OutputModal from '@/components/modals/Outputmodal';
+import OutputModal from '@/components/modals/OutputModal';
 import { useState } from 'react';
 import Head from 'next/head';
 
