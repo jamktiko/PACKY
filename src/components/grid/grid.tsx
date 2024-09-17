@@ -71,6 +71,7 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
 
   const handleGridButtonClick = (row: number, col: number) => {
     // Opens the modal when that cell is clicked
+    setIsModalOpen(true);
     // Adds the clicked cell to the activeCells array
     setActiveCells((prevActiveCells) => [...prevActiveCells, { row, col }]);
   };
@@ -78,7 +79,7 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
   return (
     // Grid component is constructed here
     <div
-      className="grid grid-cols-9 gap-4 mt-24"
+      className='grid grid-cols-9 gap-4 mt-24'
       style={{
         display: 'grid',
         gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
