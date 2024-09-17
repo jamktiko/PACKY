@@ -23,6 +23,8 @@ const StackBuilder: PageLayout = () => {
       {/* _____________________________ */}
       <Grid setIsModalOpen={setIsModalOpen} />
       {isModalOpen && <GridModal />}
+
+      <GridModal />
     </>
   );
 };

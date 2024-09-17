@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import { useDispatch } from 'react-redux';
+import { toggleModal } from '../../redux/reducers/modalReducer';
 // Define the interface for the props that the GridButton component will receive
 // What values they can take (number, boolean, string etc.)
 interface GridButtonProps {
@@ -68,16 +69,27 @@ const GridButton: React.FC<GridButtonProps> = ({
     }
   };
   // Render button component with appropriate styling and behaviour
+  const dispatch = useDispatch();
+
+  const handleOpenModal = () => {
+    dispatch(toggleModal(true));
+    if (isChoosable) {
+      onClick(row, col); // If the button is choosable, call the onClick function passing the row and column
+    }
+  };
+
   return (
-    <button
-      id={id} // Assingning unique ID to the button
-      className={`${color} ${selectState} transition-all text-white px-5 py-5 rounded hover:opacity-10`} // Dynamically set styling
-      onClick={handleClick} // Assingning handleClick function to the button's onClick event
-      style={{ opacity }} // Set the button's opacity dynamically based on the 'opacity' prop
-    >
-      {/* Display text based on button state (Active, Choosable or Inactive)*/}
-      {isActive ? 'Active' : isChoosable ? 'Choosable' : 'Inactive'}
-    </button>
+    <div>
+      <button
+        id={id} // Assingning unique ID to the button
+        className={`${color} ${selectState} transition-all text-white px-5 py-5 rounded hover:opacity-10 w-40 h-16`} // Dynamically set styling
+        style={{ opacity }} // Set the button's opacity dynamically based on the 'opacity' prop
+        onClick={handleOpenModal}
+      >
+        {/* Display text based on button state (Active, Choosable or Inactive)*/}
+        {isActive ? 'Active' : isChoosable ? 'Choose' : ''}
+      </button>
+    </div>
   );
 };
 
