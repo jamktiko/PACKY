@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { toggleModal } from '../../redux/reducers/modalReducer';
+import { toggleModal } from '../../redux/reducers/gridModalReducer';
 // Define the interface for the props that the GridButton component will receive
 // What values they can take (number, boolean, string etc.)
 interface GridButtonProps {

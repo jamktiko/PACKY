@@ -14,14 +14,16 @@ MUISTA KATSOA ETTÄ OLET OIKEALLA BRANCHILLA ENNEN KUIN ALAT TEKEMÄÄN ASIOITA 
 */
 
 import React, { useEffect } from 'react';
-import { toggleModal } from '@/redux/reducers/modalReducer';
+import { toggleModal } from '@/redux/reducers/gridModalReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, type RootState } from '@/redux/store/store';
 import { fetchCollections } from '@/redux/reducers/dataReducer';
 
 const GridModal = () => {
   // Haetaan modalin tila Redux-storesta
-  const modal = useSelector((state: RootState) => state.modalReducer.value);
+  const gridmodal = useSelector(
+    (state: RootState) => state.gridModalReducer.value
+  );
 
   // Määritellään dispatch-funktio, jota käytetään Redux-toimintojen kutsuun
   const dispatch = useDispatch<AppDispatch>();
@@ -36,22 +38,27 @@ const GridModal = () => {
   const data = useSelector((state: RootState) => state.dataReducer.value);
 
   // Suodatetaan data, jossa on nimi
-  const modalData = data.filter((item) => item.name);
+  const gridmodalData = data.filter((item) => item.name);
+
   return (
     <>
-      {modal && (
-        <div className='z-50 absolute top-0 left-0 w-screen h-screen bg-black backdrop-blur-sm bg-opacity-50'>
-          <h1 className='bg-blue-500'>Tähän data</h1>
-          {modalData.map((item, id) => (
-            <div key={id} className='bg-green-500'>
+      {gridmodal && (
+        <div className="z-50 absolute top-0 left-0 w-screen h-screen bg-black backdrop-blur-sm bg-opacity-50">
+          <h1 className="bg-blue-500">Tähän data</h1>
+          {gridmodalData.map((item, id) => (
+            <button
+              key={id}
+              className="bg-green-500 w-full hover:bg-red-800"
+              onClick={() => dispatch(toggleModal(false))}
+            >
               <h1>{item.name}</h1>
               <p>{item.description}</p>
-            </div>
+            </button>
           ))}
           <button
-            className='bg-white p-2 rounded-md'
+            className="bg-white p-2 rounded-md"
             onClick={() => dispatch(toggleModal(false))}
-            type='button'
+            type="button"
           >
             Close
           </button>
