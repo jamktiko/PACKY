@@ -27,8 +27,14 @@ const OutputModal = () => {
   return (
     <>
       {outputmodal && (
-        <div className='z-50 absolute top-0 left-0 w-screen h-screen bg-black backdrop-blur-sm bg-opacity-50'>
-          <h1 className='bg-blue-500'>tähä jotai</h1>
+        <div
+          className="z-50 absolute top-0 left-0 w-screen h-screen bg-black backdrop-blur-sm bg-opacity-50"
+          onClick={() => dispatch(toggleOutputModal(false))}
+        >
+          <h1 className="bg-blue-500">tähä jotai</h1>
+          <div>
+            <h1>test</h1>
+          </div>
           {/*
           {modalData.map((item, id) => (
             <div key={id} className='bg-green-500'>
@@ -38,9 +44,9 @@ const OutputModal = () => {
           ))}
           */}
           <button
-            className='bg-white p-2 rounded-md'
+            className="bg-white p-2 rounded-md"
             onClick={() => dispatch(toggleOutputModal(false))}
-            type='button'
+            type="button"
           >
             Close
           </button>
