@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal } from '../../redux/reducers/gridModalReducer';
+import { RootState } from '@/redux/store/store';
+
 // Define the interface for the props that the GridButton component will receive
 // What values they can take (number, boolean, string etc.)
 interface GridButtonProps {
@@ -11,7 +13,6 @@ interface GridButtonProps {
   opacity: number;
   id: string;
   onClick: (row: number, col: number) => void; // Function to handle click event with row and col as parameters
-  handleGridButtonClick: (id: string) => void; // Function to handle click event using button's id
 }
 // Define the functional components for GridButton (no starting values)
 const GridButton: React.FC<GridButtonProps> = ({
@@ -87,7 +88,7 @@ const GridButton: React.FC<GridButtonProps> = ({
         onClick={handleOpenModal}
       >
         {/* Display text based on button state (Active, Choosable or Inactive)*/}
-        {isActive ? 'Active' : isChoosable ? 'Choose' : ''}
+        {isActive ? 'help' : isChoosable ? 'Choose' : ''}
       </button>
     </div>
   );

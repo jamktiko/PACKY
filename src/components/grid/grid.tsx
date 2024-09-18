@@ -130,9 +130,6 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
             opacity={opacity}
             onClick={() => handleGridButtonClick(row, col)}
             id={''}
-            handleGridButtonClick={function (id: string): void {
-              throw new Error('Function not implemented.');
-            }}
           />
         );
       })}
