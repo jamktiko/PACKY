@@ -1,19 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-//kommentoi aamulla
+//importoidaan redux toolkitista createSlice ja PayloadAction
+
+//luodaan interface Item
 interface Item {
-  item: string[];
+  item: { name: string; tags: string[] }[];
 }
 
+//luodaan tila joka saa tyypikseen interfacen item
 const initialState: Item = {
   item: [],
 };
 
+//luodaan Slice initialStatesta ja reducer funktio addItem päivittää tilaa
+//lisäten uuden itemin taulukkoon
 const itemSlice = createSlice({
   name: 'item',
   initialState,
   reducers: {
-    addItem(state, action: PayloadAction<string>) {
-      state.item.push(action.payload);
+    addItem(state, action: PayloadAction<{ name: string; tags: string[] }>) {
+      state.item.push({ name: action.payload.name, tags: action.payload.tags });
     },
   },
 });
