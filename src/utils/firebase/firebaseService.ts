@@ -21,10 +21,7 @@ export const getAllCollections = async (collectionName: string) => {
   }
 };
 
-export const getDocumentsByTags = async (tags: {
-  name: string;
-  tags: string[];
-}) => {
+export const getDocumentsByTags = async (tags: string[]) => {
   // The names of the collections to query
   const collections = [
     'databases',
