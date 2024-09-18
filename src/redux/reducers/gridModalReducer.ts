@@ -1,33 +1,32 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-//määritellään interface ModalState
+//interface ModalState is created
 interface GridModalState {
   value: boolean;
 
   data: any[];
 }
 
-//määritellään modalReducerin tila aluksi falseksi
+//initialState is created and typed with interface GridModalState
 const initialState: GridModalState = {
   value: false,
   data: [],
 };
 
-//käyttää createSlicea luomaan kopion tilasta ja päivittämään sen storeen
+//gridmodalslice is created to create copy of the state and update it to store
 const gridmodalslice = createSlice({
   name: 'gridmodal',
   initialState,
   reducers: {
-    //toggleModal on action, joka muuttaa modalReducerin tilan, ottaa kaksi argumenttia
-    //ja muuttaa tilan arvoa
+    //toggleModal is an reducer function and it updates the state
     toggleModal: (state, action: PayloadAction<boolean>) => {
       state.value = action.payload;
     },
   },
 });
 
-//exportoidaan action creator funktio
+//toggleModal is an action creator function which is exported
 export const { toggleModal } = gridmodalslice.actions;
 
-//exportoidaan reducer funktio jotta sitä voidaan käyttäää muualla sovelluksessa
+//reducer function is exported
 export default gridmodalslice.reducer;
