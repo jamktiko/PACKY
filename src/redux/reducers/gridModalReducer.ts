@@ -3,14 +3,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 //interface ModalState is created
 interface GridModalState {
   value: boolean;
-
-  data: any[];
 }
 
 //initialState is created and typed with interface GridModalState
 const initialState: GridModalState = {
   value: false,
-  data: [],
 };
 
 //gridmodalslice is created to create copy of the state and update it to store
