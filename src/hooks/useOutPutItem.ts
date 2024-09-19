@@ -2,10 +2,10 @@ import { type RootState } from '@/redux/store/store';
 import { useSelector } from 'react-redux';
 
 const useOutPutItem = () => {
-  const wholeItem = useSelector(
+  const outPutItem = useSelector(
     (state: RootState) => state.gridButtonReducer.outPutItem
   );
-  return wholeItem;
+  return outPutItem;
 };
 
 export default useOutPutItem;
