@@ -7,39 +7,39 @@ import { CollectionData } from '@/utils/collectionData';
 import { getDocumentsByTags } from '@/utils/firebase/firebaseService';
 
 const OutputModal = () => {
-  // Haetaan modalin tila Redux-storesta
-  let outputmodal = useSelector(
+  // Selecting the outputModal state from the redux store
+  const outputModal = useSelector(
     (state: RootState) => state.outputReducer.value
   );
-
-  // Määritellään dispatch-funktio, jota käytetään Redux-toimintojen kutsuun
+  // Selecting the outPutItem from the redux store
+  // outPutItem contains items, name and tags
+  const outPutItem = useSelector(
+    (state: RootState) => state.gridButtonReducer.outPutItem
+  );
+  // With this discpatch function we can trigger actions in the redux store
   const dispatch = useDispatch<AppDispatch>();
 
-  // // Käytetään useEffect-hookia, joka suoritetaan aina kun komponentti renderöidään
-  // useEffect(() => {
-  //   // Haetaan käyttäjän kokoelmat Redux-storesta
-  //   dispatch(fetchCollections());
-  // }, [dispatch]); // Tämä efektin riippuvuuslista tarkoittaa, että efektin suoritus uudelleen, kun dispatch-funktio muuttuu
-
-  // // Haetaan käyttäjän data Redux-storesta
-  // const data = useSelector((state: RootState) => state.dataReducer.value);
-
-  // Suodatetaan data, jossa on nimi
-
+  // React state to store the fetched documents
+  // Initially, it's an empty array of type CollectionData[]
   const [documents, setDocuments] = useState<CollectionData[]>([]);
+
+  // Mapping tags from outPutItem and flattening the array
+  const tags = outPutItem.map((item) => item.tags).flat();
 
   useEffect(() => {
     const fetchData = async () => {
-      const tags = ['Frontend'];
-      const documents = await getDocumentsByTags(tags);
-      setDocuments(documents as CollectionData[]);
+      // Only fetch documents if there are tags available
+      if (tags.length > 0) {
+        const documents = await getDocumentsByTags(tags);
+        setDocuments(documents as CollectionData[]);
+      }
     };
     fetchData();
-  }, []);
+  }, [tags]);
 
   return (
     <>
-      {outputmodal && (
+      {outputModal && (
         <div
           className="z-50 absolute top-0 left-0 w-screen h-screen bg-black backdrop-blur-sm bg-opacity-50"
           onClick={() => dispatch(toggleOutputModal(false))}
@@ -53,14 +53,6 @@ const OutputModal = () => {
               <h1>{item.name}</h1>
             </div>
           ))}
-          {/*
-          {modalData.map((item, id) => (
-            <div key={id} className='bg-green-500'>
-              <h1>{item.name}</h1>
-              <p>{item.description}</p>
-            </div>
-          ))}
-          */}
           <button
             className="bg-white p-2 rounded-md"
             onClick={() => dispatch(toggleOutputModal(false))}
