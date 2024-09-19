@@ -41,10 +41,10 @@ const OutputModal = () => {
     <>
       {outputModal && (
         <div
-          className="z-50 absolute top-0 left-0 w-screen h-screen bg-black backdrop-blur-sm bg-opacity-50"
+          className='z-50 absolute top-0 left-0 w-screen h-screen bg-black backdrop-blur-sm bg-opacity-50'
           onClick={() => dispatch(toggleOutputModal(false))}
         >
-          <h1 className="bg-blue-500">tähä jotai</h1>
+          <h1 className='bg-blue-500'>tähä jotai</h1>
           <div>
             <h1>test</h1>
           </div>
@@ -54,9 +54,9 @@ const OutputModal = () => {
             </div>
           ))}
           <button
-            className="bg-white p-2 rounded-md"
+            className='modal-toggle'
             onClick={() => dispatch(toggleOutputModal(false))}
-            type="button"
+            type='button'
           >
             Close
           </button>

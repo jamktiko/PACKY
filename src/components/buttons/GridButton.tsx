@@ -84,7 +84,7 @@ const GridButton: React.FC<GridButtonProps> = ({
     <div>
       <button
         id={id} // Assingning unique ID to the button
-        className={`${color} ${selectState} transition-all text-white px-5 py-5 rounded hover:opacity-10 w-40 h-16`} // Dynamically set styling
+        className={`${color} ${selectState} grid-button `} // Dynamically set styling
         style={{ opacity }} // Set the button's opacity dynamically based on the 'opacity' prop
         onClick={handleOpenModal}
       >
