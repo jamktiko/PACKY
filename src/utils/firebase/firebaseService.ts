@@ -21,32 +21,32 @@ export const getAllCollections = async (collectionName: string) => {
   }
 };
 
-export const getDocumentsByTags = async (tags: string[]) => {
-  // The names of the collections to query
-  const collections = [
-    'databases',
-    'backendFrameworks',
-    'frontendFrameworks',
-    'languages',
-    'apis',
-    'cloudservices',
-  ];
-  // Initialize an empty array to store the documents
-  const docs: CollectionData[] = [];
-  // Looping throigh the collections
-  for (const collName of collections) {
-    // Creating query to search for documents with the given tags
-    const q = query(
-      collection(db, collName),
-      where('tags', 'array-contains-any', tags)
-    );
-    // Get all documents that match the query
-    const snapshot = await getDocs(q);
-    // Looping through the documents
-    snapshot.forEach((doc) => {
-      // Adding the document to the array
-      docs.push({ id: doc.id, name: doc.data().name } as CollectionData);
-    });
-  }
-  return docs;
-};
+// export const getDocumentsByTags = async (tags: string[]) => {
+//   // The names of the collections to query
+//   const collections = [
+//     'databases',
+//     'backendFrameworks',
+//     'frontendFrameworks',
+//     'languages',
+//     'apis',
+//     'cloudservices',
+//   ];
+//   // Initialize an empty array to store the documents
+//   const docs: CollectionData[] = [];
+//   // Looping throigh the collections
+//   for (const collName of collections) {
+//     // Creating query to search for documents with the given tags
+//     const q = query(
+//       collection(db, collName),
+//       where('tags', 'array-contains-any', tags)
+//     );
+//     // Get all documents that match the query
+//     const snapshot = await getDocs(q);
+//     // Looping through the documents
+//     snapshot.forEach((doc) => {
+//       // Adding the document to the array
+//       docs.push({ id: doc.id, name: doc.data().name } as CollectionData);
+//     });
+//   }
+//   return docs;
+// };
