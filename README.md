@@ -2,6 +2,11 @@
 # PACKY - Tech Consult App
 ### Developed by team **PACKY** | **A TiCorporate project** of fall 2024 | **JAMK** 
 
+## PENDING QUESTIONS - KYSYMYKSIÄ JARKOLLE
+1. Redux - esittely, miltä näyttää, onko järkevä?
+2. Firebase - snapshotit, mentiin limittiin, miten optimoida?
+3. Mielipide asiakkaana, käyttäiskö tätä tuotetta, miten haluais että tuote toimii jne. kehitys-kommentointia
+
 
 ## Meet our team
 - [**Severi Boesen**](https://boesen.netlify.app/)       - *Product Owner, UI/UX Designer, Software Architect* - AD1871@student.jamk.fi
