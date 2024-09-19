@@ -169,7 +169,11 @@ header nav ul li a span {
 }
 
 .modal-toggle {
-  @apply transition-all bg-white bg-opacity-10 hover:bg-opacity-80 py-0 px-2 rounded-md text-black font-bold text-5xl fixed top-3 right-3;
+  @apply transition-all bg-white bg-opacity-10 hover:bg-opacity-80 py-0 px-2 rounded-md text-teal-500 font-bold text-5xl fixed top-2 right-4;
+}
+
+.toggle-output {
+  @apply transition-all bg-opacity-80 border-t border-teal-300 hover:bg-white hover:text-black font-bold w-full bg-teal-500 fixed bottom-0 h-16;
 }
 
 /* LIST COMPONENT DATA */

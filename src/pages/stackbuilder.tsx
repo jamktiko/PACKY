@@ -34,9 +34,11 @@ const StackBuilder: PageLayout = () => {
       </Head>
       {/* _____________________________ */}
       <Grid setIsModalOpen={setIsModalOpen} />
+      <button className='toggle-output' onClick={handlesetOutputModal}>
+        Finish
+      </button>
       {isModalOpen && <GridModal />}
 
-      <button onClick={handlesetOutputModal}>test</button>
       <OutputModal />
     </>
   );
