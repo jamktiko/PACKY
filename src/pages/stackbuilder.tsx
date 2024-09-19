@@ -11,7 +11,6 @@ import { useDispatch } from 'react-redux';
 const StackBuilder: PageLayout = () => {
   // useState hook manages a boolean state that controls wheter or not the modal is open and a function to update it
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedButtonData, setSelectedButtonData] = useState({ id: '' });
 
   const [isOutputModalOpen, setIsOutputModalOpen] = useState(false);
 

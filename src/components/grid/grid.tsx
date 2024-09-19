@@ -1,6 +1,6 @@
+'use client';
 import React, { useEffect, useState } from 'react';
 import GridButton from '../buttons/GridButton';
-
 // Manhattan distance = abs(x1 - x2) + abs(y1 - y2)
 // The distance between two points measured along axes at right angles.
 
@@ -79,7 +79,7 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
   return (
     // Grid component is constructed here
     <div
-      className='grid grid-cols-9 gap-4 mt-24'
+      className="grid grid-cols-9 gap-4 mt-24"
       style={{
         display: 'grid',
         gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
@@ -122,6 +122,7 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
         return (
           // Renders the grid buttons
           <GridButton
+            id={`grid-button-${row}-${col}`}
             key={`${row}-${col}`}
             row={row}
             col={col}
@@ -129,7 +130,6 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
             isChoosable={isChoosable}
             opacity={opacity}
             onClick={() => handleGridButtonClick(row, col)}
-            id={''}
           />
         );
       })}
