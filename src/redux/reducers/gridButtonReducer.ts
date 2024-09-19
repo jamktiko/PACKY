@@ -5,13 +5,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 //wholeItem is the data that is meant for outputModal/list
 interface Item {
   item: { name: string; tags: string[] }[];
-  wholeItem: { name: string; tags: string[] }[];
+  outPutItem: { name: string; tags: string[] }[];
 }
 
 //initialState is created and given Item as a type
 const initialState: Item = {
   item: [],
-  wholeItem: [],
+  outPutItem: [],
 };
 
 //Slice created from initialState and reducer function addItem created
@@ -33,7 +33,7 @@ const itemSlice = createSlice({
         tags: action.payload.tags,
       });
       //outputmodal
-      state.wholeItem.push({
+      state.outPutItem.push({
         name: action.payload.name,
         tags: action.payload.tags,
       });

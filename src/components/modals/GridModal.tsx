@@ -44,14 +44,8 @@ const GridModal = () => {
 
   //funktio handleclick kutsuu addItem funktiota, joka päivittää gridbuttonReduceriin
   //tilan ja sulkeen modalin toggleModal funktiolla
-  const handleClick = (
-    item: CollectionData,
-    tags: string[],
-    description: string
-  ) => {
-    dispatch(
-      addItem({ name: item.name, tags: tags, description: description })
-    );
+  const handleClick = (item: CollectionData, tags: string[]) => {
+    dispatch(addItem({ name: item.name, tags: tags }));
     dispatch(toggleModal(false));
   };
 
@@ -64,7 +58,7 @@ const GridModal = () => {
             <button
               key={id}
               className="bg-green-500 w-full hover:bg-red-800"
-              onClick={() => handleClick(item, item.tags, item.description)}
+              onClick={() => handleClick(item, item.tags)}
             >
               <h1>{item.name}</h1>
               <p>{item.description}</p>

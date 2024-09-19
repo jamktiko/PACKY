@@ -1,11 +1,11 @@
 import { type RootState } from '@/redux/store/store';
 import { useSelector } from 'react-redux';
 
-const useWholeItem = () => {
+const useOutPutItem = () => {
   const wholeItem = useSelector(
-    (state: RootState) => state.gridButtonReducer.wholeItem
+    (state: RootState) => state.gridButtonReducer.outPutItem
   );
   return wholeItem;
 };
 
-export default useWholeItem;
+export default useOutPutItem;
