@@ -30,11 +30,7 @@ const OutputModal = () => {
     <>
       {outputModal && (
         <div
-<<<<<<< HEAD
-          className="z-50 absolute top-0 left-0 w-screen h-screen bg-black backdrop-blur-sm bg-opacity-50"
-=======
-          className='grid-modal'
->>>>>>> b3701b5fefd27510ba2aacbcefa03beccc621a2b
+          className="grid-modal"
           onClick={() => dispatch(toggleOutputModal(false))}
         >
           <h1 className="bg-blue-500">tähä jotai</h1>
