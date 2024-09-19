@@ -151,6 +151,22 @@ header nav ul li a span {
   transform: translate(-50%, -59%) rotate(0deg);
 }
 
+/* STACKBUILDER */
+.grid-container {
+  @apply grid grid-cols-9 gap-4 mt-24;
+}
+
+.grid-button {
+  @apply transition-all text-white px-5 py-5 rounded hover:opacity-10 w-40 h-16;
+}
+
+.grid-modal {
+  @apply z-50 absolute top-0 left-0 w-screen h-screen bg-black backdrop-blur-sm bg-opacity-50;
+}
+
+.modal-toggle {
+  @apply bg-white p-2 rounded-md;
+}
 /* LIST COMPONENT DATA */
 
 .data-item {

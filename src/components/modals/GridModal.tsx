@@ -52,12 +52,12 @@ const GridModal = () => {
   return (
     <>
       {gridmodal && (
-        <div className="z-50 absolute top-0 left-0 w-screen h-screen bg-black backdrop-blur-sm bg-opacity-50">
-          <h1 className="bg-blue-500">Tähän data</h1>
+        <div className=''>
+          <h1 className='bg-blue-500'>Tähän data</h1>
           {gridmodalData.map((item, id) => (
             <button
               key={id}
-              className="bg-green-500 w-full hover:bg-red-800"
+              className='bg-green-500 w-full hover:bg-red-800'
               onClick={() => handleClick(item, item.tags)}
             >
               <h1>{item.name}</h1>
@@ -65,9 +65,9 @@ const GridModal = () => {
             </button>
           ))}
           <button
-            className="bg-white p-2 rounded-md"
+            className='modal-toggle'
             onClick={() => dispatch(toggleModal(false))}
-            type="button"
+            type='button'
           >
             Close
           </button>
