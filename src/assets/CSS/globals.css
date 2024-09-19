@@ -161,11 +161,11 @@ header nav ul li a span {
 }
 
 .grid-modal {
-  @apply z-50  grid grid-cols-2 space-x-2 absolute top-0 left-0 w-screen h-screen bg-black backdrop-blur-sm bg-opacity-50;
+  @apply z-50 content-center grid grid-cols-2 space-x-2 space-y-2 absolute top-0 left-0 w-screen h-screen bg-black backdrop-blur-sm bg-opacity-50;
 }
 
 .grid-modal-item {
-  @apply border border-teal-300 rounded-xl bg-white bg-opacity-10 p-4;
+  @apply transition-all hover:bg-opacity-80 hover:text-black border border-teal-300 rounded-xl bg-white bg-opacity-10 p-4;
 }
 
 .modal-toggle {
