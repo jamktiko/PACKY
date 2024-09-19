@@ -5,7 +5,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 //wholeItem is the data that is meant for outputModal/list
 interface Item {
   item: { name: string; tags: string[] }[];
-  wholeItem: { name: string; tags: string[]; description: string }[];
+  wholeItem: { name: string; tags: string[] }[];
 }
 
 //initialState is created and given Item as a type
@@ -25,17 +25,17 @@ const itemSlice = createSlice({
       action: PayloadAction<{
         name: string;
         tags: string[];
-        description: string;
       }>
     ) {
+      //buttons
       state.item.push({
         name: action.payload.name,
         tags: action.payload.tags,
       });
+      //outputmodal
       state.wholeItem.push({
         name: action.payload.name,
         tags: action.payload.tags,
-        description: action.payload.description,
       });
     },
   },
