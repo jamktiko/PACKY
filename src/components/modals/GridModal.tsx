@@ -52,21 +52,21 @@ const GridModal = () => {
   return (
     <>
       {gridmodal && (
-        <div className='grid-modal'>
+        <div className="grid-modal">
           {gridmodalData.map((item, id) => (
             <button
               key={id}
-              className='grid-modal-item'
+              className="grid-modal-item"
               onClick={() => handleClick(item, item.tags)}
             >
-              <h1 className='font-bold'>{item.name}</h1>
+              <h1 className="font-bold">{item.name}</h1>
               <p>{item.description}</p>
             </button>
           ))}
           <button
-            className='modal-toggle'
+            className="modal-toggle"
             onClick={() => dispatch(toggleModal(false))}
-            type='button'
+            type="button"
           >
             ⏎
           </button>
