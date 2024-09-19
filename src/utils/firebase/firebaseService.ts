@@ -45,7 +45,7 @@ export const getDocumentsByTags = async (tags: string[]) => {
     // Looping through the documents
     snapshot.forEach((doc) => {
       // Adding the document to the array
-      docs.push({ id: doc.id, ...doc.data() } as CollectionData);
+      docs.push({ id: doc.id, name: doc.data().name } as CollectionData);
     });
   }
   return docs;
