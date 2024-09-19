@@ -66,7 +66,7 @@ const OutputModal = () => {
             onClick={() => dispatch(toggleOutputModal(false))}
             type='button'
           >
-            Close
+            ⏎
           </button>
         </div>
       )}

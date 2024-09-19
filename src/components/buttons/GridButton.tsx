@@ -38,11 +38,11 @@ const GridButton: React.FC<GridButtonProps> = ({
   // Use React's useEffect hook to update button color if 'isActive' or 'isChoosable' props change
   React.useEffect(() => {
     if (isActive) {
-      setColor('bg-green-500'); // Set to green if button is active
+      setColor('bg-slate-500'); // Set to green if button is active
     } else if (isChoosable) {
-      setColor('bg-yellow-500'); // Set to yellow if button is choosable
+      setColor('bg-slate-700'); // Set to yellow if button is choosable
     } else {
-      setColor('bg-blue-500'); // Set to blue if button is not active or choosable
+      setColor('bg-slate-700'); // Set to blue if button is not active or choosable
     }
   }, [isActive, isChoosable]); // Trigger this effect whenever 'isActive' or 'isChoosable' changes
 
@@ -89,7 +89,7 @@ const GridButton: React.FC<GridButtonProps> = ({
         onClick={handleOpenModal}
       >
         {/* Display text based on button state (Active, Choosable or Inactive)*/}
-        {isActive ? 'help' : isChoosable ? 'Choose' : ''}
+        {isActive ? 'Active' : isChoosable ? 'Choose' : ''}
       </button>
     </div>
   );

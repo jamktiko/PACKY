@@ -52,15 +52,14 @@ const GridModal = () => {
   return (
     <>
       {gridmodal && (
-        <div className=''>
-          <h1 className='bg-blue-500'>Tähän data</h1>
+        <div className='grid-modal'>
           {gridmodalData.map((item, id) => (
             <button
               key={id}
-              className='bg-green-500 w-full hover:bg-red-800'
+              className='grid-modal-item'
               onClick={() => handleClick(item, item.tags)}
             >
-              <h1>{item.name}</h1>
+              <h1 className='font-bold'>{item.name}</h1>
               <p>{item.description}</p>
             </button>
           ))}
@@ -69,7 +68,7 @@ const GridModal = () => {
             onClick={() => dispatch(toggleModal(false))}
             type='button'
           >
-            Close
+            ⏎
           </button>
         </div>
       )}
