@@ -23,7 +23,7 @@ const initialState: DataState = {
 export const fetchCollections = createAsyncThunk(
   'collections/fetchCollections',
   async () => {
-     // Haetaan kokoelmatiedot Firebasesta
+    // Haetaan kokoelmatiedot Firebasesta
     const response = await getAllCollections('features');
     return response;
   }

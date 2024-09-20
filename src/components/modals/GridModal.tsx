@@ -40,8 +40,10 @@ const GridModal = () => {
   const data = useSelector((state: RootState) => state.dataReducer.value);
 
   // Suodatetaan data, jossa on nimi
-  const gridmodalData = data.filter((item) => item.name);
-
+  //modified so that the data is put into an array and into a function to be able to use persist
+  const gridmodalData = Array.isArray(data)
+    ? data.filter((item) => item.name)
+    : [];
   //funktio handleclick kutsuu addItem funktiota, joka päivittää gridbuttonReduceriin
   //tilan ja sulkeen modalin toggleModal funktiolla
   const handleClick = (item: CollectionData, tags: string[]) => {
@@ -52,23 +54,23 @@ const GridModal = () => {
   return (
     <>
       {gridmodal && (
-        <div className='grid-modal'>
+        <div className="grid-modal">
           {gridmodalData.map((item, id) => (
             <button
               key={id}
-              className='grid-modal-item'
+              className="grid-modal-item"
               onClick={() => handleClick(item, item.tags)}
             >
-              <h1 className='font-bold'>{item.name}</h1>
+              <h1 className="font-bold">{item.name}</h1>
               <p>{item.description}</p>
             </button>
           ))}
-          <div className='absolute top-0 left-0 z-50 w-screen text-3xl text-center py-2'>
+          <div className="absolute top-0 left-0 z-50 w-screen text-3xl text-center py-2">
             <h1>Choose feature</h1>
             <button
-              className='modal-toggle'
+              className="modal-toggle"
               onClick={() => dispatch(toggleModal(false))}
-              type='button'
+              type="button"
             >
               ⏎
             </button>
