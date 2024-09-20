@@ -27,6 +27,9 @@ const GridButton: React.FC<GridButtonProps> = ({
   onClick, // Function to handle the button click (passed from parent component)
   id,
 }) => {
+  const buttonName = useSelector(
+    (state: RootState) => state.gridButtonReducer.item[row]?.name
+  );
   // Define initial color based on the state
   // State variable 'color' to dynamically change the color of the button
   // IsActive button is green and yellow is isChoosable if not Active or Choosable set color blue and Inactive
@@ -89,7 +92,7 @@ const GridButton: React.FC<GridButtonProps> = ({
         onClick={handleOpenModal}
       >
         {/* Display text based on button state (Active, Choosable or Inactive)*/}
-        {isActive ? 'Active' : isChoosable ? 'Choose' : ''}
+        {isActive ? buttonName || 'Active' : isChoosable ? 'Choose' : ''}
       </button>
     </div>
   );
