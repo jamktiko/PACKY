@@ -1,3 +1,4 @@
+// All the imports thats needed
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal } from '../../redux/reducers/gridModalReducer';
@@ -27,29 +28,40 @@ const GridButton: React.FC<GridButtonProps> = ({
   onClick, // Function to handle the button click (passed from parent component)
   id,
 }) => {
+  // Render button component with appropriate styling and behaviour
+  const dispatch = useDispatch();
+
+  // Set the initial button name based on 'isActive' and 'isChoosable' state
   const [buttonName, setButtonName] = useState(
     isActive ? 'Active' : isChoosable ? 'Choose' : ''
   );
 
+  // Get items from the global Redux state using useSelector hook (passed from gridButtonReducer.ts)
   const items = useSelector((state: RootState) => state.gridButtonReducer.item);
+
+  // State to track the current index for button name updates
   const [currentIndex, setCurrentIndex] = useState(-1);
 
-  // Update the button name based on global state when the modal sends new data
+  // useEffect hook to update the button name when items or currentIndex changes
   useEffect(() => {
+    // If there are items and the index is valid
+    // set the button name to the current item's name
     if (items.length > 0 && currentIndex >= 0 && currentIndex < items.length) {
-      setButtonName(items[currentIndex].name); // Set the button name to the first item in the array
+      setButtonName(items[currentIndex].name); // Set the button name based on the current index
     }
   }, [currentIndex, items]);
 
+  // Handle button click event
   const handleButtonClick = () => {
     // Individual button index is defined by items length
     // It does not read anything else at this point
     // Including previously chosen features or names etc
-    setCurrentIndex(items.length);
-    onClick(row, col);
-    console.log(items.length);
+    setCurrentIndex(items.length); // Update the current index to items length on click
+    onClick(row, col); // Trigger the onClick function passed from parent component
+    console.log(items.length); // Log the number of items
   };
 
+  // Set initial button color based on isActive or isChoosable
   const [color, setColor] = useState(
     isActive ? 'bg-green-500' : isChoosable ? 'bg-yellow-500' : 'bg-blue-500'
   );
@@ -65,14 +77,16 @@ const GridButton: React.FC<GridButtonProps> = ({
     }
   }, [isActive, isChoosable]); // Trigger this effect whenever 'isActive' or 'isChoosable' changes
 
+  // Set initial select state based on whether the button is active, choosable, or inactive
   const [selectState, setSelectState] = useState(
     isActive
-      ? 'cursor-default'
+      ? 'cursor-default' // Default cursor if button is active
       : isChoosable
-      ? 'cursor-pointer'
-      : 'pointer-events-none'
+      ? 'cursor-pointer' // Pointer cursor if button is choosable
+      : 'pointer-events-none' // No interaction if button is inactive
   );
 
+  // useEffect hook to update the cursor interaction based on 'isActive' or 'isChoosable' changes
   React.useEffect(() => {
     if (isActive) {
       setSelectState('cursor-default'); // Set to default cursor if button is active
@@ -83,11 +97,9 @@ const GridButton: React.FC<GridButtonProps> = ({
     }
   }, [isActive, isChoosable]); // Trigger this effect whenever 'isActive' or 'isChoosable' changes
 
-  // Render button component with appropriate styling and behaviour
-  const dispatch = useDispatch();
-
+  // Function to handle modal opening
   const handleOpenModal = () => {
-    dispatch(toggleModal(true));
+    dispatch(toggleModal(true)); // Dispatch Redux action to open the modal
     if (isChoosable) {
       onClick(row, col); // If the button is choosable, call the onClick function passing the row and column
     }
@@ -100,8 +112,8 @@ const GridButton: React.FC<GridButtonProps> = ({
         className={`${color} ${selectState} grid-button `} // Dynamically set styling
         style={{ opacity }} // Set the button's opacity dynamically based on the 'opacity' prop
         onClick={() => {
-          handleOpenModal();
-          handleButtonClick();
+          handleOpenModal(); // Open the modal on button click
+          handleButtonClick(); // Handle button click logic
         }}
       >
         {/* Display text based on button state (Active, Choosable or Inactive)*/}
