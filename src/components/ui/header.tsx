@@ -14,6 +14,7 @@ const Header = () => {
           PACKY
         </h1>
         <h1>PACKY</h1>
+        <h2>tech consultant</h2>
       </Link>
       <button onClick={() => setOpen(!open)}>☰</button>
       <AnimatePresence>
