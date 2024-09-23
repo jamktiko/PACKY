@@ -30,17 +30,22 @@ const GridButton: React.FC<GridButtonProps> = ({
   const [buttonName, setButtonName] = useState(
     isActive ? 'Active' : isChoosable ? 'Choose' : ''
   );
+
   const items = useSelector((state: RootState) => state.gridButtonReducer.item);
-  // Define initial color based on the state
-  // State variable 'color' to dynamically change the color of the button
-  // IsActive button is green and yellow is isChoosable if not Active or Choosable set color blue and Inactive
+  const [currentIndex, setCurrentIndex] = useState(-1);
 
   // Update the button name based on global state when the modal sends new data
   useEffect(() => {
-    if (items.length > 0) {
-      setButtonName(items[items.length - 1]?.name || buttonName); // Use setButtonName to update the name
+    if (items.length > 0 && currentIndex >= 0 && currentIndex < items.length) {
+      setButtonName(items[currentIndex].name); // Set the button name to the first item in the array
     }
-  }, [items, buttonName]);
+  }, [currentIndex, items]);
+
+  const handleButtonClick = () => {
+    setCurrentIndex(items.length);
+    onClick(row, col);
+    console.log(items.length);
+  };
 
   const [color, setColor] = useState(
     isActive ? 'bg-green-500' : isChoosable ? 'bg-yellow-500' : 'bg-blue-500'
@@ -75,12 +80,6 @@ const GridButton: React.FC<GridButtonProps> = ({
     }
   }, [isActive, isChoosable]); // Trigger this effect whenever 'isActive' or 'isChoosable' changes
 
-  // Function that handles buttons clicks
-  const handleClick = () => {
-    if (isChoosable) {
-      onClick(row, col); // If the button is choosable, call the onClick function passing the row and column
-    }
-  };
   // Render button component with appropriate styling and behaviour
   const dispatch = useDispatch();
 
@@ -97,7 +96,10 @@ const GridButton: React.FC<GridButtonProps> = ({
         id={id} // Assingning unique ID to the button
         className={`${color} ${selectState} grid-button `} // Dynamically set styling
         style={{ opacity }} // Set the button's opacity dynamically based on the 'opacity' prop
-        onClick={handleOpenModal}
+        onClick={() => {
+          handleOpenModal();
+          handleButtonClick();
+        }}
       >
         {/* Display text based on button state (Active, Choosable or Inactive)*/}
         {isActive ? buttonName : isChoosable ? 'Choose' : ''}
