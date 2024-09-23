@@ -42,6 +42,9 @@ const GridButton: React.FC<GridButtonProps> = ({
   }, [currentIndex, items]);
 
   const handleButtonClick = () => {
+    // Individual button index is defined by items length
+    // It does not read anything else at this point
+    // Including previously chosen features or names etc
     setCurrentIndex(items.length);
     onClick(row, col);
     console.log(items.length);
