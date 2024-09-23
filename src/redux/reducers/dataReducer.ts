@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { CollectionData } from '@/utils/collectionData';
 import { getAllCollections } from '@/utils/firebase/firebaseService';
-
+import { getFeatures } from '@/utils/neo4j/neo4j';
 // Määritellään data reducerin tila
 interface DataState {
   // Lista kokoelmatiedoista
@@ -23,9 +23,17 @@ const initialState: DataState = {
 export const fetchCollections = createAsyncThunk(
   'collections/fetchCollections',
   async () => {
-    // Haetaan kokoelmatiedot Firebasesta
-    const response = await getAllCollections('features');
-    return response;
+    const response = await getFeatures();
+    console.log(response);
+    return response.map((item) => ({
+      id: item.id,
+      name: item.name,
+      desc: item.desc,
+      tags: item.tags,
+      imageurl: item.imageurl,
+      pros: item.pros,
+      cons: item.cons,
+    }));
   }
 );
 
