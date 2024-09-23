@@ -5,7 +5,6 @@ export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse
 ) {
-  const type = request.query.type as string;
   try {
     const data = await getFeatures();
     response.status(200).json({ data });
