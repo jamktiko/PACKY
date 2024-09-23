@@ -13,7 +13,7 @@ MUISTA KATSOA ETTÄ OLET OIKEALLA BRANCHILLA ENNEN KUIN ALAT TEKEMÄÄN ASIOITA 
 
 */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toggleModal } from '@/redux/reducers/gridModalReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, type RootState } from '@/redux/store/store';
@@ -46,9 +46,23 @@ const GridModal = () => {
     : [];
   //funktio handleclick kutsuu addItem funktiota, joka päivittää gridbuttonReduceriin
   //tilan ja sulkeen modalin toggleModal funktiolla
+
+  const [pressedButtons, setPressedButtons] = useState<Set<string>>(new Set());
   const handleClick = (item: CollectionData, description: string[]) => {
     dispatch(addItem({ name: item.name, description: description }));
     dispatch(toggleModal(false));
+    /* uusi testatkaa 
+    if (pressedButtons.has(item.name)) {
+      // Button has already been pressed, do something else
+      console.log(`Button ${item.name} has already been pressed`);
+    } else {
+      dispatch(addItem({ name: item.name, description: description }));
+      setPressedButtons(
+        (prevPressedButtons) => new Set([...prevPressedButtons, item.name])
+      );
+      dispatch(toggleModal(false));
+    }
+    */
   };
 
   return (
