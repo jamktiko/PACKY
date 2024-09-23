@@ -1,5 +1,6 @@
 import neo4j from 'neo4j-driver';
 
+// Neo4j driver instance with URI, username and password
 const driver = neo4j.driver(
   process.env.NEXT_PUBLIC_NEO4J_URI!,
   neo4j.auth.basic(
@@ -8,6 +9,7 @@ const driver = neo4j.driver(
   )
 );
 
+// a Function to run a Cypher query
 export const runCypherQuery = async (query: string, params = {}) => {
   const session = driver.session();
 
@@ -20,6 +22,7 @@ export const runCypherQuery = async (query: string, params = {}) => {
 };
 
 // Library page use this!
+// A function to get all nodes from a specific type
 export const getData = async (type: string) => {
   const query = `MATCH (n:${type}) RETURN n.name AS name`;
   try {
@@ -29,7 +32,7 @@ export const getData = async (type: string) => {
     throw error;
   }
 };
-
+// Function to retrieve all features from the neo4j
 export const getFeatures = async () => {
   const query = `MATCH (n:Feature)
   RETURN n.name AS name, n.description as desc`;

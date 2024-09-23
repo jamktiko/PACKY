@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { CollectionData } from '@/utils/collectionData';
-import { getAllCollections } from '@/utils/firebase/firebaseService';
 import { getFeatures } from '@/utils/neo4j/neo4j';
 // Määritellään data reducerin tila
 interface DataState {
