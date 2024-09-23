@@ -120,8 +120,8 @@ header nav ul li a span {
 /* BACKGROUND LOGO SPIN */
 
 .spin {
-  @apply blur-sm pointer-events-none;
-  display: relative;
+  @apply blur-sm -top-1/2 absolute pointer-events-none w-screen h-screen;
+
   justify-content: center;
   align-items: center;
   animation-name: spin;
@@ -144,10 +144,7 @@ header nav ul li a span {
 }
 
 .spin img {
-  overflow: hidden;
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  @apply bg-red-500 absolute top-[50%] left-[50%];
   transform: translate(-50%, -59%) rotate(0deg);
 }
 
