@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal } from '../../redux/reducers/gridModalReducer';
 import { RootState } from '@/redux/store/store';
@@ -27,12 +27,20 @@ const GridButton: React.FC<GridButtonProps> = ({
   onClick, // Function to handle the button click (passed from parent component)
   id,
 }) => {
-  const buttonName = useSelector(
-    (state: RootState) => state.gridButtonReducer.item[row]?.name
+  const [buttonName, setButtonName] = useState(
+    isActive ? 'Active' : isChoosable ? 'Choose' : ''
   );
+  const items = useSelector((state: RootState) => state.gridButtonReducer.item);
   // Define initial color based on the state
   // State variable 'color' to dynamically change the color of the button
   // IsActive button is green and yellow is isChoosable if not Active or Choosable set color blue and Inactive
+
+  // Update the button name based on global state when the modal sends new data
+  useEffect(() => {
+    if (items.length > 0) {
+      setButtonName(items[items.length - 1]?.name || buttonName); // Use setButtonName to update the name
+    }
+  }, [items, buttonName]);
 
   const [color, setColor] = useState(
     isActive ? 'bg-green-500' : isChoosable ? 'bg-yellow-500' : 'bg-blue-500'
@@ -92,7 +100,7 @@ const GridButton: React.FC<GridButtonProps> = ({
         onClick={handleOpenModal}
       >
         {/* Display text based on button state (Active, Choosable or Inactive)*/}
-        {isActive ? buttonName || 'Active' : isChoosable ? 'Choose' : ''}
+        {isActive ? buttonName : isChoosable ? 'Choose' : ''}
       </button>
     </div>
   );
