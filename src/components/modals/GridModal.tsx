@@ -49,20 +49,21 @@ const GridModal = () => {
 
   const [pressedButtons, setPressedButtons] = useState<Set<string>>(new Set());
   const handleClick = (item: CollectionData, description: string[]) => {
+    /* vanha
     dispatch(addItem({ name: item.name, description: description }));
     dispatch(toggleModal(false));
-    /* uusi testatkaa 
+    */
     if (pressedButtons.has(item.name)) {
       // Button has already been pressed, do something else
       console.log(`Button ${item.name} has already been pressed`);
     } else {
       dispatch(addItem({ name: item.name, description: description }));
       setPressedButtons(
-        (prevPressedButtons) => new Set([...prevPressedButtons, item.name])
+        (prevPressedButtons) =>
+          new Set([...Array.from(prevPressedButtons), item.name])
       );
       dispatch(toggleModal(false));
     }
-    */
   };
 
   return (
