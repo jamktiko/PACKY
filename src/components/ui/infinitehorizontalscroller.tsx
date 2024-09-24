@@ -38,6 +38,7 @@ export const InfiniteScroller = () => {
     // Currently 32 items
     // Scroll transform is calculated by
     // width of each svg * number of items
+    // Width = ml + w + mr
     <FaAngular />,
     <FaGithub />,
     <FaReact />,
@@ -78,7 +79,7 @@ export const InfiniteScroller = () => {
         {techList.map((item, index) => (
           <div
             key={index}
-            className='text-teal-700 text-5xl w-4 mx-6 flex-shrink-0'
+            className='text-teal-600 text-5xl w-4 mx-6 flex-shrink-0'
           >
             {item}
           </div>
@@ -86,7 +87,7 @@ export const InfiniteScroller = () => {
         {techList.map((item, index) => (
           <div
             key={index}
-            className='text-teal-700 text-5xl w-4 mx-6 flex-shrink-0'
+            className='text-teal-600 text-5xl w-4 mx-6 flex-shrink-0'
           >
             {item}
           </div>
