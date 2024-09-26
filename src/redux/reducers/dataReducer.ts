@@ -23,7 +23,6 @@ const initialState: DataState = {
 export const fetchCollections = createAsyncThunk(
   'collections/fetchCollections',
   async () => {
-<<<<<<< HEAD
     const data = await getFeatures();
     console.log(data.map((d) => d.name));
     console.log(data.map((d) => d.desc));
@@ -32,14 +31,6 @@ export const fetchCollections = createAsyncThunk(
       name: feature.name,
       desc: feature.desc,
       id: feature.id,
-=======
-    const response = await getFeatures();
-    const data = response;
-    return data.map((item: any) => ({
-      id: item.id,
-      name: item.name,
-      desc: item.desc,
->>>>>>> 196cef290e87403aa47314efe9f79b76837912da
     }));
   }
 );
