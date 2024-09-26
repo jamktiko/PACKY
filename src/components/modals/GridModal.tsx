@@ -48,7 +48,6 @@ const GridModal = () => {
       // Button has already been pressed, do something else
       console.log(`Button ${item.name} has already been pressed`);
     } else {
-      dispatch(addItem({ name: item.name, description: description }));
       setPressedButtons(
         (prevPressedButtons) =>
           new Set([...Array.from(prevPressedButtons), item.name])
