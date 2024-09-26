@@ -4,8 +4,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 //item is the data that is meant for buttons
 //wholeItem is the data that is meant for outputModal/list
 interface Item {
-  item: { name: string; description: string[] }[];
-  outPutItem: { name: string; description: string[] }[];
+  item: { name: string; description: string }[];
+  outPutItem: { name: string; description: string }[];
 }
 
 //initialState is created and given Item as a type
@@ -25,7 +25,7 @@ const itemSlice = createSlice({
       action: PayloadAction<{
         name: string;
 
-        description: string[];
+        description: string;
       }>
     ) {
       //buttons

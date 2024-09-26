@@ -9,8 +9,6 @@ export default async function handler(
     const data = await getFeatures();
     response.status(200).json({ data });
   } catch (err) {
-    response
-      .status(500)
-      .json({ err: 'Failed to fetch features and technologies' });
+    response.status(500).json({ err: 'Failed to fetch features' });
   }
 }
