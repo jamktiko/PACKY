@@ -29,13 +29,6 @@ const GridModal = () => {
 
   // Määritellään dispatch-funktio, jota käytetään Redux-toimintojen kutsuun
   const dispatch = useDispatch<AppDispatch>();
-
-  // Käytetään useEffect-hookia, joka suoritetaan aina kun komponentti renderöidään
-  useEffect(() => {
-    // Haetaan käyttäjän kokoelmat Redux-storesta
-    dispatch(fetchCollections());
-  }, [dispatch]); // Tämä efektin riippuvuuslista tarkoittaa, että efektin suoritus uudelleen, kun dispatch-funktio muuttuu
-
   // Haetaan käyttäjän data Redux-storesta
   const data = useSelector((state: RootState) => state.dataReducer.value);
 
@@ -51,18 +44,17 @@ const GridModal = () => {
   const handleClick = (item: CollectionData, description: string) => {
     dispatch(addItem({ name: item.name, description: description }));
     dispatch(toggleModal(false));
-    /* uusi testatkaa 
     if (pressedButtons.has(item.name)) {
       // Button has already been pressed, do something else
       console.log(`Button ${item.name} has already been pressed`);
     } else {
       dispatch(addItem({ name: item.name, description: description }));
       setPressedButtons(
-        (prevPressedButtons) => new Set([...prevPressedButtons, item.name])
+        (prevPressedButtons) =>
+          new Set([...Array.from(prevPressedButtons), item.name])
       );
       dispatch(toggleModal(false));
     }
-    */
   };
 
   return (
