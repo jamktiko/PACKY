@@ -2,6 +2,7 @@ import type { PageLayout } from './_app';
 import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
+import { InfiniteScroller } from '@/components/ui/infinitehorizontalscroller';
 
 const Page: PageLayout = () => {
   // The greeter works as page title and
@@ -30,6 +31,7 @@ const Page: PageLayout = () => {
         <title>Home | PACKY</title>
       </Head>
       {/* _____________________________ */}
+      <InfiniteScroller />
       <h1>{greeter()}</h1>
       <Image
         src={'/HUD1.png'}
@@ -44,7 +46,7 @@ const Page: PageLayout = () => {
       <p className='text-2xl italic lg:w-1/2 w-full mb-16 bg-gradient-to-r from-cyan-100  to-cyan-200 text-transparent bg-clip-text'>
         yours to grasp.
       </p>
-      <article className='flex xl:flex-row flex-col-reverse justify-evenly border-b border-gray-500 '>
+      <article className='flex xl:flex-row flex-col-reverse justify-evenly border-b border-gray-500 mb-10 '>
         <div>
           <p className='pb-4'>
             <b>PACKY is a tech consultation app</b> designed for newer
@@ -69,10 +71,10 @@ const Page: PageLayout = () => {
         />
       </article>
 
-      <h2 className=' select-none lg:text-9xl md:text-7xl text-6xl absolute -mt-28 bg-gradient-to-b from-gray-600  to-90% inline-block text-transparent bg-clip-text '>
+      <h2 className=' select-none lg:text-9xl md:text-7xl text-6xl absolute -mt-40 bg-gradient-to-b from-gray-600  to-90% inline-block text-transparent bg-clip-text '>
         Explore
       </h2>
-      <div className='lg:grid flex flex-col grid-cols-3 gap-4 text-center mt-6'>
+      <div className='lg:grid flex flex-col grid-cols-3 gap-4 text-center mb-16'>
         <Link href={'/library'} className='indexcard indexcard-glow2'>
           <Image
             src={'/indexcard-library.jpg'}

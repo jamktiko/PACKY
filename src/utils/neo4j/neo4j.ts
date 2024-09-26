@@ -23,15 +23,15 @@ export const runCypherQuery = async (query: string, params = {}) => {
 
 // Library page use this!
 // A function to get all nodes from a specific type
-// export const getData = async (type: string) => {
-//   const query = `MATCH (n:${type}) RETURN n.name AS name`;
-//   try {
-//     return await runCypherQuery(query);
-//   } catch (error) {
-//     console.error('Error getting data:', error);
-//     throw error;
-//   }
-// };
+export const getData = async (type: string) => {
+  const query = `MATCH (n:${type}) RETURN n.name AS name`;
+  try {
+    return await runCypherQuery(query);
+  } catch (error) {
+    console.error('Error getting data:', error);
+    throw error;
+  }
+};
 // Function to retrieve all features from the neo4j
 export const getFeatures = async () => {
   const query = `MATCH (n:Feature)
