@@ -29,13 +29,6 @@ const GridModal = () => {
 
   // Määritellään dispatch-funktio, jota käytetään Redux-toimintojen kutsuun
   const dispatch = useDispatch<AppDispatch>();
-
-  // Käytetään useEffect-hookia, joka suoritetaan aina kun komponentti renderöidään
-  useEffect(() => {
-    // Haetaan käyttäjän kokoelmat Redux-storesta
-    dispatch(fetchCollections());
-  }, [dispatch]); // Tämä efektin riippuvuuslista tarkoittaa, että efektin suoritus uudelleen, kun dispatch-funktio muuttuu
-
   // Haetaan käyttäjän data Redux-storesta
   const data = useSelector((state: RootState) => state.dataReducer.value);
 

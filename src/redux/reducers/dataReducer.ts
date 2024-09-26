@@ -19,11 +19,12 @@ const initialState: DataState = {
 };
 
 // Luodaan async thunk -funktio kokoelmatietojen hakemiseen
+//käytetään getFeatures() funktiota hakemaan data --> myöhemmin api
 export const fetchCollections = createAsyncThunk(
   'collections/fetchCollections',
   async () => {
-    const response = await fetch('/api/stackbuilder');
-    const data = await response.json();
+    const response = await getFeatures();
+    const data = response;
     return data.map((item: any) => ({
       id: item.id,
       name: item.name,

@@ -13,6 +13,7 @@ import Header from '../components/ui/header';
 import '../assets/CSS/globals.css';
 import { Montserrat } from 'next/font/google';
 import Image from 'next/image';
+import { useFetchCollections } from '@/hooks/useFetchCollections';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
@@ -27,6 +28,10 @@ type AppPropsWithLayout = AppProps & {
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
 
+  // useFetchCollections() hook is used to fetch the data when the component is mounted
+
+  useFetchCollections();
+
   let persistor = persistStore(store);
 
   // Layout is defined here
@@ -40,15 +45,15 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             <Header />
             <Image
               src={'/bg.png'}
-              className=' blur-3xl fixed h-screen -z-50 overflow-hidden'
+              className=" blur-3xl fixed h-screen -z-50 overflow-hidden"
               alt={'Background'}
               width={1920}
               height={1080}
             />
-            <div className='spin'>
+            <div className="spin">
               <Image
                 src={'/packyiconsmall.png'}
-                className='fixed -z-10 md:-left-[40rem] -left-48 md:-top-32 top-16 opacity-5'
+                className="fixed -z-10 md:-left-[40rem] -left-48 md:-top-32 top-16 opacity-5"
                 width={3200}
                 height={3200}
                 alt={'packy'}
