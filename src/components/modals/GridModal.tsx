@@ -48,7 +48,7 @@ const GridModal = () => {
   //tilan ja sulkeen modalin toggleModal funktiolla
 
   const [pressedButtons, setPressedButtons] = useState<Set<string>>(new Set());
-  const handleClick = (item: CollectionData, description: string[]) => {
+  const handleClick = (item: CollectionData, description: string) => {
     dispatch(addItem({ name: item.name, description: description }));
     dispatch(toggleModal(false));
     /* uusi testatkaa 
@@ -73,7 +73,7 @@ const GridModal = () => {
             <button
               key={id}
               className="grid-modal-item"
-              onClick={() => handleClick(item, [item.desc])}
+              onClick={() => handleClick(item, item.desc)}
             >
               <h1 className="font-bold">{item.name}</h1>
               <p>{item.desc}</p>

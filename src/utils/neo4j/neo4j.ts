@@ -40,6 +40,22 @@ export const getFeatures = async () => {
   try {
     return await runCypherQuery(query);
   } catch (error) {
+    console.error('Error fetching features:', error);
+    throw error;
+  }
+};
+
+export const getTechs = async (features: string[]) => {
+  const query = `
+  MATCH (feature:Feature)<-[:SUPPORTS]-(t)
+    WHERE feature.name IN $features
+   RETURN DISTINCT t.name as name, labels(t) as type
+`;
+  try {
+    console.log({ features });
+    const result = await runCypherQuery(query, { features });
+    return result;
+  } catch (error) {
     console.error(error + 'erroria saatana');
     throw error;
   }
