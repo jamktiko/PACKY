@@ -31,12 +31,11 @@ const OutputModal = () => {
           }
           categories[type].push(tech.name);
         });
-        console.log(categories);
+
         return categories;
       }, {});
       console.log(techs);
 
-      console.log(t);
       console.log('mapattu ' + technologies.join(','));
       setTechnologies(technologies);
       setLabelTypes(types);
@@ -78,7 +77,7 @@ const OutputModal = () => {
                 selected:
                 {Object.entries(labelTypes).map(([key, value]) => (
                   <div key={key}>
-                    <p>{key}</p>
+                    <p className="text-red-600">{key.toUpperCase()}</p>
                     <ul>
                       {value.map((item) => (
                         <li key={item}>{item}</li>
