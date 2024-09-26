@@ -22,12 +22,14 @@ const initialState: DataState = {
 export const fetchCollections = createAsyncThunk(
   'collections/fetchCollections',
   async () => {
-    const response = await fetch('/api/stackbuilder');
-    const data = await response.json();
-    return data.map((item: any) => ({
-      id: item.id,
-      name: item.name,
-      desc: item.desc,
+    const data = await getFeatures();
+    console.log(data.map((d) => d.name));
+    console.log(data.map((d) => d.desc));
+
+    return data.map((feature) => ({
+      name: feature.name,
+      desc: feature.desc,
+      id: feature.id,
     }));
   }
 );
