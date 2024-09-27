@@ -70,7 +70,7 @@ const OutputModal = () => {
           >
             <div>
               <p>
-                Features you selected: {features.map((f) => f.name).join(',')}
+                Features you selected: {features.map((f) => f.name).join(' ,')}
               </p>
               <div>
                 Technologies what we recommend to use with the features you have

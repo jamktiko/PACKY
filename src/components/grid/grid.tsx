@@ -1,6 +1,8 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import GridButton from '../buttons/GridButton';
+import { updateGridStates } from '@/utils/grid/updateGridState';
+import { calculateDistance } from '@/utils/grid/calculateDistance';
 // Manhattan distance = abs(x1 - x2) + abs(y1 - y2)
 // The distance between two points measured along axes at right angles.
 
@@ -27,47 +29,6 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
     { row: number; col: number }[]
   >([]);
   //changes cells to choosable state
-  // Helper function to calculate Manhattan distance
-  const calculateDistance = (
-    cellA: { row: number; col: number },
-    cellB: { row: number; col: number }
-  ) => {
-    return Math.abs(cellA.row - cellB.row) + Math.abs(cellA.col - cellB.col);
-  };
-
-  useEffect(() => {
-    // This is a hook that updates the grid states
-    const updateGridStates = () => {
-      const newChoosableCells: { row: number; col: number }[] = [];
-      // Gets all neighboring cells that are not active
-      // so they can be updated to choosable state
-      activeCells.forEach(({ row, col }) => {
-        const neighbors = [
-          { row: row - 1, col: col }, // Up
-          { row: row + 1, col: col }, // Down
-          { row: row, col: col - 1 }, // Left
-          { row: row, col: col + 1 }, // Right
-        ];
-        // checks that the neighbors are not out of bounds
-        // if they are within the boundries of the grid
-        // they will be added to the newChoosableCells array
-        neighbors.forEach(({ row: nRow, col: nCol }) => {
-          if (nRow >= 0 && nRow < gridSize && nCol >= 0 && nCol < gridSize) {
-            const isActive = activeCells.some(
-              (cell) => cell.row === nRow && cell.col === nCol
-            );
-            if (!isActive) {
-              newChoosableCells.push({ row: nRow, col: nCol });
-            }
-          }
-        });
-      });
-      // sets the newChoosableCells array to the choosableCells array
-      setChoosableCells(newChoosableCells);
-    };
-
-    updateGridStates();
-  }, [activeCells]);
 
   const handleGridButtonClick = (row: number, col: number) => {
     // Opens the modal when that cell is clicked
@@ -75,7 +36,9 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
     // Adds the clicked cell to the activeCells array
     setActiveCells((prevActiveCells) => [...prevActiveCells, { row, col }]);
   };
-
+  useEffect(() => {
+    updateGridStates(activeCells, gridSize, setChoosableCells);
+  }, [activeCells]);
   return (
     // Grid component is constructed here
     <div
