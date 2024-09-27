@@ -42,16 +42,18 @@ const GridModal = () => {
 
   const [pressedButtons, setPressedButtons] = useState<Set<string>>(new Set());
   const handleClick = (item: CollectionData, description: string) => {
-    dispatch(addItem({ name: item.name, description: description }));
-    dispatch(toggleModal(false));
     if (pressedButtons.has(item.name)) {
-      // Button has already been pressed, do something else
-      console.log(`Button ${item.name} has already been pressed`);
+      // Button has already been pressed, ilmoita käyttäjälle
+      console.log(`Ominaisuus ${item.name} on jo valittu.`);
     } else {
+      // Lisätään item Redux-storeen vain, jos sitä ei ole vielä valittu
+      dispatch(addItem({ name: item.name, description: description }));
+      // Päivitetään pressedButtons-tila
       setPressedButtons(
         (prevPressedButtons) =>
           new Set([...Array.from(prevPressedButtons), item.name])
       );
+      // Suljetaan modaali
       dispatch(toggleModal(false));
     }
   };
