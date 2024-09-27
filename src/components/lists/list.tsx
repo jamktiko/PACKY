@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Triangle } from 'react-loader-spinner';
 import { CollectionData } from '@/utils/collectionData';
-import { getAllCollections } from '@/utils/firebase/firebaseService';
 import { getData } from '@/utils/neo4j/neo4j';
 /**
  * THIS COMPONENT IS GOING TO BE USED FOR THE LIBRARY PAGE
