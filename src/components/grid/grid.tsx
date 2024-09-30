@@ -39,14 +39,9 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
     // Opens the modal when that cell is clicked
     setIsModalOpen(true);
   };
-  useEffect(
-    () =>
-      updateGridStates(activeCells, gridSize, (newChoosableCells) => {
-        console.log('kökkö kaäskdg');
-        setChoosableCells({ activeCells, choosableCells: newChoosableCells });
-      }),
-    [activeCells]
-  );
+  useEffect(() => {
+    updateGridStates(gridSize);
+  }, []);
   return (
     // Grid component is constructed here
     <div
