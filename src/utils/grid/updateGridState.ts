@@ -1,9 +1,8 @@
+import { setChoosableCells } from "@/redux/reducers/gridStateReducer";
 export const updateGridStates = (
   activeCells: { row: number; col: number }[],
   gridSize: number,
-  setChoosableCells: React.Dispatch<
-    React.SetStateAction<{ row: number; col: number }[]>
-  >
+  setChoosableCells: (activeCells: { row: number; col: number }[], newChoosableCells: { row: number; col: number }[]) => void
 ) => {
   const newChoosableCells: { row: number; col: number }[] = [];
 
@@ -25,7 +24,8 @@ export const updateGridStates = (
         }
       }
     });
+    setChoosableCells(activeCells, newChoosableCells);
   });
 
-  setChoosableCells(newChoosableCells);
+
 };

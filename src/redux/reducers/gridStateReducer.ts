@@ -6,7 +6,8 @@ interface GridState {
 }
 
 const initialState: GridState = {
-  activeCells: [{ row: 4, col: 4 }],
+  activeCells: [{ row: 4, col: 4 },
+  ],
   choosableCells: [],
 };
 
@@ -17,9 +18,9 @@ const gridStateSlice = createSlice({
     setActiveCells: (state, action: PayloadAction<GridState>) => {
       state.activeCells = action.payload.activeCells;
     },
-    setChoosableCells: (state, action: PayloadAction<GridState>) => {
-      state.choosableCells = action.payload.choosableCells;
-    },
+setChoosableCells: (state, action: PayloadAction<GridState>) => {
+  state.choosableCells = action.payload.choosableCells;
+}
   },
 });
 
