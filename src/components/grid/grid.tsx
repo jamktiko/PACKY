@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 import GridButton from '../buttons/GridButton';
 import { updateGridStates } from '@/utils/grid/updateGridState';
 import { calculateDistance } from '@/utils/grid/calculateDistance';
+
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store/store';
 // Manhattan distance = abs(x1 - x2) + abs(y1 - y2)
 // The distance between two points measured along axes at right angles.
 
@@ -17,28 +20,46 @@ import { calculateDistance } from '@/utils/grid/calculateDistance';
 //interface defines the props it receives from stackbuilder
 interface GridProps {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setActiveCells: React.Dispatch<
+    React.SetStateAction<{ row: number; col: number }[]>
+  >;
+  setChoosableCells: React.Dispatch<
+    React.SetStateAction<{ row: number; col: number }[]>
+  >;
 }
 
-const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
+const Grid: React.FC<GridProps> = ({
+  setIsModalOpen,
+  setActiveCells,
+  setChoosableCells,
+}) => {
+  const choosableState = useSelector(
+    (state: RootState) => state.gridStateReducer.choosableCells
+  );
+
+  const activeState = useSelector(
+    (state: RootState) => state.gridStateReducer.activeCells
+  );
+
   const gridSize = 9;
-  const [activeCells, setActiveCells] = useState<
-    { row: number; col: number }[]
-    // Changes cells to active state
-  >([{ row: Math.floor(gridSize / 2), col: Math.floor(gridSize / 2) }]);
-  const [choosableCells, setChoosableCells] = useState<
-    { row: number; col: number }[]
-  >([]);
+  // const [activeCells, setActiveCells] = useState<
+  //  { row: number; col: number }[]
+  // Changes cells to active state
+  // >([{ row: Math.floor(gridSize / 2), col: Math.floor(gridSize / 2) }]);
+  // const [choosableCells, setChoosableCells] = useState<
+  // { row: number; col: number }[]
+  // >([]);
   //changes cells to choosable state
 
   const handleGridButtonClick = (row: number, col: number) => {
     // Opens the modal when that cell is clicked
     setIsModalOpen(true);
     // Adds the clicked cell to the activeCells array
-    setActiveCells((prevActiveCells) => [...prevActiveCells, { row, col }]);
+    // setActiveCells((prevActiveCells) => [...prevActiveCells, { row, col }]);
   };
   useEffect(() => {
-    updateGridStates(activeCells, gridSize, setChoosableCells);
-  }, [activeCells]);
+    updateGridStates(activeState, gridSize, setChoosableCells);
+  }, [activeState, setChoosableCells]);
   return (
     // Grid component is constructed here
     <div
@@ -52,10 +73,10 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
       {Array.from({ length: gridSize * gridSize }, (_, index) => {
         const row = Math.floor(index / gridSize);
         const col = index % gridSize;
-        const isActive = activeCells.some(
+        const isActive = activeState.some(
           (cell) => cell.row === row && cell.col === col
         );
-        const isChoosable = choosableCells.some(
+        const isChoosable = choosableState.some(
           (cell) => cell.row === row && cell.col === col
         );
 
@@ -63,7 +84,7 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
 
         // Calculate the minimum distance to any active or choosable cell
         if (!isActive && !isChoosable) {
-          [...activeCells, ...choosableCells].forEach((cell) => {
+          [...activeState, ...choosableState].forEach((cell) => {
             const distance = calculateDistance({ row, col }, cell);
             if (distance < minDistance) {
               minDistance = distance;

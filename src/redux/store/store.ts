@@ -3,6 +3,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 //import mainReducer from '@/reducers/mainReducer';
 import storage from 'redux-persist/lib/storage';
 
+import gridStateReducer from '../reducers/gridStateReducer';
 import dataReducer from '@/redux/reducers/dataReducer';
 import outputReducer from '../reducers/outputReducer';
 import gridModalReducer from '../reducers/gridModalReducer';
@@ -29,6 +30,7 @@ const persistedDataReducer = persistReducer(persistConfig, dataReducer);
 // Store is created to manage the state of Packy
 export const store = configureStore({
   reducer: {
+    gridStateReducer,
     gridModalReducer,
     dataReducer: persistedDataReducer,
     outputReducer,
