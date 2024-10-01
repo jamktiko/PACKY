@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import GridButton from '../buttons/GridButton';
 import {
   updateChoosableCells,
@@ -10,6 +10,7 @@ import { calculateDistance } from '@/utils/grid/calculateDistance';
 import {
   setActiveCells,
   setChoosableCells,
+  setSelectedCell,
 } from '@/redux/reducers/gridStateReducer';
 import { RootState, store } from '@/redux/store/store';
 // Manhattan distance = abs(x1 - x2) + abs(y1 - y2)
@@ -28,6 +29,12 @@ interface GridProps {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+interface SelectedCellPayload {
+  activeCells: { row: number; col: number }[];
+  choosableCells: { row: number; col: number }[];
+  selectedCell: { row: number; col: number };
+}
+
 const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
   const activeCells = useSelector(
     (state: RootState) => state.gridStateReducer.activeCells
@@ -37,20 +44,16 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
   );
 
   const gridSize = 9;
-
+  const dispatch = useDispatch();
   const handleGridButtonClick = (row: number, col: number) => {
-    const isChoosable = choosableCells.some(
-      (cell: { row: number; col: number }) =>
-        cell.row === row && cell.col === col
+    // update selectedCell
+    dispatch(
+      setSelectedCell({
+        row,
+        col,
+      })
     );
-
-    if (isChoosable) {
-      // Activate the choosable cell when clicked
-      updateActiveCells({ row, col });
-      updateChoosableCells(gridSize); // Update the choosable cells based on new active cell
-    }
-
-    // Open the modal if choosable cell is clicked
+    // Opens the modal when that cell is clicked
     setIsModalOpen(true);
   };
   useEffect(() => {
@@ -69,31 +72,33 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
       {Array.from({ length: gridSize * gridSize }, (_, index) => {
         const row = Math.floor(index / gridSize);
         const col = index % gridSize;
+
+        // Check if the current cell is active or choosable
         const isActive = activeCells.some(
-          (cell: { row: number; col: number }) =>
-            cell.row === row && cell.col === col
+          (cell) => cell && cell.row === row && cell.col === col
         );
         const isChoosable = choosableCells.some(
-          (cell: { row: number; col: number }) =>
-            cell.row === row && cell.col === col
+          (cell) => cell && cell.row === row && cell.col === col
         );
 
         let minDistance = Infinity;
 
-        // Calculate the minimum distance to any active or choosable cell
+        // Calculate distance if the cell is neither active nor choosable
         if (!isActive && !isChoosable) {
           [...activeCells, ...choosableCells].forEach((cell) => {
-            const distance = calculateDistance({ row, col }, cell);
-            if (distance < minDistance) {
-              minDistance = distance;
+            if (cell) {
+              // Ensure valid cell before calculating distance
+              const distance = calculateDistance({ row, col }, cell);
+              if (distance < minDistance) {
+                minDistance = distance;
+              }
             }
           });
         }
 
-        // Determine the opacity based on the distance
+        // Calculate opacity based on distance
         let opacity = 1;
         if (!isActive && !isChoosable) {
-          // Reduce opacity as the distance increases, max distance is 4
           if (minDistance > 4) {
             opacity = 0;
           } else {
@@ -102,7 +107,7 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
         }
 
         return (
-          // Renders the grid buttons
+          // Render the grid button
           <GridButton
             id={`grid-button-${row}-${col}`}
             key={`${row}-${col}`}
