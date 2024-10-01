@@ -8,13 +8,13 @@ interface Cell {
 interface GridState {
   activeCells: Cell[];
   choosableCells: Cell[];
-  selectedCell: Cell | undefined;  // Assuming only one cell can be selected at a time
+  selectedCell: Cell | null;  // Assuming only one cell can be selected at a time
 }
 
 const initialState: GridState = {
   activeCells: [{ row: 4, col: 4 }],
   choosableCells: [],
-  selectedCell: undefined,
+  selectedCell: null,
 };
 
 const gridStateSlice = createSlice({
@@ -22,10 +22,7 @@ const gridStateSlice = createSlice({
   initialState,
   reducers: {
     setActiveCells: (state, action: PayloadAction<Cell[]>) => {
-      console.log("setActiveCells is pressed, payload is", action.payload);
-      console.log("activeCells before are", state.activeCells);
       state.activeCells = action.payload;
-      console.log("activeCells after are", state.activeCells);
     },
     setChoosableCells: (state, action: PayloadAction<Cell[]>) => {
       state.choosableCells = action.payload;

@@ -68,7 +68,6 @@ const GridModal = () => {
           new Set([...Array.from(prevPressedButtons), item.name])
       );
       // päivitä button active-stateen
-      console.log('TOIMII');
       dispatch(setActiveCells([...activeCells, selectedCell as Cell]));
       updateChoosableCells(9);
       // Suljetaan modaali
