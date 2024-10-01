@@ -7,6 +7,7 @@ import { CollectionData } from '@/utils/collectionData';
 import { getTechs } from '@/utils/neo4j/neo4j';
 import { useOutputFetch } from '@/hooks/outputFetch';
 import OutputList from '../lists/outputList';
+import { AccordionItem } from '../lists/accordionItem';
 const OutputModal = () => {
   const outputModal = useSelector(
     (state: RootState) => state.outputReducer.value
@@ -22,7 +23,7 @@ const OutputModal = () => {
       {outputModal && (
         <>
           <div
-            className="grid-modal"
+            className='grid-modal'
             onClick={() => dispatch(toggleOutputModal(false))}
           >
             <div>
@@ -32,15 +33,19 @@ const OutputModal = () => {
               <OutputList labelTypes={labelTypes} />
             </div>
           </div>
-          <div className="absolute top-0 left-0 z-50 w-screen text-3xl text-center py-2">
+          <div className='absolute top-0 left-0 z-50 w-screen text-3xl text-center py-2'>
             <h1>Output</h1>
             <button
-              className="modal-toggle"
+              className='modal-toggle'
               onClick={() => dispatch(toggleOutputModal(false))}
-              type="button"
+              type='button'
             >
               ⏎
             </button>
+            <AccordionItem
+              title='Feature name'
+              description='Description shit'
+            />
           </div>
         </>
       )}
