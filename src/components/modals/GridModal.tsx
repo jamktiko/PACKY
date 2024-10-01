@@ -13,14 +13,12 @@ MUISTA KATSOA ETTÄ OLET OIKEALLA BRANCHILLA ENNEN KUIN ALAT TEKEMÄÄN ASIOITA 
 
 */
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { toggleModal } from '@/redux/reducers/gridModalReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, type RootState } from '@/redux/store/store';
-import { fetchCollections } from '@/redux/reducers/dataReducer';
 import { addItem } from '@/redux/reducers/gridButtonReducer';
 import { CollectionData } from '@/utils/collectionData';
-import { store } from '@/redux/store/store';
 import { setActiveCells } from '@/redux/reducers/gridStateReducer';
 import { updateChoosableCells } from '@/utils/grid/updateGridState';
 interface Cell {
