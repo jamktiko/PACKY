@@ -66,7 +66,16 @@ const GridModal = () => {
           new Set([...Array.from(prevPressedButtons), item.name])
       );
       // päivitä button active-stateen
-      dispatch(setActiveCells([...activeCells, selectedCell as Cell]));
+      //filter out the selected cell from the active cells to update its state
+      dispatch(
+        setActiveCells([
+          ...activeCells.filter(
+            (cell) =>
+              cell.row !== selectedCell.row || cell.col !== selectedCell.col
+          ),
+          selectedCell as Cell,
+        ])
+      );
       updateChoosableCells(9);
       // Suljetaan modaali
       dispatch(toggleModal(false));
