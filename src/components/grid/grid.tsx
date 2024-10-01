@@ -1,15 +1,13 @@
+// Enables the use of React hooks and client-side rendering
 'use client';
-import React, { useEffect, useState } from 'react';
+// All the imports that are needed
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import GridButton from '../buttons/GridButton';
 import { updateChoosableCells } from '@/utils/grid/updateGridState';
 import { calculateDistance } from '@/utils/grid/calculateDistance';
-import {
-  setActiveCells,
-  setChoosableCells,
-  setSelectedCell,
-} from '@/redux/reducers/gridStateReducer';
-import { RootState, store } from '@/redux/store/store';
+import { setSelectedCell } from '@/redux/reducers/gridStateReducer';
+import { RootState } from '@/redux/store/store';
 // Manhattan distance = abs(x1 - x2) + abs(y1 - y2)
 // The distance between two points measured along axes at right angles.
 
@@ -25,14 +23,9 @@ import { RootState, store } from '@/redux/store/store';
 interface GridProps {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
-interface SelectedCellPayload {
-  activeCells: { row: number; col: number }[];
-  choosableCells: { row: number; col: number }[];
-  selectedCell: { row: number; col: number };
-}
-
+// Functional component for rendering the grid
 const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
+  // Accessing Redux state for active and choosable cells using useSelector hook
   const activeCells = useSelector(
     (state: RootState) => state.gridStateReducer.activeCells
   );
@@ -40,10 +33,13 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
     (state: RootState) => state.gridStateReducer.choosableCells
   );
 
+  // Define gridsize and dispatch
   const gridSize = 9;
   const dispatch = useDispatch();
+  // Handler to handle what happens when grid button is clicked
+  // row and col parameters
   const handleGridButtonClick = (row: number, col: number) => {
-    // update selectedCell
+    // update selectedCell with dispatch redux action
     dispatch(
       setSelectedCell({
         row,
@@ -53,11 +49,13 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
     // Opens the modal when that cell is clicked
     setIsModalOpen(true);
   };
+  // UseEffect to update choosable cells whenever activeCells change
   useEffect(() => {
     updateChoosableCells(gridSize);
   }, [activeCells]);
+
   return (
-    // Grid component is constructed here
+    // Container for the grid, styled with CSS Grid
     <div
       className="grid-container"
       style={{
@@ -70,10 +68,11 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
         const row = Math.floor(index / gridSize);
         const col = index % gridSize;
 
-        // Check if the current cell is active or choosable
+        // Check if the current cell is active by comparing row and col
         const isActive = activeCells.some(
           (cell) => cell && cell.row === row && cell.col === col
         );
+        // Check if the current cell is choosable by comparing row and col
         const isChoosable = choosableCells.some(
           (cell) => cell && cell.row === row && cell.col === col
         );
