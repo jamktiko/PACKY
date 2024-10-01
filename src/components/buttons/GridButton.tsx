@@ -3,10 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal } from '../../redux/reducers/gridModalReducer';
 import { RootState } from '@/redux/store/store';
-import { updateChoosableCells } from '@/utils/grid/updateGridState';
-import { store } from '@/redux/store/store';
-
-const activeCells = store.getState().gridStateReducer.activeCells;
 
 // Define the interface for the props that the GridButton component will receive
 // What values they can take (number, boolean, string etc.)
@@ -67,17 +63,17 @@ const GridButton: React.FC<GridButtonProps> = ({
 
   // Set initial button color based on isActive or isChoosable
   const [color, setColor] = useState(
-    isActive ? 'bg-green-500' : isChoosable ? 'bg-yellow-500' : 'bg-blue-500'
+    isActive ? 'bg-slate-500' : isChoosable ? 'bg-slate-700' : 'bg-slate-700'
   );
 
   // Use React's useEffect hook to update button color if 'isActive' or 'isChoosable' props change
   React.useEffect(() => {
     if (isActive) {
-      setColor('bg-slate-500'); // Set to green if button is active
+      setColor('bg-slate-500'); // Set to 'bg-slate-500' if button is active
     } else if (isChoosable) {
-      setColor('bg-slate-700'); // Set to yellow if button is choosable
+      setColor('bg-slate-700'); // Set to 'bg-slate-700' if button is choosable
     } else {
-      setColor('bg-slate-700'); // Set to blue if button is not active or choosable
+      setColor('bg-slate-700'); // Set to 'bg-slate-700' if button is not active or choosable
     }
   }, [col, isActive, isChoosable, row]); // Trigger this effect whenever 'isActive' or 'isChoosable' changes
 
