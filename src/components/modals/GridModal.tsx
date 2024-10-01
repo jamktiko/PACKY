@@ -20,12 +20,6 @@ import { AppDispatch, type RootState } from '@/redux/store/store';
 import { fetchCollections } from '@/redux/reducers/dataReducer';
 import { addItem } from '@/redux/reducers/gridButtonReducer';
 import { CollectionData } from '@/utils/collectionData';
-import { store } from '@/redux/store/store';
-import { setActiveCells } from '@/redux/reducers/gridStateReducer';
-import { updateActiveCells } from '@/utils/grid/updateGridState';
-
-const activeCells = store.getState().gridStateReducer.activeCells;
-const choosableCells = store.getState().gridStateReducer.choosableCells;
 
 const GridModal = () => {
   // Haetaan modalin tila Redux-storesta
@@ -59,8 +53,7 @@ const GridModal = () => {
         (prevPressedButtons) =>
           new Set([...Array.from(prevPressedButtons), item.name])
       );
-      // päivitä button active-stateen
-      updateActiveCells({ row, col }); // Update the active cells
+
       // Suljetaan modaali
       dispatch(toggleModal(false));
     }
@@ -69,23 +62,23 @@ const GridModal = () => {
   return (
     <>
       {gridmodal && (
-        <div className='grid-modal'>
+        <div className="grid-modal">
           {gridmodalData.map((item, id) => (
             <button
               key={id}
-              className='grid-modal-item'
+              className="grid-modal-item"
               onClick={() => handleClick(item, item.desc)}
             >
-              <h1 className='font-bold'>{item.name}</h1>
+              <h1 className="font-bold">{item.name}</h1>
               <p>{item.desc}</p>
             </button>
           ))}
-          <div className='absolute top-0 left-0 z-50 w-screen text-3xl text-center py-2'>
+          <div className="absolute top-0 left-0 z-50 w-screen text-3xl text-center py-2">
             <h1>Choose feature</h1>
             <button
-              className='modal-toggle'
+              className="modal-toggle"
               onClick={() => dispatch(toggleModal(false))}
-              type='button'
+              type="button"
             >
               ⏎
             </button>

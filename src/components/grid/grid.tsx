@@ -2,7 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import GridButton from '../buttons/GridButton';
-import { updateChoosableCells } from '@/utils/grid/updateGridState';
+import {
+  updateChoosableCells,
+  updateActiveCells,
+} from '@/utils/grid/updateGridState';
 import { calculateDistance } from '@/utils/grid/calculateDistance';
 import {
   setActiveCells,
@@ -36,16 +39,27 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
   const gridSize = 9;
 
   const handleGridButtonClick = (row: number, col: number) => {
-    // Opens the modal when that cell is clicked
+    const isChoosable = choosableCells.some(
+      (cell: { row: number; col: number }) =>
+        cell.row === row && cell.col === col
+    );
+
+    if (isChoosable) {
+      // Activate the choosable cell when clicked
+      updateActiveCells({ row, col });
+      updateChoosableCells(gridSize); // Update the choosable cells based on new active cell
+    }
+
+    // Open the modal if choosable cell is clicked
     setIsModalOpen(true);
   };
   useEffect(() => {
     updateChoosableCells(gridSize);
-  }, []);
+  }, [activeCells]);
   return (
     // Grid component is constructed here
     <div
-      className='grid-container'
+      className="grid-container"
       style={{
         display: 'grid',
         gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
