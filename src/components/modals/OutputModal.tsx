@@ -16,36 +16,28 @@ const OutputModal = () => {
     (state: RootState) => state.gridButtonReducer.item
   );
   const dispatch = useDispatch<AppDispatch>();
-  const { labelTypes } = useOutputFetch(features, outputModal);
+  // const { labelTypes } = useOutputFetch(features, outputModal);
 
   return (
     <>
       {outputModal && (
         <>
           <div
-            className='grid-modal'
+            className="grid-modal"
             onClick={() => dispatch(toggleOutputModal(false))}
-          >
-            <div>
-              <p>
-                Features you selected: {features.map((f) => f.name).join(' | ')}
-              </p>
-              <OutputList labelTypes={labelTypes} />
-            </div>
-          </div>
-          <div className='absolute top-0 left-0 z-50 w-screen text-3xl text-center py-2'>
+          ></div>
+          <div className="absolute top-0 left-0 z-50 w-screen text-3xl text-center py-2">
             <h1>Output</h1>
             <button
-              className='modal-toggle'
+              className="modal-toggle"
               onClick={() => dispatch(toggleOutputModal(false))}
-              type='button'
+              type="button"
             >
               ⏎
             </button>
-            <AccordionItem
-              title='Feature name'
-              description='Description shit'
-            />
+            {features.map((f) => (
+              <AccordionItem key={f.name} title={f.name} description="perus" />
+            ))}
           </div>
         </>
       )}

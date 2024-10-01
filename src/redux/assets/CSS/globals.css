@@ -1,0 +1,213 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  @apply bg-black text-white;
+}
+
+body {
+  @apply overflow-x-hidden;
+}
+
+/* ______________________________________________ */
+/* HEADER AND NAVIGATION */
+
+header {
+  @apply backdrop-blur top-0 fixed flex flex-row bg-opacity-80 shadow-inner-2 bg-slate-950 h-16 border-b w-full border-teal-950 text-teal-500 z-30;
+  -webkit-box-shadow: 10px 15px 22px 5px rgba(2, 6, 23, 1);
+  -moz-box-shadow: 10px 15px 22px 5px rgba(2, 6, 23, 1);
+  box-shadow: 10px 15px 22px 5px rgba(2, 6, 23, 1);
+}
+
+header img {
+  @apply w-[3.8rem] h-[3.8rem] ml-1;
+}
+
+header a h1 {
+  @apply mt-1 -ml-3.5 text-4xl content-center text-center bg-gradient-to-r from-teal-600  to-cyan-400 inline-block text-transparent bg-clip-text;
+}
+
+header a h2 {
+  @apply -mt-1 -ml-1 text-sm border-t border-teal-300 border-opacity-30 text-teal-600;
+  line-height: 0.95;
+}
+
+header button {
+  @apply scale-110 transition-all duration-500 hover:text-4xl shadow-inner-2 h-[3.3rem] w-[3.3rem] bg-slate-900 text-3xl absolute top-[0.45rem] right-4 rounded-full border border-teal-900 text-teal-700 hover:border-teal-500 hover:text-white hover:border-8 hover:bg-teal-500 hover:shadow-none outline outline-8 outline-slate-950;
+}
+
+header nav {
+  @apply border-l border-teal-900 shadow-inner-2 sm:w-[16.7rem] px-4 w-full z-50 bg-opacity-40 border-inherit border-r backdrop-blur-sm absolute right-0 top-16 bg-slate-950 rounded-br-lg h-[calc(100vh-4rem)] overflow-hidden;
+}
+
+header nav ul {
+  @apply flex flex-col border-inherit;
+}
+
+header nav ul li {
+  @apply transition-all hover:border-teal-400 hover:bg-white hover:text-black hover:bg-opacity-80 flex flex-row border-teal-500 my-4 mr-4 bg-teal-400 font-bold text-white bg-opacity-40 border-double border-8 border-y border-r pl-2 rounded-tr-2xl;
+}
+
+header nav ul li a {
+  @apply flex flex-row w-full  py-4 border-inherit;
+}
+
+header nav ul li a span {
+  @apply w-36 border-b border-inherit;
+}
+
+/* ______________________________________________ */
+/* CONTENT CONTAINER FOR ALL PAGES */
+.content {
+  @apply pt-32 border-x-8 border-double border-slate-900 lg:mx-36 lg:px-36 md:ml-36 md:px-36 sm:ml-16 sm:mr-16 sm:px-16 ml-4 mr-4 px-4;
+}
+
+.content h1 {
+  @apply first-letter:text-6xl text-5xl mb-4 mt-8 bg-gradient-to-r from-teal-400 to-teal-100 text-transparent bg-clip-text;
+}
+
+/* ______________________________________________ */
+/* INDEX CARD ELEMENT */
+
+.indexcard {
+  @apply bg-black overflow-hidden border border-gray-800 cursor-pointer rounded-3xl  h-96 hover:bg-white transition-all;
+}
+
+.indexcard span {
+  @apply border-b border-inherit text-2xl font-bold relative -top-16 bg-gradient-to-b from-teal-100 via-teal-100 to-90% inline-block text-transparent bg-clip-text;
+}
+
+.indexcard-image {
+  @apply hover:scale-110 transition-all duration-500 w-fit h-full select-none opacity-90;
+}
+
+.indexcard-glow1 {
+  box-shadow: rgba(207, 35, 255, 0.25) 0px 54px 55px,
+    rgba(255, 23, 240, 0.12) 0px -12px 30px,
+    rgba(186, 36, 255, 0.12) 0px 4px 6px, rgba(255, 24, 144, 0.17) 0px 12px 13px,
+    rgba(106, 73, 255, 0.09) 0px -3px 5px;
+}
+
+.indexcard-glow2 {
+  box-shadow: rgba(35, 79, 255, 0.25) 0px 54px 55px,
+    rgba(23, 201, 255, 0.12) 0px -12px 30px,
+    rgba(36, 255, 244, 0.12) 0px 4px 6px, rgba(66, 24, 255, 0.17) 0px 12px 13px,
+    rgba(73, 88, 255, 0.09) 0px -3px 5px;
+}
+
+.indexcard-glow3 {
+  box-shadow: rgba(35, 255, 145, 0.25) 0px 54px 55px,
+    rgba(23, 201, 255, 0.12) 0px -12px 30px,
+    rgba(36, 255, 142, 0.12) 0px 4px 6px, rgba(24, 255, 62, 0.17) 0px 12px 13px,
+    rgba(73, 88, 255, 0.09) 0px -3px 5px;
+}
+
+.indexcard-innershadow {
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+/* INDEX SCROLLER */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-2048px);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 60s linear infinite;
+}
+/* ______________________________________________ */
+/* CUSTOM CLASSES */
+
+.shadow-inner-2 {
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+/* ______________________________________________ */
+/* BACKGROUND LOGO SPIN */
+
+.spin {
+  @apply blur-sm -top-1/2 fixed pointer-events-none w-screen h-screen;
+
+  justify-content: center;
+  align-items: center;
+  animation-name: spin;
+  animation-duration: 90000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  /* transform: rotate(3deg); */
+  /* transform: rotate(0.3rad);/ */
+  /* transform: rotate(3grad); */
+  /* transform: rotate(.03turn);  */
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin img {
+  @apply absolute top-[50%] left-[50%];
+  transform: translate(-50%, -59%) rotate(0deg);
+}
+
+/* STACKBUILDER */
+.grid-container {
+  @apply grid grid-cols-9 gap-4 mt-24;
+}
+
+.grid-button {
+  @apply font-bold transition-all text-white border border-teal-200 hover:bg-white hover:text-black px-5 py-5 rounded hover:opacity-10 w-40 h-16;
+}
+
+.grid-modal {
+  @apply z-50 content-center grid grid-cols-2 space-x-2 space-y-2 absolute top-0 left-0 w-screen h-screen bg-black backdrop-blur-sm bg-opacity-50;
+}
+
+.grid-modal-item {
+  @apply transition-all hover:bg-opacity-80 hover:text-black border border-teal-300 rounded-xl bg-white bg-opacity-10 p-4;
+}
+
+.modal-toggle {
+  @apply transition-all bg-white bg-opacity-10 hover:bg-opacity-80 py-0 px-2 rounded-md text-teal-500 font-bold text-5xl fixed top-2 right-4;
+}
+
+.toggle-output {
+  @apply transition-all bg-opacity-80 border-t border-teal-300 hover:bg-white hover:text-black font-bold w-full bg-teal-500 fixed bottom-0 h-16;
+}
+
+/* LIST COMPONENT DATA */
+
+.data-item {
+  @apply mt-4 p-2 border border-teal-300 rounded-xl bg-white bg-opacity-10;
+  box-shadow: rgb(14, 15, 19) 3px 3px 6px 0px inset,
+    rgba(0, 37, 28, 0.5) -3px -3px 6px 1px inset;
+}
+
+.data-header {
+  @apply text-2xl font-bold border-b;
+}
+
+.data-tags {
+  @apply italic my-1;
+}
+
+.data-description {
+  @apply text-teal-500 w-4/5;
+}
