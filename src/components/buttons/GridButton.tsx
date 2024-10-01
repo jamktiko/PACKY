@@ -3,10 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal } from '../../redux/reducers/gridModalReducer';
 import { RootState } from '@/redux/store/store';
-import {
-  updateActiveCells,
-  updateChoosableCells,
-} from '@/utils/grid/updateGridState';
+import { updateChoosableCells } from '@/utils/grid/updateGridState';
 import { store } from '@/redux/store/store';
 
 const activeCells = store.getState().gridStateReducer.activeCells;
