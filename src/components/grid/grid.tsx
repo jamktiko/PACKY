@@ -2,13 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import GridButton from '../buttons/GridButton';
-import { updateGridStates } from '@/utils/grid/updateGridState';
+import { updateChoosableCells } from '@/utils/grid/updateGridState';
 import { calculateDistance } from '@/utils/grid/calculateDistance';
 import {
   setActiveCells,
   setChoosableCells,
 } from '@/redux/reducers/gridStateReducer';
-import { RootState } from '@/redux/store/store';
+import { RootState, store } from '@/redux/store/store';
 // Manhattan distance = abs(x1 - x2) + abs(y1 - y2)
 // The distance between two points measured along axes at right angles.
 
@@ -39,14 +39,9 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
     // Opens the modal when that cell is clicked
     setIsModalOpen(true);
   };
-  useEffect(
-    () =>
-      updateGridStates(activeCells, gridSize, (newChoosableCells) => {
-        console.log('kökkö kaäskdg');
-        setChoosableCells({ activeCells, choosableCells: newChoosableCells });
-      }),
-    [activeCells]
-  );
+  useEffect(() => {
+    updateChoosableCells(gridSize);
+  }, []);
   return (
     // Grid component is constructed here
     <div
