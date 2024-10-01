@@ -1,10 +1,10 @@
 import {store} from '@/redux/store/store';
-import { setChoosableCells } from '@/redux/reducers/gridStateReducer';
+import { setActiveCells, setChoosableCells } from '@/redux/reducers/gridStateReducer';
 
 const activeCells = store.getState().gridStateReducer.activeCells;
+const choosableCells = store.getState().gridStateReducer.choosableCells;
 
-
-export const updateGridStates = (
+export const updateChoosableCells = (
   gridSize: number,
 ) => {
   const newChoosableCells: { row: number; col: number }[] = [];
@@ -32,6 +32,11 @@ export const updateGridStates = (
       }
     }
   });
-  console.log("neighbors", neighbors);
-  setChoosableCells({ activeCells, choosableCells: newChoosableCells });
+
+  store.dispatch(setChoosableCells({ activeCells, choosableCells: newChoosableCells }));
+};
+
+export const updateActiveCells = (newCell: { row: number; col: number }) => {
+  const updatedActiveCells = [...activeCells, newCell];
+  store.dispatch(setActiveCells({ activeCells: updatedActiveCells, choosableCells }));
 };

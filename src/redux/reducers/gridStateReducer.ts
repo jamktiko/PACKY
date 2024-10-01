@@ -18,9 +18,9 @@ const gridStateSlice = createSlice({
     setActiveCells: (state, action: PayloadAction<GridState>) => {
       state.activeCells = action.payload.activeCells;
     },
-setChoosableCells: (state, action: PayloadAction<GridState>) => {
-  state.choosableCells = action.payload.choosableCells;
-}
+    setChoosableCells: (state, action: PayloadAction<GridState>) => {
+      state.choosableCells = action.payload.choosableCells;
+    }
   },
 });
 
