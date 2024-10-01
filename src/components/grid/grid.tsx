@@ -55,11 +55,11 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
   };
   useEffect(() => {
     updateChoosableCells(gridSize);
-  }, []);
+  }, [activeCells]);
   return (
     // Grid component is constructed here
     <div
-      className='grid-container'
+      className="grid-container"
       style={{
         display: 'grid',
         gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
