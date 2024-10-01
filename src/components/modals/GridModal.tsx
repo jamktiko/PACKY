@@ -20,8 +20,25 @@ import { AppDispatch, type RootState } from '@/redux/store/store';
 import { fetchCollections } from '@/redux/reducers/dataReducer';
 import { addItem } from '@/redux/reducers/gridButtonReducer';
 import { CollectionData } from '@/utils/collectionData';
+<<<<<<< HEAD
+=======
+import { store } from '@/redux/store/store';
+import { setActiveCells } from '@/redux/reducers/gridStateReducer';
+import { updateChoosableCells } from '@/utils/grid/updateGridState';
+interface Cell {
+  row: number;
+  col: number;
+}
+>>>>>>> ea5a1ced009765cb2f0d142fab0be339b06dbc0a
 
 const GridModal = () => {
+  const activeCells = useSelector(
+    (state: RootState) => state.gridStateReducer.activeCells
+  );
+  const selectedCell = useSelector(
+    (state: RootState) => state.gridStateReducer.selectedCell
+  );
+
   // Haetaan modalin tila Redux-storesta
   const gridmodal = useSelector(
     (state: RootState) => state.gridModalReducer.value
@@ -53,7 +70,13 @@ const GridModal = () => {
         (prevPressedButtons) =>
           new Set([...Array.from(prevPressedButtons), item.name])
       );
+<<<<<<< HEAD
 
+=======
+      // päivitä button active-stateen
+      dispatch(setActiveCells([...activeCells, selectedCell as Cell]));
+      updateChoosableCells(9);
+>>>>>>> ea5a1ced009765cb2f0d142fab0be339b06dbc0a
       // Suljetaan modaali
       dispatch(toggleModal(false));
     }
