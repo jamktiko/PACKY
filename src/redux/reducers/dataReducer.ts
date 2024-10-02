@@ -24,9 +24,6 @@ export const fetchCollections = createAsyncThunk(
   'collections/fetchCollections',
   async () => {
     const data = await getFeatures();
-    console.log(data.map((d) => d.name));
-    console.log(data.map((d) => d.desc));
-
     return data.map((feature) => ({
       name: feature.name,
       desc: feature.desc,
