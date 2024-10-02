@@ -27,52 +27,62 @@ interface Cell {
 }
 
 const GridModal = () => {
+  // Use the useSelector hook to retrieve the activeCells and selectedCell from the Redux store
   const activeCells = useSelector(
-    (state: RootState) => state.gridStateReducer.activeCells
+    (state: RootState) => state.gridStateReducer.activeCells //Get active cells from store
   );
   const selectedCell = useSelector(
-    (state: RootState) => state.gridStateReducer.selectedCell
+    (state: RootState) => state.gridStateReducer.selectedCell //Get selected cells from store
   );
 
-  // Haetaan modalin tila Redux-storesta
+  // Get modal state from the Redux store
   const gridmodal = useSelector(
     (state: RootState) => state.gridModalReducer.value
   );
 
-  // Määritellään dispatch-funktio, jota käytetään Redux-toimintojen kutsuun
+  // Get the dispatch function from the Redux store
   const dispatch = useDispatch<AppDispatch>();
-  // Haetaan käyttäjän data Redux-storesta
+  // Retrieve the user data from the Redux store
   const data = useSelector((state: RootState) => state.dataReducer.value);
 
-  // Suodatetaan data, jossa on nimi
+  // Filter the data to only include items with a name
   //modified so that the data is put into an array and into a function to be able to use persist
   const gridmodalData = Array.isArray(data)
     ? data.filter((item) => item.name)
     : [];
-  //funktio handleclick kutsuu addItem funktiota, joka päivittää gridbuttonReduceriin
-  //tilan ja sulkeen modalin toggleModal funktiolla
 
+  // Define the handleClick function to handle button clicks
+  // which updates gridbuttonreducer and closes the modal with togglemodal function
   const [pressedButtons, setPressedButtons] = useState<Set<string>>(new Set());
   const handleClick = (item: CollectionData, description: string) => {
+    //check if the specific feature has been already chosen
     if (pressedButtons.has(item.name)) {
-      // Button has already been pressed, ilmoita käyttäjälle
+      // Button has already been pressed, notify user
       console.log(`Ominaisuus ${item.name} on jo valittu.`);
     } else {
-      // Lisätään item Redux-storeen vain, jos sitä ei ole vielä valittu
+      // If the button has not been pressed, add the item to the Redux store and update the pressed buttons state
       dispatch(addItem({ name: item.name, description: description }));
-      // Päivitetään pressedButtons-tila
       setPressedButtons(
         (prevPressedButtons) =>
-          new Set([...Array.from(prevPressedButtons), item.name])
+          new Set([...Array.from(prevPressedButtons), item.name]) // Update the pressed buttons state
       );
-      // päivitä button active-stateen
-      dispatch(setActiveCells([...activeCells, selectedCell as Cell]));
+      // update button active state
+      //filter out the selected cell from the active cells to update its state
+      dispatch(
+        setActiveCells([
+          ...activeCells.filter(
+            (cell) =>
+              cell.row !== selectedCell.row || cell.col !== selectedCell.col
+          ),
+          selectedCell as Cell,
+        ])
+      );
       updateChoosableCells(9);
-      // Suljetaan modaali
+      // close modal
       dispatch(toggleModal(false));
     }
   };
-
+  //render modal
   return (
     <>
       {gridmodal && (
@@ -81,7 +91,7 @@ const GridModal = () => {
             <button
               key={id}
               className="grid-modal-item"
-              onClick={() => handleClick(item, item.desc)}
+              onClick={() => handleClick(item, item.desc)} // Call the handleClick function when the button is clicked
             >
               <h1 className="font-bold">{item.name}</h1>
               <p>{item.desc}</p>
@@ -91,7 +101,7 @@ const GridModal = () => {
             <h1>Choose feature</h1>
             <button
               className="modal-toggle"
-              onClick={() => dispatch(toggleModal(false))}
+              onClick={() => dispatch(toggleModal(false))} //close modal
               type="button"
             >
               ⏎
