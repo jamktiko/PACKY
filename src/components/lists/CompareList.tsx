@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getData } from '@/utils/neo4j/neo4j'; // Importing a utility function to fetch data from Neo4j database
+
 /**
  * THIS COMPONENT IS GOING TO BE USED FOR THE COMPARE PAGE
  * It allows users to select two technologies from a category and compare them
@@ -9,6 +10,7 @@ import { getData } from '@/utils/neo4j/neo4j'; // Importing a utility function t
 // Define the structure of the technology data
 interface FeatureTechnology {
   name: string;
+  desc: string;
 }
 const CompareList = () => {
   // State to hold the list of technologies fetched from the database
@@ -23,6 +25,8 @@ const CompareList = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getData(collectionName); // Fetch the technologies from the database
+      const data = await getData(collectionName);
+
       console.log(data);
       setData(data as FeatureTechnology[]); // Set the fetched data into state
     };
@@ -33,7 +37,6 @@ const CompareList = () => {
   const options = [
     { value: 'frontendFramework', label: 'Frontend Frameworks' },
     { value: 'backendFramework', label: 'Backend Frameworks' },
-    { value: 'Feature', label: 'Features' },
     { value: 'Language', label: 'Languages' },
   ];
   // Handle the change of the technology category
@@ -111,6 +114,9 @@ const CompareList = () => {
                 {/* Show select item */}
                 <h1>{selectedOne}</h1>
                 <p>Add some detailed information about {selectedOne}...</p>
+                <h4>Details for {selectedOne}</h4>
+                {/* Add more detailed information about the selected technology here */}
+                <p>{data.find((tech) => tech.name === selectedOne)?.desc}</p>
               </div>
             )}
           </div>
@@ -143,6 +149,10 @@ const CompareList = () => {
                 {/* Show select item */}
                 <h4>{selectedTwo}</h4>
                 <p>Add some detailed information about {selectedTwo}...</p>
+                <h4>Details for {selectedTwo}</h4>
+                <p>
+                  <p>{data.find((tech) => tech.name === selectedTwo)?.desc}</p>
+                </p>
               </div>
             )}
           </div>

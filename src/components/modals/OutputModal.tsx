@@ -29,15 +29,15 @@ const OutputModal = () => {
       {outputModal && (
         <>
           <div
-            className="grid-modal"
+            className='grid-modal'
             onClick={() => dispatch(toggleOutputModal(false))}
           ></div>
-          <div className="absolute top-0 left-0 z-50 w-screen text-3xl text-center py-2">
-            <h1>Output</h1>
+          <div className='absolute top-16 left-0 z-50 w-screen text-3xl text-center py-2'>
+            <h1 className='absolute -top-8'>Technology suggestions</h1>
             <button
-              className="modal-toggle"
+              className='modal-toggle'
               onClick={() => dispatch(toggleOutputModal(false))}
-              type="button"
+              type='button'
             >
               ⏎
             </button>
