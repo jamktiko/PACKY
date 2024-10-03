@@ -39,36 +39,44 @@ const List = () => {
     <>
       <div>
         <h1>Features and Technologies</h1>
-        <select value={collectionName} onChange={handleCollectionChange}>
+        <select
+          value={collectionName}
+          onChange={handleCollectionChange}
+          className=" p-2 rounded-2xl bg-opacity-20 bg-white hover:bg-opacity-50 transition-all"
+        >
           {options.map((option) => (
-            <option value={option.value} key={option.value}>
+            <option
+              value={option.value}
+              key={option.value}
+              className="text-black"
+            >
               {option.label}
             </option>
           ))}
         </select>
 
         {data ? (
-          <ul className='grid grid-cols-3'>
+          <ul className="grid grid-cols-3">
             {data.map((item, index) => (
               <li
-                className='m-2 p-2 flex flex-col bg-white w-96 h-72 bg-opacity-10 rounded-2xl'
+                className="m-2 p-2 flex flex-col bg-white w-96 h-72 bg-opacity-10 rounded-2xl"
                 key={index}
               >
-                <div className='flex flex-row'>
+                <div className="flex flex-row">
                   {item.image && (
                     <Image
-                      className='h-16 w-16'
+                      className="h-16 w-16"
                       src={item.image}
                       alt={item.name}
                       width={100}
                       height={100}
                     />
                   )}
-                  <strong className='text-lg border-b bg-white bg-opacity-10 rounded-2xl w-full self-center content-center pl-4 h-full'>
+                  <strong className="text-lg border-b bg-white bg-opacity-10 rounded-2xl w-full self-center content-center pl-4 h-full">
                     {item.name}
                   </strong>
                 </div>
-                <p className='border rounded-2xl p-1 my-2 h-full'>
+                <p className="border rounded-2xl p-1 my-2 h-full">
                   {item.desc}
                 </p>
               </li>
