@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getData } from '@/utils/neo4j/neo4j'; // Importing a utility function to fetch data from Neo4j database
+import Image from 'next/image';
 
 /**
  * THIS COMPONENT IS GOING TO BE USED FOR THE COMPARE PAGE
@@ -11,6 +12,7 @@ import { getData } from '@/utils/neo4j/neo4j'; // Importing a utility function t
 interface FeatureTechnology {
   name: string;
   desc: string;
+  image: string;
 }
 const CompareList = () => {
   // State to hold the list of technologies fetched from the database
@@ -124,6 +126,15 @@ const CompareList = () => {
                 <h4>Details for {selectedOne}</h4>
                 {/* Add more detailed information about the selected technology here */}
                 <p>{data.find((tech) => tech.name === selectedOne)?.desc}</p>
+                <Image
+                  className="h-16 w-16"
+                  src={
+                    data.find((tech) => tech.name === selectedOne)?.image || ''
+                  }
+                  alt={selectedOne}
+                  width={100}
+                  height={100}
+                />
               </div>
             )}
           </div>
@@ -163,9 +174,17 @@ const CompareList = () => {
                 <h4>{selectedTwo}</h4>
                 <p>Add some detailed information about {selectedTwo}...</p>
                 <h4>Details for {selectedTwo}</h4>
-                <p>
-                  <p>{data.find((tech) => tech.name === selectedTwo)?.desc}</p>
-                </p>
+
+                <p>{data.find((tech) => tech.name === selectedTwo)?.desc}</p>
+                <Image
+                  className="h-16 w-16"
+                  src={
+                    data.find((tech) => tech.name === selectedTwo)?.image || ''
+                  }
+                  alt={selectedTwo}
+                  width={100}
+                  height={100}
+                />
               </div>
             )}
           </div>
