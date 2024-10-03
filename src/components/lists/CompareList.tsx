@@ -25,8 +25,6 @@ const CompareList = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getData(collectionName); // Fetch the technologies from the database
-
-      const data = await getData(collectionName);
       console.log(data);
       setData(data as FeatureTechnology[]); // Set the fetched data into state
     };
