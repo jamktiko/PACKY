@@ -33,7 +33,7 @@ const OutputModal = () => {
             className='grid-modal'
             onClick={() => dispatch(toggleOutputModal(false))}
           ></div>
-          <div className='absolute top-16 left-0 z-50 w-screen text-3xl text-center py-2'>
+          <div className='absolute top-28 left-0 z-50 w-screen text-3xl text-center py-2'>
             <h1 className='absolute -top-8'>Technology suggestions</h1>
             <button
               className='modal-toggle'
