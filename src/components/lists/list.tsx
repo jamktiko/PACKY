@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Triangle } from 'react-loader-spinner';
 import { CollectionData } from '@/utils/collectionData';
 import { getData } from '@/utils/neo4j/neo4j';
+import Image from 'next/image';
 /**
  * THIS COMPONENT IS GOING TO BE USED FOR THE LIBRARY PAGE
  */
 interface FeatureTechnology {
   name: string;
+  desc: string;
 }
 const List = () => {
   const [data, setData] = useState<FeatureTechnology[]>([]);
@@ -69,6 +71,15 @@ const List = () => {
             {data.map((item, index) => (
               <li key={index}>
                 <strong>{item.name}</strong>
+                <p>{item.desc}</p>
+                {/*description placeholder*/}
+                <Image
+                  src="/images/languages/typescript.png"
+                  // place holder something like "/images/languages/"{item.image}
+                  alt="test picture"
+                  width={100}
+                  height={100}
+                />
               </li>
             ))}
           </ul>
