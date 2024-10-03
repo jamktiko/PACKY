@@ -48,20 +48,29 @@ const List = () => {
         </select>
 
         {data ? (
-          <ul>
+          <ul className='grid grid-cols-3'>
             {data.map((item, index) => (
-              <li key={index}>
-                <strong>{item.name}</strong>
-                <p>{item.desc}</p>
-
-                {item.image && (
-                  <Image
-                    src={item.image}
-                    alt={item.name}
-                    width={100}
-                    height={100}
-                  />
-                )}
+              <li
+                className='m-2 p-2 flex flex-col bg-white w-96 h-72 bg-opacity-10 rounded-2xl'
+                key={index}
+              >
+                <div className='flex flex-row'>
+                  {item.image && (
+                    <Image
+                      className='h-16 w-16'
+                      src={item.image}
+                      alt={item.name}
+                      width={100}
+                      height={100}
+                    />
+                  )}
+                  <strong className='text-lg border-b bg-white bg-opacity-10 rounded-2xl w-full self-center content-center pl-4 h-full'>
+                    {item.name}
+                  </strong>
+                </div>
+                <p className='border rounded-2xl p-1 my-2 h-full'>
+                  {item.desc}
+                </p>
               </li>
             ))}
           </ul>
