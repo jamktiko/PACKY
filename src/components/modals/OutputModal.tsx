@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, type RootState } from '@/redux/store/store';
 import { fetchCollections } from '@/redux/reducers/dataReducer';
 import { CollectionData } from '@/utils/collectionData';
-import { getTechs } from '@/utils/neo4j/neo4j';
 import { useOutputFetch } from '@/hooks/outputFetch';
 import OutputList from '../lists/outputList';
 import { AccordionItem } from '../lists/accordionItem';
