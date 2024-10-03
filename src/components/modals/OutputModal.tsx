@@ -7,6 +7,7 @@ import { CollectionData } from '@/utils/collectionData';
 import { useOutputFetch } from '@/hooks/outputFetch';
 import OutputList from '../lists/outputList';
 import { AccordionItem } from '../lists/accordionItem';
+import Link from 'next/link';
 const OutputModal = () => {
   // Use the useSelector hook to select the outputModal value from the state
   const outputModal = useSelector(
@@ -42,13 +43,30 @@ const OutputModal = () => {
               ⏎
             </button>
             {/* Map over the features array and create an AccordionItem component for each feature */}
-            {features.map((feature, index) => (
-              <AccordionItem
-                key={feature.name}
-                title={feature.name}
-                description={labelTypes[index]}
-              />
-            ))}
+            <div className='grid grid-cols-3 gap-2 place-items-center '>
+              {features.map((feature, index) => (
+                <AccordionItem
+                  key={feature.name}
+                  title={feature.name}
+                  description={labelTypes[index]}
+                />
+              ))}
+            </div>
+
+            <div className=' mt-16 border-y bg-opacity-30 pt-16 bg-black pb-16 flex justify-evenly'>
+              <Link
+                className='bg-white bg-opacity-20 hover:bg-opacity-40 transition-all rounded-2xl border border-teal-500 p-4'
+                href='/library'
+              >
+                Explore library
+              </Link>
+              <Link
+                className='bg-white bg-opacity-20 hover:bg-opacity-40 transition-all rounded-2xl border border-teal-500 p-4'
+                href='/compare'
+              >
+                Compare technologies
+              </Link>
+            </div>
           </div>
         </>
       )}
