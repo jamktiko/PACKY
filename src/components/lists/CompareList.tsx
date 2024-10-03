@@ -189,7 +189,7 @@ const CompareList = () => {
             }}
             onClick={clearCompare}
           >
-            Clear Comparison
+            Clear
           </button>
         </div>
       </div>
