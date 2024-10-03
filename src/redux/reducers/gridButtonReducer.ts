@@ -24,7 +24,6 @@ const itemSlice = createSlice({
       state,
       action: PayloadAction<{
         name: string;
-
         description: string;
       }>
     ) {

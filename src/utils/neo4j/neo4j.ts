@@ -45,18 +45,14 @@ export const getFeatures = async () => {
   }
 };
 
-export const getTechs = async (features: string[]) => {
-  const query = `
-  MATCH (feature:Feature)<-[:SUPPORTS]-(t)
-    WHERE feature.name IN $features
-   RETURN DISTINCT t.name as name, labels(t) as type
-`;
+export const getTechsForFeature = async (featureName: string) => {
+  const query = `MATCH (feature:Feature {name: $featureName})<-[:SUPPORTS]-(t)
+  RETURN DISTINCT t.name as name, labels(t) as type`;
+
   try {
-    console.log({ features });
-    const result = await runCypherQuery(query, { features });
+    const result = await runCypherQuery(query, { featureName });
     return result;
   } catch (error) {
-    console.error(error + 'erroria saatana');
-    throw error;
+    console.error(error + 'error');
   }
 };

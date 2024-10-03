@@ -1,45 +1,64 @@
-import { useCallback, useEffect, useState } from 'react';
-import { getTechs } from '@/utils/neo4j/neo4j';
+import { useEffect, useState } from 'react';
+import { getTechsForFeature } from '@/utils/neo4j/neo4j';
+import { RecordShape } from 'neo4j-driver';
 
-export const useOutputFetch = (features: any, outputModal: any) => {
-  // Define state variables for technologies and label types
-  const [technologies, setTechnologies] = useState<string[]>([]);
-  const [labelTypes, setLabelTypes] = useState<{ [key: string]: string[] }>({});
+interface Feature {
+  name: string;
+}
+// Interfaces for Tech and Feature
+interface Tech {
+  name: string;
+  type: string[];
+}
 
-  // Define a callback funtion to fetch technologies
-  const fetchTechnologies = useCallback(async () => {
-    // if the outputModal is open, fetch techs
-    if (outputModal) {
-      // Get the names of the features
-      const featureNames = features.map(
-        (feature: { name: any }) => feature.name
-      );
-      // Fetch technologies for the features
-      const techs = await getTechs(featureNames);
-      // Extract the names of the technologies
-      const technologies = techs.map((tech) => tech.name);
-      // Reduce the technologies into a map of label types to technology names
-      const types = techs.reduce((categories, tech) => {
-        // For each type of the technology, add it to the categories map
-        tech.type.forEach((type: any) => {
-          if (!categories[type]) {
-            categories[type] = [];
-          }
-          categories[type].push(tech.name);
-        });
-        return categories;
-      }, {});
-      // Update the state with the technologies and label types
-      setTechnologies(technologies);
-      setLabelTypes(types);
-    }
-  }, [features, outputModal]);
-  // When the output modal or features change, fetch technologies
+export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
+  // Initialize the labelTypes state variable as an empty array of objects
+  // with string keys and string array values
+  const [labelTypes, setLabelTypes] = useState<{ [key: string]: string[] }[]>(
+    []
+  );
   useEffect(() => {
+    // Define the fetchTechnologies function to fetch technologies for each feature
+    const fetchTechnologies = async () => {
+      //Checking if outputModal is true
+      if (outputModal) {
+        // Use Promise.all to wait for all promises to resolve
+        const newLabelTypes = await Promise.all(
+          // Map over the features array and call the getTechsForFeature function for each feature
+          features.map(async (feature: Feature) => {
+            // Call the getTechsForFeature function and wait for the result
+            const techs = await getTechsForFeature(feature.name);
+            // If the result is null or undefined, return an empty object
+            if (!techs) {
+              return {};
+            }
+            // Using reduce to group the technologies by type
+            const types = techs.reduce(
+              (categories: { [key: string]: string[] }, tech: RecordShape) => {
+                // For each type in the tech object, add the tech name to the corresponding category in the categories object
+                (tech as Tech).type.forEach((type: string) => {
+                  // If the category doesn't exist yet, create it
+                  categories[type] = categories[type] || [];
+                  // Add the tech name to the category
+                  categories[type].push((tech as Tech).name);
+                });
+                console.log(categories);
+                return categories;
+              },
+              {}
+            );
+            console.log(types);
+            return types;
+          })
+        );
+        setLabelTypes(newLabelTypes);
+      }
+    };
+    // Call the fetchTechnologies function when the component mounts or updates
     if (outputModal) {
       fetchTechnologies();
     }
-  }, [fetchTechnologies, outputModal]);
-  // Return the technologies and label types
+  }, [features, outputModal]);
+
   return { labelTypes };
 };
