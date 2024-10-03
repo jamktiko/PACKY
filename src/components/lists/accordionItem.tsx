@@ -1,3 +1,4 @@
+import { useOutputFetch } from '@/hooks/outputFetch';
 import React, { useState } from 'react';
 
 // Define the AccordionProps interface with two properties

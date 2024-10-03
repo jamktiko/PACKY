@@ -27,82 +27,82 @@ interface Cell {
 }
 
 const GridModal = () => {
-  // Use the useSelector hook to retrieve the activeCells and selectedCell from the Redux store
   const activeCells = useSelector(
-    (state: RootState) => state.gridStateReducer.activeCells //Get active cells from store
+    (state: RootState) => state.gridStateReducer.activeCells
   );
   const selectedCell = useSelector(
-    (state: RootState) => state.gridStateReducer.selectedCell //Get selected cells from store
+    (state: RootState) => state.gridStateReducer.selectedCell
   );
 
-  // Get modal state from the Redux store
+  // Haetaan modalin tila Redux-storesta
   const gridmodal = useSelector(
     (state: RootState) => state.gridModalReducer.value
   );
 
-  // Get the dispatch function from the Redux store
+  // Määritellään dispatch-funktio, jota käytetään Redux-toimintojen kutsuun
   const dispatch = useDispatch<AppDispatch>();
-  // Retrieve the user data from the Redux store
+  // Haetaan käyttäjän data Redux-storesta
   const data = useSelector((state: RootState) => state.dataReducer.value);
 
-  // Filter the data to only include items with a name
+  // Suodatetaan data, jossa on nimi
   //modified so that the data is put into an array and into a function to be able to use persist
   const gridmodalData = Array.isArray(data)
     ? data.filter((item) => item.name)
     : [];
+  //funktio handleclick kutsuu addItem funktiota, joka päivittää gridbuttonReduceriin
+  //tilan ja sulkeen modalin toggleModal funktiolla
 
-  // Define the handleClick function to handle button clicks
-  // which updates gridbuttonreducer and closes the modal with togglemodal function
   const [pressedButtons, setPressedButtons] = useState<Set<string>>(new Set());
   const handleClick = (item: CollectionData, description: string) => {
-    //check if the specific feature has been already chosen
     if (pressedButtons.has(item.name)) {
-      // Button has already been pressed, notify user
+      // Button has already been pressed, ilmoita käyttäjälle
       console.log(`Ominaisuus ${item.name} on jo valittu.`);
     } else {
-      // If the button has not been pressed, add the item to the Redux store and update the pressed buttons state
+      // Lisätään item Redux-storeen vain, jos sitä ei ole vielä valittu
       dispatch(addItem({ name: item.name, description: description }));
+      // Päivitetään pressedButtons-tila
       setPressedButtons(
         (prevPressedButtons) =>
-          new Set([...Array.from(prevPressedButtons), item.name]) // Update the pressed buttons state
+          new Set([...Array.from(prevPressedButtons), item.name])
       );
-      // update button active state
+      // päivitä button active-stateen
       //filter out the selected cell from the active cells to update its state
       dispatch(
         setActiveCells([
           ...activeCells.filter(
             (cell) =>
-              cell.row !== selectedCell.row || cell.col !== selectedCell.col
+              cell.row !== (selectedCell?.row ?? 0) ||
+              cell.col !== (selectedCell?.col ?? 0)
           ),
           selectedCell as Cell,
         ])
       );
       updateChoosableCells(9);
-      // close modal
+      // Suljetaan modaali
       dispatch(toggleModal(false));
     }
   };
-  //render modal
+
   return (
     <>
       {gridmodal && (
-        <div className="grid-modal">
+        <div className='grid-modal'>
           {gridmodalData.map((item, id) => (
             <button
               key={id}
-              className="grid-modal-item"
-              onClick={() => handleClick(item, item.desc)} // Call the handleClick function when the button is clicked
+              className='grid-modal-item'
+              onClick={() => handleClick(item, item.desc)}
             >
-              <h1 className="font-bold">{item.name}</h1>
+              <h1 className='font-bold'>{item.name}</h1>
               <p>{item.desc}</p>
             </button>
           ))}
-          <div className="absolute top-0 left-0 z-50 w-screen text-3xl text-center py-2">
+          <div className='absolute top-0 left-0 z-50 w-screen text-3xl text-center py-2'>
             <h1>Choose feature</h1>
             <button
-              className="modal-toggle"
-              onClick={() => dispatch(toggleModal(false))} //close modal
-              type="button"
+              className='modal-toggle'
+              onClick={() => dispatch(toggleModal(false))}
+              type='button'
             >
               ⏎
             </button>

@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { toggleOutputModal } from '@/redux/reducers/outputReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, type RootState } from '@/redux/store/store';
+import { fetchCollections } from '@/redux/reducers/dataReducer';
+import { CollectionData } from '@/utils/collectionData';
+import { getTechs } from '@/utils/neo4j/neo4j';
 import { useOutputFetch } from '@/hooks/outputFetch';
+import OutputList from '../lists/outputList';
 import { AccordionItem } from '../lists/accordionItem';
-
 const OutputModal = () => {
   // Use the useSelector hook to select the outputModal value from the state
   const outputModal = useSelector(
@@ -53,5 +56,4 @@ const OutputModal = () => {
     </>
   );
 };
-
 export default OutputModal;
