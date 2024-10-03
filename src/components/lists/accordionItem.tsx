@@ -83,18 +83,18 @@ export const AccordionItem = ({ title, description }: AccordionProps) => {
     : null;
 
   return (
-    <div className='my-6 bg-slate-500 bg-opacity-50 w-96 border border-teal-500 rounded-xl'>
+    <div className='mt-6 mb-52 w-96 h-0 bg-opacity-50 border border-teal-500 rounded-xl'>
       <button
-        className='w-full flex justify-between border-b border-inherit bg-black bg-opacity-50'
+        className='h-16 w-full flex justify-between border-b border-inherit bg-black bg-opacity-50'
         onClick={handleToggle}
       >
-        <p className='pl-4'>{title}</p>
-        <p className='bg-black border border-inherit bg-opacity-50 w-10 h-full rounded-xl'>
+        <p className='pl-4 text-center w-full self-center'>{title}</p>
+        <p className='bg-black mr-2 border border-inherit bg-opacity-50 w-10 h-10 self-center rounded-xl'>
           {isOpen ? '-' : '+'}
         </p>
       </button>
       {isOpen && (
-        <div className='text-base text-left px-4'>
+        <div className=' text-base text-center px-4'>
           {isOpen &&
             descriptionText?.map((sentence, index) => (
               <p className='border-y my-1 font-bold' key={index}>
