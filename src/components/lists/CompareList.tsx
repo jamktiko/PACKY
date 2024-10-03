@@ -17,7 +17,7 @@ const CompareList = () => {
   const [data, setData] = useState<FeatureTechnology[]>([]);
 
   // State to manage the selected category of technologies (e.g., "frontendFrameworks")
-  const [collectionName, setCollectionName] = useState('');
+  const [collectionName, setCollectionName] = useState('frontendFramework');
   const [selectedOne, setSelectedOne] = useState(''); // First technology to compare
   const [selectedTwo, setSelectedTwo] = useState(''); // Second technology to compare
 
@@ -25,7 +25,6 @@ const CompareList = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getData(collectionName); // Fetch the technologies from the database
-      const data = await getData(collectionName);
 
       console.log(data);
       setData(data as FeatureTechnology[]); // Set the fetched data into state
@@ -54,6 +53,11 @@ const CompareList = () => {
   // Handle changes when the user selects the second technology
   const handleTechChangeTwo = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedTwo(event.target.value); // Update the second selected technology
+  };
+
+  const clearCompare = () => {
+    setSelectedOne('');
+    setSelectedTwo('');
   };
   return (
     <>
@@ -100,10 +104,16 @@ const CompareList = () => {
                 marginRight: '10px',
               }}
             >
-              <option>Select Technology</option>
+              <option value="" disabled selected hidden>
+                Select Technology
+              </option>
               {/* Render the list of technologies fetched from the database */}
               {data.map((tech, index) => (
-                <option value={tech.name} key={index}>
+                <option
+                  value={tech.name}
+                  key={index}
+                  disabled={tech.name === selectedTwo}
+                >
                   {tech.name}
                 </option>
               ))}
@@ -112,8 +122,6 @@ const CompareList = () => {
             {selectedOne && (
               <div>
                 {/* Show select item */}
-                <h1>{selectedOne}</h1>
-                <p>Add some detailed information about {selectedOne}...</p>
                 <h4>Details for {selectedOne}</h4>
                 {/* Add more detailed information about the selected technology here */}
                 <p>{data.find((tech) => tech.name === selectedOne)?.desc}</p>
@@ -135,10 +143,16 @@ const CompareList = () => {
                 padding: '5px',
               }}
             >
-              <option>Select Technology</option>
+              <option value="" disabled selected hidden>
+                Select Technology
+              </option>
               {/* Render the list of technologies fetched from the database */}
               {data.map((tech, index) => (
-                <option value={tech.name} key={index}>
+                <option
+                  value={tech.name}
+                  key={index}
+                  disabled={tech.name === selectedOne}
+                >
                   {tech.name}
                 </option>
               ))}
@@ -156,6 +170,28 @@ const CompareList = () => {
               </div>
             )}
           </div>
+        </div>
+        {/* Clear Comparison button */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '20px',
+          }}
+        >
+          <button
+            style={{
+              backgroundColor: '#333',
+              color: 'white', // Tekstin väri
+              padding: '10px 20px', // Lisää sisätilaa
+              border: 'none', // Poistaa reunuksen
+              borderRadius: '5px', // Kulmat pyöristetty
+              cursor: 'pointer', // Muuttaa osoittimen painiketta hiirellä
+            }}
+            onClick={clearCompare}
+          >
+            Clear Comparison
+          </button>
         </div>
       </div>
     </>
