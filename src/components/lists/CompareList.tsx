@@ -2,31 +2,41 @@ import React, { useState, useEffect } from 'react';
 import { getData } from '@/utils/neo4j/neo4j'; // Importing a utility function to fetch data from Neo4j database
 /**
  * THIS COMPONENT IS GOING TO BE USED FOR THE COMPARE PAGE
+ * It allows users to select two technologies from a category and compare them
+ * Edit so you cannot compare two same things
  */
+
+// Define the structure of the technology data
 interface FeatureTechnology {
   name: string;
 }
 const CompareList = () => {
+  // State to hold the list of technologies fetched from the database
   const [data, setData] = useState<FeatureTechnology[]>([]);
-  const [collectionName, setCollectionName] = useState('frontendFrameworks');
+
+  // State to manage the selected category of technologies (e.g., "frontendFrameworks")
+  const [collectionName, setCollectionName] = useState('');
   const [selectedOne, setSelectedOne] = useState(''); // First technology to compare
   const [selectedTwo, setSelectedTwo] = useState(''); // Second technology to compare
 
+  // Fetch data based on the selected category (e.g., "frontendFrameworks", "backendFrameworks")
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getData(collectionName);
+      const data = await getData(collectionName); // Fetch the technologies from the database
       console.log(data);
-      setData(data as FeatureTechnology[]);
+      setData(data as FeatureTechnology[]); // Set the fetched data into state
     };
-    fetchData();
-  }, [collectionName]);
+    fetchData(); // Call fetch function whenever the category changes
+  }, [collectionName]); // Trigger effect when the selected category changes
 
+  // Options for selecting the type of collection (Frontend, Backend, Features, or Languages)
   const options = [
     { value: 'frontendFramework', label: 'Frontend Frameworks' },
     { value: 'backendFramework', label: 'Backend Frameworks' },
     { value: 'Feature', label: 'Features' },
     { value: 'Language', label: 'Languages' },
   ];
+  // Handle the change of the technology category
   const handleCollectionChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -36,17 +46,17 @@ const CompareList = () => {
   };
   // Handle changes for the two technologies being compared
   const handleTechChangeOne = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOne(event.target.value);
+    setSelectedOne(event.target.value); // Update the first selected technology
   };
-
+  // Handle changes when the user selects the second technology
   const handleTechChangeTwo = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedTwo(event.target.value);
+    setSelectedTwo(event.target.value); // Update the second selected technology
   };
   return (
     <>
       <div>
         <h1>Compare Technologies</h1>
-        {/* Select Category frontend, backend, features or languages */}
+        {/* Dropdown to select category such as frontend, backend, features or languages */}
         <select
           value={collectionName}
           onChange={handleCollectionChange}
@@ -57,6 +67,7 @@ const CompareList = () => {
             marginBottom: '20px',
           }}
         >
+          {/* Render the category options */}
           {options.map((option) => (
             <option value={option.value} key={option.value}>
               {option.label}
@@ -64,7 +75,7 @@ const CompareList = () => {
           ))}
         </select>
 
-        {/* Select the first technology to compare for example Angular vs React*/}
+        {/* Render the comparison cards side by side */}
         <div
           style={{
             display: 'flex',
@@ -72,8 +83,10 @@ const CompareList = () => {
             marginTop: '20px',
           }}
         >
+          {/* Select the first technology to compare for example Angular vs React*/}
           <div style={cardStyle}>
             <h2>Select First Technology</h2>
+            {/* Dropdown to select the first technology */}
             <select
               value={selectedOne}
               onChange={handleTechChangeOne}
@@ -85,26 +98,28 @@ const CompareList = () => {
               }}
             >
               <option>Select Technology</option>
+              {/* Render the list of technologies fetched from the database */}
               {data.map((tech, index) => (
                 <option value={tech.name} key={index}>
                   {tech.name}
                 </option>
               ))}
             </select>
+            {/* Display the details of the selected technology */}
             {selectedOne && (
               <div>
-                <h4>Details for {selectedOne}</h4>
-                {/* Add more detailed information about the selected technology here */}
-                <p style={{ color: '#333' }}>
-                  Add some detailed information about {selectedOne}...
-                </p>
+                {/* Show select item */}
+                <h1>{selectedOne}</h1>
+                <p>Add some detailed information about {selectedOne}...</p>
               </div>
             )}
           </div>
 
+          {/* Second comparison card */}
           {/* Select the second technology to compare for exmaple Angular vs React */}
           <div style={cardStyle}>
             <h2>Select Second Technology</h2>
+            {/* Dropdown to select the second technology */}
             <select
               value={selectedTwo}
               onChange={handleTechChangeTwo}
@@ -115,19 +130,19 @@ const CompareList = () => {
               }}
             >
               <option>Select Technology</option>
+              {/* Render the list of technologies fetched from the database */}
               {data.map((tech, index) => (
                 <option value={tech.name} key={index}>
                   {tech.name}
                 </option>
               ))}
             </select>
+            {/* Display the details of the selected technology */}
             {selectedTwo && (
               <div>
-                <h4>Details for {selectedTwo}</h4>
-                {/* Add more detailed information about the selected technology here */}
-                <p style={{ color: '#333' }}>
-                  Add some detailed information about {selectedTwo}...
-                </p>
+                {/* Show select item */}
+                <h4>{selectedTwo}</h4>
+                <p>Add some detailed information about {selectedTwo}...</p>
               </div>
             )}
           </div>
