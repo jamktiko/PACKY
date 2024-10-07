@@ -47,8 +47,10 @@ export const getFeatures = async () => {
 };
 
 export const getTechsForFeature = async (featureName: string) => {
-  const query = `MATCH (feature:Feature {name: $featureName})<-[:SUPPORTS]-(t)
-  RETURN DISTINCT t.name as name, labels(t) as type`;
+  const query = `MATCH (feature:Feature {name: $featureName})<-[r:SUPPORTS]-(t)
+RETURN DISTINCT t.name as name, labels(t) as type, r.weight AS weight
+ORDER BY weight DESC
+  `;
 
   try {
     const result = await runCypherQuery(query, { featureName });
