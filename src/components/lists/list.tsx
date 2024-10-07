@@ -11,7 +11,7 @@ interface FeatureTechnology {
 
 const List = () => {
   const [data, setData] = useState<FeatureTechnology[]>([]);
-  const [collectionName, setCollectionName] = useState('frontendFrameworks');
+  const [collectionName, setCollectionName] = useState('frontendFramework');
 
   useEffect(() => {
     const fetchData = async () => {
