@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getData } from '@/utils/neo4j/neo4j'; // Importing a utility function to fetch data from Neo4j database
 import Image from 'next/image';
-import { TbEyeCheck } from 'react-icons/tb';
 
 /**
  * THIS COMPONENT IS GOING TO BE USED FOR THE COMPARE PAGE
@@ -59,6 +58,7 @@ const CompareList = () => {
     setSelectedTwo(event.target.value); // Update the second selected technology
   };
 
+  // Clear option for clearing the comparison sections
   const clearCompare = () => {
     setSelectedOne('');
     setSelectedTwo('');
@@ -92,6 +92,7 @@ const CompareList = () => {
             display: 'flex',
             justifyContent: 'space-around',
             marginTop: '20px',
+            alignItems: 'flex-start', // Ensure cards align at the top and not stretch equally
           }}
         >
           {/* Select the first technology to compare for example Angular vs React*/}
@@ -150,6 +151,7 @@ const CompareList = () => {
               </div>
             )}
           </div>
+
           {/* Second comparison card */}
           {/* Select the second technology to compare for exmaple Angular vs React */}
           <div style={cardStyle}>
@@ -216,18 +218,19 @@ const CompareList = () => {
             marginTop: '20px',
           }}
         >
+          {/* Clear Comparison button */}
           <button
             style={{
               backgroundColor: '#333',
               color: 'white', // Tekstin väri
               padding: '10px 20px', // Lisää sisätilaa
-              border: 'none', // Poistaa reunuksen
+              border: '1px solid #ccc',
               borderRadius: '5px', // Kulmat pyöristetty
               cursor: 'pointer', // Muuttaa osoittimen painiketta hiirellä
             }}
             onClick={clearCompare}
           >
-            Clear
+            Clear Selections
           </button>
         </div>
       </div>
@@ -244,4 +247,5 @@ const cardStyle: React.CSSProperties = {
   textAlign: 'center',
   backgroundColor: '#333',
 };
+
 export default CompareList;
