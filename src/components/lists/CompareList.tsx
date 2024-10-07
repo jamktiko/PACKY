@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getData } from '@/utils/neo4j/neo4j'; // Importing a utility function to fetch data from Neo4j database
 import Image from 'next/image';
-
+import Link from 'next/link';
 /**
  * THIS COMPONENT IS GOING TO BE USED FOR THE COMPARE PAGE
  * It allows users to select two technologies from a category and compare them
@@ -15,6 +15,7 @@ interface FeatureTechnology {
   image: string;
   pros: string[];
   cons: string[];
+  link: string;
 }
 const CompareList = () => {
   // State to hold the list of technologies fetched from the database
@@ -139,15 +140,24 @@ const CompareList = () => {
                 <p style={{ color: 'red' }}>
                   {data.find((tech) => tech.name === selectedOne)?.cons}
                 </p>
-                <Image
-                  className="h-16 w-16 mx-auto"
-                  src={
-                    data.find((tech) => tech.name === selectedOne)?.image || ''
+                {/* Link in image to navigate to sites for example if you press angular logo it will take you to angular site */}
+                <Link
+                  href={
+                    data.find((tech) => tech.name === selectedOne)?.link || '/'
                   }
-                  alt={selectedOne}
-                  width={100}
-                  height={100}
-                />
+                  target="_blank"
+                >
+                  <Image
+                    className="h-16 w-16 mx-auto"
+                    src={
+                      data.find((tech) => tech.name === selectedOne)?.image ||
+                      ''
+                    }
+                    alt={selectedOne}
+                    width={100}
+                    height={100}
+                  />
+                </Link>
               </div>
             )}
           </div>
