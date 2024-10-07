@@ -25,7 +25,7 @@ export const runCypherQuery = async (query: string, params = {}) => {
 // A function to get all nodes from a specific type
 export const getData = async (type: string) => {
   const query = `MATCH (n:${type}) 
-RETURN n.name AS name, n.description as desc, n.imageUrl as image, n.pros AS pros, n.cons AS cons`;
+RETURN n.name AS name, n.description as desc, n.imageUrl as image, n.pros AS pros, n.cons AS cons, n.link as link`;
   try {
     return await runCypherQuery(query);
   } catch (error) {

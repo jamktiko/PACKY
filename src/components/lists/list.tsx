@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Triangle } from 'react-loader-spinner';
 import { getData } from '@/utils/neo4j/neo4j';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface FeatureTechnology {
   name: string;
   desc: string;
-  image: string; // Lisätty image-ominaisuus
+  image: string;
+  link: string;
 }
 
 const List = () => {
@@ -73,7 +75,10 @@ const List = () => {
                     />
                   )}
                   <strong className="text-lg border-b bg-white bg-opacity-10 rounded-2xl w-full self-center content-center pl-4 h-full">
-                    {item.name}
+                    <Link href={item.link} target="_blank">
+                      {' '}
+                      {item.name}
+                    </Link>
                   </strong>
                 </div>
                 <p className="border rounded-2xl p-1 my-2 h-full">
