@@ -27,7 +27,7 @@ const List = () => {
   const options = [
     { value: 'frontendFramework', label: 'Frontend Frameworks' },
     { value: 'backendFramework', label: 'Backend Frameworks' },
-    { value: 'Feature', label: 'Features' },
+    // { value: 'Feature', label: 'Features' },
     { value: 'Language', label: 'Languages' },
   ];
 
@@ -75,7 +75,11 @@ const List = () => {
                     />
                   )}
                   <strong className="text-lg border-b bg-white bg-opacity-10 rounded-2xl w-full self-center content-center pl-4 h-full">
-                    <Link href={item.link} target="_blank">
+                    <Link
+                      href={item.link}
+                      target="_blank"
+                      className="underline hover:text-gray-300"
+                    >
                       {' '}
                       {item.name}
                     </Link>
