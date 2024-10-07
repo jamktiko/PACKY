@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getData } from '@/utils/neo4j/neo4j'; // Importing a utility function to fetch data from Neo4j database
 import Image from 'next/image';
+import { TbEyeCheck } from 'react-icons/tb';
 
 /**
  * THIS COMPONENT IS GOING TO BE USED FOR THE COMPARE PAGE
@@ -13,6 +14,8 @@ interface FeatureTechnology {
   name: string;
   desc: string;
   image: string;
+  pros: string[];
+  cons: string[];
 }
 const CompareList = () => {
   // State to hold the list of technologies fetched from the database
@@ -123,11 +126,20 @@ const CompareList = () => {
             {selectedOne && (
               <div>
                 {/* Show select item */}
-                <h4>Details for {selectedOne}</h4>
+                <h4>{selectedOne}</h4>
                 {/* Add more detailed information about the selected technology here */}
                 <p>{data.find((tech) => tech.name === selectedOne)?.desc}</p>
+                {/* Show pros and cons */}
+                <h4>Pros</h4>
+                <p style={{ color: 'green' }}>
+                  {data.find((tech) => tech.name === selectedOne)?.pros}
+                </p>
+                <h4>Cons</h4>
+                <p style={{ color: 'red' }}>
+                  {data.find((tech) => tech.name === selectedOne)?.cons}
+                </p>
                 <Image
-                  className="h-16 w-16"
+                  className="h-16 w-16 mx-auto"
                   src={
                     data.find((tech) => tech.name === selectedOne)?.image || ''
                   }
@@ -138,7 +150,6 @@ const CompareList = () => {
               </div>
             )}
           </div>
-
           {/* Second comparison card */}
           {/* Select the second technology to compare for exmaple Angular vs React */}
           <div style={cardStyle}>
@@ -172,12 +183,20 @@ const CompareList = () => {
               <div>
                 {/* Show select item */}
                 <h4>{selectedTwo}</h4>
-                <p>Add some detailed information about {selectedTwo}...</p>
-                <h4>Details for {selectedTwo}</h4>
 
                 <p>{data.find((tech) => tech.name === selectedTwo)?.desc}</p>
+
+                <h4>Pros</h4>
+                <p style={{ color: 'green' }}>
+                  {data.find((tech) => tech.name === selectedTwo)?.pros}
+                </p>
+                <h4>Cons</h4>
+                <p style={{ color: 'red' }}>
+                  {data.find((tech) => tech.name === selectedTwo)?.cons}
+                </p>
+
                 <Image
-                  className="h-16 w-16"
+                  className="h-16 w-16 mx-auto"
                   src={
                     data.find((tech) => tech.name === selectedTwo)?.image || ''
                   }
