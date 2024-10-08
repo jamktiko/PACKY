@@ -214,16 +214,23 @@ const CompareList = () => {
                 <p style={{ color: 'red' }}>
                   {data.find((tech) => tech.name === selectedTwo)?.cons}
                 </p>
-
-                <Image
-                  className="h-16 w-16 mx-auto"
-                  src={
-                    data.find((tech) => tech.name === selectedTwo)?.image || ''
+                <Link
+                  href={
+                    data.find((tech) => tech.name === selectedTwo)?.link || '/'
                   }
-                  alt={selectedTwo}
-                  width={100}
-                  height={100}
-                />
+                  target="_blank"
+                >
+                  <Image
+                    className="h-16 w-16 mx-auto"
+                    src={
+                      data.find((tech) => tech.name === selectedTwo)?.image ||
+                      ''
+                    }
+                    alt={selectedTwo}
+                    width={100}
+                    height={100}
+                  />
+                </Link>
               </div>
             )}
           </div>
