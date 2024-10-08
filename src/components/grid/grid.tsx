@@ -44,6 +44,7 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
       setSelectedCell({
         row,
         col,
+        item: [],
       })
     );
     // Opens the modal when that cell is clicked

@@ -37,7 +37,9 @@ const GridButton: React.FC<GridButtonProps> = ({
   );
 
   // Get items from the global Redux state using useSelector hook (passed from gridButtonReducer.ts)
-  const items = useSelector((state: RootState) => state.gridButtonReducer.item);
+  const items = useSelector(
+    (state: RootState) => state.gridStateReducer.activeCells
+  );
 
   // State to track the current index for button name updates
   const [currentIndex, setCurrentIndex] = useState(-1);
@@ -47,7 +49,7 @@ const GridButton: React.FC<GridButtonProps> = ({
     // If there are items and the index is valid
     // set the button name to the current item's name
     if (items.length > 0 && currentIndex >= 0 && currentIndex < items.length) {
-      setButtonName(items[currentIndex].name); // Set the button name based on the current index
+      setButtonName(items[currentIndex].item[0].name); // Set the button name based on the current index
     }
   }, [currentIndex, items]);
 
@@ -56,9 +58,11 @@ const GridButton: React.FC<GridButtonProps> = ({
     // Individual button index is defined by items length
     // It does not read anything else at this point
     // Including previously chosen features or names etc
+    if (buttonName == selectedCell.item[0].name) {
+    }
     setCurrentIndex(items.length); // Update the current index to items length on click
     onClick(row, col); // Trigger the onClick function passed from parent component
-    console.log(items.length); // Log the number of items
+    console.log('jahuu kakka' + id); // Log the number of items
   };
 
   // Set initial button color based on isActive or isChoosable

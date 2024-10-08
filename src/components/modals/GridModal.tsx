@@ -19,11 +19,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, type RootState } from '@/redux/store/store';
 import { addItem } from '@/redux/reducers/gridButtonReducer';
 import { CollectionData } from '@/utils/collectionData';
-import { setActiveCells } from '@/redux/reducers/gridStateReducer';
+import { setActiveCells, setId } from '@/redux/reducers/gridStateReducer';
 import { updateChoosableCells } from '@/utils/grid/updateGridState';
 interface Cell {
   row: number;
   col: number;
+  item: { name: string; desc: string }[];
 }
 
 const GridModal = () => {
@@ -53,6 +54,7 @@ const GridModal = () => {
   //tilan ja sulkeen modalin toggleModal funktiolla
 
   const [pressedButtons, setPressedButtons] = useState<Set<string>>(new Set());
+
   const handleClick = (item: CollectionData, description: string) => {
     if (pressedButtons.has(item.name)) {
       // Button has already been pressed, ilmoita käyttäjälle
@@ -71,12 +73,18 @@ const GridModal = () => {
         setActiveCells([
           ...activeCells.filter(
             (cell) =>
-              cell.row !== (selectedCell?.row ?? 0) ||
-              cell.col !== (selectedCell?.col ?? 0)
+              cell.row !== selectedCell.row || cell.col !== selectedCell.col
           ),
-          selectedCell as Cell,
+          {
+            ...selectedCell,
+            row: selectedCell.row,
+            col: selectedCell.col,
+            item: [{ name: item.name, desc: description }],
+            id: item.name,
+          } as Cell,
         ])
       );
+
       updateChoosableCells(9);
       // Suljetaan modaali
       dispatch(toggleModal(false));
@@ -86,23 +94,23 @@ const GridModal = () => {
   return (
     <>
       {gridmodal && (
-        <div className='grid-modal'>
+        <div className="grid-modal">
           {gridmodalData.map((item, id) => (
             <button
               key={id}
-              className='grid-modal-item'
+              className="grid-modal-item"
               onClick={() => handleClick(item, item.desc)}
             >
-              <h1 className='font-bold'>{item.name}</h1>
+              <h1 className="font-bold">{item.name}</h1>
               <p>{item.desc}</p>
             </button>
           ))}
-          <div className='absolute top-0 left-0 z-50 w-screen text-3xl text-center py-2'>
+          <div className="absolute top-0 left-0 z-50 w-screen text-3xl text-center py-2">
             <h1>Choose feature</h1>
             <button
-              className='modal-toggle'
+              className="modal-toggle"
               onClick={() => dispatch(toggleModal(false))}
-              type='button'
+              type="button"
             >
               ⏎
             </button>
