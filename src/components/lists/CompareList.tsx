@@ -22,19 +22,22 @@ const CompareList = () => {
   const [data, setData] = useState<FeatureTechnology[]>([]);
 
   // State to manage the selected category of technologies (e.g., "frontendFrameworks")
-  const [collectionName, setCollectionName] = useState('frontendFramework');
+
+  const [collectionName, setCollectionName] = useState<string | null>(null);
   const [selectedOne, setSelectedOne] = useState(''); // First technology to compare
   const [selectedTwo, setSelectedTwo] = useState(''); // Second technology to compare
 
   // Fetch data based on the selected category (e.g., "frontendFrameworks", "backendFrameworks")
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await getData(collectionName); // Fetch the technologies from the database
-      console.log(data);
-      setData(data as FeatureTechnology[]); // Set the fetched data into state
-    };
-    fetchData(); // Call fetch function whenever the category changes
-  }, [collectionName]); // Trigger effect when the selected category changes
+    if (collectionName !== null) {
+      const fetchData = async () => {
+        const data = await getData(collectionName);
+        console.log(data);
+        setData(data as FeatureTechnology[]);
+      };
+      fetchData();
+    }
+  }, [collectionName]);
 
   // Options for selecting the type of collection (Frontend, Backend, Features, or Languages)
   const options = [
@@ -67,10 +70,10 @@ const CompareList = () => {
   return (
     <>
       <div>
-        <h1>Compare Technologies</h1>
+        <h1>Select Comparable Technologies</h1>
         {/* Dropdown to select category such as frontend, backend, features or languages */}
         <select
-          value={collectionName}
+          value={collectionName ?? ''}
           onChange={handleCollectionChange}
           style={{
             backgroundColor: '#333',
@@ -79,6 +82,9 @@ const CompareList = () => {
             marginBottom: '20px',
           }}
         >
+          <option value="" disabled selected hidden>
+            Select
+          </option>
           {/* Render the category options */}
           {options.map((option) => (
             <option value={option.value} key={option.value}>
@@ -102,6 +108,7 @@ const CompareList = () => {
             {/* Dropdown to select the first technology */}
             <select
               value={selectedOne}
+              disabled={collectionName === null}
               onChange={handleTechChangeOne}
               style={{
                 backgroundColor: '#333',
@@ -169,6 +176,7 @@ const CompareList = () => {
             {/* Dropdown to select the second technology */}
             <select
               value={selectedTwo}
+              disabled={collectionName === null}
               onChange={handleTechChangeTwo}
               style={{
                 backgroundColor: '#333',
