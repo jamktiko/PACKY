@@ -44,6 +44,7 @@ const CompareList = () => {
     { value: 'frontendFramework', label: 'Frontend Frameworks' },
     { value: 'backendFramework', label: 'Backend Frameworks' },
     { value: 'Language', label: 'Languages' },
+    { value: 'Database', label: 'Databases' },
   ];
   // Handle the change of the technology category
   const handleCollectionChange = (

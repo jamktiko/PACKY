@@ -27,7 +27,7 @@ const List = () => {
   const options = [
     { value: 'frontendFramework', label: 'Frontend Frameworks' },
     { value: 'backendFramework', label: 'Backend Frameworks' },
-    // { value: 'Feature', label: 'Features' },
+    { value: 'Database', label: 'Databases' },
     { value: 'Language', label: 'Languages' },
   ];
 
