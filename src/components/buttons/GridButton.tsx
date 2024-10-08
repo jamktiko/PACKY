@@ -56,19 +56,33 @@ const GridButton: React.FC<GridButtonProps> = ({
   useEffect(() => {
     // If there are items and the index is valid
     // set the button name to the current item's name
-
+    // the index array changes if the selected cell changes
     if (
       selectedCell !== null &&
       selectedCell.row === row &&
       selectedCell.col === col
     ) {
+      const originalIndex = activeCells.findIndex(
+        (cell) => cell.row === row && cell.col === col
+      );
       const selectedIndex = activeCells.findIndex(
         (cell) =>
           cell.row === selectedCell?.row && cell.col === selectedCell.col
       );
       console.log('selected index:', selectedIndex);
       console.log('buttonname is ', buttonName);
-      setCurrentIndex(selectedIndex);
+      console.log('originalindex is', originalIndex);
+
+      if (originalIndex !== -1 && selectedIndex !== originalIndex) {
+        setCurrentIndex(originalIndex);
+      } else {
+        setCurrentIndex(selectedIndex);
+      }
+
+      // Update the button name here
+      if (selectedIndex !== -1) {
+        setButtonName(activeCells[selectedIndex].item[0].name); // Assuming activeCells has a 'name' property
+      }
     }
   }, [currentIndex, items, selectedCell, row, col, activeCells, buttonName]);
 
