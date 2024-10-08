@@ -33,7 +33,7 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
   const choosableCells = useSelector(
     (state: RootState) => state.gridStateReducer.choosableCells
   );
-  const selectedCell = useSelector(
+  let selectedCell = useSelector(
     (state: RootState) => state.gridStateReducer.selectedCell
   );
 
@@ -43,8 +43,6 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
   // Handler to handle what happens when grid button is clicked
   // row and col parameters
   const handleGridButtonClick = (row: number, col: number) => {
-    console.log('painettu vitun lujaa');
-
     // update selectedCell with dispatch redux action
     dispatch(
       setSelectedCell({
@@ -53,12 +51,18 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
         item: [],
       })
     );
-    console.log('row is: ' + row);
-    console.log('col is: ' + col);
-    console.log('selected cell pitäisi olla', selectedCell);
+
+    //update selectedCell in state MANUALLY
+    selectedCell = {
+      row,
+      col,
+      item: [],
+    };
+
     // Opens the modal when that cell is clicked
     setIsModalOpen(true);
   };
+
   // UseEffect to update choosable cells whenever activeCells change
   useEffect(() => {
     console.log('Selected cell updated on effect:', selectedCell);
