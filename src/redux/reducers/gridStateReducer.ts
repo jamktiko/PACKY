@@ -31,7 +31,7 @@ const gridStateSlice = createSlice({
     },
     setSelectedCell: (state, action: PayloadAction<Cell>) => {
       state.selectedCell = action.payload;
-      console.log("selected cell on nyt:", state.selectedCell);
+      console.log('selected cell on nyt:', state.selectedCell);
     },
     setId: (state, action: PayloadAction<string>) => {
       if (state.selectedCell) {
