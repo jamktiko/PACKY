@@ -65,7 +65,6 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
 
   // UseEffect to update choosable cells whenever activeCells change
   useEffect(() => {
-    console.log('Selected cell updated on effect:', selectedCell);
     updateChoosableCells(gridSize);
   }, [activeCells, selectedCell]);
 
