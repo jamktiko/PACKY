@@ -74,16 +74,10 @@ const GridButton: React.FC<GridButtonProps> = ({
 
   // Handle button click event
   const handleButtonClick = () => {
-    if (selectedCell !== null) {
-      const selectedIndex = activeCells.findIndex(
-        (cell) => cell.row === selectedCell.row && cell.col === selectedCell.col
-      );
-      setCurrentIndex(selectedIndex);
-    } else {
-      // Handle the case where selectedCell is null
-      // For example, you could set currentIndex to -1
-      setCurrentIndex(-1);
-    }
+    const selectedIndex = activeCells.findIndex(
+      (cell) => cell.row === selectedCell?.row && cell.col === selectedCell.col
+    );
+    setCurrentIndex(selectedIndex);
   };
 
   // Set initial button color based on isActive or isChoosable
@@ -124,10 +118,10 @@ const GridButton: React.FC<GridButtonProps> = ({
 
   // Function to handle modal opening
   const handleOpenModal = () => {
-    dispatch(toggleModal(true)); // Dispatch Redux action to open the modal
     if (isChoosable) {
       onClick(row, col); // If the button is choosable, call the onClick function passing the row and column
     }
+    dispatch(toggleModal(true)); // Dispatch Redux action to open the modal
   };
 
   return (

@@ -8,6 +8,7 @@ import { updateChoosableCells } from '@/utils/grid/updateGridState';
 import { calculateDistance } from '@/utils/grid/calculateDistance';
 import { setSelectedCell } from '@/redux/reducers/gridStateReducer';
 import { RootState } from '@/redux/store/store';
+
 // Manhattan distance = abs(x1 - x2) + abs(y1 - y2)
 // The distance between two points measured along axes at right angles.
 
@@ -32,6 +33,9 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
   const choosableCells = useSelector(
     (state: RootState) => state.gridStateReducer.choosableCells
   );
+  const selectedCell = useSelector(
+    (state: RootState) => state.gridStateReducer.selectedCell
+  );
 
   // Define gridsize and dispatch
   const gridSize = 9;
@@ -39,6 +43,8 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
   // Handler to handle what happens when grid button is clicked
   // row and col parameters
   const handleGridButtonClick = (row: number, col: number) => {
+    console.log('painettu vitun lujaa');
+
     // update selectedCell with dispatch redux action
     dispatch(
       setSelectedCell({
@@ -47,13 +53,17 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
         item: [],
       })
     );
+    console.log('row is: ' + row);
+    console.log('col is: ' + col);
+    console.log('selected cell pitäisi olla', selectedCell);
     // Opens the modal when that cell is clicked
     setIsModalOpen(true);
   };
   // UseEffect to update choosable cells whenever activeCells change
   useEffect(() => {
+    console.log('Selected cell updated on effect:', selectedCell);
     updateChoosableCells(gridSize);
-  }, [activeCells]);
+  }, [activeCells, selectedCell]);
 
   return (
     // Container for the grid, styled with CSS Grid

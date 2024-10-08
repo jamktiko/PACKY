@@ -23,8 +23,6 @@ const StackBuilder: PageLayout = () => {
   const handlesetOutputModal = () => {
     dispatch(toggleOutputModal(true));
   };
-
-  console.log('isOutputModalOpen', isOutputModalOpen);
   return (
     <>
       {/* _____________________________ */}
@@ -34,7 +32,7 @@ const StackBuilder: PageLayout = () => {
       </Head>
       {/* _____________________________ */}
       <Grid setIsModalOpen={setIsModalOpen} />
-      <button className="toggle-output" onClick={handlesetOutputModal}>
+      <button className='toggle-output' onClick={handlesetOutputModal}>
         Finish
       </button>
       {isModalOpen && <GridModal />}
