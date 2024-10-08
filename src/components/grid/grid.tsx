@@ -58,7 +58,7 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
   return (
     // Container for the grid, styled with CSS Grid
     <div
-      className="grid-container"
+      className='grid-container'
       style={{
         display: 'grid',
         gridTemplateColumns: `repeat(${gridSize}, 1fr)`,

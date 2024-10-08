@@ -31,6 +31,14 @@ const GridButton: React.FC<GridButtonProps> = ({
   // Render button component with appropriate styling and behaviour
   const dispatch = useDispatch();
 
+  const selectedCell = useSelector(
+    (state: RootState) => state.gridStateReducer.selectedCell
+  );
+
+  const activeCells = useSelector(
+    (state: RootState) => state.gridStateReducer.activeCells
+  );
+
   // Set the initial button name based on 'isActive' and 'isChoosable' state
   const [buttonName, setButtonName] = useState(
     isActive ? 'Active' : isChoosable ? 'Choose' : ''
@@ -51,18 +59,31 @@ const GridButton: React.FC<GridButtonProps> = ({
     if (items.length > 0 && currentIndex >= 0 && currentIndex < items.length) {
       setButtonName(items[currentIndex].item[0].name); // Set the button name based on the current index
     }
-  }, [currentIndex, items]);
+
+    if (
+      selectedCell !== null &&
+      selectedCell.row === row &&
+      selectedCell.col === col
+    ) {
+      const selectedIndex = activeCells.findIndex(
+        (cell) => cell.row === selectedCell.row && cell.col === selectedCell.col
+      );
+      setCurrentIndex(selectedIndex);
+    }
+  }, [currentIndex, items, selectedCell, row, col, activeCells]);
 
   // Handle button click event
   const handleButtonClick = () => {
-    // Individual button index is defined by items length
-    // It does not read anything else at this point
-    // Including previously chosen features or names etc
-    if (buttonName == selectedCell.item[0].name) {
+    if (selectedCell !== null) {
+      const selectedIndex = activeCells.findIndex(
+        (cell) => cell.row === selectedCell.row && cell.col === selectedCell.col
+      );
+      setCurrentIndex(selectedIndex);
+    } else {
+      // Handle the case where selectedCell is null
+      // For example, you could set currentIndex to -1
+      setCurrentIndex(-1);
     }
-    setCurrentIndex(items.length); // Update the current index to items length on click
-    onClick(row, col); // Trigger the onClick function passed from parent component
-    console.log('jahuu kakka' + id); // Log the number of items
   };
 
   // Set initial button color based on isActive or isChoosable
