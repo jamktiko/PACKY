@@ -117,6 +117,7 @@ const CompareList = () => {
                 border: '1px solid #ccc',
                 padding: '5px',
                 marginRight: '10px',
+                opacity: collectionName === null ? 0.5 : 1, // add some opacity to make it look disabled
               }}
             >
               {/* Palceholder kind of thing to show when nothing is selected*/}
@@ -185,6 +186,7 @@ const CompareList = () => {
                 backgroundColor: '#333',
                 border: '1px solid #ccc',
                 padding: '5px',
+                opacity: collectionName === null ? 0.5 : 1,
               }}
             >
               {/* Palceholder kind of thing to show when nothing is selected*/}
