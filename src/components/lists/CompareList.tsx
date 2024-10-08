@@ -31,13 +31,13 @@ const CompareList = () => {
   useEffect(() => {
     if (collectionName !== null) {
       const fetchData = async () => {
-        const data = await getData(collectionName);
+        const data = await getData(collectionName); // Fetch technology data from the Neo4j database
         console.log(data);
-        setData(data as FeatureTechnology[]);
+        setData(data as FeatureTechnology[]); // Set the fetched data into the state
       };
       fetchData();
     }
-  }, [collectionName]);
+  }, [collectionName]); // Re-run the effect if the selected category change
 
   // Options for selecting the type of collection (Frontend, Backend, Features, or Languages)
   const options = [
@@ -74,6 +74,7 @@ const CompareList = () => {
         <h1>Select Comparable Technologies</h1>
         {/* Dropdown to select category such as frontend, backend, features or languages */}
         <select
+          // Set the current value of the dropdown to the selected category or an empty string if no category is selected.
           value={collectionName ?? ''}
           onChange={handleCollectionChange}
           style={{
@@ -118,6 +119,7 @@ const CompareList = () => {
                 marginRight: '10px',
               }}
             >
+              {/* Palceholder kind of thing to show when nothing is selected*/}
               <option value="" disabled selected hidden>
                 Select Technology
               </option>
@@ -185,6 +187,7 @@ const CompareList = () => {
                 padding: '5px',
               }}
             >
+              {/* Palceholder kind of thing to show when nothing is selected*/}
               <option value="" disabled selected hidden>
                 Select Technology
               </option>
