@@ -19,7 +19,7 @@ PACKY is a web application that provides tools to help developers finding and re
 The app itself requires authentication keys in order to be used. These keys are sold for organizations for primarily educational and secondarily quality-of-life purposes. For example, someone with no earlier experience in planning out required technologies or understanding the scope of a developmental product can use PACKY to gain perspective on what truly is required. PACKY also offers a method for communication, since the end product itself is a list of suggested technologies - carefully chosen for cross functionality and ease. Planning and designing apps could ease up by a major factor.
 
 ## Technological overview
-PACKY is a **React | Next.JS web application** that uses **Redux** for stage management **Tailwind CSS** for styling. The database is hosted by and located in **Firebase**.
+PACKY is a **React | Next.JS web application** that uses **Redux** for stage management **Tailwind CSS** for styling. The database is hosted by and located in **Neo4J**.
 
 The developmental branch of the application repository is the src folder. It has:
 - **assets**
