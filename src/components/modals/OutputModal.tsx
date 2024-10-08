@@ -16,7 +16,7 @@ const OutputModal = () => {
 
   // Use the useSelector hook to select the features value from the state
   const features = useSelector(
-    (state: RootState) => state.gridButtonReducer.item
+    (state: RootState) => state.gridButtonReducer.outPutItem
   );
 
   // Use the useDispatch hook to get the dispatch function
