@@ -73,12 +73,12 @@ const GridModal = () => {
         setActiveCells([
           ...activeCells.filter(
             (cell) =>
-              cell.row !== selectedCell.row || cell.col !== selectedCell.col
+              cell.row !== selectedCell?.row || cell.col !== selectedCell.col
           ),
           {
             ...selectedCell,
-            row: selectedCell.row,
-            col: selectedCell.col,
+            row: selectedCell?.row,
+            col: selectedCell?.col,
             item: [{ name: item.name, desc: description }],
             id: item.name,
           } as Cell,
@@ -94,23 +94,23 @@ const GridModal = () => {
   return (
     <>
       {gridmodal && (
-        <div className='grid-modal'>
+        <div className="grid-modal">
           {gridmodalData.map((item, id) => (
             <button
               key={id}
-              className='grid-modal-item'
+              className="grid-modal-item"
               onClick={() => handleClick(item, item.desc)}
             >
-              <h1 className='font-bold'>{item.name}</h1>
+              <h1 className="font-bold">{item.name}</h1>
               <p>{item.desc}</p>
             </button>
           ))}
-          <div className='absolute top-0 left-0 z-50 w-screen text-3xl text-center py-2'>
+          <div className="absolute top-0 left-0 z-50 w-screen text-3xl text-center py-2">
             <h1>Choose feature</h1>
             <button
-              className='modal-toggle'
+              className="modal-toggle"
               onClick={() => dispatch(toggleModal(false))}
-              type='button'
+              type="button"
             >
               ⏎
             </button>
