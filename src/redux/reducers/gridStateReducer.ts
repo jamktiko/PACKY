@@ -14,7 +14,7 @@ interface GridState {
 }
 
 const initialState: GridState = {
-  activeCells: [{ row: 4, col: 4, item: [], id: '' }],
+  activeCells: [{ row: 4, col: 4, item: [{ name: 'Web App', desc: 'This is test' }], id: 'Web App' }],
   choosableCells: [],
   selectedCell: null,
 };

@@ -41,7 +41,7 @@ const GridButton: React.FC<GridButtonProps> = ({
 
   // Set the initial button name based on 'isActive' and 'isChoosable' state
   let [buttonName, setButtonName] = useState(
-    isActive ? 'Active' : isChoosable ? 'Choose' : ''
+    isActive ? 'Web App' : isChoosable ? 'Choose' : ''
   );
 
   // Get items from the global Redux state using useSelector hook (passed from gridButtonReducer.ts)

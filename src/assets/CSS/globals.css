@@ -14,7 +14,7 @@ body {
 /* HEADER AND NAVIGATION */
 
 header {
-  @apply backdrop-blur top-0 fixed flex flex-row bg-opacity-80 shadow-inner-2 bg-slate-950 h-16 border-b w-full border-teal-950 text-teal-500 z-30;
+  @apply backdrop-blur top-0 fixed flex flex-row bg-opacity-80 shadow-inner-2 bg-slate-950 h-16 border-b w-full border-teal-950 text-teal-500 z-50;
   -webkit-box-shadow: 10px 15px 22px 5px rgba(2, 6, 23, 1);
   -moz-box-shadow: 10px 15px 22px 5px rgba(2, 6, 23, 1);
   box-shadow: 10px 15px 22px 5px rgba(2, 6, 23, 1);
@@ -38,7 +38,7 @@ header button {
 }
 
 header nav {
-  @apply border-l border-teal-900 shadow-inner-2 sm:w-[16.7rem] px-4 w-full z-50 bg-opacity-40 border-inherit border-r backdrop-blur-sm absolute right-0 top-16 bg-slate-950 rounded-br-lg h-[calc(100vh-4rem)] overflow-hidden;
+  @apply fixed border-l border-teal-900 shadow-inner-2 sm:w-[16.7rem] px-4 w-full z-50 bg-opacity-40 border-inherit border-r backdrop-blur-sm right-0 top-16 bg-slate-950 rounded-br-lg h-[calc(100vh-4rem)] overflow-hidden;
 }
 
 header nav ul {
@@ -177,7 +177,7 @@ header nav ul li a span {
 }
 
 .grid-modal {
-  @apply z-50 content-center fixed grid grid-cols-2 space-x-2 space-y-2 top-16 left-0 w-screen h-screen bg-black backdrop-blur-sm bg-opacity-50;
+  @apply z-10 content-center fixed grid grid-cols-2 space-x-2 space-y-2 top-16 left-0 w-screen h-screen bg-black backdrop-blur-sm bg-opacity-50;
 }
 
 .grid-modal-item {
@@ -210,4 +210,9 @@ header nav ul li a span {
 
 .data-description {
   @apply text-teal-500 w-4/5;
+}
+
+#grid-button-4-4 {
+  pointer-events: none;
+  opacity: 0.5;
 }

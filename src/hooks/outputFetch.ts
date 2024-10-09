@@ -3,7 +3,10 @@ import { getTechsForFeature } from '@/utils/neo4j/neo4j';
 import { RecordShape } from 'neo4j-driver';
 
 interface Feature {
-  name: string;
+  row: number;
+  col: number;
+  item: { name: string; desc: string }[];
+  id?: string;
 }
 // Interfaces for Tech and Feature
 interface Tech {
@@ -27,7 +30,7 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
           // Map over the features array and call the getTechsForFeature function for each feature
           features.map(async (feature: Feature) => {
             // Call the getTechsForFeature function and wait for the result
-            const techs = await getTechsForFeature(feature.name);
+            const techs = await getTechsForFeature(feature.item[0].name);
             // If the result is null or undefined, return an empty object
             if (!techs) {
               return {};

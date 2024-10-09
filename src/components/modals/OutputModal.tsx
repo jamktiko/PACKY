@@ -16,7 +16,7 @@ const OutputModal = () => {
 
   // Use the useSelector hook to select the features value from the state
   const features = useSelector(
-    (state: RootState) => state.gridButtonReducer.outPutItem
+    (state: RootState) => state.gridStateReducer.activeCells
   );
 
   // Use the useDispatch hook to get the dispatch function
@@ -26,51 +26,54 @@ const OutputModal = () => {
   const { labelTypes } = useOutputFetch(features, outputModal);
 
   return (
-    <>
-      {outputModal && (
-        <>
-          <div
-            className='grid-modal'
-            onClick={() => dispatch(toggleOutputModal(false))}
-          ></div>
-          <div className='absolute top-28 left-0 z-50 w-screen text-3xl text-center py-2'>
-            <h1 className='absolute -top-8'>Technology suggestions</h1>
-            <button
-              className='modal-toggle'
+    console.log('Löytyny data', features),
+    (
+      <>
+        {outputModal && (
+          <>
+            <div
+              className='grid-modal'
               onClick={() => dispatch(toggleOutputModal(false))}
-              type='button'
-            >
-              ⏎
-            </button>
-            {/* Map over the features array and create an AccordionItem component for each feature */}
-            <div className='grid grid-cols-3 gap-2 place-items-center '>
-              {features.map((feature, index) => (
-                <AccordionItem
-                  key={feature.name}
-                  title={feature.name}
-                  description={labelTypes[index]}
-                />
-              ))}
-            </div>
+            ></div>
+            <div className='absolute top-28 left-0 z-50 w-screen text-3xl text-center py-2'>
+              <h1 className='absolute -top-8'>Technology suggestions</h1>
+              <button
+                className='modal-toggle mt-16'
+                onClick={() => dispatch(toggleOutputModal(false))}
+                type='button'
+              >
+                ⏎
+              </button>
+              {/* Map over the features array and create an AccordionItem component for each feature */}
+              <div className='grid grid-cols-3 gap-2 place-items-center '>
+                {features.slice(1).map((feature, index) => (
+                  <AccordionItem
+                    key={feature.item[0].name}
+                    title={feature.item[0].name}
+                    description={labelTypes[index + 1]}
+                  />
+                ))}
+              </div>
 
-            <div className=' mt-16 border-y bg-opacity-30 pt-16 bg-black pb-16 flex justify-evenly'>
-              <Link
-                className='bg-white bg-opacity-20 hover:bg-opacity-40 transition-all rounded-2xl border border-teal-500 p-4'
-                href='/library'
-              >
-                Explore library
-              </Link>
-              <Link
-                className='bg-white bg-opacity-20 hover:bg-opacity-40 transition-all rounded-2xl border border-teal-500 p-4'
-                href='/compare'
-              >
-                Compare technologies
-              </Link>
+              <div className=' mt-16 border-y bg-opacity-30 pt-16 bg-black pb-16 flex justify-evenly'>
+                <Link
+                  className='bg-white bg-opacity-20 hover:bg-opacity-40 transition-all rounded-2xl border border-teal-500 p-4'
+                  href='/library'
+                >
+                  Explore library
+                </Link>
+                <Link
+                  className='bg-white bg-opacity-20 hover:bg-opacity-40 transition-all rounded-2xl border border-teal-500 p-4'
+                  href='/compare'
+                >
+                  Compare technologies
+                </Link>
+              </div>
             </div>
-          </div>
-        </>
-      )}
-    </>
+          </>
+        )}
+      </>
+    )
   );
 };
 export default OutputModal;
