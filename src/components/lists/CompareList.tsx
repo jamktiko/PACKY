@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getData } from '@/utils/neo4j/neo4j'; // Importing a utility function to fetch data from Neo4j database
 import Image from 'next/image';
 import Link from 'next/link';
+import { color } from 'framer-motion';
 /**
  * THIS COMPONENT IS GOING TO BE USED FOR THE COMPARE PAGE
  * It allows users to select two technologies from a category and compare them
@@ -144,13 +145,27 @@ const CompareList = () => {
                 <p>{data.find((tech) => tech.name === selectedOne)?.desc}</p>
                 {/* Show pros and cons */}
                 <h4>Pros</h4>
-                <p style={{ color: 'green' }}>
-                  {data.find((tech) => tech.name === selectedOne)?.pros}
-                </p>
+                {/* Show cons and pros in list */}
+                <ul>
+                  {data
+                    .find((tech) => tech.name === selectedOne)
+                    ?.pros.map((pro, index) => (
+                      <li key={index} style={{ color: 'green' }}>
+                        {pro}
+                      </li>
+                    ))}
+                </ul>
                 <h4>Cons</h4>
-                <p style={{ color: 'red' }}>
-                  {data.find((tech) => tech.name === selectedOne)?.cons}
-                </p>
+                {/* Show cons and pros in list */}
+                <ul>
+                  {data
+                    .find((tech) => tech.name === selectedOne)
+                    ?.cons.map((con, index) => (
+                      <li key={index} style={{ color: 'red' }}>
+                        {con}
+                      </li>
+                    ))}
+                </ul>
                 {/* Link in image to navigate to sites for example if you press angular logo it will take you to angular site */}
                 <Link
                   href={
@@ -213,13 +228,27 @@ const CompareList = () => {
                 <p>{data.find((tech) => tech.name === selectedTwo)?.desc}</p>
 
                 <h4>Pros</h4>
-                <p style={{ color: 'green' }}>
-                  {data.find((tech) => tech.name === selectedTwo)?.pros}
-                </p>
+                {/* Show cons and pros in list */}
+                <ul>
+                  {data
+                    .find((tech) => tech.name === selectedTwo)
+                    ?.pros.map((pro, index) => (
+                      <li key={index} style={{ color: 'green' }}>
+                        {pro}
+                      </li>
+                    ))}
+                </ul>
                 <h4>Cons</h4>
-                <p style={{ color: 'red' }}>
-                  {data.find((tech) => tech.name === selectedTwo)?.cons}
-                </p>
+                <ul>
+                  {/* Show cons and pros in list */}
+                  {data
+                    .find((tech) => tech.name === selectedTwo)
+                    ?.cons.map((con, index) => (
+                      <li key={index} style={{ color: 'red' }}>
+                        {con}
+                      </li>
+                    ))}
+                </ul>
                 <Link
                   href={
                     data.find((tech) => tech.name === selectedTwo)?.link || '/'
