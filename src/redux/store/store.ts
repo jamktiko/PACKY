@@ -7,7 +7,7 @@ import gridStateReducer from '../reducers/gridStateReducer';
 import dataReducer from '@/redux/reducers/dataReducer';
 import outputReducer from '../reducers/outputReducer';
 import gridModalReducer from '../reducers/gridModalReducer';
-import gridButtonReducer from '../reducers/gridButtonReducer';
+
 import {
   FLUSH,
   REHYDRATE,
@@ -34,7 +34,6 @@ export const store = configureStore({
     gridModalReducer,
     dataReducer: persistedDataReducer,
     outputReducer,
-    gridButtonReducer,
   }, //middleware is configurated to the redux store to ignore certain actions when performing
   //serializable checks
   middleware: (getDefaultMiddleware) =>

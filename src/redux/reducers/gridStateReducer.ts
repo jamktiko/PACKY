@@ -14,7 +14,14 @@ interface GridState {
 }
 
 const initialState: GridState = {
-  activeCells: [{ row: 4, col: 4, item: [{ name: 'Web App', desc: 'This is test' }], id: 'Web App' }],
+  activeCells: [
+    {
+      row: 4,
+      col: 4,
+      item: [{ name: 'Web App', desc: 'This is test' }],
+      id: 'Web App',
+    },
+  ],
   choosableCells: [],
   selectedCell: null,
 };
@@ -33,14 +40,9 @@ const gridStateSlice = createSlice({
       state.selectedCell = action.payload;
       console.log('selected cell on nyt:', state.selectedCell);
     },
-    setId: (state, action: PayloadAction<string>) => {
-      if (state.selectedCell) {
-        state.selectedCell.id = action.payload;
-      }
-    },
   },
 });
 
-export const { setActiveCells, setChoosableCells, setSelectedCell, setId } =
+export const { setActiveCells, setChoosableCells, setSelectedCell } =
   gridStateSlice.actions;
 export default gridStateSlice.reducer;
