@@ -35,7 +35,7 @@ const OutputModal = () => {
               className='grid-modal'
               onClick={() => dispatch(toggleOutputModal(false))}
             ></div>
-            <div className='absolute top-28 left-0 z-50 w-screen text-3xl text-center py-2'>
+            <div className='absolute top-28 left-0 z-40 w-screen text-3xl text-center py-2'>
               <h1 className='absolute -top-8'>Technology suggestions</h1>
               <button
                 className='modal-toggle mt-16'
@@ -45,7 +45,7 @@ const OutputModal = () => {
                 ⏎
               </button>
               {/* Map over the features array and create an AccordionItem component for each feature */}
-              <div className='grid grid-cols-3 gap-2 place-items-center '>
+              <div className=' grid grid-cols-3 gap-2 place-items-center '>
                 {features.slice(1).map((feature, index) => (
                   <AccordionItem
                     key={feature.item[0].name}
