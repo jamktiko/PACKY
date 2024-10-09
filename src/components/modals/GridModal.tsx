@@ -17,9 +17,9 @@ import React, { useState } from 'react';
 import { toggleModal } from '@/redux/reducers/gridModalReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, type RootState } from '@/redux/store/store';
-import { addItem } from '@/redux/reducers/gridButtonReducer';
+
 import { CollectionData } from '@/utils/collectionData';
-import { setActiveCells, setId } from '@/redux/reducers/gridStateReducer';
+import { setActiveCells } from '@/redux/reducers/gridStateReducer';
 import { updateChoosableCells } from '@/utils/grid/updateGridState';
 interface Cell {
   row: number;
@@ -61,7 +61,7 @@ const GridModal = () => {
       console.log(`Ominaisuus ${item.name} on jo valittu.`);
     } else {
       // Lisätään item Redux-storeen vain, jos sitä ei ole vielä valittu
-      dispatch(addItem({ name: item.name, description: description }));
+
       // Päivitetään pressedButtons-tila
       setPressedButtons(
         (prevPressedButtons) =>
