@@ -215,4 +215,5 @@ header nav ul li a span {
 #grid-button-4-4 {
   pointer-events: none;
   opacity: 0.5;
+  background-color: teal;
 }
