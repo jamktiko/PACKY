@@ -25,43 +25,37 @@ const Navigation: React.FC<NavigationProps> = ({ onLinkClick }) => {
     >
       <ul>
         <li>
-          <Link href='/' onClick={onLinkClick}>
-            <IoHome className='text-2xl ml-2 mr-4' />
+          <Link href="/" onClick={onLinkClick}>
+            <IoHome className="text-2xl ml-2 mr-4" />
             <span>Index</span>
           </Link>
         </li>
         <li>
-          <Link href='/stackbuilder' onClick={onLinkClick}>
-            <IoGridOutline className='text-2xl ml-2 mr-4' />
+          <Link href="/stackbuilder" onClick={onLinkClick}>
+            <IoGridOutline className="text-2xl ml-2 mr-4" />
             <span>Stack Builder</span>
           </Link>
         </li>
         <li>
-          <Link href='/library' onClick={onLinkClick}>
-            <IoLibraryOutline className='text-2xl ml-2 mr-4' />
+          <Link href="/librarypage" onClick={onLinkClick}>
+            <IoLibraryOutline className="text-2xl ml-2 mr-4" />
             <span>Library</span>
           </Link>
         </li>
         <li>
-          <Link href='/compare' onClick={onLinkClick}>
-            <IoGitCompareOutline className='text-2xl ml-2 mr-4' />
-            <span>Compare</span>
-          </Link>
-        </li>
-        <li>
-          <Link href='/about' onClick={onLinkClick}>
-            <IoHelpCircleOutline className='text-2xl ml-2 mr-4' />
+          <Link href="/about" onClick={onLinkClick}>
+            <IoHelpCircleOutline className="text-2xl ml-2 mr-4" />
             <span>About</span>
           </Link>
         </li>
         <li>
-          <Link href='/contact' onClick={onLinkClick}>
-            <IoMailOutline className='text-2xl ml-2 mr-4' />
+          <Link href="/contact" onClick={onLinkClick}>
+            <IoMailOutline className="text-2xl ml-2 mr-4" />
             <span>Contact</span>
           </Link>
         </li>
       </ul>
-      <p className=' select-none text-sm absolute bottom-0 opacity-40 w-full'>
+      <p className=" select-none text-sm absolute bottom-0 opacity-40 w-full">
         © 2024 - PACKY | JAMK Ticorporate
       </p>
     </motion.nav>
