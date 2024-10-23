@@ -217,3 +217,33 @@ header nav ul li a span {
   opacity: 0.5;
   background-color: teal;
 }
+
+/* OUTPUT CAROUSEL */
+
+.carousel {
+  @apply transition-all w-screen object-center content-center bg-black bg-opacity-50 backdrop-blur min-h-[80vh];
+}
+
+.carousel-item {
+  @apply bg-slate-900 shadow-2xl text-center h-[90vh] content-center;
+}
+
+.slick-current {
+  @apply transform z-[60];
+}
+
+.slick-arrow {
+  @apply min-w-64 h-64 z-50;
+}
+
+.slick-list {
+  @apply overflow-y-visible;
+}
+
+.slick-slide {
+  @apply blur-sm z-40 shadow-inner-2 transform scale-75;
+}
+
+.slick-active {
+  @apply blur-none bg-zinc-50 scale-100;
+}
