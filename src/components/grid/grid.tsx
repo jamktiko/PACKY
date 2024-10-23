@@ -56,10 +56,10 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
   };
 
   return (
-    <div className='relative'>
+    <div className="relative">
       {/* SVG container for lines */}
       <svg
-        className='absolute top-0 left-0 w-full h-full pointer-events-none'
+        className="absolute top-0 left-0 w-full h-full pointer-events-none"
         style={{
           gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
           zIndex: 0, // Ensure the SVG is behind the buttons
@@ -78,9 +78,9 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
                     y1={`${(cell1.row + 0.5) * (100 / gridSize)}%`}
                     x2={`${(cell2.col + 0.5) * (100 / gridSize)}%`}
                     y2={`${(cell2.row + 0.5) * (100 / gridSize)}%`}
-                    stroke='teal'
-                    strokeWidth='4'
-                    className='stroke-teal-500 blur-sm opacity-50'
+                    stroke="teal"
+                    strokeWidth="4"
+                    className="stroke-teal-500 blur-sm opacity-50"
                   />
                   {/* Line that joins activeCells */}
                   <line
@@ -88,9 +88,9 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
                     y1={`${(cell1.row + 0.5) * (100 / gridSize)}%`}
                     x2={`${(cell2.col + 0.5) * (100 / gridSize)}%`}
                     y2={`${(cell2.row + 0.5) * (100 / gridSize)}%`}
-                    stroke='teal'
-                    strokeWidth='2'
-                    className='stroke-teal-500'
+                    stroke="teal"
+                    strokeWidth="2"
+                    className="stroke-teal-500"
                   />
                 </React.Fragment>
               );
@@ -102,7 +102,7 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
 
       {/* Grid container for buttons */}
       <div
-        className='grid-container relative z-10'
+        className="grid-container relative z-10"
         style={{
           display: 'grid',
           gridTemplateColumns: `repeat(${gridSize}, 1fr)`,

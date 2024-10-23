@@ -46,16 +46,54 @@ export const getFeatures = async () => {
   }
 };
 
-export const getTechsForFeature = async (featureName: string) => {
-  const query = `MATCH (feature:Feature {name: $featureName})<-[r:SUPPORTS]-(t)
-RETURN DISTINCT t.name as name, labels(t) as type, r.weight AS weight
-ORDER BY weight DESC
+// export const getTechsForFeature = async (featureName: string) => {
+//   const query = `MATCH (feature:Feature {name: $featureName})<-[r:SUPPORTS]-(t)
+// RETURN DISTINCT t.name as name, labels(t) as type, r.weight AS weight
+// ORDER BY weight DESC
+//   `;
+
+//   try {
+//     const result = await runCypherQuery(query, { featureName });
+//     return result;
+//   } catch (error) {
+//     console.error(error + 'error');
+//   }
+// };
+
+export const getTechsForFeature = async (
+  featureName: string | string[] // Accept both single feature or an array of features
+) => {
+  let query: string;
+  let params: any;
+
+  // If featureName is an array (multiple features), run the summed weight query
+  if (Array.isArray(featureName)) {
+    query = `
+    MATCH (t)-[r:SUPPORTS]->(f:Feature)
+    WHERE f.name IN $featureNames
+    AND (t:frontendFramework OR t:backendFramework OR t:Database OR t:Language OR t:library OR t:service OR t:api)
+    WITH t, SUM(r.weight) AS totalScore
+    ORDER BY totalScore DESC
+    RETURN labels(t) AS technologyCategory, t.name AS technology, totalScore
   `;
+    params = { featureNames: featureName }; // Pass the array of feature names
+  } else {
+    // If it's a single feature, pass it as an array with a single element
+    query = `
+    MATCH (t)-[r:SUPPORTS]->(f:Feature)
+    WHERE f.name IN $featureNames
+    AND (t:frontendFramework OR t:backendFramework OR t:Database OR t:Language OR t:library OR t:service OR t:api)
+    WITH t, SUM(r.weight) AS totalScore
+    ORDER BY totalScore DESC
+    RETURN labels(t) AS technologyCategory, t.name AS technology, totalScore
+  `;
+    params = { featureNames: [featureName] }; // Pass the single feature name as an array
+  }
 
   try {
-    const result = await runCypherQuery(query, { featureName });
+    const result = await runCypherQuery(query, params);
     return result;
   } catch (error) {
-    console.error(error + 'error');
+    console.error(error + ' error');
   }
 };
