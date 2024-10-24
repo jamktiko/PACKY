@@ -6,7 +6,8 @@ import { useState } from 'react';
 import Head from 'next/head';
 import { toggleOutputModal } from '@/redux/reducers/outputReducer';
 import { useDispatch } from 'react-redux';
-import Library from '@/components/lists/library';
+import List from '@/components/lists/librarylist';
+import Library from './library';
 
 // StackBuilder page is constructed here, it renders Grid component and conditionally renders GridModal
 const StackBuilder: PageLayout = () => {

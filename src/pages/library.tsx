@@ -1,5 +1,5 @@
 import type { PageLayout } from './_app';
-import List from '../components/lists/library';
+import List from '@/components/lists/librarylist';
 import Head from 'next/head';
 const Library: PageLayout = () => {
   return (
@@ -11,7 +11,7 @@ const Library: PageLayout = () => {
         <title>Library | PACKY</title>
       </Head>
       {/* _____________________________ */}
-      <div className="p-12 m-10">
+      <div>
         <List />
       </div>
     </>
