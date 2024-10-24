@@ -37,7 +37,7 @@ const Navigation: React.FC<NavigationProps> = ({ onLinkClick }) => {
           </Link>
         </li>
         <li>
-          <Link href="/librarypage" onClick={onLinkClick}>
+          <Link href="/library" onClick={onLinkClick}>
             <IoLibraryOutline className="text-2xl ml-2 mr-4" />
             <span>Library</span>
           </Link>
