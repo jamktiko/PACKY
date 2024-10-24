@@ -40,9 +40,17 @@ const gridStateSlice = createSlice({
       state.selectedCell = action.payload;
       console.log('selected cell on nyt:', state.selectedCell);
     },
+
+    resetGridState: () => {
+      return initialState;
+    },
   },
 });
 
-export const { setActiveCells, setChoosableCells, setSelectedCell } =
-  gridStateSlice.actions;
+export const {
+  setActiveCells,
+  setChoosableCells,
+  setSelectedCell,
+  resetGridState,
+} = gridStateSlice.actions;
 export default gridStateSlice.reducer;

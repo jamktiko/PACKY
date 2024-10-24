@@ -8,6 +8,7 @@ import { toggleOutputModal } from '@/redux/reducers/outputReducer';
 import { useDispatch } from 'react-redux';
 import List from '@/components/lists/librarylist';
 import Library from './library';
+import { resetGridState } from '@/redux/reducers/gridStateReducer';
 
 // StackBuilder page is constructed here, it renders Grid component and conditionally renders GridModal
 const StackBuilder: PageLayout = () => {
@@ -32,9 +33,6 @@ const StackBuilder: PageLayout = () => {
     setIsGridOpen(!isGridOpen);
   };
 
-  const handlesetGridOpen = () => {
-    setIsGridOpen(!isGridOpen);
-  };
   return (
     <>
       {/* _____________________________ */}
@@ -46,23 +44,35 @@ const StackBuilder: PageLayout = () => {
       {isLibraryOpen && (
         <>
           <Library />{' '}
-          <button className="toggle-output" onClick={handlesetLibraryOpen}>
-            Next
-          </button>
+          <div className="w-full z-40 flex justify-center h-16 fixed bottom-0">
+            <button className="toggle-output" onClick={handlesetLibraryOpen}>
+              Next
+            </button>
+          </div>
         </>
       )}
       {isGridOpen && (
         <>
-          <button
-            className="toggle-output top-16"
-            onClick={handlesetLibraryOpen}
-          >
+          <button className="toggle-output z-50" onClick={handlesetLibraryOpen}>
             Go back
           </button>
           <Grid setIsModalOpen={setIsModalOpen} />
-          <button className="toggle-output" onClick={handlesetOutputModal}>
-            Finish
-          </button>
+          <div className="w-full z-40 flex justify-center h-16 fixed bottom-0">
+            <button
+              className="toggle-output z-50"
+              onClick={handlesetOutputModal}
+            >
+              Finish
+            </button>
+          </div>
+          <div className="w-full z-40 flex justify-end h-16 fixed bottom-0">
+            <button
+              className="toggle-output "
+              onClick={() => dispatch(resetGridState())}
+            >
+              Reset
+            </button>
+          </div>
         </>
       )}
 
@@ -71,9 +81,11 @@ const StackBuilder: PageLayout = () => {
       {isOutputModalOpen && (
         <>
           <OutputModal />
-          <button className="toggle-output" onClick={handlesetOutputModal}>
-            Go Back
-          </button>
+          <div className="w-full z-50 flex justify-start h-16 fixed bottom-0">
+            <button className="toggle-output" onClick={handlesetOutputModal}>
+              Go Back
+            </button>
+          </div>
         </>
       )}
     </>
