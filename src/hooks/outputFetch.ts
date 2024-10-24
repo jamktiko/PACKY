@@ -9,80 +9,99 @@ interface Feature {
   id?: string;
 }
 
+// The custom hook to fetch and categorize technologies based on the selected features
 export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
-  const [labelTypes, setLabelTypes] = useState<{ [key: string]: any[] }[]>([]);
+  // State to store the grouped technologies (3 arrays for 3 sliders)
+  const [technologyGroups, setTechnologyGroups] = useState<
+    { [key: string]: any[] }[] // Array of objects representing the three groups (highest, medium, lowest weights)
+  >([]);
 
+  // useEffect hook runs when 'features' or 'outputModal' change
   useEffect(() => {
+    // Asynchronous function to fetch and process the technologies for each feature
     const fetchTechnologies = async () => {
-      // If output modal is not active, exit the function
+      // If 'outputModal' is false, exit early without fetching
       if (!outputModal) return;
-      // Fetching technologies for each feature and then flatten the results.
+
+      // Fetch the technologies for each feature using 'Promise.all' to run all fetches concurrently
       const allTechs = await Promise.all(
         features.map(async (feature: Feature) => {
+          // Fetch technologies related to the feature based on its name
           const techs = await getTechsForFeature(feature.item[0].name);
-          return techs || [];
+          return techs || []; // If no technologies are returned, fallback to an empty array
         })
       );
 
-      // Flatten the results into a single array
+      // Flatten the array of arrays (each feature's technologies) into a single array of technologies
       const combinedTechs = allTechs.flat();
 
-      // Calculate total weight for each technology across all features
+      // Create an object to hold the cumulative total weight (score) for each technology
       const techWeights: { [technology: string]: number } = {};
+
+      // Loop through all the combined technologies and accumulate their total weight
       combinedTechs.forEach((tech) => {
-        const techName = tech.technology;
+        const techName = tech.technology; // Get the technology name
+        // Add or update the total score for each technology (cumulative if the tech is found multiple times)
         techWeights[techName] = (techWeights[techName] || 0) + tech.totalScore;
       });
 
-      // Create an array of technologies with their total weights
+      // Create an array of technologies that includes their total weight and technology category
       const techsWithWeights: {
-        technology: string;
-        totalWeight: number;
-        technologyCategory: string[];
+        technology: string; // Technology name
+        totalWeight: number; // Total weight (cumulative score across features)
+        technologyCategory: string[]; // Array of categories (e.g., frontend, backend)
       }[] = combinedTechs.map((tech) => ({
-        technology: tech.technology,
-        totalWeight: techWeights[tech.technology],
-        technologyCategory: tech.technologyCategory,
+        technology: tech.technology, // Set the technology name
+        totalWeight: techWeights[tech.technology], // Set the cumulative total weight of the technology
+        technologyCategory: tech.technologyCategory, // Set the categories this technology belongs to
       }));
 
-      // Sort technologies by total weight in descending order
+      // Sort the array of technologies by their total weight in descending order (highest first)
       techsWithWeights.sort((a, b) => b.totalWeight - a.totalWeight);
 
-      // Group technologies by technology category (labels)
-      const groups: { [key: string]: any[] }[] = [{}, {}, {}];
-      let currentGroup = 0;
+      // Divide the sorted technologies into three groups based on weight rank
+      const groupSize = Math.ceil(techsWithWeights.length / 3); // Divide equally into 3 parts
 
-      // Create a Set to keep track of used categories in each group
-      const usedCategoriesInGroups: { [key: string]: boolean }[] = [{}, {}, {}];
+      // Split the sorted array into three arrays for the sliders
+      const highestWeightGroup = techsWithWeights.slice(0, groupSize); // First third (highest weights)
+      const mediumWeightGroup = techsWithWeights.slice(
+        groupSize,
+        groupSize * 2
+      ); // Second third (medium weights)
+      const lowestWeightGroup = techsWithWeights.slice(groupSize * 2); // Last third (lowest weights)
 
-      // Distribute technologies across groups, ensuring one tech per category per group
-      techsWithWeights.forEach((tech) => {
-        const category = tech.technologyCategory[0];
-
-        let added = false;
-        for (let i = 0; i < groups.length; i++) {
-          const groupIndex = (currentGroup + i) % groups.length; // Cycle through groups
-          if (!usedCategoriesInGroups[groupIndex][category]) {
-            groups[groupIndex][category] = (
-              groups[groupIndex][category] || []
-            ).concat(tech);
-            usedCategoriesInGroups[groupIndex][category] = true;
-            added = true;
-            break;
+      const groupByCategory = (
+        techGroup: {
+          technology: string;
+          totalWeight: number;
+          technologyCategory: string[];
+        }[]
+      ) => {
+        return techGroup.reduce((acc: { [key: string]: any[] }, tech) => {
+          const category = tech.technologyCategory[0]; // Using the first category
+          if (!acc[category]) {
+            acc[category] = [];
           }
-        }
+          acc[category].push(tech);
+          return acc;
+        }, {});
+      };
 
-        if (added) {
-          currentGroup = (currentGroup + 1) % groups.length; // Move to the next group
-        }
-      });
-
-      setLabelTypes(groups);
+      setTechnologyGroups([
+        groupByCategory(highestWeightGroup),
+        groupByCategory(mediumWeightGroup),
+        groupByCategory(lowestWeightGroup),
+      ]);
     };
-    // Call the fetchTechnologies function
+
+    // Call the async function to fetch and process the technologies
     fetchTechnologies();
+
+    // This useEffect runs whenever 'features' or 'outputModal' changes
   }, [features, outputModal]);
 
-  // finally returning the labelTypes
-  return { labelTypes };
+  // Return the grouped technologies for use in components
+  return { technologyGroups };
 };
+
+export default useOutputFetch;

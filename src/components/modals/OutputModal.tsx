@@ -28,7 +28,7 @@ const OutputModal = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   // Use the useOutputFetch hook to get the labelTypes value
-  const { labelTypes } = useOutputFetch(features, outputModal);
+  const { technologyGroups } = useOutputFetch(features, outputModal);
 
   const settings = {
     className: 'center',
@@ -46,7 +46,7 @@ const OutputModal = () => {
       {outputModal && (
         <div className="slider-container text-center object-center content-center w-screen h-[90vh] flex justify-center absolute top-16 z-50">
           <Slider {...settings} className="carousel">
-            {labelTypes.map((group, index) => (
+            {technologyGroups.map((group, index) => (
               <div className="carousel-item" key={index}>
                 <h3>{index + 1}</h3>
                 {Object.entries(group).map(([category, techs]) => (
