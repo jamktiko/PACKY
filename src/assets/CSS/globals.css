@@ -10,6 +10,9 @@ body {
   @apply overflow-x-hidden;
 }
 
+main {
+  @apply h-full w-full;
+}
 /* ______________________________________________ */
 /* HEADER AND NAVIGATION */
 
@@ -169,7 +172,7 @@ header nav ul li a span {
 
 /* STACKBUILDER */
 .grid-container {
-  @apply grid grid-cols-9 gap-4 mt-24;
+  @apply gap-4 mt-24 w-screen;
 }
 
 .grid-button {
@@ -189,7 +192,34 @@ header nav ul li a span {
 }
 
 .toggle-output {
-  @apply transition-all bg-opacity-80 border-t border-teal-300 hover:bg-white hover:text-black z-50 font-bold w-full bg-teal-500 fixed bottom-0 h-16;
+  @apply transition-all bg-opacity-80 border-t border-teal-300 hover:bg-white hover:text-black z-50 font-bold w-full bg-teal-500 fixed h-16;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#grid-button-4-4 {
+  pointer-events: none;
+  opacity: 0.5;
+  background-color: teal;
+}
+
+/* GRID MEDIA QUERY */
+@media (max-width: 700px) {
+  .rotate-screen-message {
+    display: block;
+    /* add some styles to make the message visible */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #000000;
+    padding: 70px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
 }
 
 /* LIST COMPONENT DATA */
@@ -210,12 +240,6 @@ header nav ul li a span {
 
 .data-description {
   @apply text-teal-500 w-4/5;
-}
-
-#grid-button-4-4 {
-  pointer-events: none;
-  opacity: 0.5;
-  background-color: teal;
 }
 
 /* OUTPUT CAROUSEL */
