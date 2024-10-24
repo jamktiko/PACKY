@@ -20,12 +20,13 @@ const StackBuilder: PageLayout = () => {
   // Grid component and GridModal are rendered here
   // setIsModalOpen is passed as a prop to Grid and GridModal, to allow them to update the state
   //of isModalOpen
-
+  console.log('output modal is', isOutputModalOpen);
   const dispatch = useDispatch();
 
   const handlesetOutputModal = () => {
     setIsOutputModalOpen(!isOutputModalOpen);
-    dispatch(toggleOutputModal(true));
+    console.log('output modal is', isOutputModalOpen);
+    // dispatch(toggleOutputModal(true));
   };
 
   const handlesetLibraryOpen = () => {
@@ -44,8 +45,8 @@ const StackBuilder: PageLayout = () => {
       {isLibraryOpen && (
         <>
           <Library />{' '}
-          <div className="w-full z-40 flex justify-center h-16 fixed bottom-0">
-            <button className="toggle-output" onClick={handlesetLibraryOpen}>
+          <div className='w-full flex justify-center h-16 fixed bottom-0'>
+            <button className='toggle-output' onClick={handlesetLibraryOpen}>
               Next
             </button>
           </div>
@@ -53,21 +54,18 @@ const StackBuilder: PageLayout = () => {
       )}
       {isGridOpen && (
         <>
-          <button className="toggle-output z-50" onClick={handlesetLibraryOpen}>
+          <button className='toggle-output' onClick={handlesetLibraryOpen}>
             Go back
           </button>
           <Grid setIsModalOpen={setIsModalOpen} />
-          <div className="w-full z-40 flex justify-center h-16 fixed bottom-0">
-            <button
-              className="toggle-output z-50"
-              onClick={handlesetOutputModal}
-            >
+          <div className='w-full flex justify-center h-16 fixed bottom-0'>
+            <button className='toggle-output' onClick={handlesetOutputModal}>
               Finish
             </button>
           </div>
-          <div className="w-full z-40 flex justify-end h-16 fixed bottom-0">
+          <div className='h-16 fixed bottom-0'>
             <button
-              className="toggle-output "
+              className='toggle-output right-0'
               onClick={() => dispatch(resetGridState())}
             >
               Reset
@@ -81,8 +79,8 @@ const StackBuilder: PageLayout = () => {
       {isOutputModalOpen && (
         <>
           <OutputModal />
-          <div className="w-full z-50 flex justify-start h-16 fixed bottom-0">
-            <button className="toggle-output" onClick={handlesetOutputModal}>
+          <div className='w-full flex justify-start h-16 fixed bottom-0'>
+            <button className='toggle-output' onClick={handlesetOutputModal}>
               Go Back
             </button>
           </div>

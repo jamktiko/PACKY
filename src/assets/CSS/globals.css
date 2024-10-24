@@ -192,7 +192,7 @@ header nav ul li a span {
 }
 
 .toggle-output {
-  @apply transition-all bg-opacity-80 border-t border-teal-300 hover:bg-white hover:text-black z-50 font-bold w-64 bg-teal-500 fixed h-16;
+  @apply transition-all pointer-events-auto bg-opacity-80 border-t border-teal-300 hover:bg-white hover:text-black z-[100] font-bold w-64 bg-teal-500 fixed h-16;
   position: fixed;
   bottom: 0;
 }
@@ -243,7 +243,7 @@ header nav ul li a span {
 /* OUTPUT CAROUSEL */
 
 .carousel {
-  @apply transition-all w-screen object-center content-center bg-black bg-opacity-50 backdrop-blur min-h-[80vh];
+  @apply transition-all w-screen object-center content-center bg-black bg-opacity-50 backdrop-blur min-h-[calc(100vh-4rem)];
 }
 
 .carousel-item {
