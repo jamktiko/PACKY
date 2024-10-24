@@ -42,73 +42,29 @@ const OutputModal = () => {
   };
 
   return (
-    console.log('Löytyny data', features),
-    (
-      <>
-        {outputModal && (
-          // <>
-          //   <div
-          //     className='grid-modal'
-          //     onClick={() => dispatch(toggleOutputModal(false))}
-          //   ></div>
-          //   <div className='absolute top-28 left-0 z-40 w-screen text-3xl text-center py-2'>
-          //     <h1 className='absolute -top-8'>Technology suggestions</h1>
-          //     <button
-          //       className='modal-toggle mt-16'
-          //       onClick={() => dispatch(toggleOutputModal(false))}
-          //       type='button'
-          //     >
-          //       ⏎
-          //     </button>
-          //     {/* Map over the features array and create an AccordionItem component for each feature */}
-          //     <div className=' grid grid-cols-3 gap-2 place-items-center '>
-          //       {features.slice(1).map((feature, index) => (
-          //         <AccordionItem
-          //           key={feature.item[0].name}
-          //           title={feature.item[0].name}
-          //           description={labelTypes[index + 1]}
-          //         />
-          //       ))}
-          //     </div>
-
-          //     <div className=' mt-16 border-y bg-opacity-30 pt-16 bg-black pb-16 flex justify-evenly'>
-          //       <Link
-          //         className='bg-white bg-opacity-20 hover:bg-opacity-40 transition-all rounded-2xl border border-teal-500 p-4'
-          //         href='/library'
-          //       >
-          //         Explore library
-          //       </Link>
-          //       <Link
-          //         className='bg-white bg-opacity-20 hover:bg-opacity-40 transition-all rounded-2xl border border-teal-500 p-4'
-          //         href='/compare'
-          //       >
-          //         Compare technologies
-          //       </Link>
-          //     </div>
-          //   </div>
-          // </>
-          <div className='slider-container text-center object-center content-center w-screen h-[90vh] flex justify-center absolute top-16 z-50 '>
-            <Slider {...settings} className='carousel'>
-              <div className='carousel-item'>
-                <h3>1</h3>
-                <p>Lorem ipsum</p>
-                <p>Oikeisiin töihin</p>
+    <>
+      {outputModal && (
+        <div className="slider-container text-center object-center content-center w-screen h-[90vh] flex justify-center absolute top-16 z-50">
+          <Slider {...settings} className="carousel">
+            {labelTypes.map((group, index) => (
+              <div className="carousel-item" key={index}>
+                <h3>{index + 1}</h3>
+                {Object.entries(group).map(([category, techs]) => (
+                  <div key={category}>
+                    <p className="font-bold">{category}:</p>
+                    <ul>
+                      {techs.map((tech, i) => (
+                        <li key={i}>{tech.technology}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
               </div>
-              <div className='carousel-item'>
-                <h3>2</h3>
-                <p>piss</p>
-                <p>äijä tietää</p>
-              </div>
-              <div className='carousel-item'>
-                <h3>3</h3>
-                <p>react</p>
-                <p>on paras muut on huonoja</p>
-              </div>
-            </Slider>
-          </div>
-        )}
-      </>
-    )
+            ))}
+          </Slider>
+        </div>
+      )}
+    </>
   );
 };
 export default OutputModal;
