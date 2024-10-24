@@ -6,7 +6,8 @@ import { useState } from 'react';
 import Head from 'next/head';
 import { toggleOutputModal } from '@/redux/reducers/outputReducer';
 import { useDispatch } from 'react-redux';
-import Library from '@/components/lists/library';
+import List from '@/components/lists/librarylist';
+import Library from './librarypage';
 
 // StackBuilder page is constructed here, it renders Grid component and conditionally renders GridModal
 const StackBuilder: PageLayout = () => {
@@ -44,7 +45,7 @@ const StackBuilder: PageLayout = () => {
       {isLibraryOpen && (
         <>
           <Library />{' '}
-          <button className='toggle-output' onClick={handlesetLibraryOpen}>
+          <button className="toggle-output" onClick={handlesetLibraryOpen}>
             Next
           </button>
         </>
@@ -52,13 +53,13 @@ const StackBuilder: PageLayout = () => {
       {isGridOpen && (
         <>
           <button
-            className='toggle-output top-16'
+            className="toggle-output top-16"
             onClick={handlesetLibraryOpen}
           >
             Go back
           </button>
           <Grid setIsModalOpen={setIsModalOpen} />
-          <button className='toggle-output' onClick={handlesetOutputModal}>
+          <button className="toggle-output" onClick={handlesetOutputModal}>
             Finish
           </button>
         </>
