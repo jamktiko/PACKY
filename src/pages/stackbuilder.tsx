@@ -55,7 +55,7 @@ const StackBuilder: PageLayout = () => {
       {isGridOpen && (
         <>
           <button className='toggle-output' onClick={handlesetLibraryOpen}>
-            Go back
+            Return to Library
           </button>
           <Grid setIsModalOpen={setIsModalOpen} />
           <div className='w-full flex justify-center h-16 fixed bottom-0'>
@@ -79,9 +79,9 @@ const StackBuilder: PageLayout = () => {
       {isOutputModalOpen && (
         <>
           <OutputModal />
-          <div className='w-full flex justify-start h-16 fixed bottom-0'>
+          <div className='w-full flex justify-start h-16 fixed bottom-0 z-[100]'>
             <button className='toggle-output' onClick={handlesetOutputModal}>
-              Go Back
+              Return to Grid
             </button>
           </div>
         </>
