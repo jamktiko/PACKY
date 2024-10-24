@@ -192,11 +192,9 @@ header nav ul li a span {
 }
 
 .toggle-output {
-  @apply transition-all bg-opacity-80 border-t border-teal-300 hover:bg-white hover:text-black z-50 font-bold w-full bg-teal-500 fixed h-16;
+  @apply transition-all bg-opacity-80 border-t border-teal-300 hover:bg-white hover:text-black z-50 font-bold w-64 bg-teal-500 fixed h-16;
   position: fixed;
   bottom: 0;
-  left: 0;
-  right: 0;
 }
 
 #grid-button-4-4 {
