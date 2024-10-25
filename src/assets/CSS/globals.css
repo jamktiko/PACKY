@@ -204,7 +204,7 @@ header nav ul li a span {
 }
 
 .toggle-output {
-  @apply transition-all pointer-events-auto bg-opacity-80 border-t border-teal-300 hover:bg-white hover:text-black z-[100] font-bold w-64 bg-teal-500 h-16;
+  @apply place-items-center flex justify-center transition-all pointer-events-auto bg-opacity-80 border-t border-teal-300 hover:bg-white hover:text-black z-[100] font-bold w-64 h-16;
   bottom: 0;
 }
 
