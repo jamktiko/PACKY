@@ -56,10 +56,11 @@ const Page: PageLayout = () => {
             <i>from developers to developers.</i>
           </p>
           <p className='pb-16 mb-36'>
-            <b>We offer a variety of tools</b> for organizations to use. Using
-            authorization keys, organizations can access our Stack Builder, take
-            a look at our technology library and gain personal insight for their
-            projects, work and learning alike.
+            <b>Our app guides you</b> by first letting you choose familiar or
+            desirable technologies from our tech library, and then choose
+            desired app features. PACKY then compiles your selections and
+            provides you with a technology recommendations based on these
+            choices.
           </p>
         </div>
         <Image
