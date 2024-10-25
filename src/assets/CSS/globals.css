@@ -206,11 +206,13 @@ header nav ul li a span {
 /* GRID MEDIA QUERY */
 @media (max-width: 700px) {
   .rotate-screen-message {
+    @apply min-h-[calc(100vh-4rem)] mt-8 w-screen text-center;
     display: block;
     /* add some styles to make the message visible */
     position: absolute;
     top: 50%;
     left: 50%;
+    z-index: 150;
     transform: translate(-50%, -50%);
     background-color: #000000;
     padding: 70px;
