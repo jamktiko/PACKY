@@ -36,12 +36,7 @@ const Navigation: React.FC<NavigationProps> = ({ onLinkClick }) => {
             <span>Stack Builder</span>
           </Link>
         </li>
-        <li>
-          <Link href="/library" onClick={onLinkClick}>
-            <IoLibraryOutline className="text-2xl ml-2 mr-4" />
-            <span>Library</span>
-          </Link>
-        </li>
+
         <li>
           <Link href="/about" onClick={onLinkClick}>
             <IoHelpCircleOutline className="text-2xl ml-2 mr-4" />
