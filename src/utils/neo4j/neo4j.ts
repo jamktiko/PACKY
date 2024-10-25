@@ -36,8 +36,8 @@ RETURN n.name AS name, n.description as desc, n.imageUrl as image, n.pros AS pro
 // Function to retrieve all features from the neo4j
 export const getFeatures = async () => {
   const query = `
-  MATCH (t)-[r:SUPPORTS]->(f:Feature)
-  RETURN t.name AS technology, f.name AS feature, r.weight AS relationshipWeight,
+  MATCH (f:Feature)
+  RETURN  f.name AS name,
   f.description as desc
   `;
 
