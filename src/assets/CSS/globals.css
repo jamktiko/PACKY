@@ -11,8 +11,20 @@ body {
 }
 
 main {
-  @apply h-full w-full;
+  @apply h-screen w-screen;
 }
+
+@media screen and (max-width: 1000px) {
+  #__next {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  body {
+    @apply overflow-x-visible;
+  }
+}
+
 /* ______________________________________________ */
 /* HEADER AND NAVIGATION */
 
@@ -172,7 +184,7 @@ header nav ul li a span {
 
 /* STACKBUILDER */
 .grid-container {
-  @apply gap-4 mt-24 w-screen;
+  @apply gap-4 mt-24 w-screen z-0;
 }
 
 .grid-button {
@@ -192,8 +204,7 @@ header nav ul li a span {
 }
 
 .toggle-output {
-  @apply transition-all pointer-events-auto bg-opacity-80 border-t border-teal-300 hover:bg-white hover:text-black z-[100] font-bold w-64 bg-teal-500 fixed h-16;
-  position: fixed;
+  @apply transition-all pointer-events-auto bg-opacity-80 border-t border-teal-300 hover:bg-white hover:text-black z-[100] font-bold w-64 bg-teal-500 h-16;
   bottom: 0;
 }
 
