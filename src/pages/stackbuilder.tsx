@@ -50,20 +50,23 @@ const StackBuilder: PageLayout = () => {
           <Library />{' '}
           <div className='w-full flex justify-center h-16 fixed bottom-0'></div>
           <div className='h-16 fixed w-full bottom-0 flex justify-evenly'>
-            <button className='toggle-output pointer-events-none cursor-default bg-slate-500'>
+            <button className='toggle-output pointer-events-none cursor-default text-slate-700 bg-slate-500'>
               <IoArrowUndoOutline className='w-8 h-8' />
+              Go back
             </button>
             <button
               className='toggle-output bg-teal-500'
               onClick={handlesetLibraryOpen}
             >
               <IoIosArrowDropright className='w-8 h-8' />
+              Next
             </button>
             <button
               className='toggle-output bg-cyan-500'
               onClick={() => dispatch(resetGridState())}
             >
               <GrPowerReset className='w-8 h-8' />
+              Reset
             </button>
           </div>
         </>
@@ -77,18 +80,21 @@ const StackBuilder: PageLayout = () => {
               onClick={handlesetLibraryOpen}
             >
               <IoArrowUndoOutline className='w-8 h-8' />
+              Go back
             </button>
             <button
               className='toggle-output bg-teal-500'
               onClick={handlesetOutputModal}
             >
               <FaCheck className='w-8 h-8' />
+              Finish
             </button>
             <button
               className='toggle-output right-0 z-50 bg-cyan-500'
               onClick={() => dispatch(resetGridState())}
             >
               <GrPowerReset className='w-8 h-8' />
+              Reset
             </button>
           </div>
         </>
@@ -105,6 +111,7 @@ const StackBuilder: PageLayout = () => {
               onClick={handlesetOutputModal}
             >
               <IoArrowUndoOutline className='w-8 h-8' />
+              Go back
             </button>
           </div>
         </>
