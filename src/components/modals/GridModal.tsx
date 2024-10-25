@@ -50,6 +50,8 @@ const GridModal = () => {
   const gridmodalData = Array.isArray(data)
     ? data.filter((item) => item.name)
     : [];
+
+  console.log(gridmodalData);
   //funktio handleclick kutsuu addItem funktiota, joka päivittää gridbuttonReduceriin
   //tilan ja sulkeen modalin toggleModal funktiolla
   const handleClick = (item: CollectionData, description: string) => {
