@@ -1,7 +1,7 @@
 import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
 import { motion } from 'framer-motion';
-
+import { useFetchCollections } from '@/hooks/useFetchCollections';
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 import { store } from '../redux/store/store';
@@ -28,7 +28,8 @@ type AppPropsWithLayout = AppProps & {
 
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
-
+  //älä poista
+  useFetchCollections();
   let persistor = persistStore(store);
 
   // Layout is defined here
