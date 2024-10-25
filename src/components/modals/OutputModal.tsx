@@ -44,14 +44,14 @@ const OutputModal = () => {
   return (
     <>
       {outputModal && (
-        <div className="slider-container text-center object-center content-center w-screen h-[90vh] flex justify-center absolute top-16 z-50">
-          <Slider {...settings} className="carousel">
+        <div className='slider-container fixed text-center object-center content-center w-screen h-[90vh] flex justify-center top-16 z-50'>
+          <Slider {...settings} className='carousel'>
             {technologyGroups.map((group, index) => (
-              <div className="carousel-item" key={index}>
+              <div className='carousel-item' key={index}>
                 <h3>{index + 1}</h3>
                 {Object.entries(group).map(([category, techs]) => (
                   <div key={category}>
-                    <p className="font-bold">{category}:</p>
+                    <p className='font-bold'>{category}:</p>
                     <ul>
                       {techs.map((tech, i) => (
                         <li key={i}>{tech.technology}</li>
