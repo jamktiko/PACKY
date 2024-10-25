@@ -26,7 +26,7 @@ const StackBuilder: PageLayout = () => {
   const handlesetOutputModal = () => {
     setIsOutputModalOpen(!isOutputModalOpen);
     console.log('output modal is', isOutputModalOpen);
-    // dispatch(toggleOutputModal(true));
+    dispatch(toggleOutputModal(true));
   };
 
   const handlesetLibraryOpen = () => {
