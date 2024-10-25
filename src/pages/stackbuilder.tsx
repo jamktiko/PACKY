@@ -55,7 +55,7 @@ const StackBuilder: PageLayout = () => {
               Go back
             </button>
             <button
-              className='toggle-output bg-teal-500'
+              className='toggle-output bg-gradient-to-r from-teal-500 to-cyan-500'
               onClick={handlesetLibraryOpen}
             >
               <IoIosArrowDropright className='w-8 h-8' />
@@ -83,7 +83,7 @@ const StackBuilder: PageLayout = () => {
               Go back
             </button>
             <button
-              className='toggle-output bg-teal-500'
+              className='toggle-output bg-gradient-to-r from-teal-500 to-cyan-500'
               onClick={handlesetOutputModal}
             >
               <FaCheck className='w-8 h-8' />
@@ -107,7 +107,7 @@ const StackBuilder: PageLayout = () => {
           <OutputModal />
           <div className='h-16 z-50 fixed w-full bottom-0 flex justify-evenly'>
             <button
-              className='toggle-output min-w-96 bg-teal-500'
+              className='toggle-output min-w-96 bg-gradient-to-r from-teal-500 to-cyan-500'
               onClick={handlesetOutputModal}
             >
               <IoArrowUndoOutline className='w-8 h-8' />
