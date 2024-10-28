@@ -188,7 +188,7 @@ header nav ul li a span {
 }
 
 .grid-button {
-  @apply font-bold transition-all text-white border border-teal-200 hover:bg-white hover:text-black px-5 py-5 rounded hover:opacity-10 w-40 h-16;
+  @apply font-bold shadow-inner-2 transition-all text-white border border-teal-600 hover:bg-white hover:text-black px-2 rounded hover:opacity-10 w-44 h-[4.5rem];
 }
 
 .grid-modal {
@@ -196,7 +196,7 @@ header nav ul li a span {
 }
 
 .grid-modal-item {
-  @apply transition-all hover:bg-opacity-80 hover:text-black border border-teal-300 rounded-xl bg-white bg-opacity-10 p-4;
+  @apply transition-all hover:bg-opacity-80 h-32 shadow-inner-2 hover:text-black border border-teal-600 rounded-xl bg-white bg-opacity-10 p-4;
 }
 
 .modal-toggle {
@@ -260,7 +260,7 @@ header nav ul li a span {
 }
 
 .carousel-item {
-  @apply bg-slate-900 shadow-2xl text-center h-[90vh] content-center;
+  @apply bg-slate-900 border rounded-xl shadow-inner-2 shadow-2xl text-center h-[90vh] content-center;
 }
 
 .slick-current {
@@ -280,5 +280,5 @@ header nav ul li a span {
 }
 
 .slick-active {
-  @apply blur-none bg-zinc-50 transition-all scale-100;
+  @apply blur-none transition-all scale-100;
 }

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { AppDispatch, RootState } from '@/redux/store/store';
 import { fetchLibrary } from '@/redux/reducers/libraryDataReducer';
 import { useSelector, useDispatch } from 'react-redux';
+import { motion } from 'framer-motion';
 
 import ExpandableItem from '@/components/buttons/ExpandField';
 
@@ -35,27 +36,31 @@ const SearchBar = () => {
 
   return (
     <div>
-      <h1 className="text-center text-2xl">
+      <h1 className='text-center text-2xl'>
         Optional: Choose familiar technologies
       </h1>
       {/* Search box to filter by name */}
       <input
         style={{ color: 'white', backgroundColor: 'black' }}
-        type="text"
-        placeholder="Search for technologies"
+        type='text'
+        placeholder='Search for technologies'
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="mt-4 p-2 w-full rounded-2xl border border-gray-300 focus:outline-none"
+        className='mt-4 p-2 w-full rounded-2xl border border-gray-300 focus:outline-none'
       />
       {/* Display filtered data */}
       {filteredlibraryData.length > 0 ? (
-        <ul className="mt-4">
+        <motion.ul
+          initial={{ opacity: 0, x: 200 }}
+          animate={{ opacity: 1, x: 0 }}
+          className='mt-4'
+        >
           {filteredlibraryData.map((item, index) => (
             <ExpandableItem key={index} item={item} />
           ))}
-        </ul>
+        </motion.ul>
       ) : (
-        <p className="mt-4">No data available</p>
+        <p className='mt-4'>No data available</p>
       )}
     </div>
   );

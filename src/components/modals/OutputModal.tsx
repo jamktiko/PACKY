@@ -14,6 +14,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import { useTransform } from 'framer-motion';
 import Loader from '../loader';
+import { motion } from 'framer-motion';
 
 interface Technology {
   technology: string;
@@ -51,9 +52,7 @@ const OutputModal = () => {
   if (isLoading) {
     return (
       <div className='slider-container fixed text-center object-center content-center w-screen h-[90vh] flex justify-center top-16 z-50'>
-        <div className='carousel'>
-          <Loader />
-        </div>
+        <Loader />
       </div>
     );
   }
@@ -61,11 +60,17 @@ const OutputModal = () => {
   return (
     <>
       {outputModal && (
-        <div className='slider-container fixed text-center object-center content-center w-screen h-[90vh] flex justify-center top-16 z-50'>
+        <motion.div
+          initial={{ opacity: 0, y: 200 }}
+          animate={{ opacity: 1, y: 0 }}
+          className='slider-container fixed text-center object-center content-center w-screen h-[90vh] flex justify-center top-16 z-50'
+        >
           <Slider {...settings} className='carousel'>
             {technologyGroups.map((group, index) => (
               <div className='carousel-item' key={index}>
-                <h3>{index + 1}</h3>
+                <h3 className='absolute top-4 left-4 text-2xl font-bold opacity-30'>
+                  Option {index + 1}
+                </h3>
                 {Object.entries(group).map(([category, techs]) => (
                   <div key={category}>
                     <p className='font-bold'>{category}:</p>
@@ -82,7 +87,7 @@ const OutputModal = () => {
               </div>
             ))}
           </Slider>
-        </div>
+        </motion.div>
       )}
     </>
   );

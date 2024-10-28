@@ -7,6 +7,7 @@ import { updateChoosableCells } from '@/utils/grid/updateGridState';
 import { calculateDistance } from '@/utils/grid/calculateDistance';
 import { setSelectedCell } from '@/redux/reducers/gridStateReducer';
 import { RootState } from '@/redux/store/store';
+import { motion } from 'framer-motion';
 
 interface GridProps {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -79,7 +80,10 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
     );
   }
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0, scale: 0 }}
+      animate={{ opacity: 1, scale: 1 }}
+    >
       {/* Grid container for buttons */}
       <div
         className='grid-container absolute z-10'
@@ -139,7 +143,7 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
       <div className='rotate-screen-message' style={{ display: 'none' }}>
         <p>Please try turning your screen sideways for a better experience.</p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
