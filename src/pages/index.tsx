@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
 import { InfiniteScroller } from '@/components/ui/infinitehorizontalscroller';
+import { motion } from 'framer-motion';
 
 const Page: PageLayout = () => {
   // The greeter works as page title and
@@ -24,7 +25,11 @@ const Page: PageLayout = () => {
     }
   }
   return (
-    <div className='content'>
+    <motion.div
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className='content'
+    >
       {/* _____________________________ */}
       {/* PAGE TITLE */}
       <Head>
@@ -108,7 +113,7 @@ const Page: PageLayout = () => {
           <span>Pricing & Information</span>
         </Link>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

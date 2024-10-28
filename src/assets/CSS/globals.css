@@ -276,9 +276,9 @@ header nav ul li a span {
 }
 
 .slick-slide {
-  @apply blur-sm z-40 shadow-inner-2 transform scale-75;
+  @apply blur-sm z-40 shadow-inner-2 transition-all transform scale-75;
 }
 
 .slick-active {
-  @apply blur-none bg-zinc-50 scale-100;
+  @apply blur-none bg-zinc-50 transition-all scale-100;
 }
