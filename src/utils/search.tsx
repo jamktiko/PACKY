@@ -48,27 +48,27 @@ const SearchBar = () => {
   }
   return (
     <div>
-      <h1 className='text-center text-2xl'>
+      <h1 className="text-center text-2xl">
         Optional: Choose familiar technologies
       </h1>
       {/* Search box to filter by name */}
       <input
         style={{ color: 'white', backgroundColor: 'black' }}
-        type='text'
-        placeholder='Search for technologies'
+        type="text"
+        placeholder="Search for technologies"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className='mt-4 p-2 w-full rounded-2xl border border-gray-300 focus:outline-none'
+        className="mt-4 p-2 w-full rounded-2xl border border-gray-300 focus:outline-none"
       />
       {/* Display filtered data */}
       {filteredData.length > 0 ? (
-        <ul className='mt-4'>
+        <ul className="mt-4">
           {filteredData.map((item, index) => (
             <ExpandableItem key={index} item={item} />
           ))}
         </ul>
       ) : (
-        <p className='mt-4'>No data available</p>
+        <p className="mt-4">No data available</p>
       )}
     </div>
   );

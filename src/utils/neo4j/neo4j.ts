@@ -24,8 +24,10 @@ export const runCypherQuery = async (query: string, params = {}) => {
 // Library page use this!
 // A function to get all nodes from a specific type
 export const getData = async (type: string) => {
-  const query = `MATCH (n:${type}) 
-RETURN n.name AS name, n.description as desc, n.imageUrl as image, n.pros AS pros, n.cons AS cons, n.link as link`;
+  const query = `MATCH (n)
+WHERE n:backendFramework OR n:Database OR n:frontendFramework OR n:Language
+RETURN DISTINCT n.name AS name, n.description AS desc, n.imageUrl AS image, n.pros AS pros, n.cons AS cons, n.link AS link
+`;
   try {
     return await runCypherQuery(query);
   } catch (error) {
@@ -77,7 +79,7 @@ export const getTechsForFeature = async (
     query = `
     MATCH (t)-[r:SUPPORTS]->(f:Feature)
     WHERE f.name IN $featureNames
-    AND (t:frontendFramework OR t:backendFramework OR t:Database OR t:Language)
+    AND (t:frontendFramework OR t:backendFramework OR t:Database OR t:Language OR t:library)
     WITH t, SUM(r.weight) AS totalScore
     ORDER BY totalScore DESC
     RETURN labels(t) AS technologyCategory, t.name AS technology, totalScore
@@ -88,7 +90,7 @@ export const getTechsForFeature = async (
     query = `
     MATCH (t)-[r:SUPPORTS]->(f:Feature)
     WHERE f.name IN $featureNames
-    AND (t:frontendFramework OR t:backendFramework OR t:Database OR t:Language)
+   AND (t:frontendFramework OR t:backendFramework OR t:Database OR t:Language OR t:library)
     WITH t, SUM(r.weight) AS totalScore
     ORDER BY totalScore DESC
     RETURN labels(t) AS technologyCategory, t.name AS technology, totalScore
