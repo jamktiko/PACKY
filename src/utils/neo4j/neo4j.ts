@@ -23,7 +23,7 @@ export const runCypherQuery = async (query: string, params = {}) => {
 
 // Library page use this!
 // A function to get all nodes from a specific type
-export const getData = async (type: string) => {
+export const getData = async () => {
   const query = `MATCH (n)
 WHERE n:backendFramework OR n:Database OR n:frontendFramework OR n:Language
 RETURN DISTINCT n.name AS name, n.description AS desc, n.imageUrl AS image, n.pros AS pros, n.cons AS cons, n.link AS link
