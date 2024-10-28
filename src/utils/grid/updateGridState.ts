@@ -39,6 +39,11 @@ export const updateChoosableCells = (gridSize: number) => {
       }
     }
   });
+  interface Cell {
+    row: number;
+    col: number;
+    item: any; // or whatever type item is supposed to be
+}
   // Dispatch an action to update the Redux store with the new choosable cells
-  store.dispatch(setChoosableCells(newChoosableCells));
+  store.dispatch(setChoosableCells(newChoosableCells as Cell[]));
 };
