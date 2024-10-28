@@ -74,12 +74,12 @@ export const InfiniteScroller = () => {
   ];
 
   return (
-    <div className='border-y border-teal-900 bg-white bg-opacity-10 py-2 w-screen overflow-clip absolute left-0 top-16'>
-      <div className=' flex animate-scroll'>
+    <div className="border-y border-teal-900 bg-white bg-opacity-10 py-2 w-screen overflow-clip absolute left-0 top-16">
+      <div className=" flex animate-scroll">
         {techList.map((item, index) => (
           <div
             key={index}
-            className='text-teal-600 text-5xl w-4 mx-6 flex-shrink-0'
+            className="text-teal-600 text-5xl w-4 mx-6 flex-shrink-0"
           >
             {item}
           </div>
@@ -87,7 +87,7 @@ export const InfiniteScroller = () => {
         {techList.map((item, index) => (
           <div
             key={index}
-            className='text-teal-600 text-5xl w-4 mx-6 flex-shrink-0'
+            className="text-teal-600 text-5xl w-4 mx-6 flex-shrink-0"
           >
             {item}
           </div>

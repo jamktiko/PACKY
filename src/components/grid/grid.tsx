@@ -1,6 +1,6 @@
 // Enables the use of React hooks and client-side rendering
 'use client';
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import GridButton from '../buttons/GridButton';
 import { updateChoosableCells } from '@/utils/grid/updateGridState';
@@ -13,6 +13,20 @@ interface GridProps {
 }
 
 const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
+  const [width, setWidth] = useState(window.innerWidth);
+  const [height, setHeight] = useState(window.innerHeight);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+      setHeight(window.innerHeight);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   const activeCells = useSelector(
     (state: RootState) => state.gridStateReducer.activeCells
   );
@@ -55,57 +69,24 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
     return (rowDiff === 1 && colDiff === 0) || (rowDiff === 0 && colDiff === 1);
   };
 
+  if (width < 700) {
+    return (
+      <div className='rotate-screen-message'>
+        <p>
+          In order to use the grid, please try turning your device sideways.
+        </p>
+      </div>
+    );
+  }
   return (
-    <div className='relative'>
-      {/* SVG container for lines */}
-      <svg
-        className='absolute top-0 left-0 w-full h-full pointer-events-none'
-        style={{
-          gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
-          zIndex: 0, // Ensure the SVG is behind the buttons
-        }}
-      >
-        {activeCells.map((cell1, index1) =>
-          activeCells.map((cell2, index2) => {
-            if (index1 !== index2 && isAdjacent(cell1, cell2)) {
-              return (
-                // Fragment groups elements without parent node
-                // Ez placing of lines under buttons
-                <React.Fragment key={`line-pair-${index1}-${index2}`}>
-                  {/* Blurred line under line that joins activeCells*/}
-                  <line
-                    x1={`${(cell1.col + 0.5) * (100 / gridSize)}%`}
-                    y1={`${(cell1.row + 0.5) * (100 / gridSize)}%`}
-                    x2={`${(cell2.col + 0.5) * (100 / gridSize)}%`}
-                    y2={`${(cell2.row + 0.5) * (100 / gridSize)}%`}
-                    stroke='teal'
-                    strokeWidth='4'
-                    className='stroke-teal-500 blur-sm opacity-50'
-                  />
-                  {/* Line that joins activeCells */}
-                  <line
-                    x1={`${(cell1.col + 0.5) * (100 / gridSize)}%`}
-                    y1={`${(cell1.row + 0.5) * (100 / gridSize)}%`}
-                    x2={`${(cell2.col + 0.5) * (100 / gridSize)}%`}
-                    y2={`${(cell2.row + 0.5) * (100 / gridSize)}%`}
-                    stroke='teal'
-                    strokeWidth='2'
-                    className='stroke-teal-500'
-                  />
-                </React.Fragment>
-              );
-            }
-            return null;
-          })
-        )}
-      </svg>
-
+    <div>
       {/* Grid container for buttons */}
       <div
-        className='grid-container relative z-10'
+        className='grid-container absolute z-10'
         style={{
           display: 'grid',
           gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
+          // gridTemplateColumns: `repeat(auto-fill, 150px)`,
         }}
       >
         {Array.from({ length: gridSize * gridSize }, (_, index) => {
@@ -154,6 +135,9 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
             />
           );
         })}
+      </div>
+      <div className='rotate-screen-message' style={{ display: 'none' }}>
+        <p>Please try turning your screen sideways for a better experience.</p>
       </div>
     </div>
   );

@@ -1,67 +1,138 @@
 import { useEffect, useState } from 'react';
 import { getTechsForFeature } from '@/utils/neo4j/neo4j';
-import { RecordShape } from 'neo4j-driver';
 
+// Define the interface for the Feature object
 interface Feature {
   row: number;
   col: number;
   item: { name: string; desc: string }[];
   id?: string;
 }
-// Interfaces for Tech and Feature
-interface Tech {
-  name: string;
-  type: string[];
-}
 
 export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
-  // Initialize the labelTypes state variable as an empty array of objects
-  // with string keys and string array values
-  const [labelTypes, setLabelTypes] = useState<{ [key: string]: string[] }[]>(
-    []
-  );
+  // State to store technology groups, initialized as an empty array
+  // Each group will contain technologies categorized by their type
+  const [technologyGroups, setTechnologyGroups] = useState<
+    { [key: string]: any[] }[]
+  >([]);
+
   useEffect(() => {
-    // Define the fetchTechnologies function to fetch technologies for each feature
     const fetchTechnologies = async () => {
-      //Checking if outputModal is true
-      if (outputModal) {
-        // Use Promise.all to wait for all promises to resolve
-        const newLabelTypes = await Promise.all(
-          // Map over the features array and call the getTechsForFeature function for each feature
-          features.map(async (feature: Feature) => {
-            // Call the getTechsForFeature function and wait for the result
-            const techs = await getTechsForFeature(feature.item[0].name);
-            // If the result is null or undefined, return an empty object
-            if (!techs) {
-              return {};
-            }
-            // Using reduce to group the technologies by type
-            const types = techs.reduce(
-              (categories: { [key: string]: string[] }, tech: RecordShape) => {
-                // For each type in the tech object, add the tech name to the corresponding category in the categories object
-                (tech as Tech).type.forEach((type: string) => {
-                  // If the category doesn't exist yet, create it
-                  categories[type] = categories[type] || [];
-                  // Add the tech name to the category
-                  categories[type].push((tech as Tech).name);
-                });
-                console.log(categories);
-                return categories;
-              },
-              {}
-            );
-            console.log(types);
-            return types;
-          })
-        );
-        setLabelTypes(newLabelTypes);
-      }
+      // Early return if outputModal is false - prevents unnecessary fetching
+      if (!outputModal) return;
+
+      // Fetch technologies for each feature in parallel using Promise.all
+      const allTechs = await Promise.all(
+        // create an array of promises
+        features.map(async (feature: Feature) => {
+          const techs = await getTechsForFeature(feature.item[0].name);
+          return techs || []; // Return empty array if no techs found
+        })
+      );
+
+      // Combine all technology arrays into a single flat array
+      const combinedTechs = allTechs.flat();
+
+      // Create object to track total weight for each technology
+      const techWeights: { [technology: string]: number } = {};
+
+      // Calculate total weight for each technology by summing their scores
+      combinedTechs.forEach((tech) => {
+        const techName = tech.technology;
+        techWeights[techName] = (techWeights[techName] || 0) + tech.totalScore;
+      });
+
+      // Create new array with technologies and their total weights
+      const techsWithWeights: {
+        technology: string;
+        totalWeight: number;
+        technologyCategory: string[];
+      }[] = combinedTechs.map((tech) => ({
+        // Mapping each tech from combinedTechs-array
+        // and creates new object for each tech
+        technology: tech.technology,
+        totalWeight: techWeights[tech.technology],
+        technologyCategory: tech.technologyCategory,
+      }));
+
+      // Sort the array by weight in descending order (highest to lowest)
+      techsWithWeights.sort((a, b) => b.totalWeight - a.totalWeight);
+
+      // Calculate the size of one group
+      // by dividing the length of the array by 3
+      // Using Math.ceil to round up, so all tech's fit into groups
+      const groupSize = Math.ceil(techsWithWeights.length / 3);
+
+      //Group with highest weights
+      // taking the first groupSize elements, so the first techs
+      const highestWeightGroup = techsWithWeights.slice(0, groupSize);
+
+      // Second highest weight group
+      // slice(groupSize, groupSize * 2) takes elements from index groupSize to (groupSize * 2)
+      const mediumWeightGroup = techsWithWeights.slice(
+        groupSize,
+        groupSize * 2
+      );
+      // Lowest weight group, take the remaining technologies
+      // slice(groupSize * 2) takes all elements from index (groupSize * 2)
+      //to the end of the array
+      const lowestWeightGroup = techsWithWeights.slice(groupSize * 2);
+
+      // Debug
+      console.log(
+        highestWeightGroup.map((tech) => 'highest: ' + tech.technology)
+      );
+      console.log(
+        mediumWeightGroup.map((tech) => 'medium: ' + tech.technology)
+      );
+      console.log(
+        lowestWeightGroup.map((tech) => 'lowest: ' + tech.technology)
+      );
+
+      // Helper function to group technologies by their category
+      const groupByCategory = (
+        techGroup: {
+          technology: string;
+          totalWeight: number;
+          technologyCategory: string[];
+        }[]
+      ) => {
+        // Categories where only one technology item should be assigned per category
+        const singleSelectCategories = [
+          'backendFramework',
+          'frontendFramework',
+          'Language',
+          'Database',
+        ];
+
+        // Reduce iterates over each item in the techGroup arry and
+        // builds an object that groups technologies by their category
+        return techGroup.reduce((acc: { [key: string]: any[] }, tech) => {
+          const category = tech.technologyCategory[0];
+          // Check if the category is in the single-select list
+          acc[category] = singleSelectCategories.includes(category)
+            ? acc[category] || [tech] // Single-select
+            : (acc[category] || []).concat(tech); // not in singleselectCategory
+          console.log(acc);
+          return acc; // returning the accumulator
+        }, {});
+      };
+
+      console.log('Total techs:', combinedTechs.length);
+      console.log('All techs:', combinedTechs);
+      console.log('Weights:', techWeights);
+      // Update state with all three groups after categorizing them
+      setTechnologyGroups([
+        groupByCategory(highestWeightGroup),
+        groupByCategory(mediumWeightGroup),
+        groupByCategory(lowestWeightGroup),
+      ]);
     };
-    // Call the fetchTechnologies function when the component mounts or updates
-    if (outputModal) {
-      fetchTechnologies();
-    }
+
+    fetchTechnologies();
   }, [features, outputModal]);
 
-  return { labelTypes };
+  return { technologyGroups };
 };
+
+export default useOutputFetch;

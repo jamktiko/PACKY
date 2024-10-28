@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, Component } from 'react';
 import { toggleOutputModal } from '@/redux/reducers/outputReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, type RootState } from '@/redux/store/store';
@@ -8,6 +8,17 @@ import { useOutputFetch } from '@/hooks/outputFetch';
 import OutputList from '../lists/outputList';
 import { AccordionItem } from '../lists/accordionItem';
 import Link from 'next/link';
+
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Slider from 'react-slick';
+import { useTransform } from 'framer-motion';
+
+interface Technology {
+  technology: string;
+  totalWeight: number;
+  technologyCategory: string[];
+}
 const OutputModal = () => {
   // Use the useSelector hook to select the outputModal value from the state
   const outputModal = useSelector(
@@ -23,57 +34,46 @@ const OutputModal = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   // Use the useOutputFetch hook to get the labelTypes value
-  const { labelTypes } = useOutputFetch(features, outputModal);
+  const { technologyGroups } = useOutputFetch(features, outputModal);
+
+  const settings = {
+    className: 'center',
+    centerMode: true,
+    infinite: false,
+    centerPadding: '500px',
+    slidesToShow: 1,
+    speed: 500,
+    useTransform: true,
+    useCSS: true,
+  };
 
   return (
-    console.log('Löytyny data', features),
-    (
-      <>
-        {outputModal && (
-          <>
-            <div
-              className='grid-modal'
-              onClick={() => dispatch(toggleOutputModal(false))}
-            ></div>
-            <div className='absolute top-28 left-0 z-40 w-screen text-3xl text-center py-2'>
-              <h1 className='absolute -top-8'>Technology suggestions</h1>
-              <button
-                className='modal-toggle mt-16'
-                onClick={() => dispatch(toggleOutputModal(false))}
-                type='button'
-              >
-                ⏎
-              </button>
-              {/* Map over the features array and create an AccordionItem component for each feature */}
-              <div className=' grid grid-cols-3 gap-2 place-items-center '>
-                {features.slice(1).map((feature, index) => (
-                  <AccordionItem
-                    key={feature.item[0].name}
-                    title={feature.item[0].name}
-                    description={labelTypes[index + 1]}
-                  />
+    <>
+      {outputModal && (
+        <div className="slider-container fixed text-center object-center content-center w-screen h-[90vh] flex justify-center top-16 z-50">
+          <Slider {...settings} className="carousel">
+            {technologyGroups.map((group, index) => (
+              <div className="carousel-item" key={index}>
+                <h3>{index + 1}</h3>
+                {Object.entries(group).map(([category, techs]) => (
+                  <div key={category}>
+                    <p className="font-bold">{category}:</p>
+                    <ul>
+                      {techs.map((tech, i) => (
+                        <li key={i}>
+                          Technology: {tech.technology} | Total Weight:
+                          {tech.totalWeight}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 ))}
               </div>
-
-              <div className=' mt-16 border-y bg-opacity-30 pt-16 bg-black pb-16 flex justify-evenly'>
-                <Link
-                  className='bg-white bg-opacity-20 hover:bg-opacity-40 transition-all rounded-2xl border border-teal-500 p-4'
-                  href='/library'
-                >
-                  Explore library
-                </Link>
-                <Link
-                  className='bg-white bg-opacity-20 hover:bg-opacity-40 transition-all rounded-2xl border border-teal-500 p-4'
-                  href='/compare'
-                >
-                  Compare technologies
-                </Link>
-              </div>
-            </div>
-          </>
-        )}
-      </>
-    )
+            ))}
+          </Slider>
+        </div>
+      )}
+    </>
   );
 };
 export default OutputModal;

@@ -24,16 +24,32 @@ const persistConfig = {
   version: 1,
 };
 
+const persistConfig2 = {
+  key: 'output',
+  storage,
+  version: 1,
+};
+
+const persistConfig3 = {
+  key: 'grid',
+  storage,
+  version: 1,
+};
+
 //created persistedDataReducer which uses persistReducer function to incorporate persistobject to dataReducer
 const persistedDataReducer = persistReducer(persistConfig, dataReducer);
+
+const persistedOutputReducer = persistReducer(persistConfig2, outputReducer);
+
+const persistedGrid = persistReducer(persistConfig3, gridStateReducer);
 
 // Store is created to manage the state of Packy
 export const store = configureStore({
   reducer: {
-    gridStateReducer,
+    gridStateReducer: persistedGrid,
     gridModalReducer,
     dataReducer: persistedDataReducer,
-    outputReducer,
+    outputReducer: persistedOutputReducer,
   }, //middleware is configurated to the redux store to ignore certain actions when performing
   //serializable checks
   middleware: (getDefaultMiddleware) =>

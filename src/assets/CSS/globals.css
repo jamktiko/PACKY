@@ -10,6 +10,21 @@ body {
   @apply overflow-x-hidden;
 }
 
+main {
+  @apply h-screen w-screen;
+}
+
+@media screen and (max-width: 1000px) {
+  #__next {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  body {
+    @apply overflow-x-visible;
+  }
+}
+
 /* ______________________________________________ */
 /* HEADER AND NAVIGATION */
 
@@ -169,7 +184,7 @@ header nav ul li a span {
 
 /* STACKBUILDER */
 .grid-container {
-  @apply grid grid-cols-9 gap-4 mt-24;
+  @apply gap-4 mt-24 w-screen z-0;
 }
 
 .grid-button {
@@ -189,7 +204,33 @@ header nav ul li a span {
 }
 
 .toggle-output {
-  @apply transition-all bg-opacity-80 border-t border-teal-300 hover:bg-white hover:text-black font-bold w-full bg-teal-500 fixed bottom-0 h-16;
+  @apply place-items-center shadow-inner-2 rounded-t-xl flex flex-col text-sm justify-center transition-all pointer-events-auto bg-opacity-80 border-t border-teal-300 hover:bg-white hover:text-black z-[100] font-bold w-64 h-16;
+  bottom: 0;
+}
+
+#grid-button-4-4 {
+  pointer-events: none;
+  opacity: 0.5;
+  background-color: teal;
+}
+
+/* GRID MEDIA QUERY */
+@media (max-width: 700px) {
+  .rotate-screen-message {
+    @apply min-h-[calc(100vh-4rem)] mt-8 w-screen text-center;
+    display: block;
+    /* add some styles to make the message visible */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 150;
+    transform: translate(-50%, -50%);
+    background-color: #000000;
+    padding: 70px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
 }
 
 /* LIST COMPONENT DATA */
@@ -212,8 +253,32 @@ header nav ul li a span {
   @apply text-teal-500 w-4/5;
 }
 
-#grid-button-4-4 {
-  pointer-events: none;
-  opacity: 0.5;
-  background-color: teal;
+/* OUTPUT CAROUSEL */
+
+.carousel {
+  @apply transition-all w-screen object-center content-center bg-black bg-opacity-50 backdrop-blur min-h-[calc(100vh-4rem)];
+}
+
+.carousel-item {
+  @apply bg-slate-900 shadow-2xl text-center h-[90vh] content-center;
+}
+
+.slick-current {
+  @apply transform z-[60];
+}
+
+.slick-arrow {
+  @apply min-w-64 h-64 z-50;
+}
+
+.slick-list {
+  @apply overflow-y-visible;
+}
+
+.slick-slide {
+  @apply blur-sm z-40 shadow-inner-2 transform scale-75;
+}
+
+.slick-active {
+  @apply blur-none bg-zinc-50 scale-100;
 }
