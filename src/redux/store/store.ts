@@ -18,39 +18,33 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-//configured persistobject
-const persistConfig = {
-  key: 'featuredata',
+//configured dynamic persistobject
+const createPersistConfig = (key: string) => ({
+  key,
   storage,
   version: 1,
-};
-
-const persistConfig2 = {
-  key: 'output',
-  storage,
-  version: 1,
-};
-
-const persistConfig3 = {
-  key: 'grid',
-  storage,
-  version: 1,
-};
-
-const persistConfig4 = {
-  key: 'librarydata',
-  storage,
-  version: 1,
-};
+});
 
 //created persistedDataReducer which uses persistReducer function to incorporate persistobject to dataReducer
-const persistedDataReducer = persistReducer(persistConfig, dataReducer);
+const persistedDataReducer = persistReducer(
+  createPersistConfig('features'),
+  dataReducer
+);
 
-const persistedOutputReducer = persistReducer(persistConfig2, outputReducer);
+const persistedOutputReducer = persistReducer(
+  createPersistConfig('output'),
+  outputReducer
+);
 
-const persistedGrid = persistReducer(persistConfig3, gridStateReducer);
+const persistedGrid = persistReducer(
+  createPersistConfig('grid'),
+  gridStateReducer
+);
 
-const persistedLibrary = persistReducer(persistConfig4, libraryDataReducer);
+const persistedLibrary = persistReducer(
+  createPersistConfig('library'),
+  libraryDataReducer
+);
 
 // Store is created to manage the state of Packy
 export const store = configureStore({
