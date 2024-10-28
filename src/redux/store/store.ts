@@ -7,6 +7,7 @@ import gridStateReducer from '../reducers/gridStateReducer';
 import dataReducer from '@/redux/reducers/dataReducer';
 import outputReducer from '../reducers/outputReducer';
 import gridModalReducer from '../reducers/gridModalReducer';
+import libraryDataReducer from '../reducers/libraryDataReducer';
 
 import {
   FLUSH,
@@ -19,7 +20,7 @@ import {
 
 //configured persistobject
 const persistConfig = {
-  key: 'root',
+  key: 'featuredata',
   storage,
   version: 1,
 };
@@ -36,12 +37,20 @@ const persistConfig3 = {
   version: 1,
 };
 
+const persistConfig4 = {
+  key: 'librarydata',
+  storage,
+  version: 1,
+};
+
 //created persistedDataReducer which uses persistReducer function to incorporate persistobject to dataReducer
 const persistedDataReducer = persistReducer(persistConfig, dataReducer);
 
 const persistedOutputReducer = persistReducer(persistConfig2, outputReducer);
 
 const persistedGrid = persistReducer(persistConfig3, gridStateReducer);
+
+const persistedLibrary = persistReducer(persistConfig4, libraryDataReducer);
 
 // Store is created to manage the state of Packy
 export const store = configureStore({
@@ -50,6 +59,7 @@ export const store = configureStore({
     gridModalReducer,
     dataReducer: persistedDataReducer,
     outputReducer: persistedOutputReducer,
+    libraryDataReducer: persistedLibrary,
   }, //middleware is configurated to the redux store to ignore certain actions when performing
   //serializable checks
   middleware: (getDefaultMiddleware) =>

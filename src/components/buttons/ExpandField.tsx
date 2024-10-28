@@ -29,13 +29,15 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
           )}
           <strong className="text-lg mb-2">
             {' '}
-            <Link
-              href={item.link}
-              target="_blank"
-              className="underline hover:text-gray-300"
-            >
-              {item.name}{' '}
-            </Link>
+            {item.link && (
+              <Link
+                href={item.link}
+                target="_blank"
+                className="underline hover:text-gray-300"
+              >
+                {item.name}{' '}
+              </Link>
+            )}
           </strong>
         </div>
         <div className="flex items-center">
