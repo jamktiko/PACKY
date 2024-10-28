@@ -10,45 +10,46 @@ interface Feature {
 }
 
 export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
-  // Initialize state to store grouped technologies
-  // The state will contain three arrays
-  // Each array contains objects grouping technologies by category
+  // State to store technology groups, initialized as an empty array
+  // Each group will contain technologies categorized by their type
   const [technologyGroups, setTechnologyGroups] = useState<
     { [key: string]: any[] }[]
   >([]);
 
   useEffect(() => {
-    // defining async function to fetch  technologies
     const fetchTechnologies = async () => {
-      // If 'outputModal' is false, exit early without fetching
+      // Early return if outputModal is false - prevents unnecessary fetching
       if (!outputModal) return;
 
-      // Promise.all takes an array of promises and waits for all of them to complete
+      // Fetch technologies for each feature in parallel using Promise.all
       const allTechs = await Promise.all(
         // create an array of promises
         features.map(async (feature: Feature) => {
           const techs = await getTechsForFeature(feature.item[0].name);
-          return techs || [];
+          return techs || []; // Return empty array if no techs found
         })
       );
 
-      // Flatten the nested arrays into a single array of technolgies
+      // Combine all technology arrays into a single flat array
       const combinedTechs = allTechs.flat();
 
-      // Create an object to store the total weight of each technology
+      // Create object to track total weight for each technology
       const techWeights: { [technology: string]: number } = {};
 
-      // Looping through the flattened array of technologies
+      // Calculate total weight for each technology by summing their scores
       combinedTechs.forEach((tech) => {
         const techName = tech.technology;
         techWeights[techName] = (techWeights[techName] || 0) + tech.totalScore;
       });
 
+      // Create new array with technologies and their total weights
       const techsWithWeights: {
         technology: string;
         totalWeight: number;
         technologyCategory: string[];
       }[] = combinedTechs.map((tech) => ({
+        // Mapping each tech from combinedTechs-array
+        // and creates new object for each tech
         technology: tech.technology,
         totalWeight: techWeights[tech.technology],
         technologyCategory: tech.technologyCategory,
@@ -57,15 +58,27 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
       // Sort the array by weight in descending order (highest to lowest)
       techsWithWeights.sort((a, b) => b.totalWeight - a.totalWeight);
 
-      // Calculate size of each group (dividing into thirds)
+      // Calculate the size of one group
+      // by dividing the length of the array by 3
+      // Using Math.ceil to round up, so all tech's fit into groups
       const groupSize = Math.ceil(techsWithWeights.length / 3);
+
+      //Group with highest weights
+      // taking the first groupSize elements, so the first techs
       const highestWeightGroup = techsWithWeights.slice(0, groupSize);
+
+      // Second highest weight group
+      // slice(groupSize, groupSize * 2) takes elements from index groupSize to (groupSize * 2)
       const mediumWeightGroup = techsWithWeights.slice(
         groupSize,
         groupSize * 2
       );
+      // Lowest weight group, take the remaining technologies
+      // slice(groupSize * 2) takes all elements from index (groupSize * 2)
+      //to the end of the array
       const lowestWeightGroup = techsWithWeights.slice(groupSize * 2);
 
+      // Debug
       console.log(
         highestWeightGroup.map((tech) => 'highest: ' + tech.technology)
       );
@@ -76,7 +89,7 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
         lowestWeightGroup.map((tech) => 'lowest: ' + tech.technology)
       );
 
-      // function to group technologies by their category
+      // Helper function to group technologies by their category
       const groupByCategory = (
         techGroup: {
           technology: string;
@@ -84,36 +97,31 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
           technologyCategory: string[];
         }[]
       ) => {
+        // Categories where only one technology item should be assigned per category
+        const singleSelectCategories = [
+          'backendFramework',
+          'frontendFramework',
+          'Language',
+          'Database',
+        ];
+
+        // Reduce iterates over each item in the techGroup arry and
+        // builds an object that groups technologies by their category
         return techGroup.reduce((acc: { [key: string]: any[] }, tech) => {
           const category = tech.technologyCategory[0];
-
-          // Select only one technology for specific categories (backend, frontend, language, database)
-          const singleSelectCategories = [
-            'backendFramework',
-            'frontendFramework',
-            'Language',
-            'Database',
-          ];
-
-          // For other categories (like libraries/services), we can allow multiple technologies
-          if (singleSelectCategories.includes(category)) {
-            // Ensure only one technology is selected for the categories
-            if (!acc[category]) {
-              acc[category] = [tech]; // Assign the first tech for each category
-            }
-          } else {
-            // Allow multiple technologies for other categories
-            if (!acc[category]) {
-              acc[category] = []; // Initialize category array if it doesn't exist
-            }
-            acc[category].push(tech); // Add technology to its category array
-          }
-
-          return acc;
+          // Check if the category is in the single-select list
+          acc[category] = singleSelectCategories.includes(category)
+            ? acc[category] || [tech] // Single-select
+            : (acc[category] || []).concat(tech); // not in singleselectCategory
+          console.log(acc);
+          return acc; // returning the accumulator
         }, {});
       };
 
-      // Update state with all three groups
+      console.log('Total techs:', combinedTechs.length);
+      console.log('All techs:', combinedTechs);
+      console.log('Weights:', techWeights);
+      // Update state with all three groups after categorizing them
       setTechnologyGroups([
         groupByCategory(highestWeightGroup),
         groupByCategory(mediumWeightGroup),

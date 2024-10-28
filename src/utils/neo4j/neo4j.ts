@@ -77,7 +77,7 @@ export const getTechsForFeature = async (
     query = `
     MATCH (t)-[r:SUPPORTS]->(f:Feature)
     WHERE f.name IN $featureNames
-    AND (t:frontendFramework OR t:backendFramework OR t:Database OR t:Language OR t:library OR t:service OR t:api)
+    AND (t:frontendFramework OR t:backendFramework OR t:Database OR t:Language)
     WITH t, SUM(r.weight) AS totalScore
     ORDER BY totalScore DESC
     RETURN labels(t) AS technologyCategory, t.name AS technology, totalScore
@@ -88,7 +88,7 @@ export const getTechsForFeature = async (
     query = `
     MATCH (t)-[r:SUPPORTS]->(f:Feature)
     WHERE f.name IN $featureNames
-    AND (t:frontendFramework OR t:backendFramework OR t:Database OR t:Language OR t:library OR t:service OR t:api)
+    AND (t:frontendFramework OR t:backendFramework OR t:Database OR t:Language)
     WITH t, SUM(r.weight) AS totalScore
     ORDER BY totalScore DESC
     RETURN labels(t) AS technologyCategory, t.name AS technology, totalScore

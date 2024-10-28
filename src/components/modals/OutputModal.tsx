@@ -13,6 +13,12 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import { useTransform } from 'framer-motion';
+
+interface Technology {
+  technology: string;
+  totalWeight: number;
+  technologyCategory: string[];
+}
 const OutputModal = () => {
   // Use the useSelector hook to select the outputModal value from the state
   const outputModal = useSelector(
@@ -44,17 +50,20 @@ const OutputModal = () => {
   return (
     <>
       {outputModal && (
-        <div className='slider-container fixed text-center object-center content-center w-screen h-[90vh] flex justify-center top-16 z-50'>
-          <Slider {...settings} className='carousel'>
+        <div className="slider-container fixed text-center object-center content-center w-screen h-[90vh] flex justify-center top-16 z-50">
+          <Slider {...settings} className="carousel">
             {technologyGroups.map((group, index) => (
-              <div className='carousel-item' key={index}>
+              <div className="carousel-item" key={index}>
                 <h3>{index + 1}</h3>
                 {Object.entries(group).map(([category, techs]) => (
                   <div key={category}>
-                    <p className='font-bold'>{category}:</p>
+                    <p className="font-bold">{category}:</p>
                     <ul>
                       {techs.map((tech, i) => (
-                        <li key={i}>{tech.technology}</li>
+                        <li key={i}>
+                          Technology: {tech.technology} | Total Weight:
+                          {tech.totalWeight}
+                        </li>
                       ))}
                     </ul>
                   </div>
