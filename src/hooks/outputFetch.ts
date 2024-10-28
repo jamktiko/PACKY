@@ -15,11 +15,15 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
   const [technologyGroups, setTechnologyGroups] = useState<
     { [key: string]: any[] }[]
   >([]);
+  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
     const fetchTechnologies = async () => {
       // Early return if outputModal is false - prevents unnecessary fetching
       if (!outputModal) return;
+
+      setIsLoading(true);
 
       // Fetch technologies for each feature in parallel using Promise.all
       const allTechs = await Promise.all(
@@ -127,12 +131,13 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
         groupByCategory(mediumWeightGroup),
         groupByCategory(lowestWeightGroup),
       ]);
+      setIsLoading(false);
     };
 
     fetchTechnologies();
   }, [features, outputModal]);
 
-  return { technologyGroups };
+  return { technologyGroups, isLoading };
 };
 
 export default useOutputFetch;

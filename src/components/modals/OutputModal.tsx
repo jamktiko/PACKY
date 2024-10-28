@@ -13,6 +13,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import { useTransform } from 'framer-motion';
+import Loader from '../loader';
 
 interface Technology {
   technology: string;
@@ -34,7 +35,7 @@ const OutputModal = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   // Use the useOutputFetch hook to get the labelTypes value
-  const { technologyGroups } = useOutputFetch(features, outputModal);
+  const { technologyGroups, isLoading } = useOutputFetch(features, outputModal);
 
   const settings = {
     className: 'center',
@@ -47,17 +48,27 @@ const OutputModal = () => {
     useCSS: true,
   };
 
+  if (isLoading) {
+    return (
+      <div className='slider-container fixed text-center object-center content-center w-screen h-[90vh] flex justify-center top-16 z-50'>
+        <div className='carousel'>
+          <Loader />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       {outputModal && (
-        <div className="slider-container fixed text-center object-center content-center w-screen h-[90vh] flex justify-center top-16 z-50">
-          <Slider {...settings} className="carousel">
+        <div className='slider-container fixed text-center object-center content-center w-screen h-[90vh] flex justify-center top-16 z-50'>
+          <Slider {...settings} className='carousel'>
             {technologyGroups.map((group, index) => (
-              <div className="carousel-item" key={index}>
+              <div className='carousel-item' key={index}>
                 <h3>{index + 1}</h3>
                 {Object.entries(group).map(([category, techs]) => (
                   <div key={category}>
-                    <p className="font-bold">{category}:</p>
+                    <p className='font-bold'>{category}:</p>
                     <ul>
                       {techs.map((tech, i) => (
                         <li key={i}>
