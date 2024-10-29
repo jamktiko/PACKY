@@ -192,11 +192,15 @@ header nav ul li a span {
 }
 
 .grid-modal {
-  @apply z-10 content-center fixed grid grid-cols-2 space-x-2 space-y-2 top-16 left-0 w-screen h-screen bg-black backdrop-blur-sm bg-opacity-50;
+  @apply z-10 content-center fixed grid grid-cols-2 gap-3 top-16 left-0 w-screen h-screen bg-black backdrop-blur-sm bg-opacity-50;
 }
 
 .grid-modal-item {
   @apply transition-all hover:bg-opacity-80 h-32 shadow-inner-2 hover:text-black border border-teal-600 rounded-xl bg-white bg-opacity-10 p-4;
+}
+
+.grid-modal-item.active {
+  @apply bg-slate-500 bg-opacity-10 border-slate-500 text-slate-500;
 }
 
 .modal-toggle {
