@@ -70,9 +70,9 @@ const Page: PageLayout = () => {
         </div>
         <Image
           className='xl:-mt-40 -mt-24 h-fit'
-          src={'/packyiconlarge.png'}
-          width={500}
-          height={500}
+          src={'/packyiconsmall.png'}
+          width={1500}
+          height={1500}
           alt={''}
         />
       </article>
