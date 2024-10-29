@@ -100,7 +100,7 @@ const Page: PageLayout = () => {
               height={1000}
               alt={''}
             />
-            <span>Pricing & Information</span>
+            <span>Learn more</span>
           </Link>
         </div>
       </div>
