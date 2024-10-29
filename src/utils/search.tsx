@@ -51,8 +51,10 @@ const SearchBar = () => {
         onChange={(e) => setSearchQuery(e.target.value)}
         className='mt-4 p-2 w-full rounded-2xl border border-gray-300 focus:outline-none'
       />
-      {/* Display filtered data */}
-      {filteredlibraryData.length > 0 ? (
+      {/* Display filtered data or loader */}
+      {librarydata.length === 0 ? (
+        <Loader />
+      ) : (
         <motion.ul
           initial={{ opacity: 0, x: 200 }}
           animate={{ opacity: 1, x: 0 }}
@@ -62,8 +64,6 @@ const SearchBar = () => {
             <ExpandableItem key={index} item={item} />
           ))}
         </motion.ul>
-      ) : (
-        <p className='mt-4'>No data available</p>
       )}
     </div>
   );
