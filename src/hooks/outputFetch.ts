@@ -17,7 +17,6 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
   >([]);
   const [isLoading, setIsLoading] = useState(true);
 
-
   useEffect(() => {
     const fetchTechnologies = async () => {
       // Early return if outputModal is false - prevents unnecessary fetching
