@@ -14,61 +14,60 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
   };
 
   return (
-    <li className="m-2 p-4 flex flex-col bg-white w-full h-auto bg-opacity-10 rounded-2xl shadow-md">
-      <div className="flex justify-between">
-        <div className="flex flex-col">
+    <li
+      onClick={toggleExpand}
+      className='transition-all m-2 p-2 flex flex-col bg-white w-full max-w-[55rem] h-auto bg-opacity-10 rounded-2xl shadow-md'
+    >
+      <div className='flex justify-between'>
+        <div className='flex flex-row items-center bg-white bg-opacity-20 h-16 rounded-2xl'>
           {item.image && (
             <Image
               src={item.image}
               alt={item.name}
               width={40}
               height={30}
-              className="rounded-lg mb-4"
-              objectFit="cover"
+              className='rounded-lg  w-16'
+              objectFit='cover'
             />
           )}
-          <strong className="text-lg mb-2">
-            {' '}
+          <strong className='text-xl  h-16 flex items-center bg-white bg-opacity-5 rounded-r-2xl'>
             {item.link && (
               <Link
                 href={item.link}
-                target="_blank"
-                className="underline hover:text-gray-300"
+                target='_blank'
+                className=' text-gray-300 hover:text-white w-40 text-center'
               >
                 {item.name}{' '}
               </Link>
             )}
           </strong>
         </div>
-        <div className="flex items-center">
-          <button
-            onClick={toggleExpand}
-            className="text-white font-bold hover:underline"
-          >
+        <div className='flex items-center'>
+          <button className='text-white font-bold hover:underline'>
             {isExpanded ? (
               <>
                 <FaAngleUp
-                  className="float-right"
+                  className='float-right'
                   style={{ width: '30px', height: '30px' }}
                 />
               </>
             ) : (
               <>
                 <FaAngleDown
-                  className="float-right"
+                  className='float-right'
                   style={{ width: '30px', height: '30px' }}
                 />
               </>
             )}
           </button>
           <input
-            type="checkbox"
-            className="mr-2 rounded-full"
+            type='checkbox'
+            className='mr-2 rounded-full'
             style={{ width: '30px', height: '30px' }}
           />
         </div>
       </div>
-      {isExpanded && <p className="text-white mb-4">{item.desc}</p>}
+      {isExpanded && <p className='text-white mb-4'>{item.desc}</p>}
     </li>
   );
 };

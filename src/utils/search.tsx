@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { motion } from 'framer-motion';
 
 import ExpandableItem from '@/components/buttons/ExpandField';
+import Loader from '@/components/loader';
 
 // Define the interface for the props that the SearchBar component will receive
 export interface SearchBarProps {
@@ -33,6 +34,8 @@ const SearchBar = () => {
   const filteredlibraryData = librarydata.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  <Loader />;
 
   return (
     <div>
