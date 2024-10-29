@@ -70,9 +70,9 @@ const Page: PageLayout = () => {
         </div>
         <Image
           className='xl:-mt-40 -mt-24 h-fit'
-          src={'/packyiconlarge.png'}
-          width={500}
-          height={500}
+          src={'/packyiconsmall.png'}
+          width={1500}
+          height={1500}
           alt={''}
         />
       </article>
@@ -80,38 +80,29 @@ const Page: PageLayout = () => {
       <h2 className=' select-none lg:text-9xl md:text-7xl text-6xl absolute -mt-40 bg-gradient-to-b from-gray-600  to-90% inline-block text-transparent bg-clip-text '>
         Explore
       </h2>
-      <div className='lg:grid flex flex-col grid-cols-3 gap-4 text-center mb-16'>
-        <Link href={'/library'} className='indexcard indexcard-glow2'>
-          <Image
-            src={'/indexcard-library.jpg'}
-            className='indexcard-image'
-            width={1000}
-            height={1000}
-            alt={''}
-          />
-          <span>Technology Library</span>
-        </Link>
-        <Link href={'/stackbuilder'} className='indexcard indexcard-glow1'>
-          <Image
-            src={'/indexcard-stackbuilder.jpg'}
-            className='indexcard-image'
-            width={1000}
-            height={1000}
-            alt={''}
-          />
-          <span>PACKY StackBuilder</span>
-        </Link>
-
-        <Link href={'/about'} className='indexcard indexcard-glow3'>
-          <Image
-            src={'/indexcard-about.jpg'}
-            className='indexcard-image'
-            width={1000}
-            height={1000}
-            alt={''}
-          />
-          <span>Pricing & Information</span>
-        </Link>
+      <div className='w-screen flex justify-center mb-16'>
+        <div className='lg:grid flex flex-col grid-cols-3 gap-4 text-center mb-16'>
+          <Link href={'/stackbuilder'} className='indexcard indexcard-glow2'>
+            <Image
+              src={'/indexcard-stackbuilder.jpg'}
+              className='indexcard-image'
+              width={1000}
+              height={1000}
+              alt={''}
+            />
+            <span>PACKY StackBuilder</span>
+          </Link>
+          <Link href={'/about'} className='indexcard indexcard-glow1'>
+            <Image
+              src={'/indexcard-about.jpg'}
+              className='indexcard-image'
+              width={1000}
+              height={1000}
+              alt={''}
+            />
+            <span>Pricing & Information</span>
+          </Link>
+        </div>
       </div>
     </motion.div>
   );

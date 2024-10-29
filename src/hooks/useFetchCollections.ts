@@ -6,6 +6,9 @@ import { store } from '@/redux/store/store';
 //very important to use
 export const useFetchCollections = () => {
   useEffect(() => {
-    store.dispatch(fetchCollections());
+    const fetchCollectionsAsync = async () => {
+      await store.dispatch(fetchCollections());
+    };
+    fetchCollectionsAsync();
   }, []);
 };
