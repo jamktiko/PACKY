@@ -90,11 +90,11 @@ header nav ul li a span {
 }
 
 .indexcard span {
-  @apply border-b border-inherit text-2xl font-bold relative -top-16 bg-gradient-to-b from-teal-100 via-teal-100 to-90% inline-block text-transparent bg-clip-text;
+  @apply border-b border-inherit text-2xl font-bold relative -top-80 bg-gradient-to-b from-teal-100 via-teal-100 to-90% inline-block text-transparent bg-clip-text;
 }
 
 .indexcard-image {
-  @apply hover:scale-110 transition-all duration-500 w-fit h-full select-none opacity-90;
+  @apply hover:scale-110 transition-all duration-500 h-full select-none opacity-90;
 }
 
 .indexcard-glow1 {
