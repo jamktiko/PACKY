@@ -199,6 +199,10 @@ header nav ul li a span {
   @apply transition-all hover:bg-opacity-80 h-32 shadow-inner-2 hover:text-black border border-teal-600 rounded-xl bg-white bg-opacity-10 p-4;
 }
 
+.modal-header {
+  @apply absolute top-0 left-0 z-50 w-screen text-3xl text-center py-2;
+}
+
 .grid-modal-item.active {
   @apply bg-slate-500 bg-opacity-10 border-slate-500 text-slate-500;
 }
@@ -259,6 +263,14 @@ header nav ul li a span {
 
 /* OUTPUT CAROUSEL */
 
+.output-container {
+  @apply fixed text-center object-center content-center w-screen h-[90vh] flex justify-center top-16 z-50;
+}
+
+.output-option-header {
+  @apply absolute top-4 left-4 text-2xl font-bold opacity-30;
+}
+
 .carousel {
   @apply transition-all w-screen object-center content-center bg-black bg-opacity-50 backdrop-blur min-h-[calc(100vh-4rem)];
 }
@@ -285,4 +297,32 @@ header nav ul li a span {
 
 .slick-active {
   @apply blur-none transition-all scale-100;
+}
+
+/* LOAD SPINNER */
+
+.loadspinner {
+  @apply w-full h-screen min-h-96 absolute top-0 flex items-center justify-center;
+}
+
+.outputmodal-loader-center {
+  @apply fixed text-center object-center content-center w-screen h-[90vh] flex justify-center top-16 z-50;
+}
+
+/* LIBRARY COMPONENT */
+
+.expand-container {
+  @apply transition-all m-2 p-2 flex flex-col bg-white w-full max-w-[55rem] h-auto bg-opacity-10 rounded-2xl shadow-md;
+}
+
+.expand-info {
+  @apply flex flex-row items-center bg-white bg-opacity-20 h-16 rounded-2xl;
+}
+
+.expand-header {
+  @apply text-xl  h-16 flex items-center bg-white bg-opacity-5 rounded-r-2xl;
+}
+
+.expand-text {
+  @apply text-gray-300 hover:text-white w-40 text-center;
 }

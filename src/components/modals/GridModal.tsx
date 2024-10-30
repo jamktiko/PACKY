@@ -77,7 +77,7 @@ const GridModal = () => {
               </button>
             );
           })}
-          <div className='absolute top-0 left-0 z-50 w-screen text-3xl text-center py-2'>
+          <div className='modal-header'>
             <h1>Choose feature</h1>
             <button
               className='modal-toggle'

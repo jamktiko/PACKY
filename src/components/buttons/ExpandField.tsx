@@ -14,12 +14,9 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
   };
 
   return (
-    <li
-      onClick={toggleExpand}
-      className='transition-all m-2 p-2 flex flex-col bg-white w-full max-w-[55rem] h-auto bg-opacity-10 rounded-2xl shadow-md'
-    >
+    <li onClick={toggleExpand} className='expand-container'>
       <div className='flex justify-between'>
-        <div className='flex flex-row items-center bg-white bg-opacity-20 h-16 rounded-2xl'>
+        <div className='expand-info'>
           {item.image && (
             <Image
               src={item.image}
@@ -30,13 +27,9 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
               objectFit='cover'
             />
           )}
-          <strong className='text-xl  h-16 flex items-center bg-white bg-opacity-5 rounded-r-2xl'>
+          <strong className='expand-header'>
             {item.link && (
-              <Link
-                href={item.link}
-                target='_blank'
-                className=' text-gray-300 hover:text-white w-40 text-center'
-              >
+              <Link href={item.link} target='_blank' className=' expand-text'>
                 {item.name}{' '}
               </Link>
             )}
