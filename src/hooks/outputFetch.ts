@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getTechsForFeature } from '@/utils/neo4j/neo4j';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store/store';
 
 // Define the interface for the Feature object
 interface Feature {
@@ -17,6 +19,11 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
   >([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const weights = useSelector((state: RootState) =>
+    state.libraryDataReducer.value.map((item) => item.weights)
+  );
+  const flattenedWeights = weights.flat().map((weightObj) => weightObj.weight);
+  console.log(flattenedWeights);
   useEffect(() => {
     const fetchTechnologies = async () => {
       // Early return if outputModal is false - prevents unnecessary fetching
@@ -81,17 +88,6 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
       //to the end of the array
       const lowestWeightGroup = techsWithWeights.slice(groupSize * 2);
 
-      // Debug
-      // console.log(
-      //   highestWeightGroup.map((tech) => 'highest: ' + tech.technology)
-      // );
-      // console.log(
-      //   mediumWeightGroup.map((tech) => 'medium: ' + tech.technology)
-      // );
-      // console.log(
-      //   lowestWeightGroup.map((tech) => 'lowest: ' + tech.technology)
-      // );
-
       // Helper function to group technologies by their category
       const groupByCategory = (
         techGroup: {
@@ -121,9 +117,6 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
         }, {});
       };
 
-      console.log('Total techs:', combinedTechs.length);
-      console.log('All techs:', combinedTechs);
-      console.log('Weights:', techWeights);
       // Update state with all three groups after categorizing them
       setTechnologyGroups([
         groupByCategory(highestWeightGroup),
