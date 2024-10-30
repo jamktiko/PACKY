@@ -62,6 +62,26 @@ const dataSlice = createSlice({
       });
       console.log('updated state:', state);
     },
+
+    decrementWeight: (state, action: PayloadAction<string>) => {
+      console.log(
+        'DecrementWeight action dispatched with payload:',
+        action.payload
+      );
+      state.value = state.value.map((collection) => {
+        if (collection.name === action.payload) {
+          console.log('Decrementing weight for collection:', collection.name);
+          const newWeight = collection.weight - 1;
+          console.log('new weight:', newWeight);
+          return {
+            ...collection,
+            weight: newWeight,
+          };
+        }
+        return collection;
+      });
+      console.log('updated state:', state);
+    },
   },
   // Määritellään mitä tapahtuu kun fetchCollections -funktio on käynnissä
   extraReducers: (builder) => {
@@ -80,6 +100,6 @@ const dataSlice = createSlice({
   },
 });
 
-export const { incrementWeight } = dataSlice.actions;
+export const { incrementWeight, decrementWeight } = dataSlice.actions;
 
 export default dataSlice.reducer;

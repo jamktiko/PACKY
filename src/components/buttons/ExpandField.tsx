@@ -4,10 +4,13 @@ import { SearchBarProps } from '../../utils/search';
 import Link from 'next/link';
 import { FaAngleUp } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
-import { incrementWeight } from '@/redux/reducers/dataReducer';
+import { decrementWeight, incrementWeight } from '@/redux/reducers/dataReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/redux/store/store';
-import { incrementLibraryWeight } from '@/redux/reducers/libraryDataReducer';
+import {
+  decrementLibraryWeight,
+  incrementLibraryWeight,
+} from '@/redux/reducers/libraryDataReducer';
 
 const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -17,10 +20,20 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
     setIsExpanded(!isExpanded);
   };
 
+  //state variable to keep track of the clicked state
+  const [isClicked, setIsClicked] = useState(false);
+
   // function to handle incrementing weight in the store by clicking checkbox
   const handleCheckboxClick = (name: string) => {
-    dispatch(incrementWeight(name));
-    dispatch(incrementLibraryWeight(name));
+    if (isClicked === false) {
+      setIsClicked(true);
+      dispatch(incrementWeight(name));
+      dispatch(incrementLibraryWeight(name));
+    } else {
+      setIsClicked(false);
+      dispatch(decrementWeight(name));
+      dispatch(decrementLibraryWeight(name));
+    }
   };
 
   return (
