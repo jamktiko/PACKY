@@ -82,15 +82,15 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
       const lowestWeightGroup = techsWithWeights.slice(groupSize * 2);
 
       // Debug
-      console.log(
-        highestWeightGroup.map((tech) => 'highest: ' + tech.technology)
-      );
-      console.log(
-        mediumWeightGroup.map((tech) => 'medium: ' + tech.technology)
-      );
-      console.log(
-        lowestWeightGroup.map((tech) => 'lowest: ' + tech.technology)
-      );
+      // console.log(
+      //   highestWeightGroup.map((tech) => 'highest: ' + tech.technology)
+      // );
+      // console.log(
+      //   mediumWeightGroup.map((tech) => 'medium: ' + tech.technology)
+      // );
+      // console.log(
+      //   lowestWeightGroup.map((tech) => 'lowest: ' + tech.technology)
+      // );
 
       // Helper function to group technologies by their category
       const groupByCategory = (
@@ -116,7 +116,7 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
           acc[category] = singleSelectCategories.includes(category)
             ? acc[category] || [tech] // Single-select
             : (acc[category] || []).concat(tech); // not in singleselectCategory
-          console.log(acc);
+
           return acc; // returning the accumulator
         }, {});
       };

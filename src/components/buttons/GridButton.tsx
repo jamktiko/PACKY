@@ -148,20 +148,18 @@ const GridButton: React.FC<GridButtonProps> = ({
   };
 
   return (
-    <div>
-      <button
-        id={id} // Assingning unique ID to the button
-        className={`${color} ${selectState} grid-button `} // Dynamically set styling
-        style={{ opacity }} // Set the button's opacity dynamically based on the 'opacity' prop
-        onClick={() => {
-          handleOpenModal(); // Open the modal on button click
-          handleButtonClick(); // Handle button click logic
-        }}
-      >
-        {/* Display text based on button state (Active, Choosable or Inactive)*/}
-        {isActive ? buttonName : isChoosable ? 'Choose' : ''}
-      </button>
-    </div>
+    <button
+      id={id} // Assingning unique ID to the button
+      className={`${color} ${selectState} grid-button `} // Dynamically set styling
+      style={{ opacity }} // Set the button's opacity dynamically based on the 'opacity' prop
+      onClick={() => {
+        handleOpenModal(); // Open the modal on button click
+        handleButtonClick(); // Handle button click logic
+      }}
+    >
+      {/* Display text based on button state (Active, Choosable or Inactive)*/}
+      {isActive ? buttonName : isChoosable ? 'Choose' : ''}
+    </button>
   );
 };
 
