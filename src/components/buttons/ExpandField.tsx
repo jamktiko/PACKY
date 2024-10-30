@@ -39,7 +39,7 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
               width={40}
               height={30}
               className="rounded-lg w-16"
-              objectFit="cover"
+              style={{ objectFit: 'cover' }}
             />
           )}
           <strong className="expand-header">

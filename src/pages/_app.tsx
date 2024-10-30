@@ -55,13 +55,13 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             />
             <div className="spin">
               <BackgroundImage
+                priority
                 fetchPriority="high"
                 src={'/packyiconextrasmall.webp'}
                 className="fixed -z-10 md:-left-[40rem] -left-48 md:-top-32 top-16 opacity-5"
                 width={3200}
                 height={3200}
                 alt={'packy'}
-                priority={false}
               />
             </div>
 

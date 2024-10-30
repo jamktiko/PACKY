@@ -9,6 +9,7 @@ const Header = () => {
   return (
     <header>
       <Image
+        priority
         fetchPriority="high"
         src={'/packyiconextrasmall.webp'}
         width={100}
