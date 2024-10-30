@@ -183,8 +183,9 @@ header nav ul li a span {
 }
 
 /* STACKBUILDER */
+
 .grid-container {
-  @apply gap-4 mt-24 w-screen z-0;
+  @apply gap-4 mt-24 z-0;
 }
 
 .grid-button {

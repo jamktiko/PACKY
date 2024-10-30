@@ -1,6 +1,12 @@
-// Enables the use of React hooks and client-side rendering
 'use client';
-import React, { useState, useEffect } from 'react';
+
+import React, {
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useCallback,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import GridButton from '../buttons/GridButton';
 import { updateChoosableCells } from '@/utils/grid/updateGridState';
@@ -14,8 +20,24 @@ interface GridProps {
 }
 
 const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
+  const gridRef = useRef<HTMLDivElement>(null);
+  const dispatch = useDispatch();
+
+  const gridSize = 9;
+
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
+  const [isGridVisible, setIsGridVisible] = useState(false);
+
+  const activeCells = useSelector(
+    (state: RootState) => state.gridStateReducer.activeCells
+  );
+  const choosableCells = useSelector(
+    (state: RootState) => state.gridStateReducer.choosableCells
+  );
+  let selectedCell = useSelector(
+    (state: RootState) => state.gridStateReducer.selectedCell
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -28,46 +50,38 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
     };
   }, []);
 
-  const activeCells = useSelector(
-    (state: RootState) => state.gridStateReducer.activeCells
-  );
-  const choosableCells = useSelector(
-    (state: RootState) => state.gridStateReducer.choosableCells
-  );
-  let selectedCell = useSelector(
-    (state: RootState) => state.gridStateReducer.selectedCell
-  );
+  useEffect(() => {
+    if (!isGridVisible) {
+      setIsGridVisible(true);
+    }
+  }, [isGridVisible]);
 
-  const gridSize = 9;
-  const dispatch = useDispatch();
-
-  const handleGridButtonClick = (row: number, col: number) => {
-    dispatch(
-      setSelectedCell({
-        row,
-        col,
-        item: [],
-      })
-    );
-    selectedCell = {
-      row,
-      col,
-      item: [],
-    };
-    setIsModalOpen(true);
-  };
+  useEffect(() => {
+    if (isGridVisible) {
+      const gridButtonElement = document.getElementById('grid-button-4-4');
+      if (gridButtonElement) {
+        const rect = gridButtonElement.getBoundingClientRect();
+        window.scrollTo({
+          top: Math.abs(
+            window.scrollY + rect.top + rect.height / 2 - window.innerHeight / 2
+          ),
+          left: Math.abs(
+            rect.left + window.scrollX + rect.width / 2 - window.innerWidth / 2
+          ),
+          behavior: 'smooth',
+        });
+      }
+    }
+  }, [isGridVisible]);
 
   useEffect(() => {
     updateChoosableCells(gridSize);
   }, [activeCells, selectedCell]);
 
-  const isAdjacent = (
-    cell1: { row: number; col: number },
-    cell2: { row: number; col: number }
-  ) => {
-    const rowDiff = Math.abs(cell1.row - cell2.row);
-    const colDiff = Math.abs(cell1.col - cell2.col);
-    return (rowDiff === 1 && colDiff === 0) || (rowDiff === 0 && colDiff === 1);
+  const handleGridButtonClick = (row: number, col: number) => {
+    dispatch(setSelectedCell({ row, col, item: [] }));
+    selectedCell = { row, col, item: [] };
+    setIsModalOpen(true);
   };
 
   if (width < 700) {
@@ -79,18 +93,14 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
       </div>
     );
   }
+
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0 }}
-      animate={{ opacity: 1, scale: 1 }}
-    >
-      {/* Grid container for buttons */}
+    <motion.div ref={gridRef} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <div
         className='grid-container absolute z-10'
         style={{
           display: 'grid',
           gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
-          // gridTemplateColumns: `repeat(auto-fill, 150px)`,
         }}
       >
         {Array.from({ length: gridSize * gridSize }, (_, index) => {
