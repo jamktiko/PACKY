@@ -15,7 +15,7 @@ export default function Document() {
           content="tech consultation, expert advice, productivity tool"
         />
         <meta name="category" content="Productivity, Business, Education" />
-        <link rel="icon" href="/favicon.webp" sizes="any" />
+        <link rel="icon" href="/favicon.png" sizes="any" />
       </Head>
       <body>
         <Main />
