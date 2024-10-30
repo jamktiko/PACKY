@@ -3,19 +3,19 @@ import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
   return (
-    <Html lang='en'>
+    <Html lang="en">
       {/* Head can later be inserted to each page for page-related meta */}
       <Head>
         <meta
-          name='description'
-          content='PACKY is a web app that offers tech stack suggestions and solutions for app developers.'
+          name="description"
+          content="PACKY is a web app that offers tech stack suggestions and solutions for app developers."
         />
         <meta
-          name='keywords'
-          content='tech consultation, expert advice, productivity tool'
+          name="keywords"
+          content="tech consultation, expert advice, productivity tool"
         />
-        <meta name='category' content='Productivity, Business, Education' />
-        <link rel='icon' href='/favicon.png' sizes='any' />
+        <meta name="category" content="Productivity, Business, Education" />
+        <link rel="icon" href="/favicon.webp" sizes="any" />
       </Head>
       <body>
         <Main />
