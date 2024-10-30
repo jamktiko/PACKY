@@ -311,6 +311,10 @@ header nav ul li a span {
 
 /* LIBRARY COMPONENT */
 
+.library-search {
+  @apply opacity-80 transition-all ease-in-out duration-500 my-4 p-2 h-8 w-[55rem] focus:text-xl focus:w-full rounded-2xl border border-gray-500 focus:border-teal-200 focus:outline-none;
+}
+
 .expand-container {
   @apply transition-all m-2 p-2 flex flex-col bg-white w-full max-w-[55rem] h-auto bg-opacity-10 rounded-2xl shadow-md;
 }

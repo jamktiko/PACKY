@@ -44,12 +44,12 @@ const SearchBar = () => {
       </h1>
       {/* Search box to filter by name */}
       <input
-        style={{ color: 'white', backgroundColor: 'black' }}
+        style={{ color: 'gray', backgroundColor: 'black' }}
         type='text'
         placeholder='Search for technologies'
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className='mt-4 p-2 w-full rounded-2xl border border-gray-300 focus:outline-none'
+        className='library-search'
       />
       {/* Display filtered data or loader */}
       {librarydata.length === 0 ? (
