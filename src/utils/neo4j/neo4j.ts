@@ -27,7 +27,7 @@ export const getData = async () => {
   const query = `MATCH (n)
 WHERE n:backendFramework OR n:Database OR n:frontendFramework OR n:Language 
 OPTIONAL MATCH (n)-[r:SUPPORTS]->(f:Feature)
-WITH n, collect({feature: f.name, weight: r.weight}) AS weightsFeature
+WITH n, collect({weight: r.weight}) AS weights
 RETURN DISTINCT 
     n.name AS name, 
     n.description AS desc, 
@@ -35,7 +35,7 @@ RETURN DISTINCT
     n.pros AS pros, 
     n.cons AS cons, 
     n.link AS link, 
-    weightsFeature
+    weights
 `;
 
   // MATCH (n)
