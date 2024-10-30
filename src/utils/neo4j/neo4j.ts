@@ -26,8 +26,31 @@ export const runCypherQuery = async (query: string, params = {}) => {
 export const getData = async () => {
   const query = `MATCH (n)
 WHERE n:backendFramework OR n:Database OR n:frontendFramework OR n:Language 
-RETURN DISTINCT n.name AS name, n.description AS desc, n.imageUrl AS image, n.pros AS pros, n.cons AS cons, n.link AS link
+OPTIONAL MATCH (n)-[r:SUPPORTS]->(f:Feature)
+WITH n, collect({feature: f.name, weight: r.weight}) AS weightsFeature
+RETURN DISTINCT 
+    n.name AS name, 
+    n.description AS desc, 
+    n.imageUrl AS image, 
+    n.pros AS pros, 
+    n.cons AS cons, 
+    n.link AS link, 
+    weightsFeature
 `;
+
+  // MATCH (n)
+  // WHERE n:backendFramework OR n:Database OR n:frontendFramework OR n:Language
+  // OPTIONAL MATCH (n)-[r:SUPPORTS]->(f:Feature)
+  // WITH n, f, collect({technology: n.name, weight: r.weight}) AS weights
+  // RETURN DISTINCT
+  //     n.name AS name,
+  //     n.description AS desc,
+  //     n.imageUrl AS image,
+  //     n.pros AS pros,
+  //     n.cons AS cons,
+  //     n.link AS link,
+  //     weights
+
   try {
     return await runCypherQuery(query);
   } catch (error) {
