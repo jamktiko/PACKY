@@ -326,3 +326,26 @@ header nav ul li a span {
 .expand-text {
   @apply text-gray-300 hover:text-white w-40 text-center;
 }
+
+.checkbox-input {
+  @apply bg-teal-100 border-teal-500 transition-all rotate-180;
+  appearance: none; /* Remove the default checkbox appearance */
+  border-radius: 8px; /* Add a border radius */
+  cursor: pointer; /* Change the cursor */
+  height: 32px; /* Set the height */
+  width: 32px; /* Set the width */
+}
+
+.checkbox-input:checked {
+  @apply bg-teal-500 text-center content-center rotate-0;
+}
+
+.checkbox-input:checked::before {
+  @apply bg-teal-500 text-center content-center items-center place-self-center;
+  content: '\2713'; /* Add a checkmark when checked */
+  font-size: 22px; /* Set the font size of the checkmark */
+  font-weight: bold; /* Set the font weight of the checkmark */
+  text-align: center; /* Center the checkmark horizontally */
+  height: 32px; /* Set the height */
+  width: 32px; /* Set the width */
+}
