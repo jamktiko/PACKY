@@ -43,12 +43,6 @@ const Navigation: React.FC<NavigationProps> = ({ onLinkClick }) => {
             <span>About</span>
           </Link>
         </li>
-        <li>
-          <Link href="/contact" onClick={onLinkClick}>
-            <IoMailOutline className="text-2xl ml-2 mr-4" />
-            <span>Contact</span>
-          </Link>
-        </li>
       </ul>
       <p className=" select-none text-sm absolute bottom-0 opacity-40 w-full">
         © 2024 - PACKY | JAMK Ticorporate

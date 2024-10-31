@@ -18,12 +18,10 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
     { [key: string]: any[] }[]
   >([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const weights = useSelector((state: RootState) =>
-    state.libraryDataReducer.value.map((item) => item.weights)
+  const techsAndWeights = useSelector(
+    (state: RootState) => state.libraryDataReducer.value
   );
-  const flattenedWeights = weights.flat().map((weightObj) => weightObj.weight);
-  console.log(flattenedWeights);
+  console.log(techsAndWeights);
   useEffect(() => {
     const fetchTechnologies = async () => {
       // Early return if outputModal is false - prevents unnecessary fetching
@@ -53,15 +51,16 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
       });
 
       // Create new array with technologies and their total weights
+      // uses techsAndWeights from store to retrieve the weight for each technology
       const techsWithWeights: {
         technology: string;
         totalWeight: number;
         technologyCategory: string[];
       }[] = combinedTechs.map((tech) => ({
-        // Mapping each tech from combinedTechs-array
-        // and creates new object for each tech
         technology: tech.technology,
-        totalWeight: techWeights[tech.technology],
+        totalWeight:
+          techsAndWeights.find((t) => t.name === tech.technology)?.weights[0]
+            .weight || 0,
         technologyCategory: tech.technologyCategory,
       }));
 
@@ -127,7 +126,7 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
     };
 
     fetchTechnologies();
-  }, [features, outputModal]);
+  }, [features, outputModal, techsAndWeights]);
 
   return { technologyGroups, isLoading };
 };
