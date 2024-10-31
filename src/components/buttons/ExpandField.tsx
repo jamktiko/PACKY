@@ -1,74 +1,114 @@
-// Create a separate component for the expandable item
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image'; // Import Image component from Next.js
-import { SearchBarProps } from '../../utils/search'; // Import props from search to give data
+import Image from 'next/image';
+import { SearchBarProps } from '../../utils/search';
 import Link from 'next/link';
-import { FaAngleUp, FaAngleDown } from 'react-icons/fa'; // Icons from react icons
+import { FaAngleUp } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import { decrementWeight, incrementWeight } from '@/redux/reducers/dataReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/redux/store/store';
+import {
+  decrementLibraryWeight,
+  incrementLibraryWeight,
+} from '@/redux/reducers/libraryDataReducer';
 
 const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
-  // Checking that is expanded open or not and also can set open and close it. Starting with false
   const [isExpanded, setIsExpanded] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
 
+  //state variable to keep track of the clicked state
+  const [isClicked, setIsClicked] = useState(false);
+
+  useEffect(() => {
+    const savedState = localStorage.getItem(`checkbox_${item.name}`);
+    if (savedState) {
+      setIsClicked(JSON.parse(savedState)); // Set state from localStorage if available
+    }
+  }, [item.name]);
+  // function to handle incrementing weight in the store by clicking checkbox
+  // Function to handle incrementing/decrementing weight by clicking checkbox
+  const handleCheckboxClick = (name: string) => {
+    const newClickedState = !isClicked;
+    setIsClicked(newClickedState);
+    localStorage.setItem(`checkbox_${name}`, JSON.stringify(newClickedState)); // Save state to localStorage
+
+    if (newClickedState) {
+      dispatch(incrementWeight(name));
+      dispatch(incrementLibraryWeight(name));
+    } else {
+      dispatch(decrementWeight(name));
+      dispatch(decrementLibraryWeight(name));
+    }
+  };
   return (
-    <li className="m-2 p-4 flex flex-col bg-white w-full h-auto bg-opacity-10 rounded-2xl shadow-md">
-      <div className="flex justify-between">
-        <div className="flex flex-col">
+    <motion.li
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="flex flex-row" // Remove items-center to avoid vertical centering
+    >
+      <div onClick={toggleExpand} className="expand-container">
+        <div className="expand-info">
           {item.image && (
             <Image
               src={item.image}
               alt={item.name}
               width={40}
               height={30}
-              className="rounded-lg mb-4"
-              objectFit="cover"
+              className="rounded-lg w-16"
+              style={{ objectFit: 'cover' }}
             />
           )}
-          <strong className="text-lg mb-2">
-            {' '}
-            <Link
-              href={item.link}
-              target="_blank"
-              className="underline hover:text-gray-300"
-            >
-              {item.name}{' '}
-            </Link>
-          </strong>
-        </div>
-        <div className="flex items-center">
-          <button
-            onClick={toggleExpand}
-            className="text-white font-bold hover:underline"
-          >
-            {isExpanded ? (
-              <>
-                <FaAngleUp
-                  className="float-right"
-                  style={{ width: '30px', height: '30px' }}
-                />
-              </>
-            ) : (
-              <>
-                <FaAngleDown
-                  className="float-right"
-                  style={{ width: '30px', height: '30px' }}
-                />
-              </>
+          <strong className="expand-header">
+            {item.link && (
+              <Link href={item.link} target="_blank" className="expand-text">
+                {item.name}
+              </Link>
             )}
+          </strong>
+          <button className="text-white font-bold">
+            <FaAngleUp
+              className={`float-right transition-transform ${
+                isExpanded ? 'rotate-180' : ''
+              }`}
+              style={{ width: '30px', height: '30px' }}
+            />
           </button>
-          <input
-            type="checkbox"
-            className="mr-2 rounded-full"
-            style={{ width: '30px', height: '30px' }}
-          />
         </div>
+        <div className="flex items-center"></div>
+        <AnimatePresence>
+          {isExpanded && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              style={{ overflow: 'hidden' }}
+            >
+              <motion.p className="text-white mb-4 min-h-40">
+                {item.desc}
+              </motion.p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-      {isExpanded && <p className="text-white mb-4">{item.desc}</p>}
-    </li>
+      {/* Apply a top margin to the checkbox instead of vertical centering */}
+      <input
+        type="checkbox"
+        className="mt-[2rem] -ml-16 checkbox-input"
+        onClick={() => handleCheckboxClick(item.name)}
+        checked={isClicked} // Set checkbox state based on isClicked
+        readOnly
+      />
+    </motion.li>
   );
 };
 
 export default ExpandableItem;
+function dispatch(arg0: { payload: string; type: 'data/incrementWeight' }) {
+  throw new Error('Function not implemented.');
+}

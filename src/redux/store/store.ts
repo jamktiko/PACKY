@@ -7,6 +7,7 @@ import gridStateReducer from '../reducers/gridStateReducer';
 import dataReducer from '@/redux/reducers/dataReducer';
 import outputReducer from '../reducers/outputReducer';
 import gridModalReducer from '../reducers/gridModalReducer';
+import libraryDataReducer from '../reducers/libraryDataReducer';
 
 import {
   FLUSH,
@@ -17,31 +18,33 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-//configured persistobject
-const persistConfig = {
-  key: 'root',
+//configured dynamic persistobject
+const createPersistConfig = (key: string) => ({
+  key,
   storage,
   version: 1,
-};
-
-const persistConfig2 = {
-  key: 'output',
-  storage,
-  version: 1,
-};
-
-const persistConfig3 = {
-  key: 'grid',
-  storage,
-  version: 1,
-};
+});
 
 //created persistedDataReducer which uses persistReducer function to incorporate persistobject to dataReducer
-const persistedDataReducer = persistReducer(persistConfig, dataReducer);
+const persistedDataReducer = persistReducer(
+  createPersistConfig('features'),
+  dataReducer
+);
 
-const persistedOutputReducer = persistReducer(persistConfig2, outputReducer);
+const persistedOutputReducer = persistReducer(
+  createPersistConfig('output'),
+  outputReducer
+);
 
-const persistedGrid = persistReducer(persistConfig3, gridStateReducer);
+const persistedGrid = persistReducer(
+  createPersistConfig('grid'),
+  gridStateReducer
+);
+
+const persistedLibrary = persistReducer(
+  createPersistConfig('library'),
+  libraryDataReducer
+);
 
 // Store is created to manage the state of Packy
 export const store = configureStore({
@@ -50,6 +53,7 @@ export const store = configureStore({
     gridModalReducer,
     dataReducer: persistedDataReducer,
     outputReducer: persistedOutputReducer,
+    libraryDataReducer: persistedLibrary,
   }, //middleware is configurated to the redux store to ignore certain actions when performing
   //serializable checks
   middleware: (getDefaultMiddleware) =>

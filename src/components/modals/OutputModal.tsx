@@ -1,18 +1,12 @@
-import React, { useCallback, useEffect, useState, Component } from 'react';
-import { toggleOutputModal } from '@/redux/reducers/outputReducer';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, type RootState } from '@/redux/store/store';
-import { fetchCollections } from '@/redux/reducers/dataReducer';
-import { CollectionData } from '@/utils/collectionData';
 import { useOutputFetch } from '@/hooks/outputFetch';
-import OutputList from '../lists/outputList';
-import { AccordionItem } from '../lists/accordionItem';
-import Link from 'next/link';
-
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
-import { useTransform } from 'framer-motion';
+import Loader from '../loader';
+import { motion } from 'framer-motion';
 
 interface Technology {
   technology: string;
@@ -30,11 +24,8 @@ const OutputModal = () => {
     (state: RootState) => state.gridStateReducer.activeCells
   );
 
-  // Use the useDispatch hook to get the dispatch function
-  const dispatch = useDispatch<AppDispatch>();
-
   // Use the useOutputFetch hook to get the labelTypes value
-  const { technologyGroups } = useOutputFetch(features, outputModal);
+  const { technologyGroups, isLoading } = useOutputFetch(features, outputModal);
 
   const settings = {
     className: 'center',
@@ -47,17 +38,29 @@ const OutputModal = () => {
     useCSS: true,
   };
 
+  if (isLoading) {
+    return (
+      <div className='slider-container outputmodal-loader-center'>
+        <Loader />
+      </div>
+    );
+  }
+
   return (
     <>
       {outputModal && (
-        <div className="slider-container fixed text-center object-center content-center w-screen h-[90vh] flex justify-center top-16 z-50">
-          <Slider {...settings} className="carousel">
+        <motion.div
+          initial={{ opacity: 0, y: 200 }}
+          animate={{ opacity: 1, y: 0 }}
+          className='slider-container output-container'
+        >
+          <Slider {...settings} className='carousel'>
             {technologyGroups.map((group, index) => (
-              <div className="carousel-item" key={index}>
-                <h3>{index + 1}</h3>
+              <div className='carousel-item' key={index}>
+                <h3 className='output-option-header'>Option {index + 1}</h3>
                 {Object.entries(group).map(([category, techs]) => (
                   <div key={category}>
-                    <p className="font-bold">{category}:</p>
+                    <p className='font-bold'>{category}:</p>
                     <ul>
                       {techs.map((tech, i) => (
                         <li key={i}>
@@ -71,7 +74,7 @@ const OutputModal = () => {
               </div>
             ))}
           </Slider>
-        </div>
+        </motion.div>
       )}
     </>
   );

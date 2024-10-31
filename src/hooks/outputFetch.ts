@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getTechsForFeature } from '@/utils/neo4j/neo4j';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store/store';
 
 // Define the interface for the Feature object
 interface Feature {
@@ -15,11 +17,17 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
   const [technologyGroups, setTechnologyGroups] = useState<
     { [key: string]: any[] }[]
   >([]);
-
+  const [isLoading, setIsLoading] = useState(true);
+  const techsAndWeights = useSelector(
+    (state: RootState) => state.libraryDataReducer.value
+  );
+  console.log(techsAndWeights);
   useEffect(() => {
     const fetchTechnologies = async () => {
       // Early return if outputModal is false - prevents unnecessary fetching
       if (!outputModal) return;
+
+      setIsLoading(true);
 
       // Fetch technologies for each feature in parallel using Promise.all
       const allTechs = await Promise.all(
@@ -43,15 +51,16 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
       });
 
       // Create new array with technologies and their total weights
+      // uses techsAndWeights from store to retrieve the weight for each technology
       const techsWithWeights: {
         technology: string;
         totalWeight: number;
         technologyCategory: string[];
       }[] = combinedTechs.map((tech) => ({
-        // Mapping each tech from combinedTechs-array
-        // and creates new object for each tech
         technology: tech.technology,
-        totalWeight: techWeights[tech.technology],
+        totalWeight:
+          techsAndWeights.find((t) => t.name === tech.technology)?.weights[0]
+            .weight || 0,
         technologyCategory: tech.technologyCategory,
       }));
 
@@ -78,17 +87,6 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
       //to the end of the array
       const lowestWeightGroup = techsWithWeights.slice(groupSize * 2);
 
-      // Debug
-      console.log(
-        highestWeightGroup.map((tech) => 'highest: ' + tech.technology)
-      );
-      console.log(
-        mediumWeightGroup.map((tech) => 'medium: ' + tech.technology)
-      );
-      console.log(
-        lowestWeightGroup.map((tech) => 'lowest: ' + tech.technology)
-      );
-
       // Helper function to group technologies by their category
       const groupByCategory = (
         techGroup: {
@@ -113,26 +111,24 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
           acc[category] = singleSelectCategories.includes(category)
             ? acc[category] || [tech] // Single-select
             : (acc[category] || []).concat(tech); // not in singleselectCategory
-          console.log(acc);
+
           return acc; // returning the accumulator
         }, {});
       };
 
-      console.log('Total techs:', combinedTechs.length);
-      console.log('All techs:', combinedTechs);
-      console.log('Weights:', techWeights);
       // Update state with all three groups after categorizing them
       setTechnologyGroups([
         groupByCategory(highestWeightGroup),
         groupByCategory(mediumWeightGroup),
         groupByCategory(lowestWeightGroup),
       ]);
+      setIsLoading(false);
     };
 
     fetchTechnologies();
-  }, [features, outputModal]);
+  }, [features, outputModal, techsAndWeights]);
 
-  return { technologyGroups };
+  return { technologyGroups, isLoading };
 };
 
 export default useOutputFetch;

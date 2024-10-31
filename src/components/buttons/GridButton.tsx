@@ -39,10 +39,24 @@ const GridButton: React.FC<GridButtonProps> = ({
     (state: RootState) => state.gridStateReducer.activeCells
   );
 
-  // Set the initial button name based on 'isActive' and 'isChoosable' state
-  let [buttonName, setButtonName] = useState(
-    isActive ? 'Web App' : isChoosable ? 'Choose' : ''
+  // Find the index of the current cell (button) in the activeCells array based on its row and column.
+  // If the cell with matching row and col values exists in activeCells, cellIndex will hold its index
+  // otherwise, cellIndex will be -1 (indicating the cell is not in activeCells).
+  const cellIndex = activeCells.findIndex(
+    (cell) => cell.row === row && cell.col === col
   );
+  // Set the button's name based on the cell's state:
+  // - If cellIndex is valid (not -1), it means this cell is in activeCells,
+  //   so set buttonName to the name of the first item in this cell's item array.
+  // - If cellIndex is -1 and the cell is choosable (isChoosable is true),
+  //   set buttonName to "Choose" to indicate it can be selected.
+  // - If cellIndex is -1 and the cell is not choosable, leave buttonName as an empty string.
+  const buttonName =
+    cellIndex !== -1
+      ? activeCells[cellIndex].item[0].name
+      : isChoosable
+      ? 'Choose'
+      : '';
 
   // Get items from the global Redux state using useSelector hook (passed from gridButtonReducer.ts)
   const items = useSelector(
@@ -80,9 +94,6 @@ const GridButton: React.FC<GridButtonProps> = ({
       }
 
       // Update the button name here
-      if (selectedIndex !== -1) {
-        setButtonName(activeCells[selectedIndex].item[0].name); // Assuming activeCells has a 'name' property
-      }
     }
   }, [currentIndex, items, selectedCell, row, col, activeCells, buttonName]);
 
@@ -137,20 +148,18 @@ const GridButton: React.FC<GridButtonProps> = ({
   };
 
   return (
-    <div>
-      <button
-        id={id} // Assingning unique ID to the button
-        className={`${color} ${selectState} grid-button `} // Dynamically set styling
-        style={{ opacity }} // Set the button's opacity dynamically based on the 'opacity' prop
-        onClick={() => {
-          handleOpenModal(); // Open the modal on button click
-          handleButtonClick(); // Handle button click logic
-        }}
-      >
-        {/* Display text based on button state (Active, Choosable or Inactive)*/}
-        {isActive ? buttonName : isChoosable ? 'Choose' : ''}
-      </button>
-    </div>
+    <button
+      id={id} // Assingning unique ID to the button
+      className={`${color} ${selectState} grid-button `} // Dynamically set styling
+      style={{ opacity }} // Set the button's opacity dynamically based on the 'opacity' prop
+      onClick={() => {
+        handleOpenModal(); // Open the modal on button click
+        handleButtonClick(); // Handle button click logic
+      }}
+    >
+      {/* Display text based on button state (Active, Choosable or Inactive)*/}
+      {isActive ? buttonName : isChoosable ? 'Choose' : ''}
+    </button>
   );
 };
 
