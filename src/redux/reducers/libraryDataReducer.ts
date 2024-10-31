@@ -74,6 +74,7 @@ export const librarydata = createSlice({
         'DecrementWeight action dispatched with payload:',
         action.payload
       );
+
       state.value = state.value.map((collection) => {
         if (collection.name === action.payload) {
           console.log('Decrementing weight for collection:', collection.name);
@@ -81,7 +82,7 @@ export const librarydata = createSlice({
           // Käydään läpi kaikki weights-taulukon objektit ja lisätään jokaisen weight-arvoa
           const updatedWeights = collection.weights.map((weightObj) => ({
             ...weightObj,
-            weight: weightObj.weight - 1, // Päivitä weight-arvoa yhdellä
+            weight: Math.round((weightObj.weight - 1) * 10) / 10,
           }));
 
           console.log('Updated weights:', updatedWeights);

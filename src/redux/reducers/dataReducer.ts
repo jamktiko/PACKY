@@ -72,10 +72,11 @@ const dataSlice = createSlice({
         if (collection.name === action.payload) {
           console.log('Decrementing weight for collection:', collection.name);
           const newWeight = collection.weight - 1;
-          console.log('new weight:', newWeight);
+          const roundedWeight = Math.round(newWeight * 10) / 10;
+          console.log('new weight:', roundedWeight);
           return {
             ...collection,
-            weight: newWeight,
+            weight: roundedWeight,
           };
         }
         return collection;
