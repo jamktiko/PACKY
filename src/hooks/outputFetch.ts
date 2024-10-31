@@ -18,12 +18,10 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
     { [key: string]: any[] }[]
   >([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const weights = useSelector((state: RootState) =>
-    state.libraryDataReducer.value.map((item) => item.weights)
+  const techsAndWeights = useSelector(
+    (state: RootState) => state.libraryDataReducer.value
   );
-  const flattenedWeights = weights.flat().map((weightObj) => weightObj.weight);
-  console.log(flattenedWeights);
+  console.log(techsAndWeights);
   useEffect(() => {
     const fetchTechnologies = async () => {
       // Early return if outputModal is false - prevents unnecessary fetching
