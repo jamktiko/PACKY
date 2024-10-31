@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { SearchBarProps } from '../../utils/search';
 import Link from 'next/link';
@@ -23,19 +23,27 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
   //state variable to keep track of the clicked state
   const [isClicked, setIsClicked] = useState(false);
 
+  useEffect(() => {
+    const savedState = localStorage.getItem(`checkbox_${item.name}`);
+    if (savedState) {
+      setIsClicked(JSON.parse(savedState)); // Set state from localStorage if available
+    }
+  }, [item.name]);
   // function to handle incrementing weight in the store by clicking checkbox
+  // Function to handle incrementing/decrementing weight by clicking checkbox
   const handleCheckboxClick = (name: string) => {
-    if (isClicked === false) {
-      setIsClicked(true);
+    const newClickedState = !isClicked;
+    setIsClicked(newClickedState);
+    localStorage.setItem(`checkbox_${name}`, JSON.stringify(newClickedState)); // Save state to localStorage
+
+    if (newClickedState) {
       dispatch(incrementWeight(name));
       dispatch(incrementLibraryWeight(name));
     } else {
-      setIsClicked(false);
       dispatch(decrementWeight(name));
       dispatch(decrementLibraryWeight(name));
     }
   };
-
   return (
     <motion.li
       initial={{ opacity: 0, y: 20 }}
@@ -93,6 +101,8 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
         type="checkbox"
         className="mt-[2rem] -ml-16 checkbox-input"
         onClick={() => handleCheckboxClick(item.name)}
+        checked={isClicked} // Set checkbox state based on isClicked
+        readOnly
       />
     </motion.li>
   );
