@@ -15,6 +15,7 @@ export interface SearchBarProps {
   image: string;
   link: string;
   weights: { weight: number }[];
+  checked: boolean;
 }
 
 const SearchBar = () => {

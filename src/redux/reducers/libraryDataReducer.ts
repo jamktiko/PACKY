@@ -117,12 +117,14 @@ export const librarydata = createSlice({
       });
     },
 
-    resetWeights: (state, action: PayloadAction<string>) => {
+    resetWeights: (state) => {
       state.value = state.value.map((collection) => ({
         ...collection,
         weights: collection.weights.map((weightObj) => ({
           ...weightObj,
-          weight: Math.round((weightObj.weight - 1) * 10) / 10,
+          weight: collection.checked
+            ? Math.round((weightObj.weight - 1) * 10) / 10
+            : weightObj.weight,
         })),
         checked: false,
       }));
