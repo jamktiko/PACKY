@@ -1,6 +1,5 @@
 import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
-import { motion } from 'framer-motion';
 import { useFetchCollections } from '@/hooks/useFetchCollections';
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
@@ -12,11 +11,12 @@ import Header from '../components/ui/header';
 
 import '../assets/CSS/globals.css';
 import { Montserrat } from 'next/font/google';
-import Image from 'next/image';
-
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
+import { getData } from '@/utils/neo4j/neo4j';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
+let persistor = persistStore(store);
 
 export type PageLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -26,16 +26,13 @@ type AppPropsWithLayout = AppProps & {
   Component: PageLayout;
 };
 
+const BackgroundImage = dynamic(() => import('next/image'), { ssr: false });
+
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
-  //älä poista
   useFetchCollections();
-  let persistor = persistStore(store);
 
-  // Layout is defined here
   return (
-    //entire app is wrapped with a Redux store provider
-    //created entrypoint to use persistor store with PersistGate method
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         {getLayout(
@@ -47,16 +44,20 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
               />
             </Head>
             <Header />
-            <Image
-              src={'/bg.png'}
-              className=" blur-3xl fixed h-screen -z-50 overflow-hidden"
+            <BackgroundImage
+              fetchPriority="high"
+              src={'/bg.webp'}
+              className="blur-3xl fixed h-screen -z-50 overflow-hidden"
               alt={'Background'}
               width={1920}
               height={1080}
+              priority={true}
             />
             <div className="spin">
-              <Image
-                src={'/packyiconsmall.png'}
+              <BackgroundImage
+                priority
+                fetchPriority="high"
+                src={'/packyiconextrasmall.webp'}
                 className="fixed -z-10 md:-left-[40rem] -left-48 md:-top-32 top-16 opacity-5"
                 width={3200}
                 height={3200}

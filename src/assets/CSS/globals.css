@@ -90,11 +90,11 @@ header nav ul li a span {
 }
 
 .indexcard span {
-  @apply border-b border-inherit text-2xl font-bold relative -top-16 bg-gradient-to-b from-teal-100 via-teal-100 to-90% inline-block text-transparent bg-clip-text;
+  @apply border-b border-inherit text-2xl font-bold relative -top-80 bg-gradient-to-b from-teal-100 via-teal-100 to-90% inline-block text-transparent bg-clip-text;
 }
 
 .indexcard-image {
-  @apply hover:scale-110 transition-all duration-500 w-fit h-full select-none opacity-90;
+  @apply hover:scale-110 transition-all duration-500 h-full select-none opacity-90;
 }
 
 .indexcard-glow1 {
@@ -183,20 +183,29 @@ header nav ul li a span {
 }
 
 /* STACKBUILDER */
+
 .grid-container {
-  @apply gap-4 mt-24 w-screen z-0;
+  @apply gap-4 mt-24 z-0 w-screen;
 }
 
 .grid-button {
-  @apply font-bold transition-all text-white border border-teal-200 hover:bg-white hover:text-black px-5 py-5 rounded hover:opacity-10 w-40 h-16;
+  @apply font-bold shadow-inner-2 transition-all text-white border border-teal-600 hover:bg-white hover:text-black px-2 rounded hover:opacity-10 min-w-44 h-[4.5rem];
 }
 
 .grid-modal {
-  @apply z-10 content-center fixed grid grid-cols-2 space-x-2 space-y-2 top-16 left-0 w-screen h-screen bg-black backdrop-blur-sm bg-opacity-50;
+  @apply z-10 content-center fixed grid grid-cols-2 gap-3 top-16 left-0 w-screen h-screen bg-black backdrop-blur-sm bg-opacity-50;
 }
 
 .grid-modal-item {
-  @apply transition-all hover:bg-opacity-80 hover:text-black border border-teal-300 rounded-xl bg-white bg-opacity-10 p-4;
+  @apply transition-all hover:bg-opacity-80 h-32 shadow-inner-2 hover:text-black border border-teal-600 rounded-xl bg-white bg-opacity-10 p-4;
+}
+
+.modal-header {
+  @apply absolute top-0 left-0 z-50 w-screen text-3xl text-center py-2;
+}
+
+.grid-modal-item.active {
+  @apply bg-slate-500 bg-opacity-10 border-slate-500 text-slate-500;
 }
 
 .modal-toggle {
@@ -255,12 +264,20 @@ header nav ul li a span {
 
 /* OUTPUT CAROUSEL */
 
+.output-container {
+  @apply fixed text-center object-center content-center w-screen h-[90vh] flex justify-center top-16 z-50;
+}
+
+.output-option-header {
+  @apply absolute top-4 left-4 text-2xl font-bold opacity-30;
+}
+
 .carousel {
   @apply transition-all w-screen object-center content-center bg-black bg-opacity-50 backdrop-blur min-h-[calc(100vh-4rem)];
 }
 
 .carousel-item {
-  @apply bg-slate-900 shadow-2xl text-center h-[90vh] content-center;
+  @apply bg-slate-900 border rounded-xl shadow-inner-2 shadow-2xl text-center h-[90vh] content-center;
 }
 
 .slick-current {
@@ -276,9 +293,64 @@ header nav ul li a span {
 }
 
 .slick-slide {
-  @apply blur-sm z-40 shadow-inner-2 transform scale-75;
+  @apply blur-sm z-40 shadow-inner-2 transition-all transform scale-75;
 }
 
 .slick-active {
-  @apply blur-none bg-zinc-50 scale-100;
+  @apply blur-none transition-all scale-100;
+}
+
+/* LOAD SPINNER */
+
+.loadspinner {
+  @apply w-full h-screen min-h-96 absolute top-0 flex items-center justify-center;
+}
+
+.outputmodal-loader-center {
+  @apply fixed text-center object-center content-center w-screen h-[90vh] flex justify-center top-16 z-50;
+}
+
+/* LIBRARY COMPONENT */
+
+.library-search {
+  @apply opacity-80 transition-all ease-in-out duration-500 my-4 p-2 h-8 w-[55rem] focus:text-xl focus:w-full rounded-2xl border border-gray-500 focus:border-teal-200 focus:outline-none;
+}
+
+.expand-container {
+  @apply transition-all m-2 p-2 flex flex-col bg-white w-full max-w-[55rem] h-auto bg-opacity-10 rounded-2xl shadow-md;
+}
+
+.expand-info {
+  @apply flex flex-row items-center bg-white bg-opacity-20 h-16 rounded-2xl;
+}
+
+.expand-header {
+  @apply text-xl  h-16 flex items-center bg-white bg-opacity-5 rounded-r-2xl;
+}
+
+.expand-text {
+  @apply text-gray-300 hover:text-white w-40 text-center;
+}
+
+.checkbox-input {
+  @apply bg-teal-100 border-teal-500 transition-all rotate-180;
+  appearance: none; /* Remove the default checkbox appearance */
+  border-radius: 8px; /* Add a border radius */
+  cursor: pointer; /* Change the cursor */
+  height: 32px; /* Set the height */
+  width: 32px; /* Set the width */
+}
+
+.checkbox-input:checked {
+  @apply bg-teal-500 text-center content-center rotate-0;
+}
+
+.checkbox-input:checked::before {
+  @apply bg-teal-500 text-center content-center items-center place-self-center;
+  content: '\2713'; /* Add a checkmark when checked */
+  font-size: 22px; /* Set the font size of the checkmark */
+  font-weight: bold; /* Set the font weight of the checkmark */
+  text-align: center; /* Center the checkmark horizontally */
+  height: 32px; /* Set the height */
+  width: 32px; /* Set the width */
 }

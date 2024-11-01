@@ -1,46 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { getData } from '@/utils/neo4j/neo4j';
+
+import { AppDispatch, RootState } from '@/redux/store/store';
+import { fetchLibrary } from '@/redux/reducers/libraryDataReducer';
+import { useSelector, useDispatch } from 'react-redux';
+import { motion } from 'framer-motion';
 
 import ExpandableItem from '@/components/buttons/ExpandField';
+import Loader from '@/components/loader';
 
+// Define the interface for the props that the SearchBar component will receive
 export interface SearchBarProps {
   name: string;
   desc: string;
   image: string;
   link: string;
+  weights: { weight: number }[];
 }
 
 const SearchBar = () => {
-  const [data, setData] = useState<SearchBarProps[]>([]);
+  const dispatch = useDispatch<AppDispatch>();
   const [searchQuery, setSearchQuery] = useState(''); // State for search query
 
-  // Fetch all collections on component mount
+  // Get librarydata from Redux store
+  const librarydata = useSelector(
+    (state: RootState) => state.libraryDataReducer.value
+  );
+
+  // Fetch library data when component mounts
   useEffect(() => {
-    const fetchData = async () => {
-      // Fetch data from multiple collections and combine them
-      const frontendFrameworks = await getData('frontendFramework');
-      const backendFrameworks = await getData('backendFramework');
-      const databases = await getData('Database');
-      const languages = await getData('Language');
-
-      // Combine all data into a single array
-      const combinedData = [
-        ...frontendFrameworks,
-        ...backendFrameworks,
-        ...databases,
-        ...languages,
-      ];
-
-      setData(combinedData as SearchBarProps[]);
-    };
-
-    fetchData();
-  }, []); // Empty dependency array to run once on component mount
+    dispatch(fetchLibrary());
+  }, [dispatch]);
 
   // Filter data based on the search query
-  const filteredData = data.filter((item) =>
+  const filteredlibraryData = librarydata.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  <Loader />;
 
   return (
     <div>
@@ -49,22 +45,26 @@ const SearchBar = () => {
       </h1>
       {/* Search box to filter by name */}
       <input
-        style={{ color: 'white', backgroundColor: 'black' }}
+        style={{ color: 'gray', backgroundColor: 'black' }}
         type="text"
         placeholder="Search for technologies"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="mt-4 p-2 w-full rounded-2xl border border-gray-300 focus:outline-none"
+        className="library-search"
       />
-      {/* Display filtered data */}
-      {filteredData.length > 0 ? (
-        <ul className="mt-4">
-          {filteredData.map((item, index) => (
+      {/* Display filtered data or loader */}
+      {librarydata.length === 0 ? (
+        <Loader />
+      ) : (
+        <motion.ul
+          initial={{ opacity: 0, x: 200 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="mt-4"
+        >
+          {filteredlibraryData.map((item, index) => (
             <ExpandableItem key={index} item={item} />
           ))}
-        </ul>
-      ) : (
-        <p className="mt-4">No data available</p>
+        </motion.ul>
       )}
     </div>
   );
