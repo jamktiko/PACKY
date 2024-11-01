@@ -65,7 +65,7 @@ const Page: PageLayout = () => {
         </div>
         <Image
           className='xl:-mt-40 -mt-24 h-fit'
-          src={'/packyiconlarge.png'}
+          src={'/packyiconsmall.png'}
           width={500}
           height={500}
           alt={''}
