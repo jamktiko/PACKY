@@ -15,6 +15,13 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
 
+  const isChecked = useSelector(
+    (state: RootState) =>
+      state.libraryDataReducer.value.find(
+        (collection) => collection.name === item.name
+      )?.checked
+  );
+
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
@@ -79,6 +86,7 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
       <input
         type="checkbox"
         className="mt-[2rem] -ml-16 checkbox-input"
+        checked={isChecked}
         onChange={() => handleCheckboxClick(item.name)}
       />
     </motion.li>
