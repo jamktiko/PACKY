@@ -1,39 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { SearchBarProps } from '../../utils/search';
 import Link from 'next/link';
 import { FaAngleUp } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
-import { decrementWeight, incrementWeight } from '@/redux/reducers/dataReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/redux/store/store';
 import {
-  decrementLibraryWeight,
-  incrementLibraryWeight,
+  toggleCheckbox,
+  resetWeights,
 } from '@/redux/reducers/libraryDataReducer';
 
 const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
 
+  const isChecked = useSelector(
+    (state: RootState) =>
+      state.libraryDataReducer.value.find(
+        (collection) => collection.name === item.name
+      )?.checked
+  );
+
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
 
-  //state variable to keep track of the clicked state
-  const [isClicked, setIsClicked] = useState(false);
-
-  // function to handle incrementing weight in the store by clicking checkbox
   const handleCheckboxClick = (name: string) => {
-    if (isClicked === false) {
-      setIsClicked(true);
-      dispatch(incrementWeight(name));
-      dispatch(incrementLibraryWeight(name));
-    } else {
-      setIsClicked(false);
-      dispatch(decrementWeight(name));
-      dispatch(decrementLibraryWeight(name));
-    }
+    dispatch(toggleCheckbox(name));
   };
 
   return (
@@ -92,7 +86,8 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
       <input
         type="checkbox"
         className="mt-[2rem] -ml-16 checkbox-input"
-        onClick={() => handleCheckboxClick(item.name)}
+        checked={isChecked}
+        onChange={() => handleCheckboxClick(item.name)}
       />
     </motion.li>
   );

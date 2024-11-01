@@ -12,13 +12,22 @@ import { IoArrowUndoOutline } from 'react-icons/io5';
 import { IoIosArrowDropright } from 'react-icons/io';
 import { GrPowerReset } from 'react-icons/gr';
 import { FaCheck } from 'react-icons/fa';
-import { RootState } from '@/redux/store/store';
+import { AppDispatch, RootState } from '@/redux/store/store';
 import { motion } from 'framer-motion';
+import {
+  decrementLibraryWeight,
+  librarydata,
+  resetWeights,
+  toggleCheckbox,
+} from '@/redux/reducers/libraryDataReducer';
 // StackBuilder page is constructed here, it renders Grid component and conditionally renders GridModal
 const StackBuilder: PageLayout = () => {
   // Get the activeCells from the Redux state
   const { activeCells } = useSelector(
     (state: RootState) => state.gridStateReducer
+  );
+  const libraryData = useSelector(
+    (state: RootState) => state.libraryDataReducer
   );
 
   // useState hook manages a boolean state that controls wheter or not the modal is open and a function to update it
@@ -30,7 +39,7 @@ const StackBuilder: PageLayout = () => {
   // setIsModalOpen is passed as a prop to Grid and GridModal, to allow them to update the state
   //of isModalOpen
   console.log('output modal is', isOutputModalOpen);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const handlesetOutputModal = () => {
     setIsOutputModalOpen(!isOutputModalOpen);
@@ -43,14 +52,21 @@ const StackBuilder: PageLayout = () => {
     setIsGridOpen(!isGridOpen);
   };
 
+  const handleCheckboxToggle = (name: string) => {
+    dispatch(toggleCheckbox(name));
+  };
+
   //Function to handle button disablement
   const buttonDisabled = useCallback(() => {
-    if (activeCells.length > 1) {
+    if (
+      activeCells.length > 1 ||
+      libraryData.value.some((item) => item.checked)
+    ) {
       return false;
     } else {
       return true;
     }
-  }, [activeCells]);
+  }, [activeCells, libraryData]);
 
   //UseEffect hook to handle button disablement
   useEffect(() => {
@@ -68,39 +84,39 @@ const StackBuilder: PageLayout = () => {
       {isLibraryOpen && (
         <>
           <List />{' '}
-          <div className='w-full flex justify-center h-16 fixed bottom-0'></div>
+          <div className="w-full flex justify-center h-16 fixed bottom-0"></div>
           <motion.div
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className='h-16 fixed w-full bottom-0 flex justify-evenly'
+            className="h-16 fixed w-full bottom-0 flex justify-evenly"
           >
-            <button className='toggle-output pointer-events-none hover:bg-slate-500 hover:opacity-80 hover:text-slate-400 cursor-default text-slate-400 bg-slate-500'>
-              <IoArrowUndoOutline className='w-8 h-8' />
+            <button className="toggle-output pointer-events-none hover:bg-slate-500 hover:opacity-80 hover:text-slate-400 cursor-default text-slate-400 bg-slate-500">
+              <IoArrowUndoOutline className="w-8 h-8" />
               Go back
             </button>
             <button
-              className='toggle-output bg-gradient-to-r from-teal-500 to-cyan-500'
+              className="toggle-output bg-gradient-to-r from-teal-500 to-cyan-500"
               onClick={handlesetLibraryOpen}
             >
-              <IoIosArrowDropright className='w-8 h-8' />
+              <IoIosArrowDropright className="w-8 h-8" />
               Next
             </button>
 
             {!buttonDisabled() && (
               <button
-                className='toggle-output bg-cyan-500'
-                onClick={() => dispatch(resetGridState())}
+                className="toggle-output bg-cyan-500"
+                onClick={() => dispatch(resetWeights())}
               >
-                <GrPowerReset className='w-8 h-8' />
+                <GrPowerReset className="w-8 h-8" />
                 Reset
               </button>
             )}
             {buttonDisabled() && (
               <button
-                className='toggle-output pointer-events-none hover:bg-slate-500 hover:opacity-80 hover:text-slate-400 cursor-default text-slate-400 bg-slate-500'
-                onClick={() => dispatch(resetGridState())}
+                className="toggle-output pointer-events-none hover:bg-slate-500 hover:opacity-80 hover:text-slate-400 cursor-default text-slate-400 bg-slate-500"
+                onClick={() => dispatch(resetWeights())}
               >
-                <GrPowerReset className='w-8 h-8' />
+                <GrPowerReset className="w-8 h-8" />
                 Reset
               </button>
             )}
@@ -110,30 +126,30 @@ const StackBuilder: PageLayout = () => {
       {isGridOpen && (
         <>
           <Grid setIsModalOpen={setIsModalOpen} />
-          <div className='h-16 fixed w-full bottom-0 flex justify-evenly'>
+          <div className="h-16 fixed w-full bottom-0 flex justify-evenly">
             <button
-              className='toggle-output bg-teal-500'
+              className="toggle-output bg-teal-500"
               onClick={handlesetLibraryOpen}
             >
-              <IoArrowUndoOutline className='w-8 h-8' />
+              <IoArrowUndoOutline className="w-8 h-8" />
               Go back
             </button>
             {!buttonDisabled() && (
               <>
                 {' '}
                 <button
-                  className='toggle-output bg-gradient-to-r from-teal-500 to-cyan-500'
+                  className="toggle-output bg-gradient-to-r from-teal-500 to-cyan-500"
                   onClick={handlesetOutputModal}
                   disabled={buttonDisabled()}
                 >
-                  <FaCheck className='w-8 h-8' />
+                  <FaCheck className="w-8 h-8" />
                   Finish
                 </button>
                 <button
-                  className='toggle-output bg-cyan-500'
+                  className="toggle-output bg-cyan-500"
                   onClick={() => dispatch(resetGridState())}
                 >
-                  <GrPowerReset className='w-8 h-8' />
+                  <GrPowerReset className="w-8 h-8" />
                   Reset
                 </button>
               </>
@@ -141,18 +157,18 @@ const StackBuilder: PageLayout = () => {
             {buttonDisabled() && (
               <>
                 <button
-                  className='toggle-output pointer-events-none hover:bg-slate-500 hover:opacity-80 hover:text-slate-400 cursor-default text-slate-400 bg-slate-500'
+                  className="toggle-output pointer-events-none hover:bg-slate-500 hover:opacity-80 hover:text-slate-400 cursor-default text-slate-400 bg-slate-500"
                   onClick={handlesetOutputModal}
                   disabled={buttonDisabled()}
                 >
-                  <FaCheck className='w-8 h-8' />
+                  <FaCheck className="w-8 h-8" />
                   Finish
                 </button>
                 <button
-                  className='toggle-output pointer-events-none hover:bg-slate-500 hover:opacity-80 hover:text-slate-400 cursor-default text-slate-400 bg-slate-500'
+                  className="toggle-output pointer-events-none hover:bg-slate-500 hover:opacity-80 hover:text-slate-400 cursor-default text-slate-400 bg-slate-500"
                   onClick={() => dispatch(resetGridState())}
                 >
-                  <GrPowerReset className='w-8 h-8' />
+                  <GrPowerReset className="w-8 h-8" />
                   Reset
                 </button>
               </>
@@ -169,13 +185,13 @@ const StackBuilder: PageLayout = () => {
           <motion.div
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className='h-16 z-50 fixed w-full bottom-0 flex justify-evenly'
+            className="h-16 z-50 fixed w-full bottom-0 flex justify-evenly"
           >
             <button
-              className='toggle-output min-w-96 bg-gradient-to-r from-teal-500 to-cyan-500'
+              className="toggle-output min-w-96 bg-gradient-to-r from-teal-500 to-cyan-500"
               onClick={handlesetOutputModal}
             >
-              <IoArrowUndoOutline className='w-8 h-8' />
+              <IoArrowUndoOutline className="w-8 h-8" />
               Go back
             </button>
           </motion.div>
