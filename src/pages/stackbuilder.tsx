@@ -12,13 +12,22 @@ import { IoArrowUndoOutline } from 'react-icons/io5';
 import { IoIosArrowDropright } from 'react-icons/io';
 import { GrPowerReset } from 'react-icons/gr';
 import { FaCheck } from 'react-icons/fa';
-import { RootState } from '@/redux/store/store';
+import { AppDispatch, RootState } from '@/redux/store/store';
 import { motion } from 'framer-motion';
+import {
+  decrementLibraryWeight,
+  librarydata,
+  resetWeights,
+  toggleCheckbox,
+} from '@/redux/reducers/libraryDataReducer';
 // StackBuilder page is constructed here, it renders Grid component and conditionally renders GridModal
 const StackBuilder: PageLayout = () => {
   // Get the activeCells from the Redux state
   const { activeCells } = useSelector(
     (state: RootState) => state.gridStateReducer
+  );
+  const libraryData = useSelector(
+    (state: RootState) => state.libraryDataReducer
   );
 
   // useState hook manages a boolean state that controls wheter or not the modal is open and a function to update it
@@ -30,7 +39,7 @@ const StackBuilder: PageLayout = () => {
   // setIsModalOpen is passed as a prop to Grid and GridModal, to allow them to update the state
   //of isModalOpen
   console.log('output modal is', isOutputModalOpen);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const handlesetOutputModal = () => {
     setIsOutputModalOpen(!isOutputModalOpen);
@@ -43,14 +52,21 @@ const StackBuilder: PageLayout = () => {
     setIsGridOpen(!isGridOpen);
   };
 
+  const handleCheckboxToggle = (name: string) => {
+    dispatch(toggleCheckbox(name));
+  };
+
   //Function to handle button disablement
   const buttonDisabled = useCallback(() => {
-    if (activeCells.length > 1) {
+    if (
+      activeCells.length > 1 ||
+      libraryData.value.some((item) => item.checked)
+    ) {
       return false;
     } else {
       return true;
     }
-  }, [activeCells]);
+  }, [activeCells, libraryData]);
 
   //UseEffect hook to handle button disablement
   useEffect(() => {
@@ -89,7 +105,7 @@ const StackBuilder: PageLayout = () => {
             {!buttonDisabled() && (
               <button
                 className="toggle-output bg-cyan-500"
-                onClick={() => dispatch(resetGridState())}
+                onClick={() => dispatch(resetWeights())}
               >
                 <GrPowerReset className="w-8 h-8" />
                 Reset
@@ -98,7 +114,7 @@ const StackBuilder: PageLayout = () => {
             {buttonDisabled() && (
               <button
                 className="toggle-output pointer-events-none hover:bg-slate-500 hover:opacity-80 hover:text-slate-400 cursor-default text-slate-400 bg-slate-500"
-                onClick={() => dispatch(resetGridState())}
+                onClick={() => dispatch(resetWeights())}
               >
                 <GrPowerReset className="w-8 h-8" />
                 Reset
