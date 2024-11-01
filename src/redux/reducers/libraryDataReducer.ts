@@ -1,6 +1,7 @@
 import { SearchBarProps } from '@/utils/search';
 import { getData } from '@/utils/neo4j/neo4j';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { decrementWeight } from './dataReducer';
 
 //defined the interface for the state
 interface LibraryState {
@@ -33,6 +34,7 @@ export const fetchLibrary = createAsyncThunk(
       cons: libraryfeature.cons,
       link: libraryfeature.link,
       weights: libraryfeature.weights,
+      checked: false,
     }));
   }
 );
@@ -96,7 +98,37 @@ export const librarydata = createSlice({
       });
       console.log('Updated state:', state);
     },
+    toggleCheckbox: (state, action: PayloadAction<string>) => {
+      state.value = state.value.map((collection) => {
+        if (collection.name === action.payload) {
+          const updatedWeights = collection.weights.map((weightObj) => ({
+            ...weightObj,
+            weight: (collection as any).checked
+              ? weightObj.weight - 1
+              : weightObj.weight + 1,
+          }));
+          return {
+            ...collection,
+            checked: !(collection as any).checked,
+            weights: updatedWeights,
+          };
+        }
+        return collection;
+      });
+    },
+
+    resetWeights: (state, action: PayloadAction<string>) => {
+      state.value = state.value.map((collection) => ({
+        ...collection,
+        weights: collection.weights.map((weightObj) => ({
+          ...weightObj,
+          weight: Math.round((weightObj.weight - 1) * 10) / 10,
+        })),
+        checked: false,
+      }));
+    },
   },
+
   // Määritellaan mitä tapahtuu kun fetchCollections -funktio on käynnissä
   extraReducers: (builder) => {
     builder
@@ -114,7 +146,11 @@ export const librarydata = createSlice({
   },
 });
 
-export const { incrementLibraryWeight, decrementLibraryWeight } =
-  librarydata.actions;
+export const {
+  incrementLibraryWeight,
+  decrementLibraryWeight,
+  resetWeights,
+  toggleCheckbox,
+} = librarydata.actions;
 
 export default librarydata.reducer;
