@@ -14,7 +14,7 @@ export interface SearchBarProps {
   desc: string;
   image: string;
   link: string;
-  weights: { weight: number }[];
+  weight: number;
   checked: boolean;
 }
 
