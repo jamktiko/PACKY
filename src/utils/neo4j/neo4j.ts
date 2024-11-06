@@ -1,22 +1,21 @@
 import neo4j from 'neo4j-driver';
 
-// Neo4j driver instance with URI, username and password
+// Initialize Neo4j driver once
 const driver = neo4j.driver(
   process.env.NEXT_PUBLIC_NEO4J_URI!,
   neo4j.auth.basic(
     process.env.NEXT_PUBLIC_NEO4J_USER!,
     process.env.NEXT_PUBLIC_NEO4J_PASSWORD!
-  )
+  ),
+  {
+    maxConnectionPoolSize: 10, // Example setting for connection pooling
+  }
 );
 
-// Function to run a Cypher query
-// function takes the cypher query as it parameter
-// and executes the query againts the neo4j db using the driver
-export const runCypherQuery = async (query: string, params = {}) => {
-  const session = driver.session();
-
-  // It returns an array of objects, where each object
-  // represents a record returned by the query
+// Utility function to run a query with session management
+const runCypherQuery = async (query: string, params = {}) => {
+  // Create a session in read mode for optimized read operations
+  const session = driver.session({ defaultAccessMode: neo4j.session.READ });
   try {
     const result = await session.run(query, params);
     return result.records.map((record) => record.toObject());
@@ -25,22 +24,22 @@ export const runCypherQuery = async (query: string, params = {}) => {
   }
 };
 
-// Library page use this!
-// A function to get all nodes from a specific type
+// Function to get all nodes from specified labels with features
 export const getData = async () => {
-  const query = `MATCH (n)
-WHERE any(label IN labels(n) WHERE label IN ['backendFramework', 'Database', 'frontendFramework', 'Language', 'CSSframework', 'metaFramework'])
-OPTIONAL MATCH (n)-[r:SUPPORTS]->(f:Feature)
-WITH DISTINCT n, collect(r.weight) AS weights
-RETURN 
- n.name AS name, 
-n.description AS desc, 
-n.imageUrl AS image, 
-n.pros AS pros, 
-n.cons AS cons, 
-n.link AS link, 
-weights
-`;
+  const query = `
+    MATCH (n)
+    WHERE any(label IN labels(n) WHERE label IN ['backendFramework', 'Database', 'frontendFramework', 'Language', 'CSSframework', 'metaFramework'])
+    OPTIONAL MATCH (n)-[r:SUPPORTS]->(f:Feature)
+    WITH n, collect(r.weight) AS weights
+    RETURN 
+      n.name AS name, 
+      n.description AS desc, 
+      n.imageUrl AS image, 
+      n.pros AS pros, 
+      n.cons AS cons, 
+      n.link AS link, 
+      weights
+  `;
   try {
     return await runCypherQuery(query);
   } catch (error) {
@@ -48,19 +47,17 @@ weights
     throw error;
   }
 };
-// Function to retrieve all features from the neo4j
+
+// Function to retrieve features with associated technologies and weights
 export const getFeatures = async () => {
   const query = `
-   MATCH (t)-[r:SUPPORTS]->(f:Feature)
-  WITH f, collect({technology: t.name, weight: r.weight}) AS techRelations
-   RETURN f.name AS name, f.description AS desc, techRelations
+    MATCH (t)-[r:SUPPORTS]->(f:Feature)
+    WITH f, collect({technology: t.name, weight: r.weight}) AS techRelations
+    RETURN 
+      f.name AS name, 
+      f.description AS desc, 
+      techRelations
   `;
-
-  // MATCH (t:Technology)-[r:SUPPORTS]->(f:Feature)
-  // RETURN
-  // f.name AS name,
-  // f.description AS desc,
-  // collect({technology: t.name, weight: r.weight}) AS techRelations
   try {
     return await runCypherQuery(query);
   } catch (error) {
@@ -69,26 +66,30 @@ export const getFeatures = async () => {
   }
 };
 
+// Retrieve technologies sorted by weight for a specific feature or list of features
 export const getTechsForFeature = async (featureName: string | string[]) => {
   const query = `
     MATCH (t)-[r:SUPPORTS]->(f:Feature)
     WHERE f.name IN $featureNames
-    AND any(label IN labels(t) WHERE label IN ['frontendFramework', 'backendFramework', 'Database', 'Language', 'library, cssFramework, metaFramework'])
+      AND any(label IN labels(t) WHERE label IN ['frontendFramework', 'backendFramework', 'Database', 'Language', 'CSSframework', 'metaFramework'])
     WITH t, SUM(r.weight) AS totalScore
-    ORDER BY totalScore DESC
     RETURN labels(t) AS technologyCategory, t.name AS technology, totalScore
+    ORDER BY totalScore DESC
   `;
-
-  // Ensure `featureNames` is an array, whether single or multiple features
+  
   const params = {
     featureNames: Array.isArray(featureName) ? featureName : [featureName],
   };
 
   try {
-    const result = await runCypherQuery(query, params);
-    return result;
+    return await runCypherQuery(query, params);
   } catch (error) {
     console.error(`Error fetching technologies for feature(s): ${error}`);
-    throw error; // Optionally rethrow error to handle it further up the call stack
+    throw error;
   }
+};
+
+// Optional function to close the driver when the app shuts down
+export const closeDriver = async () => {
+  await driver.close();
 };
