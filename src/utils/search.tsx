@@ -7,7 +7,6 @@ import { motion } from 'framer-motion';
 
 import ExpandableItem from '@/components/buttons/ExpandField';
 import Loader from '@/components/loader';
-import { useFetchCollections } from '@/hooks/useFetchCollections';
 
 // Define the interface for the props that the SearchBar component will receive
 export interface SearchBarProps {
@@ -15,15 +14,13 @@ export interface SearchBarProps {
   desc: string;
   image: string;
   link: string;
-  weight: number;
+  weights: { weight: number }[];
   checked: boolean;
 }
 
 const SearchBar = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [searchQuery, setSearchQuery] = useState(''); // State for search query
-
-  useFetchCollections();
 
   // Get librarydata from Redux store
   const librarydata = useSelector(
