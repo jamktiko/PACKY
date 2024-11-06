@@ -25,7 +25,7 @@ export const runCypherQuery = async (query: string, params = {}) => {
 // A function to get all nodes from a specific type
 export const getData = async () => {
   const query = `MATCH (n)
-WHERE n:backendFramework OR n:Database OR n:frontendFramework OR n:Language OR n:CSSframework
+WHERE n:backendFramework OR n:Database OR n:frontendFramework OR n:Language OR n:CSSframework OR n:metaFramework
 OPTIONAL MATCH (n)-[r:SUPPORTS]->(f:Feature)
 WITH n, collect({weight: r.weight}) AS weights
 RETURN DISTINCT 
