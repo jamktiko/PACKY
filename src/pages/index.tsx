@@ -44,6 +44,7 @@ const Page: PageLayout = () => {
         width={1000}
         height={1000}
         alt={''}
+        priority
       />
       <p className='text-2xl italic mt-6 mb-0 lg:w-1/2 w-full bg-gradient-to-r from-cyan-200 via-cyan-100 to-white text-transparent bg-clip-text'>
         <b>The next generation </b>of technology,
@@ -74,6 +75,7 @@ const Page: PageLayout = () => {
           width={500}
           height={500}
           alt={''}
+          priority
         />
       </article>
 

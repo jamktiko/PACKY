@@ -2,8 +2,8 @@ import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
 import { useFetchCollections } from '@/hooks/useFetchCollections';
 import type { AppProps } from 'next/app';
-import { Provider } from 'react-redux';
-import { store } from '../redux/store/store';
+import { Provider, ProviderProps } from 'react-redux';
+import { store, persistor } from '../redux/store/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 
@@ -16,7 +16,6 @@ import Head from 'next/head';
 import { getData } from '@/utils/neo4j/neo4j';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
-let persistor = persistStore(store);
 
 export type PageLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -30,11 +29,10 @@ const BackgroundImage = dynamic(() => import('next/image'), { ssr: false });
 
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
-  useFetchCollections();
 
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate persistor={persistor}>
         {getLayout(
           <main className={montserrat.className}>
             <Head>

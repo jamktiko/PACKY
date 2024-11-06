@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { getTechsForFeature } from '@/utils/neo4j/neo4j';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store/store';
+import { get } from 'http';
 
-// Define the interface for the Feature object
+// Defining the interfaces
 interface Feature {
   row: number;
   col: number;
@@ -11,6 +12,15 @@ interface Feature {
   id?: string;
 }
 
+interface Technology {
+  technology: string;
+  totalWeight: number;
+  technologyCategory: string[];
+}
+
+interface TechnologyGroup {
+  [category: string]: Technology[];
+}
 export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
   // State to store technology groups, initialized as an empty array
   // Each group will contain technologies categorized by their type
@@ -18,10 +28,18 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
     { [key: string]: any[] }[]
   >([]);
   const [isLoading, setIsLoading] = useState(true);
+
   const techsAndWeights = useSelector(
     (state: RootState) => state.libraryDataReducer.value
   );
-  console.log(techsAndWeights);
+  const getWeight = useMemo(() => {
+    const weightMap = new Map(
+      techsAndWeights.map((t) => [t.name, t.weights[0].weight])
+    );
+
+    return (techName: string) => weightMap.get(techName) || 0;
+  }, [techsAndWeights]);
+
   useEffect(() => {
     const fetchTechnologies = async () => {
       // Early return if outputModal is false - prevents unnecessary fetching
@@ -70,22 +88,46 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
       // Calculate the size of one group
       // by dividing the length of the array by 3
       // Using Math.ceil to round up, so all tech's fit into groups
-      const groupSize = Math.ceil(techsWithWeights.length / 3);
+
+      const bubbleSort = (
+        arr: {
+          technology: string;
+          totalWeight: number;
+          technologyCategory: string[];
+        }[]
+      ): {
+        technology: string;
+        totalWeight: number;
+        technologyCategory: string[];
+      }[] => {
+        const l = arr.length;
+
+        for (let i = 0; i < l; i++) {
+          for (let j = 0; j < l - i - 1; j++) {
+            if (arr[j].totalWeight < arr[j + 1].totalWeight) {
+              const temp = arr[j];
+              arr[j] = arr[j + 1];
+              arr[j + 1] = temp;
+            }
+          }
+        }
+        return arr;
+      };
+
+      const sortedTechs = bubbleSort(techsWithWeights);
+      const groupSize = Math.ceil(sortedTechs.length / 3);
 
       //Group with highest weights
       // taking the first groupSize elements, so the first techs
-      const highestWeightGroup = techsWithWeights.slice(0, groupSize);
+      const highestWeightGroup = sortedTechs.slice(0, groupSize);
 
       // Second highest weight group
       // slice(groupSize, groupSize * 2) takes elements from index groupSize to (groupSize * 2)
-      const mediumWeightGroup = techsWithWeights.slice(
-        groupSize,
-        groupSize * 2
-      );
+      const mediumWeightGroup = sortedTechs.slice(groupSize, groupSize * 2);
       // Lowest weight group, take the remaining technologies
       // slice(groupSize * 2) takes all elements from index (groupSize * 2)
       //to the end of the array
-      const lowestWeightGroup = techsWithWeights.slice(groupSize * 2);
+      const lowestWeightGroup = sortedTechs.slice(groupSize * 2);
 
       // Helper function to group technologies by their category
       const groupByCategory = (
