@@ -129,7 +129,7 @@
 describe('Stackbuilder functionality test', () => {
   it('passes', () => {
     cy.visit('http://localhost:3000');
-    cy.wait(4000);
+    cy.wait(100);
     cy.viewport(1550, 947);
 
     cy.contains('PACKY StackBuilder').click();
