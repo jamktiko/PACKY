@@ -33,7 +33,9 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
     (state: RootState) => state.libraryDataReducer.value
   );
   const getWeight = useMemo(() => {
-    const weightMap = new Map(techsAndWeights.map((t) => [t.name, t.weight]));
+    const weightMap = new Map(
+      techsAndWeights.map((t) => [t.name, t.weights[0].weight])
+    );
 
     return (techName: string) => weightMap.get(techName) || 0;
   }, [techsAndWeights]);
@@ -75,10 +77,8 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
       }[] = combinedTechs.map((tech) => ({
         technology: tech.technology,
         totalWeight:
-          techsAndWeights.find((t) => t.name === tech.technology)?.weight ||
-          techWeights[tech.technology] ||
-          tech[0].weight ||
-          0,
+          techsAndWeights.find((t) => t.name === tech.technology)?.weights[0]
+            .weight || 0,
         technologyCategory: tech.technologyCategory,
       }));
 

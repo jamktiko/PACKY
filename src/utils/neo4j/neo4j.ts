@@ -9,14 +9,10 @@ const driver = neo4j.driver(
   )
 );
 
-// Function to run a Cypher query
-// function takes the cypher query as it parameter
-// and executes the query againts the neo4j db using the driver
+// a Function to run a Cypher query
 export const runCypherQuery = async (query: string, params = {}) => {
   const session = driver.session();
 
-  // It returns an array of objects, where each object
-  // represents a record returned by the query
   try {
     const result = await session.run(query, params);
     return result.records.map((record) => record.toObject());
@@ -29,18 +25,32 @@ export const runCypherQuery = async (query: string, params = {}) => {
 // A function to get all nodes from a specific type
 export const getData = async () => {
   const query = `MATCH (n)
-WHERE any(label IN labels(n) WHERE label IN ['backendFramework', 'Database', 'frontendFramework', 'Language', 'CSSframework', 'metaFramework'])
+WHERE n:backendFramework OR n:Database OR n:frontendFramework OR n:Language OR n:CSSframework
 OPTIONAL MATCH (n)-[r:SUPPORTS]->(f:Feature)
-WITH DISTINCT n, collect(r.weight) AS weights
-RETURN 
- n.name AS name, 
-n.description AS desc, 
-n.imageUrl AS image, 
-n.pros AS pros, 
-n.cons AS cons, 
-n.link AS link, 
-weights
+WITH n, collect({weight: r.weight}) AS weights
+RETURN DISTINCT 
+    n.name AS name, 
+    n.description AS desc, 
+    n.imageUrl AS image, 
+    n.pros AS pros, 
+    n.cons AS cons, 
+    n.link AS link, 
+    weights
 `;
+
+  // MATCH (n)
+  // WHERE n:backendFramework OR n:Database OR n:frontendFramework OR n:Language
+  // OPTIONAL MATCH (n)-[r:SUPPORTS]->(f:Feature)
+  // WITH n, f, collect({technology: n.name, weight: r.weight}) AS weights
+  // RETURN DISTINCT
+  //     n.name AS name,
+  //     n.description AS desc,
+  //     n.imageUrl AS image,
+  //     n.pros AS pros,
+  //     n.cons AS cons,
+  //     n.link AS link,
+  //     weights
+
   try {
     return await runCypherQuery(query);
   } catch (error) {
@@ -56,11 +66,9 @@ export const getFeatures = async () => {
    RETURN f.name AS name, f.description AS desc, techRelations
   `;
 
-  // MATCH (t:Technology)-[r:SUPPORTS]->(f:Feature)
-  // RETURN
-  // f.name AS name,
-  // f.description AS desc,
-  // collect({technology: t.name, weight: r.weight}) AS techRelations
+  // MATCH (f:Feature)
+  // RETURN  f.name AS name,
+  // f.description as desc
   try {
     return await runCypherQuery(query);
   } catch (error) {
@@ -69,26 +77,54 @@ export const getFeatures = async () => {
   }
 };
 
-export const getTechsForFeature = async (featureName: string | string[]) => {
-  const query = `
+// export const getTechsForFeature = async (featureName: string) => {
+//   const query = `MATCH (feature:Feature {name: $featureName})<-[r:SUPPORTS]-(t)
+// RETURN DISTINCT t.name as name, labels(t) as type, r.weight AS weight
+// ORDER BY weight DESC
+//   `;
+
+//   try {
+//     const result = await runCypherQuery(query, { featureName });
+//     return result;
+//   } catch (error) {
+//     console.error(error + 'error');
+//   }
+// };
+
+export const getTechsForFeature = async (
+  featureName: string | string[] // Accept both single feature or an array of features
+) => {
+  let query: string;
+  let params: any;
+
+  // If featureName is an array (multiple features), run the summed weight query
+  if (Array.isArray(featureName)) {
+    query = `
     MATCH (t)-[r:SUPPORTS]->(f:Feature)
     WHERE f.name IN $featureNames
-    AND any(label IN labels(t) WHERE label IN ['frontendFramework', 'backendFramework', 'Database', 'Language', 'library, cssFramework, metaFramework'])
+    AND (t:frontendFramework OR t:backendFramework OR t:Database OR t:Language OR t:library)
     WITH t, SUM(r.weight) AS totalScore
     ORDER BY totalScore DESC
     RETURN labels(t) AS technologyCategory, t.name AS technology, totalScore
   `;
-
-  // Ensure `featureNames` is an array, whether single or multiple features
-  const params = {
-    featureNames: Array.isArray(featureName) ? featureName : [featureName],
-  };
+    params = { featureNames: featureName }; // Pass the array of feature names
+  } else {
+    // If it's a single feature, pass it as an array with a single element
+    query = `
+    MATCH (t)-[r:SUPPORTS]->(f:Feature)
+    WHERE f.name IN $featureNames
+   AND (t:frontendFramework OR t:backendFramework OR t:Database OR t:Language OR t:library)
+    WITH t, SUM(r.weight) AS totalScore
+    ORDER BY totalScore DESC
+    RETURN labels(t) AS technologyCategory, t.name AS technology, totalScore
+  `;
+    params = { featureNames: [featureName] }; // Pass the single feature name as an array
+  }
 
   try {
     const result = await runCypherQuery(query, params);
     return result;
   } catch (error) {
-    console.error(`Error fetching technologies for feature(s): ${error}`);
-    throw error; // Optionally rethrow error to handle it further up the call stack
+    console.error(error + ' error');
   }
 };
