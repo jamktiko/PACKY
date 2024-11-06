@@ -52,10 +52,6 @@ const StackBuilder: PageLayout = () => {
     setIsGridOpen(!isGridOpen);
   };
 
-  const handleCheckboxToggle = (name: string) => {
-    dispatch(toggleCheckbox(name));
-  };
-
   //Function to handle button disablement
   const buttonDisabled = useCallback(() => {
     if (
