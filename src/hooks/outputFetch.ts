@@ -76,7 +76,7 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
               .weight || 0;
           return {
             technology: tech.technology,
-            totalWeight: weight + (techWeights[tech.technology] || 0),
+            totalWeight: weight,
             technologyCategory: tech.technologyCategory,
           };
         })
