@@ -90,7 +90,7 @@ header nav ul li a span {
 /* INDEX CARD ELEMENT */
 
 .indexcard {
-  @apply bg-black lg:w-64 h-64 overflow-hidden border border-gray-800 cursor-pointer rounded-3xl  max-h-96 hover:bg-white transition-all;
+  @apply bg-black w-full overflow-hidden border border-gray-800 cursor-pointer rounded-3xl  max-h-96 hover:bg-white transition-all;
 }
 
 .indexcard span {

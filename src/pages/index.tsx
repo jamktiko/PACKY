@@ -83,13 +83,13 @@ const Page: PageLayout = () => {
         Explore
       </h2>
       <div className='w-full flex  mb-16'>
-        <div className='lg:grid flex flex-col grid-cols-3 gap-4 text-center mb-16'>
+        <div className=' flex xl:flex-row flex-col gap-4 text-center mb-16'>
           <Link href={'/stackbuilder'} className='indexcard indexcard-glow2'>
             <Image
               src={'/indexcard-stackbuilder.jpg'}
               className='indexcard-image'
-              width={1000}
-              height={1000}
+              width={800}
+              height={800}
               alt={''}
             />
             <span>PACKY StackBuilder</span>
@@ -98,8 +98,8 @@ const Page: PageLayout = () => {
             <Image
               src={'/indexcard-about.jpg'}
               className='indexcard-image'
-              width={1000}
-              height={1000}
+              width={800}
+              height={800}
               alt={''}
             />
             <span>Learn more</span>
