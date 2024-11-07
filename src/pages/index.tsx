@@ -72,8 +72,8 @@ const Page: PageLayout = () => {
         <Image
           className='xl:-mt-40 -mt-24 h-fit'
           src={'/packyiconsmall.webp'}
-          width={1500}
-          height={1500}
+          width={500}
+          height={500}
           alt={''}
           priority
         />
