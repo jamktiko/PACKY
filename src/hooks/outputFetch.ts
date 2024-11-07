@@ -31,13 +31,6 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
   const techsAndWeights = useSelector(
     (state: RootState) => state.libraryDataReducer.value
   );
-  const getWeight = useMemo(() => {
-    const weightMap = new Map(
-      techsAndWeights.map((t) => [t.name, t.weights[0].weight])
-    );
-
-    return (techName: string) => weightMap.get(techName) || 0;
-  }, [techsAndWeights]);
 
   useEffect(() => {
     const fetchTechnologies = async () => {
