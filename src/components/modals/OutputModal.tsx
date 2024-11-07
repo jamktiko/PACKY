@@ -1,6 +1,6 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, type RootState } from '@/redux/store/store';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store/store';
 import { useOutputFetch } from '@/hooks/outputFetch';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -8,11 +8,6 @@ import Slider from 'react-slick';
 import Loader from '../loader';
 import { motion } from 'framer-motion';
 
-interface Technology {
-  technology: string;
-  totalWeight: number;
-  technologyCategory: string[];
-}
 const OutputModal = () => {
   // Use the useSelector hook to select the outputModal value from the state
   const outputModal = useSelector(
@@ -40,7 +35,7 @@ const OutputModal = () => {
 
   if (isLoading) {
     return (
-      <div className='slider-container outputmodal-loader-center'>
+      <div className="slider-container outputmodal-loader-center">
         <Loader />
       </div>
     );
@@ -52,15 +47,15 @@ const OutputModal = () => {
         <motion.div
           initial={{ opacity: 0, y: 200 }}
           animate={{ opacity: 1, y: 0 }}
-          className='slider-container output-container'
+          className="slider-container output-container"
         >
-          <Slider {...settings} className='carousel'>
+          <Slider {...settings} className="carousel">
             {technologyGroups.map((group, index) => (
-              <div className='carousel-item' key={index}>
-                <h3 className='output-option-header'>Option {index + 1}</h3>
+              <div className="carousel-item" key={index}>
+                <h3 className="output-option-header">Option {index + 1}</h3>
                 {Object.entries(group).map(([category, techs]) => (
                   <div key={category}>
-                    <p className='font-bold'>{category}:</p>
+                    <p className="font-bold">{category}:</p>
                     <ul>
                       {techs.map((tech, i) => (
                         <li key={i}>

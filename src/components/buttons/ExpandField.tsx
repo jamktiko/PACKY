@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { SearchBarProps } from '../../utils/search';
 import Link from 'next/link';
@@ -6,10 +6,7 @@ import { FaAngleUp } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/redux/store/store';
-import {
-  toggleCheckbox,
-  resetWeights,
-} from '@/redux/reducers/libraryDataReducer';
+import { toggleCheckbox } from '@/redux/reducers/libraryDataReducer';
 
 const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -94,6 +91,7 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
 };
 
 export default ExpandableItem;
-function dispatch(arg0: { payload: string; type: 'data/incrementWeight' }) {
-  throw new Error('Function not implemented.');
-}
+
+// function dispatch(arg0: { payload: string; type: 'data/incrementWeight' }) {
+//   throw new Error('Function not implemented.');
+// }

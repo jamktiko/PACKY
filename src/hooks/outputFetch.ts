@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { getTechsForFeature } from '@/utils/neo4j/neo4j';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store/store';
-import { get } from 'http';
 
 // Defining the interfaces
 interface Feature {
@@ -70,18 +69,18 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
 
       // Create new array with technologies and their total weights
       // uses techsAndWeights from store to retrieve the weight for each technology
-      const techsWithWeights: {
-        technology: string;
-        totalWeight: number;
-        technologyCategory: string[];
-      }[] = combinedTechs.map((tech) => ({
-        technology: tech.technology,
-        totalWeight:
-          techsAndWeights.find((t) => t.name === tech.technology)?.weights[0]
-            .weight || 0,
-        technologyCategory: tech.technologyCategory,
-      }));
-
+      const techsWithWeights: Technology[] = allTechs.flatMap((techs) =>
+        techs.map((tech) => {
+          const weight =
+            techsAndWeights.find((t) => t.name === tech.technology)?.weights[0]
+              .weight || 0;
+          return {
+            technology: tech.technology,
+            totalWeight: weight + (techWeights[tech.technology] || 0),
+            technologyCategory: tech.technologyCategory,
+          };
+        })
+      );
       // Sort the array by weight in descending order (highest to lowest)
       techsWithWeights.sort((a, b) => b.totalWeight - a.totalWeight);
 

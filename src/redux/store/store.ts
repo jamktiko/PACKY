@@ -1,8 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
-//import mainReducer from '@/reducers/mainReducer';
 import storage from 'redux-persist/lib/storage';
-
 import gridStateReducer from '../reducers/gridStateReducer';
 import dataReducer from '@/redux/reducers/dataReducer';
 import outputReducer from '../reducers/outputReducer';
@@ -64,11 +62,8 @@ export const store = configureStore({
     }),
 });
 
-console.log(store.getState());
-
 //constructed and exported persistor which uses persistStore method to create persistor from store
 export const persistor = persistStore(store);
-console.log(persistor.getState());
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

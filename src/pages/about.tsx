@@ -4,13 +4,11 @@ import type { PageLayout } from './_app';
 const About: PageLayout = () => {
   return (
     <div>
-      {/* _____________________________ */}
       {/* PAGE TITLE */}
       <Head>
         <title>About | PACKY</title>
       </Head>
-      {/* _____________________________ */}
-      <div className='content'>
+      <div className="content">
         <h1>About the app</h1>
         <p>
           As the original idea of PACKY evolved and grew, it became apparent
@@ -22,23 +20,23 @@ const About: PageLayout = () => {
         <h1>About our team</h1>
         <ul>
           <li>
-            <b className='text-xl text-teal-300'>Severi Boesen</b> - Product
+            <b className="text-xl text-teal-300">Severi Boesen</b> - Product
             Owner, UI/UX Design
           </li>
           <li>
-            <b className='text-xl text-teal-300'>Petri Paasila</b> - Lead
+            <b className="text-xl text-teal-300">Petri Paasila</b> - Lead
             developer, State Management
           </li>
           <li>
-            <b className='text-xl text-teal-300'>Arttu Henriksson</b> - Scrum
+            <b className="text-xl text-teal-300">Arttu Henriksson</b> - Scrum
             Master, Database Management
           </li>
           <li>
-            <b className='text-xl text-teal-300'>Matias Juvonen</b> - Testing,
+            <b className="text-xl text-teal-300">Matias Juvonen</b> - Testing,
             Optimization
           </li>
           <li>
-            <b className='text-xl text-teal-300'>Aatu Mäenpää</b> - Business,
+            <b className="text-xl text-teal-300">Aatu Mäenpää</b> - Business,
             Component Prototyping
           </li>
         </ul>

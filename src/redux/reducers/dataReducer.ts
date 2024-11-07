@@ -25,11 +25,6 @@ export const fetchCollections = createAsyncThunk(
   'collections/fetchCollections',
   async () => {
     const data = await getFeatures();
-    // const tech = data.map((feature) => feature.techRelations);
-    // console.log(tech);
-    // tech.map((a) => {
-    //   a.map((b: any) => console.log(b.technology));
-    // });
     return data.map((feature) => ({
       name: feature.name,
       desc: feature.desc,
