@@ -1,15 +1,12 @@
 import neo4j from 'neo4j-driver';
 
-// Initialize Neo4j driver once
+// Neo4j driver instance with URI, username and password
 const driver = neo4j.driver(
   process.env.NEXT_PUBLIC_NEO4J_URI!,
   neo4j.auth.basic(
     process.env.NEXT_PUBLIC_NEO4J_USER!,
     process.env.NEXT_PUBLIC_NEO4J_PASSWORD!
-  ),
-  {
-    maxConnectionPoolSize: 10, // Example setting for connection pooling
-  }
+  )
 );
 
 // a Function to run a Cypher query
@@ -24,7 +21,8 @@ export const runCypherQuery = async (query: string, params = {}) => {
   }
 };
 
-// Function to get all nodes from specified labels with features
+// Library page use this!
+// A function to get all nodes from a specific type
 export const getData = async () => {
   const query = `MATCH (n)
 WHERE n:backendFramework OR n:Database OR n:frontendFramework OR n:Language OR n:CSSframework
@@ -60,16 +58,12 @@ RETURN DISTINCT
     throw error;
   }
 };
-
-// Function to retrieve features with associated technologies and weights
+// Function to retrieve all features from the neo4j
 export const getFeatures = async () => {
   const query = `
-    MATCH (t)-[r:SUPPORTS]->(f:Feature)
-    WITH f, collect({technology: t.name, weight: r.weight}) AS techRelations
-    RETURN 
-      f.name AS name, 
-      f.description AS desc, 
-      techRelations
+   MATCH (t)-[r:SUPPORTS]->(f:Feature)
+  WITH f, collect({technology: t.name, weight: r.weight}) AS techRelations
+   RETURN f.name AS name, f.description AS desc, techRelations
   `;
 
   // MATCH (f:Feature)
@@ -110,8 +104,8 @@ export const getTechsForFeature = async (
     WHERE f.name IN $featureNames
     AND (t:frontendFramework OR t:backendFramework OR t:Database OR t:Language OR t:library)
     WITH t, SUM(r.weight) AS totalScore
-    RETURN labels(t) AS technologyCategory, t.name AS technology, totalScore
     ORDER BY totalScore DESC
+    RETURN labels(t) AS technologyCategory, t.name AS technology, totalScore
   `;
     params = { featureNames: featureName }; // Pass the array of feature names
   } else {
@@ -128,13 +122,9 @@ export const getTechsForFeature = async (
   }
 
   try {
-    return await runCypherQuery(query, params);
+    const result = await runCypherQuery(query, params);
+    return result;
   } catch (error) {
     console.error(error + ' error');
   }
-};
-
-// Optional function to close the driver when the app shuts down
-export const closeDriver = async () => {
-  await driver.close();
 };

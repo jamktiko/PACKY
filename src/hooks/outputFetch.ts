@@ -89,32 +89,9 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
       // by dividing the length of the array by 3
       // Using Math.ceil to round up, so all tech's fit into groups
 
-      const bubbleSort = (
-        arr: {
-          technology: string;
-          totalWeight: number;
-          technologyCategory: string[];
-        }[]
-      ): {
-        technology: string;
-        totalWeight: number;
-        technologyCategory: string[];
-      }[] => {
-        const l = arr.length;
-
-        for (let i = 0; i < l; i++) {
-          for (let j = 0; j < l - i - 1; j++) {
-            if (arr[j].totalWeight < arr[j + 1].totalWeight) {
-              const temp = arr[j];
-              arr[j] = arr[j + 1];
-              arr[j + 1] = temp;
-            }
-          }
-        }
-        return arr;
-      };
-
-      const sortedTechs = bubbleSort(techsWithWeights);
+      const sortedTechs = techsWithWeights.sort(
+        (a, b) => b.totalWeight - a.totalWeight
+      );
       const groupSize = Math.ceil(sortedTechs.length / 3);
 
       //Group with highest weights
