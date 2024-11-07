@@ -17,9 +17,6 @@ interface Technology {
   technologyCategory: string[];
 }
 
-interface TechnologyGroup {
-  [category: string]: Technology[];
-}
 export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
   // State to store technology groups, initialized as an empty array
   // Each group will contain technologies categorized by their type
