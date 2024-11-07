@@ -25,7 +25,7 @@ export const runCypherQuery = async (query: string, params = {}) => {
 // A function to get all nodes from a specific type
 export const getData = async () => {
   const query = `MATCH (n)
-WHERE n:backendFramework OR n:Database OR n:frontendFramework OR n:Language OR n:CSSframework OR n:metaFramework
+WHERE n:backendFramework OR n:Database OR n:frontendFramework OR n:Language OR n:CSSframework OR n:metaFramework OR n:Service
 OPTIONAL MATCH (n)-[r:SUPPORTS]->(f:Feature)
 WITH n, collect({weight: r.weight}) AS weights
 RETURN DISTINCT 
@@ -80,7 +80,7 @@ export const getTechsForFeature = async (featureName: string | string[]) => {
     MATCH (t)-[r:SUPPORTS]->(f:Feature)
     WHERE f.name IN $featureNames
     AND any(label IN labels(t) WHERE label IN ['frontendFramework', 'backendFramework', 
-    'Database', 'Language', 'library', 'cssFramework', 'metaFramework'])
+    'Database', 'Language', 'library', 'cssFramework', 'metaFramework','Service'])
     WITH t, SUM(r.weight) AS totalScore
     ORDER BY totalScore DESC
     RETURN labels(t) AS technologyCategory, t.name AS technology, totalScore
