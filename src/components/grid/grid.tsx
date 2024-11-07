@@ -84,15 +84,16 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
     setIsModalOpen(true);
   };
 
-  if (width < 700) {
-    return (
-      <div className='rotate-screen-message'>
-        <p>
-          In order to use the grid, please try turning your device sideways.
-        </p>
-      </div>
-    );
-  }
+  // Tämä on vanhaa koodia joka piilotti modaalin jos näyttö on pystyasennossa
+  // if (width < 700) {
+  //   return (
+  //     <div className='rotate-screen-message'>
+  //       <p>
+  //         In order to use the grid, please try turning your device sideways.
+  //       </p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <motion.div ref={gridRef} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
