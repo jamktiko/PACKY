@@ -277,7 +277,7 @@ header nav ul li a span {
 }
 
 .carousel {
-  @apply transition-all w-screen content-center bg-black bg-opacity-50 backdrop-blur min-h-[calc(100vh-4rem)];
+  @apply transition-all content-center bg-black bg-opacity-50 backdrop-blur min-h-[calc(100vh-4rem)];
 }
 
 .carousel-item {
@@ -297,9 +297,6 @@ header nav ul li a span {
 }
 
 .slick-track {
-  position: absolute !important;
-  left: auto;
-  right: auto;
   top: 0 !important;
   @apply flex justify-center w-screen h-full;
 }
@@ -315,6 +312,7 @@ header nav ul li a span {
   }
 
   .slick-track {
+    position: absolute !important;
     transform: none !important;
   }
 }
