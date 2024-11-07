@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { getTechsForFeature } from '@/utils/neo4j/neo4j';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store/store';
-import { get } from 'http';
 
 // Defining the interfaces
 interface Feature {
@@ -18,9 +17,6 @@ interface Technology {
   technologyCategory: string[];
 }
 
-interface TechnologyGroup {
-  [category: string]: Technology[];
-}
 export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
   // State to store technology groups, initialized as an empty array
   // Each group will contain technologies categorized by their type
@@ -32,13 +28,6 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
   const techsAndWeights = useSelector(
     (state: RootState) => state.libraryDataReducer.value
   );
-  const getWeight = useMemo(() => {
-    const weightMap = new Map(
-      techsAndWeights.map((t) => [t.name, t.weights[0].weight])
-    );
-
-    return (techName: string) => weightMap.get(techName) || 0;
-  }, [techsAndWeights]);
 
   useEffect(() => {
     const fetchTechnologies = async () => {
@@ -70,18 +59,18 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
 
       // Create new array with technologies and their total weights
       // uses techsAndWeights from store to retrieve the weight for each technology
-      const techsWithWeights: {
-        technology: string;
-        totalWeight: number;
-        technologyCategory: string[];
-      }[] = combinedTechs.map((tech) => ({
-        technology: tech.technology,
-        totalWeight:
-          techsAndWeights.find((t) => t.name === tech.technology)?.weights[0]
-            .weight || 0,
-        technologyCategory: tech.technologyCategory,
-      }));
-
+      const techsWithWeights: Technology[] = allTechs.flatMap((techs) =>
+        techs.map((tech) => {
+          const weight =
+            techsAndWeights.find((t) => t.name === tech.technology)?.weights[0]
+              .weight || 0;
+          return {
+            technology: tech.technology,
+            totalWeight: weight,
+            technologyCategory: tech.technologyCategory,
+          };
+        })
+      );
       // Sort the array by weight in descending order (highest to lowest)
       techsWithWeights.sort((a, b) => b.totalWeight - a.totalWeight);
 
@@ -89,32 +78,9 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
       // by dividing the length of the array by 3
       // Using Math.ceil to round up, so all tech's fit into groups
 
-      const bubbleSort = (
-        arr: {
-          technology: string;
-          totalWeight: number;
-          technologyCategory: string[];
-        }[]
-      ): {
-        technology: string;
-        totalWeight: number;
-        technologyCategory: string[];
-      }[] => {
-        const l = arr.length;
-
-        for (let i = 0; i < l; i++) {
-          for (let j = 0; j < l - i - 1; j++) {
-            if (arr[j].totalWeight < arr[j + 1].totalWeight) {
-              const temp = arr[j];
-              arr[j] = arr[j + 1];
-              arr[j + 1] = temp;
-            }
-          }
-        }
-        return arr;
-      };
-
-      const sortedTechs = bubbleSort(techsWithWeights);
+      const sortedTechs = techsWithWeights.sort(
+        (a, b) => b.totalWeight - a.totalWeight
+      );
       const groupSize = Math.ceil(sortedTechs.length / 3);
 
       //Group with highest weights

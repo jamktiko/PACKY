@@ -32,8 +32,6 @@ export const fetchLibrary = createAsyncThunk(
       desc: libraryfeature.desc,
       id: libraryfeature.id,
       image: libraryfeature.image,
-      pros: libraryfeature.pros,
-      cons: libraryfeature.cons,
       link: libraryfeature.link,
       weights: libraryfeature.weights,
       checked: libraryfeature.checked,

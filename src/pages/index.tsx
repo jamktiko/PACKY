@@ -19,7 +19,7 @@ const Page: PageLayout = () => {
     } else if (hour < 16) {
       return 'Good afternoon!';
     } else if (hour < 18) {
-      return 'good late afternoon!';
+      return 'Good late afternoon!';
     } else {
       return 'Good evening!';
     }
@@ -82,24 +82,24 @@ const Page: PageLayout = () => {
       <h2 className=' select-none lg:text-9xl md:text-7xl text-6xl absolute -mt-40 bg-gradient-to-b from-gray-600  to-90% inline-block text-transparent bg-clip-text '>
         Explore
       </h2>
-      <div className='w-screen flex justify-center mb-16'>
-        <div className='lg:grid flex flex-col grid-cols-3 gap-4 text-center mb-16'>
+      <div className='w-full flex  mb-16'>
+        <div className=' flex xl:flex-row flex-col gap-4 text-center mb-16'>
           <Link href={'/stackbuilder'} className='indexcard indexcard-glow2'>
             <Image
               src={'/indexcard-stackbuilder.jpg'}
               className='indexcard-image'
-              width={1000}
-              height={1000}
+              width={800}
+              height={800}
               alt={''}
             />
             <span>PACKY StackBuilder</span>
           </Link>
-          <Link href={'/about'} className='indexcard indexcard-glow1'>
+          <Link href={'/about'} className='indexcard lg:ml-28 indexcard-glow1'>
             <Image
               src={'/indexcard-about.jpg'}
               className='indexcard-image'
-              width={1000}
-              height={1000}
+              width={800}
+              height={800}
               alt={''}
             />
             <span>Learn more</span>

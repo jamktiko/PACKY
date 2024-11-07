@@ -1,16 +1,8 @@
-import {
-  IoHome,
-  IoGridOutline,
-  IoLibraryOutline,
-  IoGitCompareOutline,
-  IoHelpCircleOutline,
-  IoMailOutline,
-} from 'react-icons/io5';
+import { IoHome, IoGridOutline, IoHelpCircleOutline } from 'react-icons/io5';
 
 import { motion } from 'framer-motion';
 
 import Link from 'next/link';
-import { MouseEventHandler } from 'react';
 
 interface NavigationProps {
   onLinkClick: () => void;

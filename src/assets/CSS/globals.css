@@ -14,6 +14,10 @@ main {
   @apply h-screen w-screen;
 }
 
+element {
+  width: none;
+}
+
 @media screen and (max-width: 1000px) {
   #__next {
     display: flex;
@@ -86,11 +90,11 @@ header nav ul li a span {
 /* INDEX CARD ELEMENT */
 
 .indexcard {
-  @apply bg-black overflow-hidden border border-gray-800 cursor-pointer rounded-3xl  h-96 hover:bg-white transition-all;
+  @apply bg-black w-full overflow-hidden border border-gray-800 cursor-pointer rounded-3xl  max-h-96 hover:bg-white transition-all;
 }
 
 .indexcard span {
-  @apply border-b border-inherit text-2xl font-bold relative -top-80 bg-gradient-to-b from-teal-100 via-teal-100 to-90% inline-block text-transparent bg-clip-text;
+  @apply border-b border-inherit text-2xl font-bold relative -top-[14rem] bg-gradient-to-b from-teal-100 via-teal-100 to-90% inline-block text-transparent bg-clip-text;
 }
 
 .indexcard-image {
@@ -228,7 +232,7 @@ header nav ul li a span {
   .rotate-screen-message {
     @apply min-h-[calc(100vh-4rem)] mt-8 w-screen text-center;
     display: block;
-    /* add some styles to make the message visible */
+    /* RIP ei täs oo järkee mutta toimii :D */
     position: absolute;
     top: 50%;
     left: 50%;
@@ -265,7 +269,7 @@ header nav ul li a span {
 /* OUTPUT CAROUSEL */
 
 .output-container {
-  @apply fixed text-center object-center content-center w-screen h-[90vh] flex justify-center top-16 z-50;
+  @apply fixed text-center content-center object-center h-[90vh] flex justify-center top-16 z-50;
 }
 
 .output-option-header {
@@ -273,11 +277,11 @@ header nav ul li a span {
 }
 
 .carousel {
-  @apply transition-all w-screen object-center content-center bg-black bg-opacity-50 backdrop-blur min-h-[calc(100vh-4rem)];
+  @apply transition-all content-center bg-black bg-opacity-50 backdrop-blur min-h-[calc(100vh-4rem)];
 }
 
 .carousel-item {
-  @apply bg-slate-900 border rounded-xl shadow-inner-2 shadow-2xl text-center h-[90vh] content-center;
+  @apply min-w-96 h-[calc(100vh-4rem)] flex items-center justify-center content-center;
 }
 
 .slick-current {
@@ -289,15 +293,32 @@ header nav ul li a span {
 }
 
 .slick-list {
-  @apply overflow-y-visible;
+  @apply overflow-y-visible w-screen  h-full;
+}
+
+.slick-track {
+  top: 0 !important;
+  @apply flex justify-center w-screen h-full;
 }
 
 .slick-slide {
-  @apply blur-sm z-40 shadow-inner-2 transition-all transform scale-75;
+  @apply bg-slate-900 shadow-inner-2 shadow-2xl blur-sm z-40 shadow-inner-2 transition-all transform scale-75;
+}
+
+@media screen and (max-width: 1350px) {
+  .slick-slide {
+    position: absolute !important;
+    min-width: 100vw !important;
+  }
+
+  .slick-track {
+    position: absolute !important;
+    transform: none !important;
+  }
 }
 
 .slick-active {
-  @apply blur-none transition-all scale-100;
+  @apply blur-none relative transition-all scale-100 z-[1000];
 }
 
 /* LOAD SPINNER */
