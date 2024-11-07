@@ -31,9 +31,7 @@ WITH n, collect({weight: r.weight}) AS weights
 RETURN DISTINCT 
     n.name AS name, 
     n.description AS desc, 
-    n.imageUrl AS image, 
-    n.pros AS pros, 
-    n.cons AS cons, 
+    n.imageUrl AS image,
     n.link AS link, 
     weights
 `;
