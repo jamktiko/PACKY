@@ -1,12 +1,6 @@
 'use client';
 
-import React, {
-  useState,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useCallback,
-} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import GridButton from '../buttons/GridButton';
 import { updateChoosableCells } from '@/utils/grid/updateGridState';
@@ -84,21 +78,10 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
     setIsModalOpen(true);
   };
 
-  // Tämä on vanhaa koodia joka piilotti modaalin jos näyttö on pystyasennossa
-  // if (width < 700) {
-  //   return (
-  //     <div className='rotate-screen-message'>
-  //       <p>
-  //         In order to use the grid, please try turning your device sideways.
-  //       </p>
-  //     </div>
-  //   );
-  // }
-
   return (
     <motion.div ref={gridRef} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <div
-        className='grid-container absolute z-10'
+        className="grid-container absolute z-10"
         style={{
           display: 'grid',
           gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
@@ -150,9 +133,6 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
             />
           );
         })}
-      </div>
-      <div className='rotate-screen-message' style={{ display: 'none' }}>
-        <p>Please try turning your screen sideways for a better experience.</p>
       </div>
     </motion.div>
   );

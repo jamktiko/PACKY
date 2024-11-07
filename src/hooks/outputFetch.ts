@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { getTechsForFeature } from '@/utils/neo4j/neo4j';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store/store';
-import { get } from 'http';
 
 // Defining the interfaces
 interface Feature {

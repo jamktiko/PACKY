@@ -6,7 +6,6 @@ import { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
 import { toggleOutputModal } from '@/redux/reducers/outputReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import List from '@/components/lists/librarylist';
 import { resetGridState } from '@/redux/reducers/gridStateReducer';
 import { IoArrowUndoOutline } from 'react-icons/io5';
 import { IoIosArrowDropright } from 'react-icons/io';
@@ -14,12 +13,8 @@ import { GrPowerReset } from 'react-icons/gr';
 import { FaCheck } from 'react-icons/fa';
 import { AppDispatch, RootState } from '@/redux/store/store';
 import { motion } from 'framer-motion';
-import {
-  decrementLibraryWeight,
-  librarydata,
-  resetWeights,
-  toggleCheckbox,
-} from '@/redux/reducers/libraryDataReducer';
+import { resetWeights } from '@/redux/reducers/libraryDataReducer';
+import SearchBar from '@/utils/search';
 // StackBuilder page is constructed here, it renders Grid component and conditionally renders GridModal
 const StackBuilder: PageLayout = () => {
   // Get the activeCells from the Redux state
@@ -79,7 +74,9 @@ const StackBuilder: PageLayout = () => {
       {/* _____________________________ */}
       {isLibraryOpen && (
         <>
-          <List />{' '}
+          <div className="mt-20 ml-2 mr-2 pb-16">
+            <SearchBar />{' '}
+          </div>
           <div className="w-full flex justify-center h-16 fixed bottom-0"></div>
           <motion.div
             initial={{ y: 100, opacity: 0 }}

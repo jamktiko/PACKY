@@ -1,19 +1,14 @@
 import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
-import { useFetchCollections } from '@/hooks/useFetchCollections';
 import type { AppProps } from 'next/app';
-import { Provider, ProviderProps } from 'react-redux';
+import { Provider } from 'react-redux';
 import { store, persistor } from '../redux/store/store';
 import { PersistGate } from 'redux-persist/integration/react';
-import { persistStore } from 'redux-persist';
-
 import Header from '../components/ui/header';
-
 import '../assets/CSS/globals.css';
 import { Montserrat } from 'next/font/google';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import { getData } from '@/utils/neo4j/neo4j';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
