@@ -58,7 +58,7 @@ const OutputModal = () => {
                     <p className='font-bold'>{category}:</p>
                     <ul>
                       {techs.map((tech, i) => (
-                        <li key={i}>
+                        <li className='md:text-base text-sm' key={i}>
                           Technology: {tech.technology} | Total Weight:
                           {tech.totalWeight}
                         </li>

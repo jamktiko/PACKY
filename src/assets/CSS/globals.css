@@ -312,12 +312,17 @@ header nav ul li a span {
 @media screen and (max-width: 1350px) {
   .slick-slide {
     position: absolute !important;
-    min-width: 100vw !important;
+    min-width: 90vw !important;
+    margin-left: 5vw;
   }
 
   .slick-track {
     position: absolute !important;
     transform: none !important;
+  }
+
+  .slick-arrow {
+    top: 85% !important;
   }
 }
 
