@@ -79,7 +79,6 @@ const GridModal = () => {
       }
     }
   };
-  const isEmpty = true;
 
   return (
     <>
@@ -95,15 +94,12 @@ const GridModal = () => {
               (cell) =>
                 cell.row === selectedCell?.row && cell.col === selectedCell.col
             );
-            console.log('isEmpty is', isEmpty);
             console.log('id', id);
             return (
               <>
                 {id === 0 && !isEmpty && (
                   <button
-                    className={`grid-modal-item-empty col-span-2 ${
-                      isEmpty ? 'isEmpty' : ''
-                    }`}
+                    className={`grid-modal-item-empty col-span-2`}
                     onClick={() => handleEmptyCell()}
                   >
                     <h1 className='font-bold'>Deselect current feature</h1>

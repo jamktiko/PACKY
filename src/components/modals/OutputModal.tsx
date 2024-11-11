@@ -54,13 +54,21 @@ const OutputModal = () => {
               <div className='carousel-item' key={index}>
                 <h3 className='output-option-header'>Option {index + 1}</h3>
                 {Object.entries(group).map(([category, techs]) => (
-                  <div key={category}>
-                    <p className='font-bold'>{category}:</p>
+                  <div
+                    key={category}
+                    className='text-left md:ml-[20%] ml-[10%] mt-6'
+                  >
+                    <p className=' pl-3 pt-1 font-bold text-xl border-t border-l border-teal-500'>
+                      {category}
+                    </p>
                     <ul>
                       {techs.map((tech, i) => (
                         <li className='md:text-base text-sm' key={i}>
-                          Technology: {tech.technology} | Total Weight:
-                          {tech.totalWeight}
+                          <b>Technology:</b> {tech.technology}{' '}
+                          <p>
+                            Total Weight:
+                            {tech.totalWeight}
+                          </p>
                         </li>
                       ))}
                     </ul>
