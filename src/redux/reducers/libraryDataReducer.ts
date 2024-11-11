@@ -10,6 +10,7 @@ interface LibraryState {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   // Virheilmoitus
   error: string | null;
+  checked: boolean;
 }
 
 // define the initial state
@@ -17,6 +18,7 @@ const initialLibraryState: LibraryState = {
   value: [],
   status: 'idle',
   error: null,
+  checked: false,
 };
 
 // define the async thunk to fetch library data
@@ -29,8 +31,6 @@ export const fetchLibrary = createAsyncThunk(
       desc: libraryfeature.desc,
       id: libraryfeature.id,
       image: libraryfeature.image,
-      pros: libraryfeature.pros,
-      cons: libraryfeature.cons,
       link: libraryfeature.link,
       weights: libraryfeature.weights,
       checked: libraryfeature.checked,

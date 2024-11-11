@@ -9,14 +9,10 @@ const driver = neo4j.driver(
   )
 );
 
-// Function to run a Cypher query
-// function takes the cypher query as it parameter
-// and executes the query againts the neo4j db using the driver
+// a Function to run a Cypher query
 export const runCypherQuery = async (query: string, params = {}) => {
   const session = driver.session();
 
-  // It returns an array of objects, where each object
-  // represents a record returned by the query
   try {
     const result = await session.run(query, params);
     return result.records.map((record) => record.toObject());
@@ -29,18 +25,30 @@ export const runCypherQuery = async (query: string, params = {}) => {
 // A function to get all nodes from a specific type
 export const getData = async () => {
   const query = `MATCH (n)
-WHERE any(label IN labels(n) WHERE label IN ['backendFramework', 'Database', 'frontendFramework', 'Language', 'CSSframework', 'metaFramework'])
+WHERE n:backendFramework OR n:Database OR n:frontendFramework OR n:Language OR n:CSSframework OR n:metaFramework OR n:Service
 OPTIONAL MATCH (n)-[r:SUPPORTS]->(f:Feature)
-WITH DISTINCT n, collect(r.weight) AS weights
-RETURN 
- n.name AS name, 
-n.description AS desc, 
-n.imageUrl AS image, 
-n.pros AS pros, 
-n.cons AS cons, 
-n.link AS link, 
-weights
+WITH n, collect({weight: r.weight}) AS weights
+RETURN DISTINCT 
+    n.name AS name, 
+    n.description AS desc, 
+    n.imageUrl AS image,
+    n.link AS link, 
+    weights
 `;
+
+  // MATCH (n)
+  // WHERE n:backendFramework OR n:Database OR n:frontendFramework OR n:Language
+  // OPTIONAL MATCH (n)-[r:SUPPORTS]->(f:Feature)
+  // WITH n, f, collect({technology: n.name, weight: r.weight}) AS weights
+  // RETURN DISTINCT
+  //     n.name AS name,
+  //     n.description AS desc,
+  //     n.imageUrl AS image,
+  //     n.pros AS pros,
+  //     n.cons AS cons,
+  //     n.link AS link,
+  //     weights
+
   try {
     return await runCypherQuery(query);
   } catch (error) {
@@ -56,11 +64,6 @@ export const getFeatures = async () => {
    RETURN f.name AS name, f.description AS desc, techRelations
   `;
 
-  // MATCH (t:Technology)-[r:SUPPORTS]->(f:Feature)
-  // RETURN
-  // f.name AS name,
-  // f.description AS desc,
-  // collect({technology: t.name, weight: r.weight}) AS techRelations
   try {
     return await runCypherQuery(query);
   } catch (error) {
@@ -69,11 +72,13 @@ export const getFeatures = async () => {
   }
 };
 
+// Function to retrieve technologies for a specific feature
 export const getTechsForFeature = async (featureName: string | string[]) => {
   const query = `
     MATCH (t)-[r:SUPPORTS]->(f:Feature)
     WHERE f.name IN $featureNames
-    AND any(label IN labels(t) WHERE label IN ['frontendFramework', 'backendFramework', 'Database', 'Language', 'library, cssFramework, metaFramework'])
+    AND any(label IN labels(t) WHERE label IN ['frontendFramework', 'backendFramework', 
+    'Database', 'Language', 'library', 'cssFramework', 'metaFramework','Service'])
     WITH t, SUM(r.weight) AS totalScore
     ORDER BY totalScore DESC
     RETURN labels(t) AS technologyCategory, t.name AS technology, totalScore
