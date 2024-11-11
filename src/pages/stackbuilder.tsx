@@ -13,10 +13,7 @@ import { GrPowerReset } from 'react-icons/gr';
 import { FaCheck } from 'react-icons/fa';
 import { AppDispatch, RootState } from '@/redux/store/store';
 import { motion } from 'framer-motion';
-import {
-  resetWeights,
-  toggleCheckbox,
-} from '@/redux/reducers/libraryDataReducer';
+import { resetWeights } from '@/redux/reducers/libraryDataReducer';
 import SearchBar from '@/utils/search';
 // StackBuilder page is constructed here, it renders Grid component and conditionally renders GridModal
 const StackBuilder: PageLayout = () => {

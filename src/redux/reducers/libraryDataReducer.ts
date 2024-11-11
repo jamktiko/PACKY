@@ -1,7 +1,6 @@
 import { SearchBarProps } from '@/utils/search';
 import { getData } from '@/utils/neo4j/neo4j';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { decrementWeight } from './dataReducer';
 
 //defined the interface for the state
 interface LibraryState {
