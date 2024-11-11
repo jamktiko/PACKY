@@ -35,7 +35,7 @@ const OutputModal = () => {
 
   if (isLoading) {
     return (
-      <div className="slider-container outputmodal-loader-center">
+      <div className='slider-container outputmodal-loader-center'>
         <Loader />
       </div>
     );
@@ -47,15 +47,15 @@ const OutputModal = () => {
         <motion.div
           initial={{ opacity: 0, y: 200 }}
           animate={{ opacity: 1, y: 0 }}
-          className="slider-container output-container"
+          className='slider-container output-container'
         >
-          <Slider {...settings} className="carousel">
+          <Slider {...settings} className='carousel'>
             {technologyGroups.map((group, index) => (
-              <div className="carousel-item" key={index}>
-                <h3 className="output-option-header">Option {index + 1}</h3>
+              <div className='carousel-item' key={index}>
+                <h3 className='output-option-header'>Option {index + 1}</h3>
                 {Object.entries(group).map(([category, techs]) => (
                   <div key={category}>
-                    <p className="font-bold">{category}:</p>
+                    <p className='font-bold'>{category}:</p>
                     <ul>
                       {techs.map((tech, i) => (
                         <li key={i}>

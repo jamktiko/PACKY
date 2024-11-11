@@ -116,7 +116,7 @@ const GridModal = () => {
                   disabled={isActive}
                 >
                   <h1 className='font-bold'>{item.name}</h1>
-                  <p>{item.desc}</p>
+                  <p className='text-xs md:text-base'>{item.desc}</p>
                 </button>
               </>
             );
