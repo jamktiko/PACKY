@@ -79,7 +79,6 @@ const GridModal = () => {
       }
     }
   };
-  const isEmpty = true;
 
   return (
     <>
@@ -91,17 +90,19 @@ const GridModal = () => {
         >
           {gridmodalData.map((item, id) => {
             const isActive = activeCells.some((cell) => cell.id === item.name);
+            const isEmpty = !activeCells.some(
+              (cell) =>
+                cell.row === selectedCell?.row && cell.col === selectedCell.col
+            );
             console.log('id', id);
             return (
               <>
-                {isActive === true && (
+                {id === 0 && !isEmpty && (
                   <button
-                    className={`grid-modal-item col-span-2 ${
-                      isEmpty ? 'isEmpty' : ''
-                    }`}
+                    className={`grid-modal-item-empty col-span-2`}
                     onClick={() => handleEmptyCell()}
                   >
-                    <h1 className="font-bold">Empty Cell</h1>
+                    <h1 className="font-bold">Deselect current feature</h1>
                   </button>
                 )}
                 <button
@@ -111,7 +112,7 @@ const GridModal = () => {
                   disabled={isActive}
                 >
                   <h1 className="font-bold">{item.name}</h1>
-                  <p>{item.desc}</p>
+                  <p className="text-xs md:text-base">{item.desc}</p>
                 </button>
               </>
             );
