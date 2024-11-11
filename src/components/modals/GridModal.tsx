@@ -87,21 +87,21 @@ const GridModal = () => {
         <motion.div
           initial={{ opacity: 0, y: 200 }}
           animate={{ opacity: 1, y: 0 }}
-          className='grid-modal'
+          className="grid-modal"
         >
           {gridmodalData.map((item, id) => {
             const isActive = activeCells.some((cell) => cell.id === item.name);
             console.log('id', id);
             return (
               <>
-                {id === 0 && isActive === true && (
+                {isActive === true && (
                   <button
                     className={`grid-modal-item col-span-2 ${
                       isEmpty ? 'isEmpty' : ''
                     }`}
                     onClick={() => handleEmptyCell()}
                   >
-                    <h1 className='font-bold'>Empty Cell</h1>
+                    <h1 className="font-bold">Empty Cell</h1>
                   </button>
                 )}
                 <button
@@ -110,18 +110,18 @@ const GridModal = () => {
                   onClick={() => handleClick(item, item.desc)}
                   disabled={isActive}
                 >
-                  <h1 className='font-bold'>{item.name}</h1>
+                  <h1 className="font-bold">{item.name}</h1>
                   <p>{item.desc}</p>
                 </button>
               </>
             );
           })}
-          <div className='modal-header'>
+          <div className="modal-header">
             <h1>Choose feature</h1>
             <button
-              className='modal-toggle'
+              className="modal-toggle"
               onClick={() => dispatch(toggleModal(false))}
-              type='button'
+              type="button"
             >
               ⏎
             </button>

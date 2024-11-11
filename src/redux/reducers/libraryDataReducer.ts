@@ -43,68 +43,14 @@ export const librarydata = createSlice({
   name: 'librarydata',
   initialState: initialLibraryState,
   reducers: {
-    incrementLibraryWeight: (state, action: PayloadAction<string>) => {
-      console.log(
-        'incrementWeight action dispatched with payload:',
-        action.payload
-      );
-      state.value = state.value.map((collection) => {
-        if (collection.name === action.payload) {
-          console.log('Incrementing weight for collection:', collection.name);
-
-          // Käydään läpi kaikki weights-taulukon objektit ja lisätään jokaisen weight-arvoa
-          const updatedWeights = collection.weights.map((weightObj) => ({
-            ...weightObj,
-            weight: weightObj.weight + 1, // Päivitä weight-arvoa yhdellä
-          }));
-
-          console.log('Updated weights:', updatedWeights);
-
-          return {
-            ...collection,
-            weights: updatedWeights,
-          };
-        }
-        return collection;
-      });
-      console.log('Updated state:', state);
-    },
-
-    decrementLibraryWeight: (state, action: PayloadAction<string>) => {
-      console.log(
-        'DecrementWeight action dispatched with payload:',
-        action.payload
-      );
-
-      state.value = state.value.map((collection) => {
-        if (collection.name === action.payload) {
-          console.log('Decrementing weight for collection:', collection.name);
-
-          // Käydään läpi kaikki weights-taulukon objektit ja lisätään jokaisen weight-arvoa
-          const updatedWeights = collection.weights.map((weightObj) => ({
-            ...weightObj,
-            weight: Math.round((weightObj.weight - 1) * 10) / 10,
-          }));
-
-          console.log('Updated weights:', updatedWeights);
-
-          return {
-            ...collection,
-            weights: updatedWeights,
-          };
-        }
-        return collection;
-      });
-      console.log('Updated state:', state);
-    },
     toggleCheckbox: (state, action: PayloadAction<string>) => {
       state.value = state.value.map((collection) => {
         if (collection.name === action.payload) {
           const updatedWeights = collection.weights.map((weightObj) => ({
             ...weightObj,
             weight: (collection as any).checked
-              ? weightObj.weight - 1
-              : weightObj.weight + 1,
+              ? Math.round((weightObj.weight - 1) * 10) / 10
+              : Math.round((weightObj.weight + 1) * 10) / 10,
           }));
           return {
             ...collection,
@@ -147,11 +93,6 @@ export const librarydata = createSlice({
   },
 });
 
-export const {
-  incrementLibraryWeight,
-  decrementLibraryWeight,
-  resetWeights,
-  toggleCheckbox,
-} = librarydata.actions;
+export const { resetWeights, toggleCheckbox } = librarydata.actions;
 
 export default librarydata.reducer;
