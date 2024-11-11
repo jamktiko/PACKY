@@ -212,8 +212,8 @@ header nav ul li a span {
   @apply bg-slate-500 bg-opacity-10 border-slate-500 text-slate-500;
 }
 
-.grid-modal-item.isEmpty {
-  @apply bg-red-500 bg-opacity-10 border-slate-500 text-slate-500;
+.grid-modal-item-empty {
+  @apply transition-all hover:bg-opacity-80 h-28 shadow-inner-2 hover:text-black border border-red-500 rounded-xl bg-red-200 bg-opacity-10 mb-16 p-4;
 }
 
 .modal-toggle {
