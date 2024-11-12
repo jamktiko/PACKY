@@ -90,7 +90,7 @@ header nav ul li a span {
 /* INDEX CARD ELEMENT */
 
 .indexcard {
-  @apply bg-black w-full overflow-hidden border border-gray-800 cursor-pointer rounded-3xl  max-h-96 hover:bg-white transition-all;
+  @apply bg-black w-full overflow-hidden border border-gray-800 cursor-pointer rounded-3xl h-96 hover:bg-white transition-all;
 }
 
 .indexcard span {
@@ -201,7 +201,7 @@ header nav ul li a span {
 }
 
 .grid-modal-item {
-  @apply transition-all hover:bg-opacity-80 h-32 shadow-inner-2 hover:text-black border border-teal-600 rounded-xl bg-white bg-opacity-10 p-4;
+  @apply transition-all hover:bg-opacity-80 h-40 shadow-inner-2 hover:text-black border border-teal-600 rounded-xl bg-white bg-opacity-10 p-4;
 }
 
 .modal-header {
@@ -210,6 +210,10 @@ header nav ul li a span {
 
 .grid-modal-item.active {
   @apply bg-slate-500 bg-opacity-10 border-slate-500 text-slate-500;
+}
+
+.grid-modal-item-empty {
+  @apply transition-all hover:bg-opacity-80 h-28 shadow-inner-2 hover:text-black border border-red-500 rounded-xl bg-red-200 bg-opacity-10 mb-16 p-4;
 }
 
 .modal-toggle {
@@ -273,15 +277,15 @@ header nav ul li a span {
 }
 
 .output-option-header {
-  @apply absolute top-4 left-4 text-2xl font-bold opacity-30;
+  @apply absolute top-5 left-4 text-2xl font-bold text-teal-600;
 }
 
 .carousel {
-  @apply transition-all content-center bg-black bg-opacity-50 backdrop-blur min-h-[calc(100vh-4rem)];
+  @apply transition-all w-screen content-center bg-black bg-opacity-50 backdrop-blur min-h-[calc(100vh-4rem)];
 }
 
 .carousel-item {
-  @apply min-w-96 h-[calc(100vh-4rem)] flex items-center justify-center content-center;
+  @apply bg-opacity-40 border border-teal-600 rounded-xl min-w-96 h-[calc(100vh-4rem)] flex items-center justify-center content-center;
 }
 
 .slick-current {
@@ -289,7 +293,7 @@ header nav ul li a span {
 }
 
 .slick-arrow {
-  @apply min-w-64 h-64 z-50;
+  @apply min-w-64 h-64 z-[5000];
 }
 
 .slick-list {
@@ -303,17 +307,24 @@ header nav ul li a span {
 
 .slick-slide {
   @apply bg-slate-900 shadow-inner-2 shadow-2xl blur-sm z-40 shadow-inner-2 transition-all transform scale-75;
+  background: no-repeat;
+  background-image: url(/output-background.png);
 }
 
 @media screen and (max-width: 1350px) {
   .slick-slide {
     position: absolute !important;
-    min-width: 100vw !important;
+    min-width: 90vw !important;
+    margin-left: 5vw;
   }
 
   .slick-track {
     position: absolute !important;
     transform: none !important;
+  }
+
+  .slick-arrow {
+    top: 85% !important;
   }
 }
 

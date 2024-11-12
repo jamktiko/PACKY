@@ -18,6 +18,7 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
         (collection) => collection.name === item.name
       )?.checked
   );
+  console.log('isChecked', isChecked);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);

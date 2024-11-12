@@ -88,18 +88,18 @@ const Page: PageLayout = () => {
             <Image
               src={'/indexcard-stackbuilder.jpg'}
               className='indexcard-image'
-              width={800}
-              height={800}
+              width={1000}
+              height={1000}
               alt={''}
             />
             <span>PACKY StackBuilder</span>
           </Link>
-          <Link href={'/about'} className='indexcard lg:ml-28 indexcard-glow1'>
+          <Link href={'/about'} className='indexcard indexcard-glow1'>
             <Image
               src={'/indexcard-about.jpg'}
               className='indexcard-image'
-              width={800}
-              height={800}
+              width={1000}
+              height={1000}
               alt={''}
             />
             <span>Learn more</span>
