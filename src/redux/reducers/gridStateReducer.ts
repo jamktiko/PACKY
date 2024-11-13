@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface Cell {
   row: number;
   col: number;
-  item: { name: string; desc: string }[];
+  item: { name: string; desc: string; tips: string }[];
   id?: string;
 }
 
@@ -18,7 +18,7 @@ const initialState: GridState = {
     {
       row: 4,
       col: 4,
-      item: [{ name: 'Web App', desc: 'This is test' }],
+      item: [{ name: 'Web App', desc: 'This is test', tips: 'test' }],
       id: 'Web App',
     },
   ],

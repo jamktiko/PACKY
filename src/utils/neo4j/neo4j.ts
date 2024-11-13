@@ -62,7 +62,7 @@ export const getFeatures = async () => {
   const query = `
    MATCH (t)-[r:SUPPORTS]->(f:Feature)
   WITH f, collect({technology: t.name, weight: r.weight}) AS techRelations
-   RETURN f.name AS name, f.description AS desc, techRelations
+   RETURN f.name AS name, f.description AS desc,f.tip AS tips ,techRelations
   `;
 
   try {
@@ -79,7 +79,7 @@ export const getTechsForFeature = async (featureName: string | string[]) => {
     MATCH (t)-[r:SUPPORTS]->(f:Feature)
     WHERE f.name IN $featureNames
     AND any(label IN labels(t) WHERE label IN ['frontendFramework', 'backendFramework', 
-    'Database', 'Language', 'library', 'cssFramework', 'metaFramework','Service'])
+    'Database', 'Language', 'library', 'CSSframework', 'metaFramework','Service'])
     WITH t, SUM(r.weight) AS totalScore
     ORDER BY totalScore DESC
     RETURN labels(t) AS technologyCategory, t.name AS technology, totalScore
@@ -92,6 +92,7 @@ export const getTechsForFeature = async (featureName: string | string[]) => {
 
   try {
     const result = await runCypherQuery(query, params);
+    console.log('Result from Neo4j:', result);
     return result;
   } catch (error) {
     console.error(`Error fetching technologies for feature(s): ${error}`);

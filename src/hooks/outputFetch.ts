@@ -6,7 +6,7 @@ import { RootState } from '@/redux/store/store';
 interface Feature {
   row: number; // Row position in the grid
   col: number; // Column position in the grid
-  item: { name: string; desc: string }[]; // Array containing features name and desc
+  item: { name: string; desc: string; tips: string }[]; // Array containing features name and desc
 }
 
 interface Technology {
@@ -67,7 +67,8 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
             ?.weights[0].weight, // The weight from redux store
         }));
 
-        console.log(techObject);
+        const featureNames = features.map((feature) => feature.item[0].name);
+        console.log(featureNames);
 
         // Initialize an empty object to store technologies by category
         // The object will have string keys (labels/categories) and values will be arrays of Technology objects

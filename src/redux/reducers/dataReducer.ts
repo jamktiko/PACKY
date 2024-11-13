@@ -28,6 +28,7 @@ export const fetchCollections = createAsyncThunk(
     return data.map((feature) => ({
       name: feature.name,
       desc: feature.desc,
+      tips: feature.tips,
       id: feature.id,
       weight: feature.techRelations,
     }));
