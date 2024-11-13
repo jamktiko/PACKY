@@ -213,7 +213,7 @@ header nav ul li a span {
 }
 
 .grid-modal-item-empty {
-  @apply transition-all hover:bg-opacity-80 h-28 shadow-inner-2 hover:text-black border border-red-500 rounded-xl bg-red-200 bg-opacity-10 mb-16 p-4;
+  @apply transition-all hover:bg-opacity-80 h-16 shadow-inner-2 hover:text-black border border-red-500 rounded-xl bg-red-200 bg-opacity-10 mb-2 mt-16 sm:mt-0 p-4;
 }
 
 .modal-toggle {
