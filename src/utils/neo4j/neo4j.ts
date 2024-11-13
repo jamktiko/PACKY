@@ -32,7 +32,8 @@ RETURN DISTINCT
     n.name AS name, 
     n.description AS desc, 
     n.imageUrl AS image,
-    n.link AS link, 
+    n.link AS link,
+    n.checked AS checked, 
     weights
 `;
 
