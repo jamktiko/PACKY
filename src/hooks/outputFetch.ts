@@ -3,134 +3,165 @@ import { getTechsForFeature } from '@/utils/neo4j/neo4j';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store/store';
 
-// Defining the interfaces
 interface Feature {
-  row: number;
-  col: number;
-  item: { name: string; desc: string }[];
-  id?: string;
+  row: number; // Row position in the grid
+  col: number; // Column position in the grid
+  item: { name: string; desc: string }[]; // Array containing features name and desc
 }
 
 interface Technology {
-  technology: string;
-  totalWeight: number;
-  technologyCategory: string[];
+  technology: string; // Techs name
+  totalWeight: number; // Weight of the tech
+  technologyCategory: string[]; // The label/category where tech belongs
+}
+
+// Interface for the array,
+// It must need include these labels / categories
+interface TechnologyGroup {
+  frontendFramework: Technology;
+  backendFramework: Technology;
+  Database: Technology;
+  Language: Technology;
+  [key: string]: Technology | Technology[]; // Another categories, Services, cssFrameoworks, libraries etc
 }
 
 export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
-  // State to store technology groups, initialized as an empty array
-  // Each group will contain technologies categorized by their type
-  const [technologyGroups, setTechnologyGroups] = useState<
-    { [key: string]: any[] }[]
-  >([]);
+  // State for storing techgroups
+  const [technologyGroups, setTechnologyGroups] = useState<TechnologyGroup[]>(
+    []
+  );
+  // State for loading status
   const [isLoading, setIsLoading] = useState(true);
 
+  // Technology weights from redux store
   const techsAndWeights = useSelector(
     (state: RootState) => state.libraryDataReducer.value
   );
 
   useEffect(() => {
     const fetchTechnologies = async () => {
-      // Early return if outputModal is false - prevents unnecessary fetching
+      // Return if modal is not open
       if (!outputModal) return;
-
+      // Setting loading state to true at start of fetch
       setIsLoading(true);
 
-      // Fetch technologies for each feature in parallel using Promise.all
-      const allTechs = await Promise.all(
-        // create an array of promises
-        features.map(async (feature: Feature) => {
-          const techs = await getTechsForFeature(feature.item[0].name);
-          return techs || []; // Return empty array if no techs found
-        })
-      );
+      try {
+        // Use Promise.all() to execute multiple async operations in parallel,
+        // reducing overall execution time and improving performance.
+        // This allows us to fetch technologies for all selected features simultaneously.
+        const allTechs = await Promise.all(
+          features.map(async (feature) => {
+            // Fetching techs for each feature from Neo4j
+            const techs = await getTechsForFeature(feature.item[0].name);
+            // And finally returning array or empty if none found
+            return techs;
+          })
+        );
 
-      // Combine all technology arrays into a single flat array
-      const combinedTechs = allTechs.flat();
+        // Making Tech objects,
+        // Each object have the tech,label/category and the weight
+        const techObject = allTechs.flat().map((tech) => ({
+          technology: tech.technology, // Name
+          technologyCategory: tech.technologyCategory, // Label/Category
+          totalWeight: techsAndWeights.find((t) => t.name === tech.technology)
+            ?.weights[0].weight, // The weight from redux store
+        }));
 
-      // Create object to track total weight for each technology
-      const techWeights: { [technology: string]: number } = {};
+        console.log(techObject);
 
-      // Calculate total weight for each technology by summing their scores
-      combinedTechs.forEach((tech) => {
-        const techName = tech.technology;
-        techWeights[techName] = (techWeights[techName] || 0) + tech.totalScore;
-      });
+        // Initialize an empty object to store technologies by category
+        // The object will have string keys (labels/categories) and values will be arrays of Technology objects
+        const techsByCategory: { [key: string]: Technology[] } = {};
+        // Iterate over the techObject array
+        techObject.forEach((tech) => {
+          // Extract the first category from the technologys categories array
+          const category = tech.technologyCategory[0];
+          // Check if the category is not already a key in the techsByCategory object
+          if (!techsByCategory[category]) {
+            // If not, initialize the category key with an empty array
+            techsByCategory[category] = [];
+          }
+          // Check if the technology is not already in the categorys array
+          // using the some method to iterate over the array and check for a match
+          if (
+            !techsByCategory[category].some(
+              // Iterate over the array and check if any technology has the same name as the current tech
+              (t) => t.technology === tech.technology
+            )
+          ) {
+            // If the technology is not already in the array, add it to the category's array
+            techsByCategory[category].push(tech as Technology);
+          }
+        });
 
-      // Create new array with technologies and their total weights
-      // uses techsAndWeights from store to retrieve the weight for each technology
-      const techsWithWeights: Technology[] = allTechs.flatMap((techs) =>
-        techs.map((tech) => {
-          const weight =
-            techsAndWeights.find((t) => t.name === tech.technology)?.weights[0]
-              .weight || 0;
-          return {
-            technology: tech.technology,
-            totalWeight: weight,
-            technologyCategory: tech.technologyCategory,
-          };
-        })
-      );
-      // Sort the array by weight in descending order (highest to lowest)
-      techsWithWeights.sort((a, b) => b.totalWeight - a.totalWeight);
+        // Sort technologies by weight within each category
+        Object.keys(techsByCategory).forEach((category) => {
+          techsByCategory[category].sort(
+            (a, b) => b.totalWeight - a.totalWeight
+          );
+        });
 
-      // Calculate the size of one group
-      // by dividing the length of the array by 3
-      // Using Math.ceil to round up, so all tech's fit into groups
-
-      const sortedTechs = techsWithWeights.sort(
-        (a, b) => b.totalWeight - a.totalWeight
-      );
-      const groupSize = Math.ceil(sortedTechs.length / 3);
-
-      //Group with highest weights
-      // taking the first groupSize elements, so the first techs
-      const highestWeightGroup = sortedTechs.slice(0, groupSize);
-
-      // Second highest weight group
-      // slice(groupSize, groupSize * 2) takes elements from index groupSize to (groupSize * 2)
-      const mediumWeightGroup = sortedTechs.slice(groupSize, groupSize * 2);
-      // Lowest weight group, take the remaining technologies
-      // slice(groupSize * 2) takes all elements from index (groupSize * 2)
-      //to the end of the array
-      const lowestWeightGroup = sortedTechs.slice(groupSize * 2);
-
-      // Helper function to group technologies by their category
-      const groupByCategory = (
-        techGroup: {
-          technology: string;
-          totalWeight: number;
-          technologyCategory: string[];
-        }[]
-      ) => {
-        // Categories where only one technology item should be assigned per category
-        const singleSelectCategories = [
-          'backendFramework',
+        // Define required technology categories
+        const requiredCategories = [
           'frontendFramework',
-          'Language',
+          'backendFramework',
           'Database',
+          'Language',
         ];
 
-        // Reduce iterates over each item in the techGroup arry and
-        // builds an object that groups technologies by their category
-        return techGroup.reduce((acc: { [key: string]: any[] }, tech) => {
-          const category = tech.technologyCategory[0];
-          // Check if the category is in the single-select list
-          acc[category] = singleSelectCategories.includes(category)
-            ? acc[category] || [tech] // Single-select
-            : (acc[category] || []).concat(tech); // not in singleselectCategory
+        // Find maximum number of technologies in any required category
+        const maxTechnologies = Math.max(
+          ...requiredCategories.map((cat) =>
+            techsByCategory[cat] ? techsByCategory[cat].length : 0
+          )
+        );
 
-          return acc; // returning the accumulator
-        }, {});
-      };
+        // Initialize array to store technology groups
+        const groups: TechnologyGroup[] = [];
 
-      // Update state with all three groups after categorizing them
-      setTechnologyGroups([
-        groupByCategory(highestWeightGroup),
-        groupByCategory(mediumWeightGroup),
-        groupByCategory(lowestWeightGroup),
-      ]);
-      setIsLoading(false);
+        // Create as many groups as the maximum number of technologies in any required category
+        for (let i = 0; i < maxTechnologies; i++) {
+          // Initialize partial group object
+          const group: Partial<TechnologyGroup> = {};
+
+          // Add one technology from each required category
+          requiredCategories.forEach((category) => {
+            // Get technologies for current category
+            const techs = techsByCategory[category] || [];
+            if (techs.length > 0) {
+              // Use modulo to cycle through available technologies
+              group[category] = techs[i % techs.length];
+            } else {
+              // This is just for postProd to see if there is no relationships :-)
+              group[category] = {
+                technology: 'No relationship',
+                totalWeight: 0,
+                technologyCategory: [category],
+              };
+            }
+          });
+
+          // Add remaining non-required categories
+          Object.keys(techsByCategory).forEach((category) => {
+            if (!requiredCategories.includes(category)) {
+              group[category] = techsByCategory[category];
+            }
+          });
+
+          // Add completed group to groups array
+          groups.push(group as TechnologyGroup);
+        }
+
+        // Updating the state with techGroups
+        setTechnologyGroups(groups);
+      } catch (error) {
+        // If errors are occured the fetch fails
+        console.error('Error fetching technologies:', error);
+        setTechnologyGroups([]);
+      } finally {
+        // Setting the loading state back to false
+        setIsLoading(false);
+      }
     };
 
     fetchTechnologies();
