@@ -1,17 +1,6 @@
-import { SearchBarProps } from '@/utils/search';
 import { getData } from '@/utils/neo4j/neo4j';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-//defined the interface for the state
-interface LibraryState {
-  // Lista kokoelmatiedoista
-  value: SearchBarProps[];
-  // Tilan status
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  // Virheilmoitus
-  error: string | null;
-  checked: boolean;
-}
+import { LibraryState } from '@/utils/interface/libraryState';
 
 // define the initial state
 const initialLibraryState: LibraryState = {
