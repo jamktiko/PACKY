@@ -2,7 +2,7 @@ import React from 'react';
 import { toggleModal } from '@/redux/reducers/gridModalReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, type RootState } from '@/redux/store/store';
-import { CollectionData } from '@/utils/collectionData';
+import { CollectionData } from '@/utils/interface/collectionData';
 import {
   setActiveCells,
   setChoosableCells,

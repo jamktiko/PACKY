@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { SearchBarProps } from '../../utils/search';
+import { SearchBarProps } from '@/utils/interface/searchBarData';
 import Link from 'next/link';
 import { FaAngleUp } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -18,7 +18,6 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
         (collection) => collection.name === item.name
       )?.checked
   );
-  console.log('isChecked', isChecked);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -56,7 +55,7 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
           </strong>
           <button className="text-white font-bold">
             <FaAngleUp
-              className={`float-right transition-transform ${
+              className={`float-right transition-transform ml-2 ${
                 isExpanded ? 'rotate-180' : ''
               }`}
               style={{ width: '30px', height: '30px' }}
@@ -73,7 +72,7 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
               transition={{ duration: 0.3 }}
               style={{ overflow: 'hidden' }}
             >
-              <motion.p className="text-white mb-4 min-h-40">
+              <motion.p className="text-white mb-4 mt-2 min-h-40">
                 {item.desc}
               </motion.p>
             </motion.div>
