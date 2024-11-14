@@ -1,9 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-//määritellään interface ModalState
-interface OutputModalState {
-  value: boolean;
-}
+import { OutputModalState } from '@/utils/interface/outputModalState';
 
 //määritellään modalReducerin tila aluksi falseksi
 const initialState: OutputModalState = {

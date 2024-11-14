@@ -213,7 +213,7 @@ header nav ul li a span {
 }
 
 .grid-modal-item-empty {
-  @apply transition-all hover:bg-opacity-80 h-28 shadow-inner-2 hover:text-black border border-red-500 rounded-xl bg-red-200 bg-opacity-10 mb-16 p-4;
+  @apply transition-all hover:bg-opacity-80 h-16 shadow-inner-2 hover:text-black border border-red-500 rounded-xl bg-red-200 bg-opacity-10 mb-2 mt-16 sm:mt-0 p-4;
 }
 
 .modal-toggle {
@@ -349,15 +349,15 @@ header nav ul li a span {
 }
 
 .expand-container {
-  @apply transition-all md:m-2 md:p-2 m-1 p-1 flex flex-col bg-white w-full max-w-[55rem] h-auto bg-opacity-10 rounded-2xl shadow-md;
+  @apply transition-all shadow-inner-2 md:m-2 md:p-2 m-1 p-1 flex flex-col bg-white w-full max-w-[55rem] h-auto bg-opacity-10 rounded-2xl shadow-md;
 }
 
 .expand-info {
-  @apply flex flex-row items-center bg-white bg-opacity-20 h-16 rounded-2xl;
+  @apply flex flex-row shadow-inner-2 items-center bg-white bg-opacity-20 h-16 rounded-2xl;
 }
 
 .expand-header {
-  @apply md:text-xl text-lg  h-16 flex items-center bg-white bg-opacity-5 rounded-r-2xl;
+  @apply md:text-xl text-lg h-16 flex items-center bg-white bg-opacity-5 rounded-r-2xl;
 }
 
 .expand-text {

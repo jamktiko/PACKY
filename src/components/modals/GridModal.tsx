@@ -2,7 +2,7 @@ import React from 'react';
 import { toggleModal } from '@/redux/reducers/gridModalReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, type RootState } from '@/redux/store/store';
-import { CollectionData } from '@/utils/collectionData';
+import { CollectionData } from '@/utils/interface/collectionData';
 import {
   setActiveCells,
   setChoosableCells,
@@ -13,7 +13,7 @@ import { motion } from 'framer-motion';
 interface Cell {
   row: number;
   col: number;
-  item: { name: string; desc: string }[];
+  item: { name: string; desc: string; tips: string }[];
 }
 
 const GridModal = () => {
@@ -52,7 +52,7 @@ const GridModal = () => {
             ...selectedCell,
             row: selectedCell?.row,
             col: selectedCell?.col,
-            item: [{ name: item.name, desc: description }],
+            item: [{ name: item.name, desc: description, tips: item.tips }],
             id: item.name,
           } as Cell,
         ])
@@ -106,6 +106,7 @@ const GridModal = () => {
                   </button>
                 )}
                 <button
+                  tabIndex={isActive || isEmpty ? 0 : -1}
                   key={id}
                   className={`grid-modal-item ${isActive ? 'active' : ''}`}
                   onClick={() => handleClick(item, item.desc)}

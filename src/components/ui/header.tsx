@@ -16,14 +16,16 @@ const Header = () => {
         height={100}
         alt={'packy'}
       />
-      <Link href={'/'}>
+      <Link href={'/'} tabIndex={0}>
         <h1 className="absolute text-start left-16 top-2 blur opacity-70">
           PACKY
         </h1>
         <h1>PACKY</h1>
         <h2>tech consultant</h2>
       </Link>
-      <button onClick={() => setOpen(!open)}>☰</button>
+      <button onClick={() => setOpen(!open)} tabIndex={0}>
+        ☰
+      </button>
       <AnimatePresence>
         {open && (
           <>

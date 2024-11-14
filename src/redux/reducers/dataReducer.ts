@@ -1,16 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CollectionData } from '@/utils/collectionData';
 import { getFeatures } from '@/utils/neo4j/neo4j';
-
-// Määritellään data reducerin tila
-interface DataState {
-  // Lista kokoelmatiedoista
-  value: CollectionData[];
-  // Tilan status
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  // Virheilmoitus
-  error: string | null;
-}
+import { DataState } from '@/utils/interface/dataState';
 
 // Määritellään data reducerin alkutila
 const initialState: DataState = {
@@ -28,6 +18,7 @@ export const fetchCollections = createAsyncThunk(
     return data.map((feature) => ({
       name: feature.name,
       desc: feature.desc,
+      tips: feature.tips,
       id: feature.id,
       weight: feature.techRelations,
     }));

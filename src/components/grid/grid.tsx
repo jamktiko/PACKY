@@ -81,7 +81,7 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
   return (
     <motion.div ref={gridRef} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <div
-        className="grid-container absolute z-10"
+        className='grid-container absolute z-10 md:scale-100 scale-75 -top-28 md:-top-0'
         style={{
           display: 'grid',
           gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
