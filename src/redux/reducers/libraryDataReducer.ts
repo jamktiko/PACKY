@@ -15,24 +15,25 @@ const initialLibraryState: LibraryState = {
 // define the async thunk to fetch library data
 export const fetchLibrary = createAsyncThunk(
   'library/fetchLibrary',
-  async (): Promise<LibraryFeature[]> => {
+  async (_, { getState }) => {
+    const state = getState() as RootState;
+    if (state.libraryDataReducer.value.length > 0)
+      return state.libraryDataReducer.value;
     const librarydata = await getData();
-    return librarydata.map(
-      (libraryfeature: any): LibraryFeature => ({
-        name: libraryfeature.name,
-        desc: libraryfeature.desc,
-        id: libraryfeature.id,
-        image: libraryfeature.image,
-        link: libraryfeature.link,
-        weights: libraryfeature.weights.map(
-          (weightObj: any): Weight => ({
-            weight: Number(weightObj.weight),
-            feature: weightObj.feature,
-          })
-        ),
-        checked: libraryfeature.checked,
-      })
-    );
+    return librarydata.map((libraryfeature) => ({
+      name: libraryfeature.name,
+      desc: libraryfeature.desc,
+      id: libraryfeature.id,
+      image: libraryfeature.image,
+      link: libraryfeature.link,
+      weights: libraryfeature.weights.map(
+        (weightObj: any): Weight => ({
+          weight: Number(weightObj.weight),
+          feature: weightObj.feature,
+        })
+      ),
+      checked: libraryfeature.checked || false,
+    }));
   }
 );
 
