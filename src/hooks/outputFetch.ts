@@ -113,7 +113,6 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
         for (let i = 0; i < maxTechnologies; i++) {
           // Initialize partial group object
           const group: Partial<TechnologyGroup> = {};
-
           // Add one technology from each required category
           requiredCategories.forEach((category) => {
             // Get technologies for current category
