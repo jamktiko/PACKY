@@ -1,9 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-//interface ModalState is created
-interface GridModalState {
-  value: boolean;
-}
+import { GridModalState } from '@/utils/interface/gridModalState';
 
 //initialState is created and typed with interface GridModalState
 const initialState: GridModalState = {

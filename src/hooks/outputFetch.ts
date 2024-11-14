@@ -108,6 +108,7 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
           'backendFramework',
           'Database',
           'Language',
+          'CSSframework',
         ];
 
         // Find maximum number of technologies in any required category

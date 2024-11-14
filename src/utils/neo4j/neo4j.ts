@@ -63,13 +63,12 @@ export const getFeatures = async () => {
 // Function to retrieve technologies for a specific feature
 export const getTechsForFeature = async (featureName: string | string[]) => {
   const query = `
-  MATCH (t)-[r:SUPPORTS]->(f:Feature)
+MATCH (t)-[r:SUPPORTS]->(f:Feature)
   WHERE f.name IN $featureNames
-  AND any(label IN labels(t) WHERE label IN ['frontendFramework', 'backendFramework', 
-  'Database', 'Language', 'library', 'CSSframework', 'metaFramework','Service'])
-  WITH t, f.name AS featureName, SUM(r.weight) AS totalScore
-  ORDER BY totalScore DESC
-  RETURN labels(t) AS technologyCategory, t.name AS technology, featureName, totalScore
+  AND any(label IN labels(t) WHERE label IN ['frontendFramework', 'backendFramework', 'Database', 'Language', 
+  'library', 'CSSframework', 'metaFramework', 'Service'])
+  RETURN labels(t) AS technologyCategory, t.name AS technology, f.name AS featureName, r.weight AS weight
+  ORDER BY weight DESC
 `;
 
   // Ensure `featureNames` is an array, whether single or multiple features
