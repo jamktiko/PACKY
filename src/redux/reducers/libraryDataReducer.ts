@@ -3,8 +3,6 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store/store';
 import { LibraryState } from '@/utils/interface/libraryState';
 
-//defined the interface for the state
-
 // define the initial state
 const initialLibraryState: LibraryState = {
   value: [],
