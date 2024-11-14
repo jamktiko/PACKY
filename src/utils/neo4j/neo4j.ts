@@ -25,18 +25,21 @@ export const runCypherQuery = async (query: string, params = {}) => {
 // A function to get all nodes from a specific type
 export const getData = async () => {
   const query = `
-  MATCH (n)
-  WHERE n:backendFramework OR n:Database OR n:frontendFramework OR n:Language OR n:CSSframework OR n:metaFramework OR n:Service
-  OPTIONAL MATCH (n)-[r:SUPPORTS]->(f:Feature)
-  WITH n, collect({feature: f.name, weight: r.weight}) AS weights
-  RETURN DISTINCT 
-    n.name AS name, 
-    n.description AS desc, 
-    n.imageUrl AS image,
-    n.link AS link,
-    n.checked AS checked, 
-    weights
+MATCH (n)
+WHERE n:backendFramework OR n:Database OR n:frontendFramework OR n:Language OR n:CSSframework OR n:metaFramework OR n:Service
+OPTIONAL MATCH (n)-[r:SUPPORTS]->(f:Feature)
+WITH n, f.name AS featureName, SUM(r.weight) AS totalWeight
+WITH n, collect({feature: featureName, weight: totalWeight}) AS weights
+RETURN DISTINCT 
+  n.name AS name, 
+  n.description AS desc, 
+  n.imageUrl AS image,
+  n.link AS link,
+  n.checked AS checked,
+  weights
+
 `;
+
   try {
     return await runCypherQuery(query);
   } catch (error) {
@@ -63,10 +66,9 @@ export const getFeatures = async () => {
 // Function to retrieve technologies for a specific feature
 export const getTechsForFeature = async (featureName: string | string[]) => {
   const query = `
-MATCH (t)-[r:SUPPORTS]->(f:Feature)
+ MATCH (t)-[r:SUPPORTS]->(f:Feature)
   WHERE f.name IN $featureNames
-  AND any(label IN labels(t) WHERE label IN ['frontendFramework', 'backendFramework', 'Database', 'Language', 
-  'library', 'CSSframework', 'metaFramework', 'Service'])
+  AND any(label IN labels(t) WHERE label IN ['frontendFramework', 'backendFramework', 'Database', 'Language', 'library', 'CSSframework', 'metaFramework', 'Service'])
   RETURN labels(t) AS technologyCategory, t.name AS technology, f.name AS featureName, r.weight AS weight
   ORDER BY weight DESC
 `;
