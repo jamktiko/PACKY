@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getTechsForFeature } from '@/utils/neo4j/neo4j';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store/store';
-
+import { Weight } from '@/utils/interface/weight';
 interface Feature {
   row: number; // Row position in the grid
   col: number; // Column position in the grid
@@ -57,18 +57,24 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
             return techs;
           })
         );
-
         // Making Tech objects,
         // Each object have the tech,label/category and the weight
-        const techObject = allTechs.flat().map((tech) => ({
-          technology: tech.technology, // Name
-          technologyCategory: tech.technologyCategory, // Label/Category
-          totalWeight: techsAndWeights.find((t) => t.name === tech.technology)
-            ?.weights[0].weight, // The weight from redux store
-        }));
-
         const featureNames = features.map((feature) => feature.item[0].name);
         console.log(featureNames);
+        const techObject = allTechs.flat().map((tech) => {
+          const techData = techsAndWeights.find(
+            (t) => t.name === tech.technology
+          );
+          // Sum weights for all matching features
+          const totalWeight = (techData?.weights as Weight[])
+            .filter((w) => featureNames.includes(w.feature)) // Only include weights for selected features
+            .reduce((sum, w) => sum + w.weight, 0); // Sum the weights
+          return {
+            technology: tech.technology,
+            technologyCategory: tech.technologyCategory,
+            totalWeight,
+          };
+        });
 
         // Initialize an empty object to store technologies by category
         // The object will have string keys (labels/categories) and values will be arrays of Technology objects
