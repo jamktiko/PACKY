@@ -32,28 +32,28 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="flex flex-row" // Remove items-center to avoid vertical centering
+      className='flex flex-row' // Remove items-center to avoid vertical centering
     >
-      <div onClick={toggleExpand} className="expand-container">
-        <div className="expand-info">
+      <div onClick={toggleExpand} className='expand-container'>
+        <div className='expand-info'>
           {item.image && (
             <Image
               src={item.image}
               alt={item.name}
               width={60}
               height={50}
-              className="rounded-lg max-w-16 max-h-16"
+              className='rounded-lg max-w-16 max-h-16'
               style={{ objectFit: 'cover' }}
             />
           )}
-          <strong className="expand-header">
+          <strong className='expand-header'>
             {item.link && (
-              <Link href={item.link} target="_blank" className="expand-text">
+              <Link href={item.link} target='_blank' className='expand-text'>
                 {item.name}
               </Link>
             )}
           </strong>
-          <button className="text-white font-bold">
+          <button className='text-white font-bold'>
             <FaAngleUp
               className={`float-right transition-transform ml-2 ${
                 isExpanded ? 'rotate-180' : ''
@@ -62,7 +62,7 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
             />
           </button>
         </div>
-        <div className="flex items-center"></div>
+        <div className='flex items-center'></div>
         <AnimatePresence>
           {isExpanded && (
             <motion.div
@@ -81,8 +81,8 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
       </div>
       {/* Apply a top margin to the checkbox instead of vertical centering */}
       <input
-        type="checkbox"
-        className="mt-[1.5rem] md:mt-[2rem] -ml-16 checkbox-input"
+        type='checkbox'
+        className='mt-[1.5rem] md:mt-[2rem] -ml-16 checkbox-input'
         checked={isChecked}
         onChange={() => handleCheckboxClick(item.name)}
       />
