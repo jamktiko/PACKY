@@ -221,8 +221,12 @@ header nav ul li a span {
 }
 
 .toggle-output {
-  @apply place-items-center shadow-inner-2 rounded-t-xl flex flex-col text-sm justify-center transition-all pointer-events-auto bg-opacity-80 border-t border-teal-300 hover:bg-white hover:text-black z-[100] font-bold w-64 h-16;
+  @apply place-items-center shadow-inner-2 rounded-t-xl flex flex-col text-sm justify-center transition-all pointer-events-auto bg-opacity-80 border-t border-teal-300  z-[100] font-bold w-64 h-16;
   bottom: 0;
+}
+
+.toggle-output-active {
+  @apply hover:bg-white hover:text-black;
 }
 
 #grid-button-4-4 {
