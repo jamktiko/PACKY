@@ -38,7 +38,7 @@ const OutputModal = () => {
 
   if (isLoading) {
     return (
-      <div className='slider-container outputmodal-loader-center'>
+      <div className="slider-container outputmodal-loader-center">
         <Loader />
       </div>
     );
@@ -67,9 +67,9 @@ const OutputModal = () => {
         <motion.div
           initial={{ opacity: 0, y: 200 }}
           animate={{ opacity: 1, y: 0 }}
-          className='slider-container output-container'
+          className="slider-container output-container"
         >
-          <Slider {...settings} className='carousel'>
+          <Slider {...settings} className="carousel">
             {technologyGroups.map((group, index) => (
               <div
                 ref={(ref) => {
@@ -77,10 +77,10 @@ const OutputModal = () => {
                     refs.current[index] = ref;
                   }
                 }}
-                className='carousel-item'
+                className="carousel-item"
                 key={index}
               >
-                <h3 className='output-option-header'>Option {index + 1}</h3>
+                <h3 className="output-option-header">Option {index + 1}</h3>
 
                 {Object.entries(group).map(([category, techs]) => {
                   // Check if techs is an array or single technology
@@ -88,17 +88,17 @@ const OutputModal = () => {
                   return (
                     <div
                       key={category}
-                      className='text-left md:ml-[20%] ml-[10%] mt-6'
+                      className="text-left md:ml-[20%] ml-[10%] mt-6"
                     >
-                      <p className='pl-3 pt-1 font-bold text-xl border-t border-l border-teal-500'>
+                      <p className="pl-3 pt-1 font-bold text-xl border-t border-l border-teal-500">
                         {category}
                       </p>
 
                       <ul>
                         {techArray.map((tech, i) => (
-                          <li className='md:text-base text-sm' key={i}>
+                          <li className="md:text-base text-sm" key={i}>
                             <b>Technology:</b> {tech.technology}
-                            <p>Total Weight: {tech.totalWeight}</p>
+                            <p>Total Weight: {tech.totalWeight.toFixed(1)}</p>
                           </li>
                         ))}
                       </ul>
