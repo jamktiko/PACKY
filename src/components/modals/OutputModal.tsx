@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { use } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store/store';
 import { useOutputFetch } from '@/hooks/outputFetch';
@@ -49,13 +49,11 @@ const OutputModal = () => {
           <Slider {...settings} className="carousel">
             {technologyGroups.map((group, index) => (
               <div className="carousel-item" key={index}>
-                <h3 className="output-option-header">
-                  Stack Option {index + 1}
-                </h3>
+                <h3 className="output-option-header">Option {index + 1}</h3>
+
                 {Object.entries(group).map(([category, techs]) => {
                   // Check if techs is an array or single technology
                   const techArray = Array.isArray(techs) ? techs : [techs];
-
                   return (
                     <div
                       key={category}
@@ -64,6 +62,7 @@ const OutputModal = () => {
                       <p className="pl-3 pt-1 font-bold text-xl border-t border-l border-teal-500">
                         {category}
                       </p>
+
                       <ul>
                         {techArray.map((tech, i) => (
                           <li className="md:text-base text-sm" key={i}>

@@ -2,28 +2,10 @@ import { useEffect, useState } from 'react';
 import { getTechsForFeature } from '@/utils/neo4j/neo4j';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store/store';
-
-interface Feature {
-  row: number; // Row position in the grid
-  col: number; // Column position in the grid
-  item: { name: string; desc: string }[]; // Array containing features name and desc
-}
-
-interface Technology {
-  technology: string; // Techs name
-  totalWeight: number; // Weight of the tech
-  technologyCategory: string[]; // The label/category where tech belongs
-}
-
-// Interface for the array,
-// It must need include these labels / categories
-interface TechnologyGroup {
-  frontendFramework: Technology;
-  backendFramework: Technology;
-  Database: Technology;
-  Language: Technology;
-  [key: string]: Technology | Technology[]; // Another categories, Services, cssFrameoworks, libraries etc
-}
+import { Weight } from '@/utils/interface/weight';
+import { Feature } from '@/utils/interface/feature';
+import { Technology } from '@/utils/interface/technology';
+import { TechnologyGroup } from '@/utils/interface/technologyGroup';
 
 export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
   // State for storing techgroups
@@ -57,17 +39,24 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
             return techs;
           })
         );
-
         // Making Tech objects,
         // Each object have the tech,label/category and the weight
-        const techObject = allTechs.flat().map((tech) => ({
-          technology: tech.technology, // Name
-          technologyCategory: tech.technologyCategory, // Label/Category
-          totalWeight: techsAndWeights.find((t) => t.name === tech.technology)
-            ?.weights[0].weight, // The weight from redux store
-        }));
-
-        console.log(techObject);
+        const featureNames = features.map((feature) => feature.item[0].name);
+        console.log(featureNames);
+        const techObject = allTechs.flat().map((tech) => {
+          const techData = techsAndWeights.find(
+            (t) => t.name === tech.technology
+          );
+          // Sum weights for all matching features
+          const totalWeight = (techData?.weights as Weight[])
+            .filter((w) => featureNames.includes(w.feature)) // Only include weights for selected features
+            .reduce((sum, w) => sum + w.weight, 0); // Sum the weights
+          return {
+            technology: tech.technology,
+            technologyCategory: tech.technologyCategory,
+            totalWeight,
+          };
+        });
 
         // Initialize an empty object to store technologies by category
         // The object will have string keys (labels/categories) and values will be arrays of Technology objects
@@ -107,6 +96,7 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
           'backendFramework',
           'Database',
           'Language',
+          'CSSframework',
         ];
 
         // Find maximum number of technologies in any required category
@@ -123,7 +113,6 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
         for (let i = 0; i < maxTechnologies; i++) {
           // Initialize partial group object
           const group: Partial<TechnologyGroup> = {};
-
           // Add one technology from each required category
           requiredCategories.forEach((category) => {
             // Get technologies for current category

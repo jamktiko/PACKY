@@ -1,18 +1,9 @@
-import { SearchBarProps } from '@/utils/search';
 import { getData } from '@/utils/neo4j/neo4j';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-//defined the interface for the state
-interface LibraryState {
-  // Lista kokoelmatiedoista
-  value: SearchBarProps[];
-  // Tilan status
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  // Virheilmoitus
-  error: string | null;
-  checked: boolean;
-}
-
+import { RootState } from '../store/store';
+import { LibraryState } from '@/utils/interface/libraryState';
+import { Weight } from '@/utils/interface/weight';
+import { LibraryFeature } from '@/utils/interface/libraryFeature';
 // define the initial state
 const initialLibraryState: LibraryState = {
   value: [],
@@ -24,7 +15,10 @@ const initialLibraryState: LibraryState = {
 // define the async thunk to fetch library data
 export const fetchLibrary = createAsyncThunk(
   'library/fetchLibrary',
-  async () => {
+  async (_, { getState }) => {
+    const state = getState() as RootState;
+    if (state.libraryDataReducer.value.length > 0)
+      return state.libraryDataReducer.value;
     const librarydata = await getData();
     return librarydata.map((libraryfeature) => ({
       name: libraryfeature.name,
@@ -32,8 +26,13 @@ export const fetchLibrary = createAsyncThunk(
       id: libraryfeature.id,
       image: libraryfeature.image,
       link: libraryfeature.link,
-      weights: libraryfeature.weights,
-      checked: libraryfeature.checked,
+      weights: libraryfeature.weights.map(
+        (weightObj: any): Weight => ({
+          weight: Number(weightObj.weight),
+          feature: weightObj.feature,
+        })
+      ),
+      checked: libraryfeature.checked || false,
     }));
   }
 );

@@ -1,24 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface Cell {
-  row: number;
-  col: number;
-  item: { name: string; desc: string }[];
-  id?: string;
-}
-
-interface GridState {
-  activeCells: Cell[];
-  choosableCells: Cell[];
-  selectedCell: Cell | null; // Assuming only one cell can be selected at a time
-}
+import { Cell } from '@/utils/interface/cell';
+import { GridState } from '@/utils/interface/gridState';
 
 const initialState: GridState = {
   activeCells: [
     {
       row: 4,
       col: 4,
-      item: [{ name: 'Web App', desc: 'This is test' }],
+      item: [{ name: 'Web App', desc: 'This is test', tips: 'test' }],
       id: 'Web App',
     },
   ],
