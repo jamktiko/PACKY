@@ -30,15 +30,15 @@ const dataSlice = createSlice({
   initialState,
   reducers: {
     incrementWeight: (state, action: PayloadAction<string>) => {
-      console.log(
-        'incrementWeight action dispatched with payload:',
-        action.payload
-      );
+      // console.log(
+      //   'incrementWeight action dispatched with payload:',
+      //   action.payload
+      // );
       state.value = state.value.map((collection) => {
         if (collection.name === action.payload) {
-          console.log('incrementing weight for collection:', collection.name);
+          //console.log('incrementing weight for collection:', collection.name);
           const newWeight = collection.weight + 1;
-          console.log('new weight:', newWeight);
+          //console.log('new weight:', newWeight);
           return {
             ...collection,
             weight: newWeight,
@@ -46,20 +46,20 @@ const dataSlice = createSlice({
         }
         return collection;
       });
-      console.log('updated state:', state);
+      //console.log('updated state:', state);
     },
 
     decrementWeight: (state, action: PayloadAction<string>) => {
-      console.log(
-        'DecrementWeight action dispatched with payload:',
-        action.payload
-      );
+      // console.log(
+      //   'DecrementWeight action dispatched with payload:',
+      //   action.payload
+      // );
       state.value = state.value.map((collection) => {
         if (collection.name === action.payload) {
-          console.log('Decrementing weight for collection:', collection.name);
+          //console.log('Decrementing weight for collection:', collection.name);
           const newWeight = collection.weight - 1;
           const roundedWeight = Math.round(newWeight * 10) / 10;
-          console.log('new weight:', roundedWeight);
+          //console.log('new weight:', roundedWeight);
           return {
             ...collection,
             weight: roundedWeight,
@@ -67,7 +67,7 @@ const dataSlice = createSlice({
         }
         return collection;
       });
-      console.log('updated state:', state);
+      //console.log('updated state:', state);
     },
   },
   // Määritellään mitä tapahtuu kun fetchCollections -funktio on käynnissä

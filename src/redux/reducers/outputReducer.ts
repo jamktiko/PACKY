@@ -15,7 +15,7 @@ const outputmodalslice = createSlice({
     //ja muuttaa tilan arvoa
     toggleOutputModal: (state, action: PayloadAction<boolean>) => {
       state.value = action.payload;
-      console.log('state', state.value);
+      //console.log('state', state.value);
     },
   },
 });

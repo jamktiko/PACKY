@@ -45,7 +45,6 @@ const GridButton: React.FC<GridButtonProps> = ({
   const cellIndex = activeCells.findIndex(
     (cell) => cell.row === row && cell.col === col
   );
-
   // Set the button's name based on the cell's state:
   // - If cellIndex is valid (not -1), it means this cell is in activeCells,
   //   so set buttonName to the name of the first item in this cell's item array.
@@ -84,9 +83,9 @@ const GridButton: React.FC<GridButtonProps> = ({
         (cell) =>
           cell.row === selectedCell?.row && cell.col === selectedCell.col
       );
-      console.log('selected index:', selectedIndex);
-      console.log('buttonname is ', buttonName);
-      console.log('originalindex is', originalIndex);
+      // console.log('selected index:', selectedIndex);
+      // console.log('buttonname is ', buttonName);
+      // console.log('originalindex is', originalIndex);
 
       if (originalIndex !== -1 && selectedIndex !== originalIndex) {
         setCurrentIndex(originalIndex);
