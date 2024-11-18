@@ -386,3 +386,11 @@ header nav ul li a span {
   height: 32px; /* Set the height */
   width: 32px; /* Set the width */
 }
+
+.export-button {
+  @apply rounded-xl text-sm text-white transition-all duration-300 p-2.5 hover:text-black absolute top-0 right-0 bg-gradient-to-r border-teal-800 border-2 bg-black hover:from-white hover:to-white;
+}
+
+.hidden {
+  display: none;
+}
