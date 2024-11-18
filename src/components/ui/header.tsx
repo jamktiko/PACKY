@@ -14,7 +14,7 @@ const Header = () => {
         src={'/packyiconextrasmall.webp'}
         width={100}
         height={100}
-        alt={'packy'}
+        alt={'packy logo'}
       />
       <Link href={'/'} tabIndex={0}>
         <h1 className="absolute text-start left-16 top-2 blur opacity-70">

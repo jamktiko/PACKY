@@ -27,14 +27,14 @@ const gridStateSlice = createSlice({
     },
     setSelectedCell: (state, action: PayloadAction<Cell>) => {
       state.selectedCell = action.payload;
-      console.log('selected cell on nyt:', state.selectedCell);
+      //console.log('selected cell on nyt:', state.selectedCell);
     },
 
     resetGridState: (state) => {
       if (state.activeCells.length > 1) {
         return initialState;
       } else {
-        console.log('Nothing to reset');
+        //console.log('Nothing to reset');
       }
     },
   },
