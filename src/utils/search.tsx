@@ -42,7 +42,6 @@ const SearchBar = () => {
     if (isLibraryVisible) {
       const gridButtonElement = document.getElementById('library');
       if (gridButtonElement) {
-        const rect = gridButtonElement.getBoundingClientRect();
         window.scrollTo({
           top: Math.abs(0),
           left: Math.abs(0),
