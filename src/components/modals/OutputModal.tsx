@@ -1,4 +1,4 @@
-import React, { use } from 'react';
+import React, { use, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store/store';
 import { useOutputFetch } from '@/hooks/outputFetch';
@@ -7,8 +7,12 @@ import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import Loader from '../loader';
 import { motion } from 'framer-motion';
+import * as htmlToImage from 'html-to-image';
+import toPng from 'html-to-image';
 
 const OutputModal = () => {
+  const [isExporting, setIsExporting] = useState(false);
+
   const outputModal = useSelector(
     (state: RootState) => state.outputReducer.value
   );
@@ -30,6 +34,8 @@ const OutputModal = () => {
     useCSS: true,
   };
 
+  const refs = useRef<HTMLDivElement[]>([]);
+
   if (isLoading) {
     return (
       <div className="slider-container outputmodal-loader-center">
@@ -37,6 +43,23 @@ const OutputModal = () => {
       </div>
     );
   }
+
+  const handleExportImage = (index: number): Promise<void> => {
+    return new Promise((resolve) => {
+      if (refs.current[index]) {
+        htmlToImage
+          .toPng(refs.current[index], { cacheBust: true })
+          .then((dataUrl: any) => {
+            const link = document.createElement('a');
+            link.href = dataUrl;
+            link.download = 'output-image.png';
+            link.click();
+            resolve(); // Resolve the promise when the image export is complete
+          })
+          .catch((err: any) => console.error(err));
+      }
+    });
+  };
 
   return (
     <>
@@ -48,7 +71,15 @@ const OutputModal = () => {
         >
           <Slider {...settings} className="carousel">
             {technologyGroups.map((group, index) => (
-              <div className="carousel-item" key={index}>
+              <div
+                ref={(ref) => {
+                  if (ref) {
+                    refs.current[index] = ref;
+                  }
+                }}
+                className="carousel-item"
+                key={index}
+              >
                 <h3 className="output-option-header">Option {index + 1}</h3>
 
                 {Object.entries(group).map(([category, techs]) => {
@@ -67,13 +98,25 @@ const OutputModal = () => {
                         {techArray.map((tech, i) => (
                           <li className="md:text-base text-sm" key={i}>
                             <b>Technology:</b> {tech.technology}
-                            <p>Total Weight: {tech.totalWeight}</p>
+                            <p>Total Weight: {tech.totalWeight.toFixed(1)}</p>
                           </li>
                         ))}
                       </ul>
                     </div>
                   );
                 })}
+                <button
+                  onClick={() => {
+                    setIsExporting(true);
+                    handleExportImage(index).then(() => {
+                      setIsExporting(false);
+                    });
+                  }}
+                  disabled={isExporting}
+                  className={isExporting ? 'hidden' : 'export-button'}
+                >
+                  Export PNG
+                </button>
               </div>
             ))}
           </Slider>

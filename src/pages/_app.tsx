@@ -32,30 +32,30 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
           <main className={montserrat.className}>
             <Head>
               <meta
-                name='viewport'
+                name="viewport"
                 // user-scalability is no because otherwise, the navigation on stackbuilder breaks
-                content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
+                content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
               />
             </Head>
             <Header />
             <BackgroundImage
-              fetchPriority='high'
+              fetchPriority="high"
               src={'/bg.webp'}
-              className='blur-3xl fixed h-screen -z-50 overflow-hidden'
+              className="blur-3xl fixed h-screen -z-50 overflow-hidden"
               alt={'Background'}
               width={1920}
               height={1080}
               priority={true}
             />
-            <div className='spin'>
+            <div className="spin">
               <BackgroundImage
                 priority
-                fetchPriority='high'
+                fetchPriority="high"
                 src={'/packyiconextrasmall.webp'}
-                className='fixed -z-10 md:-left-[40rem] -left-48 md:-top-32 top-16 opacity-5'
+                className="fixed -z-10 md:-left-[40rem] -left-48 md:-top-32 top-16 opacity-5"
                 width={3200}
                 height={3200}
-                alt={'packy'}
+                alt={'packy logo'}
               />
             </div>
 

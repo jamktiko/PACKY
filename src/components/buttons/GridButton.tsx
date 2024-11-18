@@ -83,9 +83,9 @@ const GridButton: React.FC<GridButtonProps> = ({
         (cell) =>
           cell.row === selectedCell?.row && cell.col === selectedCell.col
       );
-      console.log('selected index:', selectedIndex);
-      console.log('buttonname is ', buttonName);
-      console.log('originalindex is', originalIndex);
+      // console.log('selected index:', selectedIndex);
+      // console.log('buttonname is ', buttonName);
+      // console.log('originalindex is', originalIndex);
 
       if (originalIndex !== -1 && selectedIndex !== originalIndex) {
         setCurrentIndex(originalIndex);

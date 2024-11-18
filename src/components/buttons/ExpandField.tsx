@@ -97,7 +97,3 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
 };
 
 export default ExpandableItem;
-
-// function dispatch(arg0: { payload: string; type: 'data/incrementWeight' }) {
-//   throw new Error('Function not implemented.');
-// }
