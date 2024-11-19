@@ -26,7 +26,7 @@ export const runCypherQuery = async (query: string, params = {}) => {
 export const getData = async () => {
   const query = `
 MATCH (n)
-WHERE n:backendFramework OR n:Database OR n:frontendFramework OR n:Language OR n:metaFramework OR n:Service
+WHERE n:backendFramework OR n:Database OR n:frontendFramework OR n:Language OR n:metaFramework OR n:cssFramework
 OPTIONAL MATCH (n)-[r:SUPPORTS]->(f:Feature)
 WITH n, f.name AS featureName, SUM(r.weight) AS totalWeight
 WITH n, collect({feature: featureName, weight: totalWeight}) AS weights
@@ -37,7 +37,6 @@ RETURN DISTINCT
   n.link AS link,
   n.checked AS checked,
   weights
-
 `;
 
   try {
@@ -68,7 +67,7 @@ export const getTechsForFeature = async (featureName: string | string[]) => {
   const query = `
  MATCH (t)-[r:SUPPORTS]->(f:Feature)
   WHERE f.name IN $featureNames
-  AND any(label IN labels(t) WHERE label IN ['frontendFramework', 'backendFramework', 'Database', 'Language', 'metaFramework', 'Service'])
+  AND any(label IN labels(t) WHERE label IN ['frontendFramework', 'backendFramework','cssFramework' ,'Database', 'Language', 'metaFramework'])
   RETURN labels(t) AS technologyCategory, t.name AS technology, f.name AS featureName, r.weight AS weight
   ORDER BY weight DESC
 `;

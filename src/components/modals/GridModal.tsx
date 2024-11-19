@@ -83,52 +83,57 @@ const GridModal = () => {
   return (
     <>
       {gridmodal && (
-        <motion.div
-          initial={{ opacity: 0, y: 200 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="grid-modal"
-        >
-          {gridmodalData.map((item, id) => {
-            const isActive = activeCells.some((cell) => cell.id === item.name);
-            const isEmpty = !activeCells.some(
-              (cell) =>
-                cell.row === selectedCell?.row && cell.col === selectedCell.col
-            );
-            //console.log('id', id);
-            return (
-              <>
-                {id === 0 && !isEmpty && (
-                  <button
-                    className={`grid-modal-item-empty col-span-2`}
-                    onClick={() => handleEmptyCell()}
-                  >
-                    <h1 className="font-bold">Deselect current feature</h1>
-                  </button>
-                )}
-                <button
-                  tabIndex={isActive || isEmpty ? 0 : -1}
-                  key={id}
-                  className={`grid-modal-item ${isActive ? 'active' : ''}`}
-                  onClick={() => handleClick(item, item.desc)}
-                  disabled={isActive}
-                >
-                  <h1 className="font-bold">{item.name}</h1>
-                  <p className="text-xs md:text-base">{item.desc}</p>
-                </button>
-              </>
-            );
-          })}
-          <div className="modal-header">
+        <>
+          <div className='modal-header'>
             <h1>Choose feature</h1>
             <button
-              className="modal-toggle"
+              className='modal-toggle'
               onClick={() => dispatch(toggleModal(false))}
-              type="button"
+              type='button'
             >
               ⏎
             </button>
           </div>
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 200 }}
+            animate={{ opacity: 1, y: 0 }}
+            className='grid-modal'
+          >
+            {gridmodalData.map((item, id) => {
+              const isActive = activeCells.some(
+                (cell) => cell.id === item.name
+              );
+              const isEmpty = !activeCells.some(
+                (cell) =>
+                  cell.row === selectedCell?.row &&
+                  cell.col === selectedCell.col
+              );
+              //console.log('id', id);
+              return (
+                <>
+                  {id === 0 && !isEmpty && (
+                    <button
+                      className={`grid-modal-item-empty col-span-2`}
+                      onClick={() => handleEmptyCell()}
+                    >
+                      <h1 className='font-bold'>Deselect current feature</h1>
+                    </button>
+                  )}
+                  <button
+                    tabIndex={isActive || isEmpty ? 0 : -1}
+                    key={id}
+                    className={`grid-modal-item ${isActive ? 'active' : ''}`}
+                    onClick={() => handleClick(item, item.desc)}
+                    disabled={isActive}
+                  >
+                    <h1 className='font-bold'>{item.name}</h1>
+                    <p className='text-xs md:text-base'>{item.desc}</p>
+                  </button>
+                </>
+              );
+            })}
+          </motion.div>
+        </>
       )}
     </>
   );

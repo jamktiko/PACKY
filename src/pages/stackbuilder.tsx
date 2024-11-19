@@ -69,7 +69,7 @@ const StackBuilder: PageLayout = () => {
               Go back
             </button>
             <button
-              className='toggle-output bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-white hover:to-white'
+              className='toggle-output toggle-output-active  bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-white hover:to-white'
               onClick={handlesetGridOpen}
             >
               <IoIosArrowDropright className='w-8 h-8' />
@@ -79,7 +79,7 @@ const StackBuilder: PageLayout = () => {
               className={`toggle-output ${
                 libraryButtonDisabled
                   ? 'pointer-events-none cursor-default text-slate-400 bg-slate-500'
-                  : 'bg-cyan-500'
+                  : 'bg-cyan-500 toggle-output-active'
               }`}
               onClick={() => dispatch(resetWeights())}
               disabled={libraryButtonDisabled}
@@ -95,7 +95,7 @@ const StackBuilder: PageLayout = () => {
           <Grid setIsModalOpen={setIsModalOpen} />
           <div className='h-16 fixed w-full bottom-0 flex justify-evenly'>
             <button
-              className='toggle-output bg-teal-500'
+              className='toggle-output toggle-output-active bg-teal-500'
               onClick={handlesetLibraryOpen}
             >
               <IoArrowUndoOutline className='w-8 h-8' />
@@ -105,7 +105,7 @@ const StackBuilder: PageLayout = () => {
               className={`toggle-output ${
                 gridButtonDisabled
                   ? 'pointer-events-none cursor-default text-slate-400 bg-slate-500'
-                  : 'bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-white hover:to-white'
+                  : 'toggle-output-active bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-white hover:to-white'
               }`}
               onClick={handlesetOutputModal}
               disabled={gridButtonDisabled}
@@ -117,7 +117,7 @@ const StackBuilder: PageLayout = () => {
               className={`toggle-output ${
                 gridButtonDisabled
                   ? 'pointer-events-none cursor-default text-slate-400 bg-slate-500'
-                  : 'bg-cyan-500'
+                  : 'bg-cyan-500 toggle-output-active '
               }`}
               onClick={() => dispatch(resetGridState())}
               disabled={gridButtonDisabled}

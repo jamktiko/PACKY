@@ -189,15 +189,15 @@ header nav ul li a span {
 /* STACKBUILDER */
 
 .grid-container {
-  @apply gap-4 mt-24 z-0 w-screen;
+  @apply gap-2 mt-24 z-0 overflow-x-scroll;
 }
 
 .grid-button {
-  @apply font-bold shadow-inner-2 transition-all text-white border border-teal-600 hover:bg-white hover:text-black px-2 rounded hover:opacity-10 min-w-44 h-[4.5rem];
+  @apply font-bold shadow-inner-2 transition-all text-white border border-teal-600 hover:bg-white hover:text-black px-2 rounded hover:opacity-10 w-40 h-[4.25rem];
 }
 
 .grid-modal {
-  @apply z-10 content-center fixed grid grid-cols-2 gap-3 top-16 left-0 w-screen h-screen bg-black backdrop-blur-sm bg-opacity-50;
+  @apply z-10 md:px-24 px-4 overflow-y-scroll h-full mt-40 grid grid-cols-2 gap-3 top-16 left-0 w-screen bg-black backdrop-blur-sm bg-opacity-50;
 }
 
 .grid-modal-item {
@@ -205,7 +205,7 @@ header nav ul li a span {
 }
 
 .modal-header {
-  @apply absolute top-0 left-0 z-50 w-screen text-3xl text-center py-2;
+  @apply absolute top-20 left-0 z-50 w-screen text-3xl text-center py-2;
 }
 
 .grid-modal-item.active {
@@ -217,37 +217,22 @@ header nav ul li a span {
 }
 
 .modal-toggle {
-  @apply transition-all bg-white bg-opacity-10 hover:bg-opacity-80 py-0 px-2 rounded-md text-teal-500 font-bold text-5xl fixed top-2 right-4;
+  @apply transition-all bg-white bg-opacity-10 hover:bg-opacity-80 py-0 px-2 rounded-md text-teal-500 font-bold text-5xl fixed top-20 right-4;
 }
 
 .toggle-output {
-  @apply place-items-center shadow-inner-2 rounded-t-xl flex flex-col text-sm justify-center transition-all pointer-events-auto bg-opacity-80 border-t border-teal-300 hover:bg-white hover:text-black z-[100] font-bold w-64 h-16;
+  @apply place-items-center shadow-inner-2 rounded-t-xl flex flex-col text-sm justify-center transition-all pointer-events-auto bg-opacity-80 border-t border-teal-300  z-[100] font-bold w-64 h-16;
   bottom: 0;
+}
+
+.toggle-output-active {
+  @apply hover:bg-white hover:text-black;
 }
 
 #grid-button-4-4 {
   pointer-events: none;
   opacity: 0.5;
   background-color: teal;
-}
-
-/* GRID MEDIA QUERY */
-@media (max-width: 700px) {
-  .rotate-screen-message {
-    @apply min-h-[calc(100vh-4rem)] mt-8 w-screen text-center;
-    display: block;
-    /* RIP ei täs oo järkee mutta toimii :D */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 150;
-    transform: translate(-50%, -50%);
-    background-color: #000000;
-    padding: 70px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
 }
 
 /* LIST COMPONENT DATA */
