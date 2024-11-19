@@ -189,7 +189,7 @@ header nav ul li a span {
 /* STACKBUILDER */
 
 .grid-container {
-  @apply gap-4 mt-24 z-0 w-screen;
+  @apply gap-2 mt-24 z-0 w-screen;
 }
 
 .grid-button {
