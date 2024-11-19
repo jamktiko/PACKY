@@ -189,11 +189,11 @@ header nav ul li a span {
 /* STACKBUILDER */
 
 .grid-container {
-  @apply gap-2 mt-24 z-0 w-screen;
+  @apply gap-2 mt-24 z-0 overflow-x-scroll;
 }
 
 .grid-button {
-  @apply font-bold shadow-inner-2 transition-all text-white border border-teal-600 hover:bg-white hover:text-black px-2 rounded hover:opacity-10 min-w-44 h-[4.5rem];
+  @apply font-bold shadow-inner-2 transition-all text-white border border-teal-600 hover:bg-white hover:text-black px-2 rounded hover:opacity-10 w-40 h-[4.25rem];
 }
 
 .grid-modal {
@@ -233,25 +233,6 @@ header nav ul li a span {
   pointer-events: none;
   opacity: 0.5;
   background-color: teal;
-}
-
-/* GRID MEDIA QUERY */
-@media (max-width: 700px) {
-  .rotate-screen-message {
-    @apply min-h-[calc(100vh-4rem)] mt-8 w-screen text-center;
-    display: block;
-    /* RIP ei täs oo järkee mutta toimii :D */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 150;
-    transform: translate(-50%, -50%);
-    background-color: #000000;
-    padding: 70px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
 }
 
 /* LIST COMPONENT DATA */
