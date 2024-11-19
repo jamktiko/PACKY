@@ -52,19 +52,32 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
 
   useEffect(() => {
     if (isGridVisible) {
-      const gridButtonElement = document.getElementById('grid-button-4-4');
-      if (gridButtonElement) {
-        const rect = gridButtonElement.getBoundingClientRect();
-        window.scrollTo({
-          top: Math.abs(
-            window.scrollY + rect.top + rect.height / 2 - window.innerHeight / 2
-          ),
-          left: Math.abs(
-            rect.left + window.scrollX + rect.width / 2 - window.innerWidth / 2
-          ),
-          behavior: 'smooth',
-        });
-      }
+      const centerView = () => {
+        const gridButtonElement = document.getElementById('grid-button-4-4');
+        if (gridButtonElement) {
+          const rect = gridButtonElement.getBoundingClientRect();
+          const scrollTop =
+            window.scrollY +
+            rect.top +
+            rect.height / 2 -
+            window.innerHeight / 2;
+          const scrollLeft =
+            window.scrollX + rect.left + rect.width / 2 - window.innerWidth / 2;
+
+          // Adjust scroll to center the element
+          window.scrollTo({
+            top: Math.max(0, scrollTop), // Avoid negative scroll
+            left: Math.max(0, scrollLeft),
+            behavior: 'smooth',
+          });
+        }
+      };
+
+      // Execute the centering logic with a delay
+      const timeoutId = setTimeout(centerView, 100);
+
+      // Cleanup on unmount
+      return () => clearTimeout(timeoutId);
     }
   }, [isGridVisible]);
 
