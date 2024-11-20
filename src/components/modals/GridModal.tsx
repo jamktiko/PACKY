@@ -41,6 +41,7 @@ const GridModal = () => {
       activeCells.some((cell) => cell.id === item.name && cell.id !== 'Choose')
     ) {
       //console.log(`Ominaisuus ${item.name} on jo valittu.`);
+      //console.log(`Ominaisuus ${item.name} on jo valittu.`);
     } else {
       dispatch(
         setActiveCells([
@@ -66,9 +67,11 @@ const GridModal = () => {
   const handleEmptyCell = () => {
     if (selectedCell) {
       //console.log('selectedCell', selectedCell);
+      //console.log('selectedCell', selectedCell);
       const cellIndex = activeCells.findIndex(
         (cell) => cell.row === selectedCell.row && cell.col === selectedCell.col
       );
+      //console.log('cellIndex', cellIndex);
       //console.log('cellIndex', cellIndex);
       if (cellIndex !== -1) {
         const updatedActiveCells = [...activeCells];
