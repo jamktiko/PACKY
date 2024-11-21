@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import sessionStorage from 'redux-persist/lib/storage/session';
 import gridStateReducer from '../reducers/gridStateReducer';
 import dataReducer from '@/redux/reducers/dataReducer';
 import outputReducer from '../reducers/outputReducer';
@@ -17,30 +18,37 @@ import {
 } from 'redux-persist';
 
 //configured dynamic persistobject
-const createPersistConfig = (key: string) => ({
+// const createPersistConfig = (key: string) => ({
+//   key,
+//   storage,
+//   version: 1,
+// });
+
+//persisted session storage
+const createSessionPersistConfig = (key: string) => ({
   key,
-  storage,
+  storage: sessionStorage,
   version: 1,
 });
 
 //created persistedDataReducer which uses persistReducer function to incorporate persistobject to dataReducer
 const persistedDataReducer = persistReducer(
-  createPersistConfig('features'),
+  createSessionPersistConfig('features'),
   dataReducer
 );
 
 const persistedOutputReducer = persistReducer(
-  createPersistConfig('output'),
+  createSessionPersistConfig('output'),
   outputReducer
 );
 
 const persistedGrid = persistReducer(
-  createPersistConfig('grid'),
+  createSessionPersistConfig('grid'),
   gridStateReducer
 );
 
 const persistedLibrary = persistReducer(
-  createPersistConfig('library'),
+  createSessionPersistConfig('library'),
   libraryDataReducer
 );
 
