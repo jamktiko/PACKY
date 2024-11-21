@@ -270,7 +270,7 @@ header nav ul li a span {
 }
 
 .carousel-item {
-  @apply bg-opacity-40 border border-teal-600 rounded-xl min-w-96 h-[calc(100vh-4rem)] flex items-center justify-center content-center;
+  @apply bg-opacity-40 border border-teal-600 rounded-xl min-w-[20.35rem] h-[calc(100vh-4rem)] flex items-center justify-center content-center;
 }
 
 .slick-current {

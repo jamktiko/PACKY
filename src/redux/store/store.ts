@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 import sessionStorage from 'redux-persist/lib/storage/session';
 import gridStateReducer from '../reducers/gridStateReducer';
 import dataReducer from '@/redux/reducers/dataReducer';
@@ -16,13 +15,6 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-
-//configured dynamic persistobject
-// const createPersistConfig = (key: string) => ({
-//   key,
-//   storage,
-//   version: 1,
-// });
 
 //persisted session storage
 const createSessionPersistConfig = (key: string) => ({

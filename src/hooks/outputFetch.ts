@@ -6,6 +6,7 @@ import { Weight } from '@/utils/interface/weight';
 import { Feature } from '@/utils/interface/feature';
 import { Technology } from '@/utils/interface/technology';
 import { TechnologyGroup } from '@/utils/interface/technologyGroup';
+import { CategoryNewNames } from '@/utils/interface/categoryNewNames';
 
 export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
   // State for storing techgroups
@@ -90,7 +91,14 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
           );
         });
 
-        // Define required technology categories
+        const categoryNewNames: CategoryNewNames = {
+          frontendFramework: 'Frontend',
+          backendFramework: 'Backend',
+          cssFramework: 'CSS Framework',
+          Database: 'Database',
+          Language: 'Language',
+        };
+
         const requiredCategories = [
           'Language',
           'frontendFramework',
@@ -99,41 +107,35 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
           'Database',
         ];
 
-        // Find maximum number of technologies in any required category
         const maxTechnologies = Math.max(
           ...requiredCategories.map((cat) =>
             techsByCategory[cat] ? techsByCategory[cat].length : 0
           )
         );
 
-        // Initialize array to store technology groups
         const groups: TechnologyGroup[] = [];
 
-        // Create as many groups as the maximum number of technologies in any required category
         for (let i = 0; i < maxTechnologies; i++) {
-          // Initialize partial group object
-          const group: Partial<TechnologyGroup> = {};
-          // Add one technology from each required category
+          const group: Partial<Record<string, Technology>> = {};
+
           requiredCategories.forEach((category) => {
-            // Get technologies for current category
             const techs = techsByCategory[category] || [];
+            const newName = categoryNewNames[category] || category;
+
             if (techs.length > 0) {
-              // Use modulo to cycle through available technologies
-              group[category] = techs[i % techs.length];
+              group[newName] = techs[i % techs.length];
             } else {
-              // This is just for postProd to see if there is no relationships :-)
-              group[category] = {
+              group[newName] = {
                 technology: 'No relationship',
                 totalWeight: 0,
                 technologyCategory: [category],
               };
             }
           });
-
-          // Add remaining non-required categories
           Object.keys(techsByCategory).forEach((category) => {
             if (!requiredCategories.includes(category)) {
-              group[category] = techsByCategory[category];
+              const newName = categoryNewNames[category] || category;
+              group[newName] = techsByCategory[category][0];
             }
           });
 

@@ -98,8 +98,11 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
+      <h1 className='absolute z-50 top-20 text-center text-2xl'>
+        Tap on buttons to choose features
+      </h1>
       <div
-        className='grid-container absolute z-10 md:scale-100 scale-75 -top-28 md:-top-0'
+        className='grid-container absolute z-10 md:scale-100 scale-75 -top-10 md:top-8'
         style={{
           display: 'grid',
           gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
