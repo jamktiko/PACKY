@@ -84,7 +84,7 @@ const GridModal = () => {
     <>
       {gridmodal && (
         <>
-          <div className='modal-header'>
+          <div className='modal-header h-24 -mt-4 bg-black backdrop-blur-sm bg-opacity-50'>
             <h1>Choose feature</h1>
             <button
               className='modal-toggle'
