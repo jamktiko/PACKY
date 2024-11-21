@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import type { PageLayout } from './_app';
+import SocialShareButton from '../components/ui/socialShareButtons';
 
 const About: PageLayout = () => {
   return (
@@ -40,6 +41,7 @@ const About: PageLayout = () => {
             Component Prototyping
           </li>
         </ul>
+        <SocialShareButton />
       </div>
     </div>
   );

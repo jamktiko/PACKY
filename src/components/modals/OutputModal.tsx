@@ -81,7 +81,20 @@ const OutputModal = () => {
                 key={index}
               >
                 <h3 className="output-option-header">Option {index + 1}</h3>
-
+                {features.map(
+                  (feature, i) =>
+                    feature.item[0].name !== 'Web App' && (
+                      <div
+                        key={i}
+                        className="text-left md:ml-[20%] ml-[10%] mt-6"
+                      >
+                        <p className="pl-3 pt-1 font-bold text-xl border-t border-l border-teal-500">
+                          {feature.item[0].name}
+                          {': '} {feature.item[0].tips}
+                        </p>
+                      </div>
+                    )
+                )}
                 {Object.entries(group).map(([category, techs]) => {
                   // Check if techs is an array or single technology
                   const techArray = Array.isArray(techs) ? techs : [techs];
