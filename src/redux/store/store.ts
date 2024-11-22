@@ -20,26 +20,31 @@ import {
 const createSessionPersistConfig = (key: string) => ({
   key,
   storage: sessionStorage,
+  storage: sessionStorage,
   version: 1,
 });
 
 //created persistedDataReducer which uses persistReducer function to incorporate persistobject to dataReducer
 const persistedDataReducer = persistReducer(
   createSessionPersistConfig('features'),
+  createSessionPersistConfig('features'),
   dataReducer
 );
 
 const persistedOutputReducer = persistReducer(
+  createSessionPersistConfig('output'),
   createSessionPersistConfig('output'),
   outputReducer
 );
 
 const persistedGrid = persistReducer(
   createSessionPersistConfig('grid'),
+  createSessionPersistConfig('grid'),
   gridStateReducer
 );
 
 const persistedLibrary = persistReducer(
+  createSessionPersistConfig('library'),
   createSessionPersistConfig('library'),
   libraryDataReducer
 );
