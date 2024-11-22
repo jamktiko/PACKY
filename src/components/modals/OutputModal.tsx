@@ -38,7 +38,7 @@ const OutputModal = () => {
 
   if (isLoading) {
     return (
-      <div className="slider-container outputmodal-loader-center">
+      <div className='slider-container outputmodal-loader-center'>
         <Loader />
       </div>
     );
@@ -67,9 +67,9 @@ const OutputModal = () => {
         <motion.div
           initial={{ opacity: 0, y: 200 }}
           animate={{ opacity: 1, y: 0 }}
-          className="slider-container output-container"
+          className='slider-container output-container'
         >
-          <Slider {...settings} className="carousel">
+          <Slider {...settings} className='carousel'>
             {technologyGroups.map((group, index) => (
               <div
                 ref={(ref) => {
@@ -77,46 +77,59 @@ const OutputModal = () => {
                     refs.current[index] = ref;
                   }
                 }}
-                className="carousel-item"
+                className='carousel-item'
                 key={index}
               >
-                <h3 className="output-option-header">Option {index + 1}</h3>
+                <h3 className='output-option-header'>Option {index + 1}</h3>
+                <div className='grid grid-cols-2 md:ml-[20%] ml-[10%] mb-4'>
+                  {Object.entries(group).map(([category, techs]) => {
+                    // Check if techs is an array or single technology
+                    const techArray = Array.isArray(techs) ? techs : [techs];
+                    return (
+                      <div key={category} className='text-left mt-4 text-xs'>
+                        <p className='pl-1 pt-1 font-bold border-t border-l border-teal-500'>
+                          {category}
+                        </p>
 
-                {Object.entries(group).map(([category, techs]) => {
-                  // Check if techs is an array or single technology
-                  const techArray = Array.isArray(techs) ? techs : [techs];
-                  return (
-                    <div
-                      key={category}
-                      className="text-left md:ml-[20%] ml-[10%] mt-6"
-                    >
-                      <p className="pl-3 pt-1 font-bold text-xl border-t border-l border-teal-500">
-                        {category}
-                      </p>
-
-                      <ul>
-                        {techArray.map((tech, i) => (
-                          <li className="md:text-base text-sm" key={i}>
-                            <b>Technology:</b> {tech.technology}
-                            <p>Total Weight: {tech.totalWeight.toFixed(1)}</p>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  );
-                })}
-                <button
-                  onClick={() => {
-                    setIsExporting(true);
-                    handleExportImage(index).then(() => {
-                      setIsExporting(false);
-                    });
-                  }}
-                  disabled={isExporting}
-                  className={isExporting ? 'hidden' : 'export-button'}
-                >
-                  Export PNG
-                </button>
+                        <ul>
+                          {techArray.map((tech, i) => (
+                            <li className='ml-1' key={i}>
+                              <b>Technology:</b> {tech.technology}
+                              <p>Total Weight: {tech.totalWeight.toFixed(1)}</p>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    );
+                  })}
+                  <button
+                    onClick={() => {
+                      setIsExporting(true);
+                      handleExportImage(index).then(() => {
+                        setIsExporting(false);
+                      });
+                    }}
+                    disabled={isExporting}
+                    className={isExporting ? 'hidden' : 'export-button'}
+                  >
+                    Export PNG
+                  </button>
+                </div>
+                <div className='border-t border-l mt-6 md:ml-[20%] ml-[10%] border-cyan-500'>
+                  <h3 className='text-left ml-2 mt-1 font-bold'>Tips</h3>
+                  {features.map(
+                    (feature, i) =>
+                      feature.item[0].name !== 'Web App' &&
+                      feature.item[0].tips !== null && (
+                        <div
+                          key={i}
+                          className='text-left max-w-64 text-xs ml-2 mt-2'
+                        >
+                          <p>- {feature.item[0].tips}</p>
+                        </div>
+                      )
+                  )}
+                </div>
               </div>
             ))}
           </Slider>

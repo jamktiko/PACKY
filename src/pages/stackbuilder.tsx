@@ -15,6 +15,7 @@ import { AppDispatch, RootState } from '@/redux/store/store';
 import { motion } from 'framer-motion';
 import { resetWeights } from '@/redux/reducers/libraryDataReducer';
 import SearchBar from '@/utils/search';
+import Link from 'next/link';
 const StackBuilder: PageLayout = () => {
   const { activeCells } = useSelector(
     (state: RootState) => state.gridStateReducer
@@ -64,12 +65,15 @@ const StackBuilder: PageLayout = () => {
             animate={{ y: 0, opacity: 1 }}
             className='h-16 fixed w-full bottom-0 flex justify-evenly'
           >
-            <button className='toggle-output pointer-events-none cursor-not-allowed text-slate-400 bg-slate-500'>
+            <Link
+              href={'/'}
+              className='toggle-output bg-teal-500 toggle-output-active'
+            >
               <IoArrowUndoOutline className='w-8 h-8' />
-              Go back
-            </button>
+              Back to home
+            </Link>
             <button
-              className='toggle-output toggle-output-active  bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-white hover:to-white'
+              className='toggle-output  toggle-output-active  bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-white hover:to-white'
               onClick={handlesetGridOpen}
             >
               <IoIosArrowDropright className='w-8 h-8' />
