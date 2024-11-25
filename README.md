@@ -7,7 +7,7 @@
 - [**Severi Boesen**](https://boesen.netlify.app/)       - *Product Owner, UI/UX Designer, Software Architect* - AD1871@student.jamk.fi
 - **Petri Paasila**       - *Stage Management, Lead Developer*  -  AD1782@student.jamk.fi
 - **Matias Juvonen**      - *Testing lead, Developer*  -  AD2069@student.jamk.fi
-- **Arttu Henriksson**    - *Firebase Specialist, Developer, SCRUM Master*  -  AD1820@student.jamk.fi
+- **Arttu Henriksson**    - *Database Specialist, Developer, SCRUM Master*  -  AD1820@student.jamk.fi
 - **Aatu Mäenpää**        - *Business Manager, Developer*  -  AD1741@student.jamk.fi
 
 ## About PACKY
