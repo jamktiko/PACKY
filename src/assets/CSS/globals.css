@@ -256,9 +256,11 @@ header nav ul li a span {
 }
 
 /* OUTPUT CAROUSEL */
-
+/*outputcontainer overflow-y-auto
+mitä jos poistaa arrowit kokonaan mobiilinäkymästä?
+*/
 .output-container {
-  @apply fixed text-center content-center object-center h-[90vh] flex justify-center top-16 z-50;
+  @apply fixed text-center content-center object-center h-[90vh] flex justify-center top-16 z-50 overflow-y-auto;
 }
 
 .output-option-header {
@@ -278,7 +280,7 @@ header nav ul li a span {
 }
 
 .slick-arrow {
-  @apply min-w-64 h-64 z-[5000];
+  @apply min-w-64 h-64 z-[5000] mt-10;
 }
 
 .slick-list {
