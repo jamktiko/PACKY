@@ -22,6 +22,7 @@ const OutputModal = () => {
   );
 
   const { technologyGroups, isLoading } = useOutputFetch(features, outputModal);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const settings = {
     className: 'center',
@@ -32,6 +33,9 @@ const OutputModal = () => {
     speed: 500,
     useTransform: true,
     useCSS: true,
+    afterChange: (currentSlide: number) => {
+      setActiveIndex(currentSlide);
+    },
   };
 
   const refs = useRef<HTMLDivElement[]>([]);
@@ -109,7 +113,7 @@ const OutputModal = () => {
                         setIsExporting(false);
                       });
                     }}
-                    disabled={isExporting}
+                    disabled={isExporting || index !== activeIndex}
                     className={isExporting ? 'hidden' : 'export-button'}
                   >
                     Export PNG

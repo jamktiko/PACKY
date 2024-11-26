@@ -375,6 +375,9 @@ header nav ul li a span {
 .export-button {
   @apply rounded-xl text-sm text-white transition-all duration-300 p-2.5 hover:text-black absolute top-0 right-0 bg-gradient-to-r border-teal-800 border-2 bg-black hover:from-white hover:to-white;
 }
+.export-button:disabled {
+  @apply hover:bg-none hover:text-white;
+}
 
 .hidden {
   display: none;
