@@ -6,4 +6,5 @@ export interface SearchBarProps {
   link: string;
   weights: { weight: number }[];
   checked: boolean;
+  tips: string;
 }
