@@ -57,26 +57,26 @@ const StackBuilder: PageLayout = () => {
       </Head>
       {isLibraryOpen && (
         <>
-          <div className='mt-20 ml-2 mr-2 pb-16'>
+          <div className="mt-20 ml-2 mr-2 pb-16">
             <SearchBar />
           </div>
           <motion.div
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className='h-16 fixed w-full bottom-0 flex justify-evenly'
+            className="h-16 fixed w-full bottom-0 flex justify-evenly"
           >
             <Link
               href={'/'}
-              className='toggle-output bg-teal-500 toggle-output-active'
+              className="toggle-output bg-teal-500 toggle-output-active"
             >
-              <IoArrowUndoOutline className='w-8 h-8' />
+              <IoArrowUndoOutline className="w-8 h-8" />
               Back to home
             </Link>
             <button
-              className='toggle-output  toggle-output-active  bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-white hover:to-white'
+              className="toggle-output  toggle-output-active  bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-white hover:to-white"
               onClick={handlesetGridOpen}
             >
-              <IoIosArrowDropright className='w-8 h-8' />
+              <IoIosArrowDropright className="w-8 h-8" />
               Next
             </button>
             <button
@@ -88,7 +88,7 @@ const StackBuilder: PageLayout = () => {
               onClick={() => dispatch(resetWeights())}
               disabled={libraryButtonDisabled}
             >
-              <GrPowerReset className='w-8 h-8' />
+              <GrPowerReset className="w-8 h-8" />
               Reset
             </button>
           </motion.div>
@@ -97,12 +97,12 @@ const StackBuilder: PageLayout = () => {
       {isGridOpen && (
         <>
           <Grid setIsModalOpen={setIsModalOpen} />
-          <div className='h-16 fixed w-full bottom-0 flex justify-evenly'>
+          <div className="h-16 fixed w-full bottom-0 flex justify-evenly">
             <button
-              className='toggle-output toggle-output-active bg-teal-500'
+              className="toggle-output toggle-output-active bg-teal-500"
               onClick={handlesetLibraryOpen}
             >
-              <IoArrowUndoOutline className='w-8 h-8' />
+              <IoArrowUndoOutline className="w-8 h-8" />
               Go back
             </button>
             <button
@@ -114,7 +114,7 @@ const StackBuilder: PageLayout = () => {
               onClick={handlesetOutputModal}
               disabled={gridButtonDisabled}
             >
-              <FaCheck className='w-8 h-8' />
+              <FaCheck className="w-8 h-8" />
               Finish
             </button>
             <button
@@ -126,7 +126,7 @@ const StackBuilder: PageLayout = () => {
               onClick={() => dispatch(resetGridState())}
               disabled={gridButtonDisabled}
             >
-              <GrPowerReset className='w-8 h-8' />
+              <GrPowerReset className="w-8 h-8" />
               Reset
             </button>
           </div>
@@ -139,14 +139,14 @@ const StackBuilder: PageLayout = () => {
           <motion.div
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className='h-16 z-50 fixed w-full bottom-0 flex justify-evenly'
+            className="h-16 z-50 fixed w-full bottom-0 flex justify-evenly"
           >
             <button
               tabIndex={0}
-              className='toggle-output min-w-96 bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-white hover:to-white'
+              className="toggle-output min-w-96 bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-white hover:to-white"
               onClick={handlesetOutputModal}
             >
-              <IoArrowUndoOutline className='w-8 h-8' />
+              <IoArrowUndoOutline className="w-8 h-8" />
               Go back
             </button>
           </motion.div>

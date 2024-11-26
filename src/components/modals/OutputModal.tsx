@@ -115,7 +115,7 @@ const OutputModal = () => {
                     Export PNG
                   </button>
                 </div>
-                <div className="border-t border-l mt-6 md:ml-[20%] ml-[10%] border-cyan-500">
+                <div className="border-t border-l mt-6 md:ml-[20%] ml-[10%] border-cyan-500 ">
                   <h3 className="text-left ml-2 mt-1 font-bold">Tips</h3>
                   {features.map(
                     (feature, i) =>
