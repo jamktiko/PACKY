@@ -126,7 +126,7 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
               group[newName] = techs[i % techs.length];
             } else {
               group[newName] = {
-                technology: 'No relationship',
+                technology: 'No need for this feature!',
                 totalWeight: 0,
                 technologyCategory: [category],
               };

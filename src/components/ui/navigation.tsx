@@ -19,7 +19,7 @@ const Navigation: React.FC<NavigationProps> = ({ onLinkClick }) => {
         <li>
           <Link href="/" onClick={onLinkClick}>
             <IoHome className="text-2xl ml-2 mr-4" />
-            <span>Index</span>
+            <span>Home</span>
           </Link>
         </li>
         <li>
