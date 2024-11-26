@@ -43,7 +43,7 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
         // Making Tech objects,
         // Each object have the tech,label/category and the weight
         const featureNames = features.map((feature) => feature.item[0].name);
-        console.log(featureNames);
+
         const techObject = allTechs.flat().map((tech) => {
           const techData = techsAndWeights.find(
             (t) => t.name === tech.technology
