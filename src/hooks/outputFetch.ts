@@ -149,6 +149,7 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
           techNames,
           featureNames
         )) as Tutorial[];
+        console.log(tutorialsData);
         // Updating the state with techGroups
         setTechnologyGroups(groups);
         setTutorials(tutorialsData);
@@ -165,7 +166,7 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
     fetchTechnologies();
   }, [features, outputModal, techsAndWeights]);
 
-  return { technologyGroups, isLoading };
+  return { technologyGroups, isLoading, tutorials };
 };
 
 export default useOutputFetch;

@@ -1,4 +1,6 @@
 export interface Tutorial {
-  name: string;
-  link: string;
+  TutorialName: string;
+  TutorialLink: string;
+  Technology: string;
+  Feature: string;
 }
