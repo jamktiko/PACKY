@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getTechsForFeature } from '@/utils/neo4j/neo4j';
+import { getTutorialsForTechAndFeatures } from '@/utils/neo4j/neo4j';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store/store';
 import { Weight } from '@/utils/interface/weight';
@@ -143,6 +144,13 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
           groups.push(group as TechnologyGroup);
         }
 
+        const techNames = techObject.map((tech) => tech.technology);
+        const tutorials = await getTutorialsForTechAndFeatures(
+          techNames,
+          featureNames
+        );
+
+        console.log(tutorials.map((t) => t.TutorialLink));
         // Updating the state with techGroups
         setTechnologyGroups(groups);
       } catch (error) {

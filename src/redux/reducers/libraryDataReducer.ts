@@ -33,6 +33,7 @@ export const fetchLibrary = createAsyncThunk(
         })
       ),
       checked: libraryfeature.checked || false,
+      tips: libraryfeature.tips,
     }));
   }
 );
