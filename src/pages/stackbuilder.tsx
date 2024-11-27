@@ -14,7 +14,7 @@ import { FaCheck } from 'react-icons/fa';
 import { AppDispatch, RootState } from '@/redux/store/store';
 import { motion } from 'framer-motion';
 import { resetWeights } from '@/redux/reducers/libraryDataReducer';
-import SearchBar from '@/utils/search';
+import SearchBar from '@/utils/search/search';
 import Link from 'next/link';
 const StackBuilder: PageLayout = () => {
   const { activeCells } = useSelector(

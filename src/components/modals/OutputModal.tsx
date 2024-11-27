@@ -5,7 +5,7 @@ import { useOutputFetch } from '@/hooks/outputFetch';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
-import Loader from '../loader';
+import Loader from '../ui/loader';
 import { motion } from 'framer-motion';
 import * as htmlToImage from 'html-to-image';
 import toPng from 'html-to-image';

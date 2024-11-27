@@ -4,7 +4,7 @@ import { fetchLibrary } from '@/redux/reducers/libraryDataReducer';
 import { useSelector, useDispatch } from 'react-redux';
 import { motion } from 'framer-motion';
 import ExpandableItem from '@/components/buttons/ExpandField';
-import Loader from '@/components/loader';
+import Loader from '@/components/ui/loader';
 import { useFetchCollections } from '@/hooks/useFetchCollections';
 
 const SearchBar = () => {
