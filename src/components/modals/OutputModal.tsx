@@ -1,4 +1,4 @@
-import React, { use, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store/store';
 import { useOutputFetch } from '@/hooks/outputFetch';
@@ -8,7 +8,6 @@ import Slider from 'react-slick';
 import Loader from '../ui/loader';
 import { motion } from 'framer-motion';
 import * as htmlToImage from 'html-to-image';
-import toPng from 'html-to-image';
 
 const OutputModal = () => {
   const [isExporting, setIsExporting] = useState(false);
@@ -21,7 +20,11 @@ const OutputModal = () => {
     (state: RootState) => state.gridStateReducer.activeCells
   );
 
-  const { technologyGroups, isLoading } = useOutputFetch(features, outputModal);
+  const { technologyGroups, isLoading, tutorials } = useOutputFetch(
+    features,
+    outputModal
+  );
+
   const [activeIndex, setActiveIndex] = useState(0);
 
   const settings = {
@@ -58,7 +61,7 @@ const OutputModal = () => {
             link.href = dataUrl;
             link.download = 'output-image.png';
             link.click();
-            resolve(); // Resolve the promise when the image export is complete
+            resolve();
           })
           .catch((err: any) => console.error(err));
       }
@@ -87,14 +90,12 @@ const OutputModal = () => {
                 <h3 className="output-option-header">Option {index + 1}</h3>
                 <div className="grid grid-cols-2 md:ml-[20%] ml-[10%] mb-4">
                   {Object.entries(group).map(([category, techs]) => {
-                    // Check if techs is an array or single technology
                     const techArray = Array.isArray(techs) ? techs : [techs];
                     return (
                       <div key={category} className="text-left mt-4 text-xs">
                         <p className="pl-1 pt-1 font-bold border-t border-l border-teal-500">
                           {category}
                         </p>
-
                         <ul>
                           {techArray.map((tech, i) => (
                             <li className="ml-1" key={i}>
@@ -119,7 +120,7 @@ const OutputModal = () => {
                     Export PNG
                   </button>
                 </div>
-                <div className="border-t border-l mt-6 md:ml-[20%] ml-[10%] border-cyan-500 ">
+                <div className="border-t border-l mt-6 md:ml-[20%] ml-[10%] border-cyan-500">
                   <h3 className="text-left ml-2 mt-1 font-bold">Tips</h3>
                   {features.map(
                     (feature, i) =>
@@ -133,6 +134,33 @@ const OutputModal = () => {
                         </div>
                       )
                   )}
+                  {/* Tutorials Section */}
+                  <div className="mt-4">
+                    <h4 className="text-left ml-2 mt-4 font-bold">Tutorials</h4>
+                    <ul className="text-left ml-4">
+                      {tutorials
+                        .filter((tutorial) =>
+                          Object.values(group)
+                            .flat()
+                            .some(
+                              (tech) => tech.technology === tutorial.Technology
+                            )
+                        )
+                        .map((tutorial, idx) => (
+                          <li key={idx} className="mb-2">
+                            <a
+                              href={tutorial.TutorialLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-500 underline"
+                            >
+                              {tutorial.TutorialName}
+                            </a>{' '}
+                            - For feature: {tutorial.Feature}
+                          </li>
+                        ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
             ))}
