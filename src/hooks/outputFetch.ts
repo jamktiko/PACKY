@@ -8,7 +8,7 @@ import { Feature } from '@/utils/interface/feature';
 import { Technology } from '@/utils/interface/technology';
 import { TechnologyGroup } from '@/utils/interface/technologyGroup';
 import { CategoryNewNames } from '@/utils/interface/categoryNewNames';
-
+import { Tutorial } from '@/utils/interface/tutorial';
 export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
   // State for storing techgroups
   const [technologyGroups, setTechnologyGroups] = useState<TechnologyGroup[]>(
@@ -16,7 +16,7 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
   );
   // State for loading status
   const [isLoading, setIsLoading] = useState(true);
-
+  const [tutorials, setTutorials] = useState<Tutorial[]>([]);
   // Technology weights from redux store
   const techsAndWeights = useSelector(
     (state: RootState) => state.libraryDataReducer.value
@@ -145,14 +145,13 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
         }
 
         const techNames = techObject.map((tech) => tech.technology);
-        const tutorials = await getTutorialsForTechAndFeatures(
+        const tutorialsData = (await getTutorialsForTechAndFeatures(
           techNames,
           featureNames
-        );
-
-        console.log(tutorials.map((t) => t.TutorialLink));
+        )) as Tutorial[];
         // Updating the state with techGroups
         setTechnologyGroups(groups);
+        setTutorials(tutorialsData);
       } catch (error) {
         // If errors are occured the fetch fails
         console.error('Error fetching technologies:', error);
