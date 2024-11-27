@@ -85,3 +85,25 @@ export const getTechsForFeature = async (featureName: string | string[]) => {
     throw error; // Optionally rethrow error to handle it further up the call stack
   }
 };
+
+export const getTutorialsForTechAndFeatures = async (
+  techs: string[],
+  features: string[]
+) => {
+  const query = `
+  MATCH (tech)-[:HAS_TUTORIAL]->(tut:Tutorial)<-[:REQUIRES_TUTORIAL]-(feat:Feature)
+  WHERE ANY(label IN labels(tech) WHERE label IN ['frontendFramework', 'backendFramework', 'Database','cssFramework'])
+    AND tech.name IN $techs
+    AND feat.name IN $features
+  RETURN tech.name AS Technology, feat.name AS Feature, tut.name AS TutorialName, tut.link AS TutorialLink
+`;
+  const params = { techs, features };
+
+  try {
+    const result = await runCypherQuery(query, params);
+    return result; // This will be an empty array if no tutorials exist
+  } catch (error) {
+    console.error('Error fetching tutorials:', error);
+    throw error;
+  }
+};
