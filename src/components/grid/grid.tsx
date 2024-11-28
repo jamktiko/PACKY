@@ -98,7 +98,7 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-      <h1 className='absolute z-50 top-20 text-center text-2xl'>
+      <h1 className='absolute z-50 top-20 text-center text-2xl ml-16'>
         Tap on buttons to choose features
       </h1>
       <div
