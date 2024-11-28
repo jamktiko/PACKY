@@ -26,7 +26,7 @@ export const runCypherQuery = async (query: string, params = {}) => {
 export const getData = async () => {
   const query = `
 MATCH (n)
-WHERE n:backendFramework OR n:Database OR n:frontendFramework OR n:Language OR n:cssFramework
+WHERE n:backendFramework OR n:Database OR n:frontendFramework OR n:Language OR n:cssFramework OR n:Service
 OPTIONAL MATCH (n)-[r:SUPPORTS]->(f:Feature)
 WITH n, f.name AS featureName, SUM(r.weight) AS totalWeight
 WITH n, collect({feature: featureName, weight: totalWeight}) AS weights
@@ -49,9 +49,9 @@ RETURN DISTINCT
 // Function to retrieve all features from the neo4j
 export const getFeatures = async () => {
   const query = `
-   MATCH (t)-[r:SUPPORTS]->(f:Feature)
-  WITH f, collect({technology: t.name, weight: r.weight}) AS techRelations
-   RETURN f.name AS name, f.description AS desc,f.tip AS tips ,techRelations
+MATCH (t)-[r:SUPPORTS]->(f:Feature)
+WITH f, collect({technology: t.name, weight: r.weight}) AS techRelations
+RETURN f.name AS name, f.description AS desc,f.tip AS tips ,techRelations
   `;
 
   try {
@@ -67,7 +67,7 @@ export const getTechsForFeature = async (featureName: string | string[]) => {
   const query = `
  MATCH (t)-[r:SUPPORTS]->(f:Feature)
   WHERE f.name IN $featureNames
-  AND any(label IN labels(t) WHERE label IN ['frontendFramework', 'backendFramework','cssFramework' ,'Database', 'Language'])
+  AND any(label IN labels(t) WHERE label IN ['frontendFramework', 'backendFramework','cssFramework' ,'Database', 'Language','Service'])
   RETURN labels(t) AS technologyCategory, t.name AS technology, f.name AS featureName, r.weight AS weight
   ORDER BY weight DESC
 `;
@@ -92,7 +92,7 @@ export const getTutorialsForTechAndFeatures = async (
 ) => {
   const query = `
   MATCH (tech)-[:HAS_TUTORIAL]->(tut:Tutorial)<-[:REQUIRES_TUTORIAL]-(feat:Feature)
-  WHERE ANY(label IN labels(tech) WHERE label IN ['frontendFramework', 'backendFramework', 'Database','cssFramework'])
+  WHERE ANY(label IN labels(tech) WHERE label IN ['frontendFramework', 'backendFramework', 'Database','cssFramework','Service'])
     AND tech.name IN $techs
     AND feat.name IN $features
   RETURN tech.name AS Technology, feat.name AS Feature, tut.name AS TutorialName, tut.link AS TutorialLink
