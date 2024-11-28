@@ -1,11 +1,15 @@
 import type { PageLayout } from './_app';
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
 import { InfiniteScroller } from '@/components/ui/infinitehorizontalscroller';
 import { motion } from 'framer-motion';
+import TutorialModal from '@/components/modals/TutorialModal';
 
 const Page: PageLayout = () => {
+  const [isTutorialModalOpen, setIsTutorialModalOpen] = useState(false);
+
   // The greeter works as page title and
   // greets the user based on time of day
   function greeter() {
@@ -104,8 +108,25 @@ const Page: PageLayout = () => {
             />
             <span>Learn more</span>
           </Link>
+          <button
+            className="indexcard indexcard-glow1"
+            onClick={() => setIsTutorialModalOpen(true)}
+          >
+            <Image
+              src={''}
+              className="indexcard-image"
+              width={1000}
+              height={1000}
+              alt={'Tutorial'}
+            />
+            <span>Tutorial</span>
+          </button>
         </div>
       </div>
+      {/* Render the TutorialModal if isModalOpen is true */}
+      {isTutorialModalOpen && (
+        <TutorialModal onClose={() => setIsTutorialModalOpen(false)} />
+      )}
     </motion.div>
   );
 };
