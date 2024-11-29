@@ -31,6 +31,10 @@ const GridButton: React.FC<GridButtonProps> = ({
   // Render button component with appropriate styling and behaviour
   const dispatch = useDispatch();
 
+  const isGridModalOpen = useSelector(
+    (state: RootState) => state.gridModalReducer.value
+  );
+
   let selectedCell = useSelector(
     (state: RootState) => state.gridStateReducer.selectedCell
   );
@@ -153,6 +157,7 @@ const GridButton: React.FC<GridButtonProps> = ({
       className={`${color} ${selectState} grid-button `} // Dynamically set styling
       style={{ opacity }} // Set the button's opacity dynamically based on the 'opacity' prop
       tabIndex={isActive || isChoosable ? 0 : -1}
+      disabled={isGridModalOpen}
       onClick={() => {
         handleOpenModal(); // Open the modal on button click
         handleButtonClick(); // Handle button click logic
