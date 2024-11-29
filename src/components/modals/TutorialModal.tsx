@@ -67,19 +67,19 @@ const TutorialModal = ({ onClose }: { onClose: () => void }) => {
                 <h2>Libary Feature</h2>
                 <p>Explanation about Feature Library</p>
                 <Image
-                  src={'/images/tutorial/library1.png'}
+                  src={'/images/tutorial/library1.webp'}
                   alt={'packy logo'}
                   width={200}
                   height={200}
                 />
                 <Image
-                  src={'/images/tutorial/library2.png'}
+                  src={'/images/tutorial/library2.webp'}
                   alt={'packy logo'}
                   width={200}
                   height={200}
                 />
                 <Image
-                  src={'/images/tutorial/library3.png'}
+                  src={'/images/tutorial/library3.webp'}
                   alt={'packy logo'}
                   width={200}
                   height={200}
@@ -92,25 +92,25 @@ const TutorialModal = ({ onClose }: { onClose: () => void }) => {
                   jotain
                 </p>
                 <Image
-                  src={'/images/tutorial/stackbuilder1.png'}
+                  src={'/images/tutorial/grid1.webp'}
                   alt={'packy logo'}
                   width={200}
                   height={200}
                 />
                 <Image
-                  src={'/images/tutorial/stackbuilder2.png'}
+                  src={'/images/tutorial/grid2.webp'}
                   alt={'packy logo'}
                   width={200}
                   height={200}
                 />
                 <Image
-                  src={'/images/tutorial/stackbuilder3.png'}
+                  src={'/images/tutorial/gridModal1.webp'}
                   alt={'packy logo'}
                   width={200}
                   height={200}
                 />
                 <Image
-                  src={'/images/tutorial/stackbuilder4.png'}
+                  src={'/images/tutorial/gridModal2.webp'}
                   alt={'packy logo'}
                   width={200}
                   height={200}
@@ -122,13 +122,13 @@ const TutorialModal = ({ onClose }: { onClose: () => void }) => {
                   Explanation about Feature Output ja valehdellaan tähä jotain
                 </p>
                 <Image
-                  src={'/images/tutorial/outputmodal1.png'}
+                  src={'/images/tutorial/outputmodal1.webp'}
                   alt={'packy logo'}
                   width={200}
                   height={200}
                 />
                 <Image
-                  src={'/images/tutorial/outputmodal2.png'}
+                  src={'/images/tutorial/outputmodal2.webp'}
                   alt={'packy logo'}
                   width={200}
                   height={200}
