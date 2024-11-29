@@ -112,7 +112,7 @@ const StackBuilder: PageLayout = () => {
           <Grid setIsModalOpen={setIsModalOpen} />
           <div className="h-16 fixed w-full bottom-0 flex justify-evenly">
             <button
-              disabled={isModalOpen}
+              disabled={isModalOpen || isOutputModalOpen}
               className="toggle-output toggle-output-active bg-teal-500"
               onClick={handlesetLibraryOpen}
             >
@@ -126,7 +126,7 @@ const StackBuilder: PageLayout = () => {
                   : 'toggle-output-active bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-white hover:to-white'
               }`}
               onClick={handlesetOutputModal}
-              disabled={isModalOpen || gridButtonDisabled}
+              disabled={isModalOpen || gridButtonDisabled || isOutputModalOpen}
             >
               <FaCheck className="w-8 h-8" />
               Finish
@@ -138,7 +138,7 @@ const StackBuilder: PageLayout = () => {
                   : 'bg-cyan-500 toggle-output-active '
               }`}
               onClick={() => dispatch(resetGridState())}
-              disabled={isModalOpen || gridButtonDisabled}
+              disabled={isModalOpen || gridButtonDisabled || isOutputModalOpen}
             >
               <GrPowerReset className="w-8 h-8" />
               Reset
