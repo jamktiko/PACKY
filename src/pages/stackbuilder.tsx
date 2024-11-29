@@ -2,7 +2,7 @@ import type { PageLayout } from './_app';
 import Grid from '../components/grid/grid';
 import GridModal from '@/components/modals/GridModal';
 import OutputModal from '@/components/modals/OutputModal';
-import { useCallback, useEffect, useState } from 'react';
+import { use, useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
 import { toggleOutputModal } from '@/redux/reducers/outputReducer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,9 +24,15 @@ const StackBuilder: PageLayout = () => {
   const libraryData = useSelector(
     (state: RootState) => state.libraryDataReducer
   );
+
+  const gridModalState = useSelector(
+    (state: RootState) => state.gridModalReducer.value
+  );
+
   const dispatch = useDispatch<AppDispatch>();
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // set ismodalopen to use gridmodalstate to get the value from the gridmodalstate
+  const [isModalOpen, setIsModalOpen] = useState(gridModalState);
   const [isLibraryOpen, setIsLibraryOpen] = useState(true);
   const [isGridOpen, setIsGridOpen] = useState(false);
   const [isOutputModalOpen, setIsOutputModalOpen] = useState(false);
@@ -50,6 +56,11 @@ const StackBuilder: PageLayout = () => {
     setIsLibraryOpen(false);
     setIsGridOpen(!isGridOpen);
   };
+
+  //created useeffect to set ismodalopen to the value of gridmodalstate
+  useEffect(() => {
+    setIsModalOpen(gridModalState);
+  }, [gridModalState]);
 
   const [isTutorialModalOpen, setIsTutorialModalOpen] = useState(false);
   return (
@@ -115,7 +126,7 @@ const StackBuilder: PageLayout = () => {
                   : 'toggle-output-active bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-white hover:to-white'
               }`}
               onClick={handlesetOutputModal}
-              disabled={gridButtonDisabled}
+              disabled={isModalOpen}
             >
               <FaCheck className="w-8 h-8" />
               Finish
@@ -127,7 +138,7 @@ const StackBuilder: PageLayout = () => {
                   : 'bg-cyan-500 toggle-output-active '
               }`}
               onClick={() => dispatch(resetGridState())}
-              disabled={gridButtonDisabled}
+              disabled={isModalOpen}
             >
               <GrPowerReset className="w-8 h-8" />
               Reset
