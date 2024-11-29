@@ -126,7 +126,7 @@ const StackBuilder: PageLayout = () => {
                   : 'toggle-output-active bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-white hover:to-white'
               }`}
               onClick={handlesetOutputModal}
-              disabled={isModalOpen}
+              disabled={isModalOpen || gridButtonDisabled}
             >
               <FaCheck className="w-8 h-8" />
               Finish
@@ -138,7 +138,7 @@ const StackBuilder: PageLayout = () => {
                   : 'bg-cyan-500 toggle-output-active '
               }`}
               onClick={() => dispatch(resetGridState())}
-              disabled={isModalOpen}
+              disabled={isModalOpen || gridButtonDisabled}
             >
               <GrPowerReset className="w-8 h-8" />
               Reset
