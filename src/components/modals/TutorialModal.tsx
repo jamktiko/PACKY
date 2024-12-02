@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { use, useRef, useState } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -19,24 +20,11 @@ const TutorialModal = ({ onClose }: { onClose: () => void }) => {
     },
   };
   const [isOpen, setIsOpen] = useState(true);
-
+  const imageSize: number = 300;
   return (
     <>
       {isOpen && (
-        <div
-          style={{
-            position: 'fixed',
-            top: '0',
-            left: '0',
-            width: '100%',
-            height: '100%',
-            backgroundColor: 'rgba(0, 0, 0, 0.6)',
-            zIndex: 1000,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
+        <div className='fixed z-50 top-16 w-screen h-screen bg-black backdrop-blur bg-opacity-80'>
           <button
             onClick={onClose}
             style={{
@@ -49,96 +37,106 @@ const TutorialModal = ({ onClose }: { onClose: () => void }) => {
               cursor: 'pointer',
             }}
           >
-            Close
+            <motion.div
+              initial={{ x: 100 }}
+              animate={{ x: 0 }}
+              className='rounded border border-teal-500 p-3 m-2 bg-teal-800'
+            >
+              Close tutorial
+            </motion.div>
           </button>
           <motion.div
+            className='text-sm sm:text-base mt-20 sm:mt-3 flex flex-col text-left overflow-y-scroll'
+            style={{
+              height: 'calc(100vh - 100px)', // adjust the height to your needs
+              overflowY: 'auto',
+            }}
             initial={{ opacity: 0, y: 200 }}
             animate={{ opacity: 1, y: 0 }}
-            className="slider-container output-container"
           >
-            {/* Slider Content */}
-            <Slider {...customStyles} className="carousel">
-              <div>
-                <h2>Welcome to PACKY</h2>
-                <p>Firts time using PACKY?</p>
-                <p>Tähän jotain paskaa</p>
-              </div>
-              <div>
-                <h2>Libary Feature</h2>
-                <p>Explanation about Feature Library</p>
-                <Image
-                  src={'/images/tutorial/library1.webp'}
-                  alt={'packy logo'}
-                  width={200}
-                  height={200}
-                />
-                <Image
-                  src={'/images/tutorial/library2.webp'}
-                  alt={'packy logo'}
-                  width={200}
-                  height={200}
-                />
-                <Image
-                  src={'/images/tutorial/library3.webp'}
-                  alt={'packy logo'}
-                  width={200}
-                  height={200}
-                />
-              </div>
-              <div>
-                <h2>Stackbuilder Feature</h2>
+            {/* Rivi 1 */}
+            <div className='flex lg:flex-row flex-col justify-evenly'>
+              <div className='bg-black border border-teal-500 rounded m-1 p-2 min-w-96 min-h-96 w-full'>
+                <b>Overview</b>
                 <p>
-                  Explanation about Feature Stackbuilder ja valehdellaan tähä
-                  jotain
+                  PACKY StackBuilder has 3: Tech library, Feature grid and
+                  Output slideshow.
                 </p>
-                <Image
-                  src={'/images/tutorial/grid1.webp'}
-                  alt={'packy logo'}
-                  width={200}
-                  height={200}
-                />
-                <Image
-                  src={'/images/tutorial/grid2.webp'}
-                  alt={'packy logo'}
-                  width={200}
-                  height={200}
-                />
-                <Image
-                  src={'/images/tutorial/gridModal1.webp'}
-                  alt={'packy logo'}
-                  width={200}
-                  height={200}
-                />
-                <Image
-                  src={'/images/tutorial/gridModal2.webp'}
-                  alt={'packy logo'}
-                  width={200}
-                  height={200}
-                />
-              </div>
-              <div>
-                <h2>Output Feature</h2>
                 <p>
-                  Explanation about Feature Output ja valehdellaan tähä jotain
+                  You can first choose preferred technologies, which will weigh
+                  in on the calculations PACKY does.
                 </p>
+                <p>
+                  The Library also showcases all technologies currently
+                  supported by PACKY. It sources 4 or 5 globally famous
+                  technologies.
+                </p>
+              </div>
+              <div className='border border-teal-500 rounded m-1 p-2 min-w-96 min-h-96 w-full flex flex-row justify-evenly'>
+                <div>
+                  {' '}
+                  <b>Tech Library</b>
+                  <p>Click on technologies to read more about them.</p>
+                  <p>
+                    In order to add a technology to your preferences, click on
+                    the checkbox on them.
+                  </p>
+                  <p>
+                    You can choose multiple similar technologies - the app may
+                    still suggest other technologies after the preferred ones.
+                  </p>
+                </div>
                 <Image
-                  src={'/images/tutorial/outputmodal1.webp'}
-                  alt={'packy logo'}
-                  width={200}
-                  height={200}
-                />
-                <Image
-                  src={'/images/tutorial/outputmodal2.webp'}
-                  alt={'packy logo'}
-                  width={200}
-                  height={200}
+                  className=' -z-10 sm:max-w-full max-w-52 bg-black opacity-50'
+                  src={'/images/tutorial/library.png'}
+                  alt='library'
+                  width={imageSize}
+                  height={imageSize}
                 />
               </div>
-              <div>
-                <p>You’re now ready to explore our app!</p>
-                <p>Finish button tähän</p>
+            </div>
+            {/* Rivi 2 */}
+            <div className=' flex lg:flex-row flex-col justify-evenly'>
+              <div className=' border border-teal-500 rounded m-1 p-2 min-w-96 min-h-96 w-full flex flex-row justify-evenly'>
+                <div>
+                  <b>Feature Grid</b>
+                  <p>
+                    Click on a grid cell to choose a desired feature. The grid
+                    expands as you choose - there are a maximum of 81 cells, so
+                    do not worry about running out of space.
+                  </p>
+                </div>
+
+                <Image
+                  className=' -z-10 sm:max-w-full max-w-52 bg-black opacity-50'
+                  src={'/images/tutorial/grid.png'}
+                  alt='grid'
+                  width={imageSize}
+                  height={imageSize}
+                />
               </div>
-            </Slider>
+              <div className='border border-teal-500 rounded m-1 p-2 min-w-96 min-h-96 w-full flex flex-row justify-evenly'>
+                <div>
+                  <b>Output</b>
+                  <p>
+                    After you've chosen your preferred technologies and
+                    features, the app compiles all data and forms to a list of
+                    suggested tech stacks.
+                  </p>
+                  <p>
+                    The amount of suggestions is based on the amount of
+                    technologies chosen.
+                  </p>
+                </div>
+                <Image
+                  className='-z-10 sm:max-w-full max-w-52 bg-black opacity-50'
+                  src={'/images/tutorial/output.png'}
+                  alt='output'
+                  width={imageSize}
+                  height={imageSize}
+                />
+              </div>
+            </div>
           </motion.div>
         </div>
       )}
