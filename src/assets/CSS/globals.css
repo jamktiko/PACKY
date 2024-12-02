@@ -33,7 +33,7 @@ element {
 /* HEADER AND NAVIGATION */
 
 header {
-  @apply backdrop-blur top-0 fixed flex flex-row bg-opacity-80 shadow-inner-2 bg-slate-950 h-16 border-b w-full border-teal-950 text-teal-500 z-50;
+  @apply backdrop-blur top-0 fixed flex flex-row bg-opacity-80 shadow-inner-2 bg-slate-950 h-16 border-b w-full border-teal-950 text-teal-500 z-[5000];
   -webkit-box-shadow: 10px 15px 22px 5px rgba(2, 6, 23, 1);
   -moz-box-shadow: 10px 15px 22px 5px rgba(2, 6, 23, 1);
   box-shadow: 10px 15px 22px 5px rgba(2, 6, 23, 1);
@@ -57,7 +57,7 @@ header button {
 }
 
 header nav {
-  @apply fixed border-l border-teal-900 shadow-inner-2 sm:w-[16.7rem] px-4 w-full z-50 bg-opacity-40 border-inherit border-r backdrop-blur-sm right-0 top-16 bg-slate-950 rounded-br-lg h-[calc(100vh-4rem)] overflow-hidden;
+  @apply fixed border-l border-teal-900 shadow-inner-2 sm:w-[16.7rem] z-50 px-4 w-full bg-opacity-40 border-inherit border-r backdrop-blur-sm right-0 top-16 bg-slate-950 rounded-br-lg h-[calc(100vh-4rem)] overflow-hidden;
 }
 
 header nav ul {
@@ -383,4 +383,14 @@ mitä jos poistaa arrowit kokonaan mobiilinäkymästä?
 
 .hidden {
   display: none;
+}
+
+.tutorialslider {
+  @apply bg-black min-h-screen grid-cols-2 items-center;
+}
+
+@media screen and (min-width: 800px) {
+  .tutorialslider {
+    display: grid !important;
+  }
 }
