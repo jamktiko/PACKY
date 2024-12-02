@@ -152,6 +152,7 @@ const OutputModal = () => {
                               href={tutorial.TutorialLink}
                               target="_blank"
                               rel="noopener noreferrer"
+                              tabIndex={index === activeIndex ? 0 : -1}
                               className="text-blue-500 underline"
                             >
                               {tutorial.TutorialName}
