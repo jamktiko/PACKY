@@ -46,8 +46,6 @@ const StackBuilder: PageLayout = () => {
   );
   const gridButtonDisabled = activeCells.length <= 1;
 
-  // ongelma: jos menee indexiin, kun outputmodal on auki ja sen jälkeen avaa stackbuilderin,
-  //outputmodal aukeaa
   const handlesetOutputModal = () => {
     if (outputModalState === false) {
       setIsOutputModalOpen(!isOutputModalOpen);
