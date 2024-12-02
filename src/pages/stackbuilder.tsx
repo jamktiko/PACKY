@@ -29,22 +29,33 @@ const StackBuilder: PageLayout = () => {
     (state: RootState) => state.gridModalReducer.value
   );
 
+  const outputModalState = useSelector(
+    (state: RootState) => state.outputReducer.value
+  );
+
   const dispatch = useDispatch<AppDispatch>();
 
   // set ismodalopen to use gridmodalstate to get the value from the gridmodalstate
   const [isModalOpen, setIsModalOpen] = useState(gridModalState);
   const [isLibraryOpen, setIsLibraryOpen] = useState(true);
   const [isGridOpen, setIsGridOpen] = useState(false);
-  const [isOutputModalOpen, setIsOutputModalOpen] = useState(false);
+  const [isOutputModalOpen, setIsOutputModalOpen] = useState(outputModalState);
 
   const libraryButtonDisabled = libraryData.value.every(
     (item) => !item.checked
   );
   const gridButtonDisabled = activeCells.length <= 1;
 
+  // ongelma: jos menee indexiin, kun outputmodal on auki ja sen jälkeen avaa stackbuilderin,
+  //outputmodal aukeaa
   const handlesetOutputModal = () => {
-    setIsOutputModalOpen(!isOutputModalOpen);
-    dispatch(toggleOutputModal(true));
+    if (outputModalState === false) {
+      setIsOutputModalOpen(!isOutputModalOpen);
+      dispatch(toggleOutputModal(true));
+    } else {
+      setIsOutputModalOpen(!isOutputModalOpen);
+      dispatch(toggleOutputModal(false));
+    }
   };
 
   const handlesetLibraryOpen = () => {
@@ -58,9 +69,15 @@ const StackBuilder: PageLayout = () => {
   };
 
   //created useeffect to set ismodalopen to the value of gridmodalstate
+  // and made it listen when the user leaves the stackbuilder route
+  //to close the outputmodal
   useEffect(() => {
     setIsModalOpen(gridModalState);
-  }, [gridModalState]);
+
+    return () => {
+      dispatch(toggleOutputModal(false));
+    };
+  }, [gridModalState, dispatch]);
 
   const [isTutorialModalOpen, setIsTutorialModalOpen] = useState(false);
   return (
