@@ -91,6 +91,15 @@ const OutputModal = () => {
                 <div className="grid grid-cols-2 md:ml-[20%] ml-[10%] mb-4">
                   {Object.entries(group).map(([category, techs]) => {
                     const techArray = Array.isArray(techs) ? techs : [techs];
+                    // If firebase is not selected it does not recommend firebase
+                    // or or tutorials related to Firebase! :-)
+                    if (category === 'Service') {
+                      const filteredTechs = techArray.filter(
+                        (tech) => tech.totalWeight > 0.2
+                      );
+                      // Skip rendering this category if no techs match the filter
+                      if (filteredTechs.length === 0) return null;
+                    }
                     return (
                       <div key={category} className="text-left mt-4 text-xs">
                         <p className="pl-1 pt-1 font-bold border-t border-l border-teal-500">
