@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/redux/store/store';
 import { toggleCheckbox } from '@/redux/reducers/libraryDataReducer';
 
+const isTutorialTemp = false; //väliaikainen poistetaan kuhan reduceri lähtee toimii
 const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
@@ -44,16 +45,22 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
               height={50}
               className="rounded-lg max-w-16 max-h-16"
               style={{ objectFit: 'cover' }}
+              aria-disabled={isTutorialTemp}
             />
           )}
           <strong className="expand-header">
             {item.link && (
-              <Link href={item.link} target="_blank" className="expand-text">
+              <Link
+                href={item.link}
+                target="_blank"
+                className="expand-text"
+                tabIndex={isTutorialTemp ? -1 : 0}
+              >
                 {item.name}
               </Link>
             )}
           </strong>
-          <button className="text-white font-bold">
+          <button className="text-white font-bold" disabled={isTutorialTemp}>
             <FaAngleUp
               className={`float-right transition-transform ml-2 ${
                 isExpanded ? 'rotate-180' : ''
@@ -83,6 +90,7 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
       <input
         type="checkbox"
         tabIndex={0}
+        disabled={isTutorialTemp}
         className="mt-[1.5rem] md:mt-[2rem] -ml-16 checkbox-input"
         checked={isChecked}
         onChange={() => handleCheckboxClick(item.name)}

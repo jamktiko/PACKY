@@ -33,6 +33,11 @@ const StackBuilder: PageLayout = () => {
     (state: RootState) => state.outputReducer.value
   );
 
+  // sitten kun on toi tutorialmodalin reduceri valmis voi kayttaa
+  // const tutorialModalState = useSelector(
+  //   (state: RootState) => state.tutorialReducer.value
+  // );
+
   const dispatch = useDispatch<AppDispatch>();
 
   // set ismodalopen to use gridmodalstate to get the value from the gridmodalstate

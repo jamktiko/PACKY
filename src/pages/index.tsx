@@ -7,6 +7,8 @@ import { InfiniteScroller } from '@/components/ui/infinitehorizontalscroller';
 import { motion } from 'framer-motion';
 import TutorialModal from '@/components/modals/TutorialModal';
 
+const isTutorialTemp = false; //väliaikainen poistetaan kuhan reduceri lähtee toimii
+
 const Page: PageLayout = () => {
   const [isTutorialModalOpen, setIsTutorialModalOpen] = useState(false);
 
@@ -88,7 +90,11 @@ const Page: PageLayout = () => {
       </h2>
       <div className="w-full flex  mb-16">
         <div className=" flex xl:flex-row flex-col gap-4 text-center mb-16">
-          <Link href={'/stackbuilder'} className="indexcard indexcard-glow2">
+          <Link
+            href={'/stackbuilder'}
+            className="indexcard indexcard-glow2"
+            tabIndex={isTutorialTemp ? -1 : 0}
+          >
             <Image
               src={'/indexcard-stackbuilder.webp'}
               className="indexcard-image"
@@ -98,7 +104,11 @@ const Page: PageLayout = () => {
             />
             <span>PACKY StackBuilder</span>
           </Link>
-          <Link href={'/about'} className="indexcard indexcard-glow1">
+          <Link
+            href={'/about'}
+            className="indexcard indexcard-glow1"
+            tabIndex={isTutorialTemp ? -1 : 0}
+          >
             <Image
               src={'/indexcard-about.webp'}
               className="indexcard-image"
@@ -111,6 +121,7 @@ const Page: PageLayout = () => {
           <button
             className="indexcard indexcard-glow3"
             onClick={() => setIsTutorialModalOpen(true)}
+            tabIndex={isTutorialTemp ? -1 : 0}
           >
             <Image
               src={'/tutoriaalinappula.webp'}

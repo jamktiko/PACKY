@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal } from '../../redux/reducers/gridModalReducer';
 import { RootState } from '@/redux/store/store';
 
+const isTutorialTemp = false; //väliaikainen poistetaan kuhan reduceri lähtee toimii
+
 // Define the interface for the props that the GridButton component will receive
 // What values they can take (number, boolean, string etc.)
 interface GridButtonProps {
@@ -161,7 +163,7 @@ const GridButton: React.FC<GridButtonProps> = ({
       className={`${color} ${selectState} grid-button `} // Dynamically set styling
       style={{ opacity }} // Set the button's opacity dynamically based on the 'opacity' prop
       tabIndex={isActive || isChoosable ? 0 : -1}
-      disabled={isGridModalOpen || isOutputModalOpen}
+      disabled={isGridModalOpen || isOutputModalOpen || isTutorialTemp}
       onClick={() => {
         handleOpenModal(); // Open the modal on button click
         handleButtonClick(); // Handle button click logic
