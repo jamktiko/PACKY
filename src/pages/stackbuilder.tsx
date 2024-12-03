@@ -2,7 +2,7 @@ import type { PageLayout } from './_app';
 import Grid from '../components/grid/grid';
 import GridModal from '@/components/modals/GridModal';
 import OutputModal from '@/components/modals/OutputModal';
-import { use, useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { toggleOutputModal } from '@/redux/reducers/outputReducer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,6 +17,7 @@ import { resetWeights } from '@/redux/reducers/libraryDataReducer';
 import SearchBar from '@/components/search';
 import Link from 'next/link';
 import TutorialModal from '@/components/modals/TutorialModal';
+import { toggleTutorial } from '@/redux/reducers/tutorialReducer';
 const StackBuilder: PageLayout = () => {
   const { activeCells } = useSelector(
     (state: RootState) => state.gridStateReducer
@@ -33,6 +34,10 @@ const StackBuilder: PageLayout = () => {
     (state: RootState) => state.outputReducer.value
   );
 
+  const tutorialModalState = useSelector(
+    (state: RootState) => state.tutorialReducer.isOpen
+  );
+
   const dispatch = useDispatch<AppDispatch>();
 
   // set ismodalopen to use gridmodalstate to get the value from the gridmodalstate
@@ -40,6 +45,8 @@ const StackBuilder: PageLayout = () => {
   const [isLibraryOpen, setIsLibraryOpen] = useState(true);
   const [isGridOpen, setIsGridOpen] = useState(false);
   const [isOutputModalOpen, setIsOutputModalOpen] = useState(outputModalState);
+  const [isTutorialModalOpen, setIsTutorialModalOpen] =
+    useState(tutorialModalState);
 
   const libraryButtonDisabled = libraryData.value.every(
     (item) => !item.checked
@@ -66,6 +73,11 @@ const StackBuilder: PageLayout = () => {
     setIsGridOpen(!isGridOpen);
   };
 
+  const handlesetTutorialOpen = () => {
+    dispatch(toggleTutorial(!isTutorialModalOpen));
+    setIsTutorialModalOpen(!isTutorialModalOpen);
+  };
+
   //created useeffect to set ismodalopen to the value of gridmodalstate
   // and made it listen when the user leaves the stackbuilder route
   //to close the outputmodal
@@ -77,7 +89,6 @@ const StackBuilder: PageLayout = () => {
     };
   }, [gridModalState, dispatch]);
 
-  const [isTutorialModalOpen, setIsTutorialModalOpen] = useState(false);
   return (
     <>
       <Head>
@@ -183,7 +194,7 @@ const StackBuilder: PageLayout = () => {
       )}
       <button
         className="bg-black border-teal-500 border z-40 fixed top-0 -left-16 h-32 w-32 -rotate-45"
-        onClick={() => setIsTutorialModalOpen(true)}
+        onClick={handlesetTutorialOpen}
       >
         <span className="absolute -bottom-0 text-lg right-10">Guide</span>
       </button>
