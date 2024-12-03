@@ -95,7 +95,7 @@ const OutputModal = () => {
                     // or or tutorials related to Firebase! :-)
                     if (category === 'Service') {
                       const filteredTechs = techArray.filter(
-                        (tech) => tech.totalWeight > 0.2
+                        (tech) => tech.totalWeight > 1
                       );
                       // Skip rendering this category if no techs match the filter
                       if (filteredTechs.length === 0) return null;
@@ -148,11 +148,21 @@ const OutputModal = () => {
                     <h4 className="text-left ml-2 mt-4 font-bold">Tutorials</h4>
                     <ul className="text-left ml-4">
                       {tutorials
+                        .filter(
+                          (tutorial, index, self) =>
+                            self.findIndex(
+                              (t) => t.TutorialLink === tutorial.TutorialLink
+                            ) === index
+                        )
                         .filter((tutorial) =>
                           Object.values(group)
                             .flat()
                             .some(
-                              (tech) => tech.technology === tutorial.Technology
+                              (tech) =>
+                                tech.technology === tutorial.Technology &&
+                                (tech.technology !== 'Firebase' ||
+                                  (tech.technology === 'Firebase' &&
+                                    tech.totalWeight > 1))
                             )
                         )
                         .map((tutorial, idx) => (

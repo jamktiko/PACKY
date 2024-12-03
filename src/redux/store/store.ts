@@ -6,6 +6,7 @@ import dataReducer from '@/redux/reducers/dataReducer';
 import outputReducer from '../reducers/outputReducer';
 import gridModalReducer from '../reducers/gridModalReducer';
 import libraryDataReducer from '../reducers/libraryDataReducer';
+import tutorialReducer from '../reducers/tutorialReducer';
 
 import {
   FLUSH,
@@ -44,6 +45,11 @@ const persistedLibrary = persistReducer(
   libraryDataReducer
 );
 
+const persistedTutorial = persistReducer(
+  createSessionPersistConfig('tutorial'),
+  tutorialReducer
+);
+
 // Store is created to manage the state of Packy
 export const store = configureStore({
   reducer: {
@@ -52,6 +58,7 @@ export const store = configureStore({
     dataReducer: persistedDataReducer,
     outputReducer: persistedOutputReducer,
     libraryDataReducer: persistedLibrary,
+    tutorialReducer: persistedTutorial,
   }, //middleware is configurated to the redux store to ignore certain actions when performing
   //serializable checks
   middleware: (getDefaultMiddleware) =>

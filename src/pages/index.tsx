@@ -6,11 +6,25 @@ import Head from 'next/head';
 import { InfiniteScroller } from '@/components/ui/infinitehorizontalscroller';
 import { motion } from 'framer-motion';
 import TutorialModal from '@/components/modals/TutorialModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/redux/store/store';
+import { toggleTutorial } from '@/redux/reducers/tutorialReducer';
 
 const isTutorialTemp = false; //väliaikainen poistetaan kuhan reduceri lähtee toimii
 
 const Page: PageLayout = () => {
-  const [isTutorialModalOpen, setIsTutorialModalOpen] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const tutorialModalState = useSelector(
+    (state: RootState) => state.tutorialReducer.isOpen
+  );
+
+  const [isTutorialModalOpen, setIsTutorialModalOpen] =
+    useState(tutorialModalState);
+
+  const toggleTutorialModal = () => {
+    dispatch(toggleTutorial(!isTutorialModalOpen));
+    setIsTutorialModalOpen(!isTutorialModalOpen);
+  };
 
   // The greeter works as page title and
   // greets the user based on time of day
@@ -120,7 +134,7 @@ const Page: PageLayout = () => {
           </Link>
           <button
             className="indexcard indexcard-glow3"
-            onClick={() => setIsTutorialModalOpen(true)}
+            onClick={toggleTutorialModal}
             tabIndex={isTutorialTemp ? -1 : 0}
           >
             <Image
@@ -135,9 +149,7 @@ const Page: PageLayout = () => {
         </div>
       </div>
       {/* Render the TutorialModal if isModalOpen is true */}
-      {isTutorialModalOpen && (
-        <TutorialModal onClose={() => setIsTutorialModalOpen(false)} />
-      )}
+      {isTutorialModalOpen && <TutorialModal onClose={toggleTutorialModal} />}
     </motion.div>
   );
 };
