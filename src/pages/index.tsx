@@ -107,7 +107,7 @@ const Page: PageLayout = () => {
           <Link
             href={'/stackbuilder'}
             className="indexcard indexcard-glow2"
-            tabIndex={isTutorialTemp ? -1 : 0}
+            tabIndex={isTutorialModalOpen ? -1 : 0}
           >
             <Image
               src={'/indexcard-stackbuilder.webp'}
@@ -121,7 +121,7 @@ const Page: PageLayout = () => {
           <Link
             href={'/about'}
             className="indexcard indexcard-glow1"
-            tabIndex={isTutorialTemp ? -1 : 0}
+            tabIndex={isTutorialModalOpen ? -1 : 0}
           >
             <Image
               src={'/indexcard-about.webp'}
@@ -135,7 +135,7 @@ const Page: PageLayout = () => {
           <button
             className="indexcard indexcard-glow3"
             onClick={toggleTutorialModal}
-            tabIndex={isTutorialTemp ? -1 : 0}
+            tabIndex={isTutorialModalOpen ? -1 : 0}
           >
             <Image
               src={'/tutoriaalinappula.webp'}

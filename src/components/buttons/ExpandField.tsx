@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/redux/store/store';
 import { toggleCheckbox } from '@/redux/reducers/libraryDataReducer';
+import { toggleTutorial } from '@/redux/reducers/tutorialReducer';
 
 const isTutorialTemp = false; //väliaikainen poistetaan kuhan reduceri lähtee toimii
 const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
@@ -19,6 +20,13 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
         (collection) => collection.name === item.name
       )?.checked
   );
+
+  const tutorialModalState = useSelector(
+    (state: RootState) => state.tutorialReducer.isOpen
+  );
+
+  const [isTutorialModalOpen, setIsTutorialModalOpen] =
+    useState(tutorialModalState);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -45,7 +53,7 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
               height={50}
               className="rounded-lg max-w-16 max-h-16"
               style={{ objectFit: 'cover' }}
-              aria-disabled={isTutorialTemp}
+              aria-disabled={isTutorialModalOpen}
             />
           )}
           <strong className="expand-header">
@@ -54,13 +62,16 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
                 href={item.link}
                 target="_blank"
                 className="expand-text"
-                tabIndex={isTutorialTemp ? -1 : 0}
+                tabIndex={isTutorialModalOpen ? -1 : 0}
               >
                 {item.name}
               </Link>
             )}
           </strong>
-          <button className="text-white font-bold" disabled={isTutorialTemp}>
+          <button
+            className="text-white font-bold"
+            disabled={isTutorialModalOpen}
+          >
             <FaAngleUp
               className={`float-right transition-transform ml-2 ${
                 isExpanded ? 'rotate-180' : ''
@@ -90,7 +101,7 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
       <input
         type="checkbox"
         tabIndex={0}
-        disabled={isTutorialTemp}
+        disabled={isTutorialModalOpen}
         className="mt-[1.5rem] md:mt-[2rem] -ml-16 checkbox-input"
         checked={isChecked}
         onChange={() => handleCheckboxClick(item.name)}
