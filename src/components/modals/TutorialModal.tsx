@@ -39,7 +39,7 @@ const TutorialModal = ({ onClose }: { onClose: () => void }) => {
   return (
     <>
       {isOpen && (
-        <div className="fixed z-50 top-16 w-screen h-screen bg-black backdrop-blur bg-opacity-80">
+        <div className="fixed z-50 left-0 top-16 w-screen h-screen bg-black backdrop-blur bg-opacity-80">
           <button
             onClick={handleToggle}
             style={{
