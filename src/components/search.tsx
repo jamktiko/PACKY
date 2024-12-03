@@ -18,10 +18,12 @@ const SearchBar = () => {
     (state: RootState) => state.libraryDataReducer.value
   );
 
-  // Fetch library data when component mounts
-  useEffect(() => {
-    dispatch(fetchLibrary());
-  }, [dispatch]);
+  const tutorialModalState = useSelector(
+    (state: RootState) => state.tutorialReducer.isOpen
+  );
+
+  const [isTutorialModalOpen, setIsTutorialModalOpen] =
+    useState(tutorialModalState);
 
   // Filter data based on the search query
   const filteredlibraryData = librarydata.filter((item) =>
@@ -32,13 +34,39 @@ const SearchBar = () => {
 
   const [isLibraryVisible, setIsLibraryVisible] = useState(false);
 
+  // useEffect(() => {
+  //   if (!isLibraryVisible) {
+  //     setIsLibraryVisible(true);
+  //   }
+  // }, [isLibraryVisible]);
+
+  // useEffect(() => {
+  //   if (isLibraryVisible) {
+  //     const gridButtonElement = document.getElementById('library');
+  //     if (gridButtonElement) {
+  //       window.scrollTo({
+  //         top: Math.abs(0),
+  //         left: Math.abs(0),
+  //         behavior: 'smooth',
+  //       });
+  //     }
+  //   }
+  // }, [isLibraryVisible]);
+
+  // useEffect for handling library visibility, tutorialmodal visibility and fetching data
   useEffect(() => {
+    dispatch(fetchLibrary());
+
+    if (tutorialModalState === true) {
+      setIsTutorialModalOpen(true);
+    } else {
+      setIsTutorialModalOpen(false);
+    }
+
     if (!isLibraryVisible) {
       setIsLibraryVisible(true);
     }
-  }, [isLibraryVisible]);
 
-  useEffect(() => {
     if (isLibraryVisible) {
       const gridButtonElement = document.getElementById('library');
       if (gridButtonElement) {
@@ -49,21 +77,22 @@ const SearchBar = () => {
         });
       }
     }
-  }, [isLibraryVisible]);
+  }, [dispatch, tutorialModalState, isLibraryVisible]);
 
   return (
     <div>
-      <h1 className='text-center text-2xl ml-16'>
+      <h1 className="text-center text-2xl ml-16">
         Optional: Choose familiar technologies
       </h1>
       {/* Search box to filter by name */}
       <input
         style={{ color: 'gray', backgroundColor: 'black' }}
-        type='text'
-        placeholder='Search for technologies'
+        type="text"
+        placeholder="Search for technologies"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className='library-search'
+        className="library-search"
+        disabled={isTutorialModalOpen}
       />
       {/* Display filtered data or loader */}
       {librarydata.length === 0 ? (
@@ -72,8 +101,8 @@ const SearchBar = () => {
         <motion.ul
           initial={{ opacity: 0, x: 200 }}
           animate={{ opacity: 1, x: 0 }}
-          className='mt-4'
-          id='library'
+          className="mt-4"
+          id="library"
         >
           {filteredlibraryData.map((item, index) => (
             <ExpandableItem key={index} item={item} />

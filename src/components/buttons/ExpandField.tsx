@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { SearchBarProps } from '@/utils/interface/searchBarData';
 import Link from 'next/link';
@@ -35,6 +35,14 @@ const ExpandableItem: React.FC<{ item: SearchBarProps }> = ({ item }) => {
   const handleCheckboxClick = (name: string) => {
     dispatch(toggleCheckbox(name));
   };
+
+  useEffect(() => {
+    if (tutorialModalState === true) {
+      setIsTutorialModalOpen(true);
+    } else {
+      setIsTutorialModalOpen(false);
+    }
+  }, [tutorialModalState]);
 
   return (
     <motion.li

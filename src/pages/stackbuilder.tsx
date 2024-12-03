@@ -207,6 +207,7 @@ const StackBuilder: PageLayout = () => {
       <button
         className="bg-black border-teal-500 border z-40 fixed top-0 -left-16 h-32 w-32 -rotate-45"
         onClick={handlesetTutorialOpen}
+        disabled={isModalOpen || isOutputModalOpen || isTutorialModalOpen}
       >
         <span className="absolute -bottom-0 text-lg right-10">Guide</span>
       </button>
