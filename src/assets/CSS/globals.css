@@ -192,12 +192,32 @@ header nav ul li a span {
   @apply gap-2 mt-24 z-0 overflow-x-auto;
 }
 
+/* @media screen and (max-width: 1350px) {
+  .grid-container {
+    transform: scale(0.75);
+    width: calc(100vw / 0.75);
+  }
+} */
+
 .grid-button {
   @apply font-bold shadow-inner-2 transition-all text-white border border-teal-600 hover:bg-white hover:text-black px-2 rounded hover:opacity-10 w-40 h-[4.25rem];
 }
 
 .grid-modal {
-  @apply z-10 md:px-24 px-4 overflow-y-scroll h-full mt-40 grid grid-cols-2 gap-3 top-16 left-0 w-screen bg-black backdrop-blur-sm bg-opacity-50;
+  @apply z-50 md:px-24 px-4 overflow-y-scroll h-full mt-72 grid grid-cols-2 gap-3 top-16 left-0 w-screen bg-black backdrop-blur-sm bg-opacity-50;
+}
+
+.grid-modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 84vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 40;
+  background-color: rgba(0, 0, 0, 0.5); /* optional background color */
 }
 
 .grid-modal-item {
@@ -205,7 +225,7 @@ header nav ul li a span {
 }
 
 .modal-header {
-  @apply absolute top-20 left-0 z-50 w-screen text-3xl text-center py-2;
+  @apply absolute top-20 left-0 z-30 w-screen text-3xl text-center py-2;
 }
 
 .grid-modal-item.active {
@@ -217,7 +237,7 @@ header nav ul li a span {
 }
 
 .modal-toggle {
-  @apply transition-all bg-white bg-opacity-10 hover:bg-opacity-80 py-0 px-2 rounded-md text-teal-500 font-bold text-5xl fixed top-20 right-4;
+  @apply transition-all fixed z-[500] bg-white bg-opacity-10 hover:bg-opacity-80 py-0 px-2 rounded-md text-teal-500 font-bold text-5xl top-10 right-4;
 }
 
 .toggle-output {
@@ -336,7 +356,7 @@ mitä jos poistaa arrowit kokonaan mobiilinäkymästä?
 }
 
 .expand-container {
-  @apply transition-all shadow-inner-2 md:m-2 md:p-2 m-1 p-1 flex flex-col bg-white w-full max-w-[55rem] h-auto bg-opacity-10 rounded-2xl shadow-md;
+  @apply hover:bg-white hover:bg-opacity-30 transition-all shadow-inner-2 md:m-2 md:p-2 m-1 p-1 flex flex-col bg-white w-full max-w-[55rem] lg:min-w-[55rem] sm:min-w-[40rem] min-w-80 h-auto bg-opacity-10 rounded-2xl shadow-md;
 }
 
 .expand-info {
@@ -344,7 +364,7 @@ mitä jos poistaa arrowit kokonaan mobiilinäkymästä?
 }
 
 .expand-header {
-  @apply md:text-xl text-lg h-16 flex items-center bg-white bg-opacity-5 rounded-r-2xl;
+  @apply md:text-xl hover:text-2xl transition-all text-lg h-16 flex items-center bg-white bg-opacity-5 rounded-r-2xl;
 }
 
 .expand-text {
@@ -393,4 +413,8 @@ mitä jos poistaa arrowit kokonaan mobiilinäkymästä?
   .tutorialslider {
     display: grid !important;
   }
+}
+
+.no-horizontal-scroll {
+  overflow-x: hidden;
 }

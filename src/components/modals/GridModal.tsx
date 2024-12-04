@@ -9,6 +9,7 @@ import {
 } from '@/redux/reducers/gridStateReducer';
 import { updateChoosableCells } from '@/utils/grid/updateGridState';
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 
 interface Cell {
   row: number;
@@ -83,14 +84,22 @@ const GridModal = () => {
     }
   };
 
+  useEffect(() => {
+    if (gridmodal) {
+      document.body.classList.add('no-horizontal-scroll');
+    } else {
+      document.body.classList.remove('no-horizontal-scroll');
+    }
+  }, [gridmodal]);
+
   return (
     <>
       {gridmodal && (
-        <>
+        <div className='grid-modal-container'>
           <div className='modal-header h-24 -mt-4 bg-black backdrop-blur-sm bg-opacity-50'>
-            <h1>Choose feature</h1>
+            <h1 className=''>Choose feature</h1>
             <button
-              className='modal-toggle'
+              className='modal-toggle -mt-6'
               onClick={() => dispatch(toggleModal(false))}
               type='button'
             >
@@ -136,7 +145,7 @@ const GridModal = () => {
               );
             })}
           </motion.div>
-        </>
+        </div>
       )}
     </>
   );

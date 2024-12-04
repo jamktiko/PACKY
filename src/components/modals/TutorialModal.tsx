@@ -1,32 +1,51 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { use, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Slider from 'react-slick';
+
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { RootState } from '@/redux/store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleTutorial } from '@/redux/reducers/tutorialReducer';
+import { useRouter } from 'next/router';
 
 const TutorialModal = ({ onClose }: { onClose: () => void }) => {
-  const customStyles = {
-    content: {
-      className: 'center',
-      centerMode: true,
-      infinite: false,
-      centerPadding: '500px',
-      slidesToShow: 1,
-      speed: 500,
-      useTransform: true,
-      useCSS: true,
-    },
+  const dispatch = useDispatch();
+  const tutorialState = useSelector(
+    (state: RootState) => state.tutorialReducer
+  );
+
+  const router = useRouter();
+
+  const [isOpen, setIsOpen] = useState(tutorialState.isOpen);
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+    dispatch(toggleTutorial(!isOpen));
+    onClose();
   };
-  const [isOpen, setIsOpen] = useState(true);
+
+  //useEffect to close the modal when the route changes
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setIsOpen(false);
+      dispatch(toggleTutorial(false));
+    };
+    router.events.on('routeChangeStart', handleRouteChange);
+
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+    };
+  }, [dispatch, router.events]);
+
   const imageSize: number = 300;
   return (
     <>
       {isOpen && (
-        <div className='fixed z-50 top-16 w-screen h-screen bg-black backdrop-blur bg-opacity-80'>
+        <div className='fixed z-50 left-0 top-16 w-screen h-screen bg-black backdrop-blur bg-opacity-80'>
           <button
-            onClick={onClose}
+            onClick={handleToggle}
             style={{
               position: 'absolute',
               top: '10px',
