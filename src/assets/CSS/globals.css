@@ -336,7 +336,7 @@ mitä jos poistaa arrowit kokonaan mobiilinäkymästä?
 }
 
 .expand-container {
-  @apply transition-all shadow-inner-2 md:m-2 md:p-2 m-1 p-1 flex flex-col bg-white w-full max-w-[55rem] h-auto bg-opacity-10 rounded-2xl shadow-md;
+  @apply hover:bg-white hover:bg-opacity-30 transition-all shadow-inner-2 md:m-2 md:p-2 m-1 p-1 flex flex-col bg-white w-full max-w-[55rem] lg:min-w-[55rem] sm:min-w-[40rem] min-w-80 h-auto bg-opacity-10 rounded-2xl shadow-md;
 }
 
 .expand-info {
@@ -344,7 +344,7 @@ mitä jos poistaa arrowit kokonaan mobiilinäkymästä?
 }
 
 .expand-header {
-  @apply md:text-xl text-lg h-16 flex items-center bg-white bg-opacity-5 rounded-r-2xl;
+  @apply md:text-xl hover:text-2xl transition-all text-lg h-16 flex items-center bg-white bg-opacity-5 rounded-r-2xl;
 }
 
 .expand-text {

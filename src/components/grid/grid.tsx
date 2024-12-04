@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -142,16 +143,22 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
           }
 
           return (
-            <GridButton
-              id={`grid-button-${row}-${col}`}
-              key={`${row}-${col}`}
-              row={row}
-              col={col}
-              isActive={isActive}
-              isChoosable={isChoosable}
-              opacity={opacity}
-              onClick={() => handleGridButtonClick(row, col)}
-            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: col * 0.075 }}
+            >
+              <GridButton
+                id={`grid-button-${row}-${col}`}
+                key={`${row}-${col}`}
+                row={row}
+                col={col}
+                isActive={isActive}
+                isChoosable={isChoosable}
+                opacity={opacity}
+                onClick={() => handleGridButtonClick(row, col)}
+              />
+            </motion.div>
           );
         })}
       </div>
