@@ -204,7 +204,20 @@ header nav ul li a span {
 }
 
 .grid-modal {
-  @apply z-10 md:px-24 px-4 overflow-y-scroll h-full mt-40 grid grid-cols-2 gap-3 top-16 left-0 w-screen bg-black backdrop-blur-sm bg-opacity-50;
+  @apply z-50 md:px-24 px-4 overflow-y-scroll h-full mt-72 grid grid-cols-2 gap-3 top-16 left-0 w-screen bg-black backdrop-blur-sm bg-opacity-50;
+}
+
+.grid-modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 84vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 40;
+  background-color: rgba(0, 0, 0, 0.5); /* optional background color */
 }
 
 .grid-modal-item {
@@ -212,7 +225,7 @@ header nav ul li a span {
 }
 
 .modal-header {
-  @apply absolute top-20 left-0 z-50 w-screen text-3xl text-center py-2;
+  @apply absolute top-20 left-0 z-30 w-screen text-3xl text-center py-2;
 }
 
 .grid-modal-item.active {
@@ -224,7 +237,7 @@ header nav ul li a span {
 }
 
 .modal-toggle {
-  @apply transition-all bg-white bg-opacity-10 hover:bg-opacity-80 py-0 px-2 rounded-md text-teal-500 font-bold text-5xl fixed top-20 right-4;
+  @apply transition-all fixed z-[500] bg-white bg-opacity-10 hover:bg-opacity-80 py-0 px-2 rounded-md text-teal-500 font-bold text-5xl top-10 right-4;
 }
 
 .toggle-output {

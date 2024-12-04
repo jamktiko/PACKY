@@ -99,12 +99,12 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
 
   return (
     <motion.div
-      className='w-screen flex'
+      className='w-screen flex lg:justify-center justify-start'
       ref={gridRef}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-      <h1 className='fixed w-screen z-50 top-20 text-center text-2xl md:ml-0 ml-8'>
+      <h1 className='fixed w-screen z-20 top-20 text-center text-2xl md:ml-0 ml-8'>
         Tap on buttons to choose features
       </h1>
       <div
