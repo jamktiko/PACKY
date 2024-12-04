@@ -33,7 +33,7 @@ element {
 /* HEADER AND NAVIGATION */
 
 header {
-  @apply backdrop-blur top-0 fixed flex flex-row bg-opacity-80 shadow-inner-2 bg-slate-950 h-16 border-b w-full border-teal-950 text-teal-500 z-50;
+  @apply backdrop-blur top-0 fixed flex flex-row bg-opacity-80 shadow-inner-2 bg-slate-950 h-16 border-b w-full border-teal-950 text-teal-500 z-[5000];
   -webkit-box-shadow: 10px 15px 22px 5px rgba(2, 6, 23, 1);
   -moz-box-shadow: 10px 15px 22px 5px rgba(2, 6, 23, 1);
   box-shadow: 10px 15px 22px 5px rgba(2, 6, 23, 1);
@@ -57,7 +57,7 @@ header button {
 }
 
 header nav {
-  @apply fixed border-l border-teal-900 shadow-inner-2 sm:w-[16.7rem] px-4 w-full z-50 bg-opacity-40 border-inherit border-r backdrop-blur-sm right-0 top-16 bg-slate-950 rounded-br-lg h-[calc(100vh-4rem)] overflow-hidden;
+  @apply fixed border-l border-teal-900 shadow-inner-2 sm:w-[16.7rem] z-50 px-4 w-full bg-opacity-40 border-inherit border-r backdrop-blur-sm right-0 top-16 bg-slate-950 rounded-br-lg h-[calc(100vh-4rem)] overflow-hidden;
 }
 
 header nav ul {
@@ -192,6 +192,13 @@ header nav ul li a span {
   @apply gap-2 mt-24 z-0 overflow-x-auto;
 }
 
+/* @media screen and (max-width: 1350px) {
+  .grid-container {
+    transform: scale(0.75);
+    width: calc(100vw / 0.75);
+  }
+} */
+
 .grid-button {
   @apply font-bold shadow-inner-2 transition-all text-white border border-teal-600 hover:bg-white hover:text-black px-2 rounded hover:opacity-10 w-40 h-[4.25rem];
 }
@@ -256,9 +263,11 @@ header nav ul li a span {
 }
 
 /* OUTPUT CAROUSEL */
-
+/*outputcontainer overflow-y-auto
+mitä jos poistaa arrowit kokonaan mobiilinäkymästä?
+*/
 .output-container {
-  @apply fixed text-center content-center object-center h-[90vh] flex justify-center top-16 z-50;
+  @apply fixed text-center content-center object-center h-full flex justify-center md:top-16 z-50;
 }
 
 .output-option-header {
@@ -278,7 +287,7 @@ header nav ul li a span {
 }
 
 .slick-arrow {
-  @apply min-w-64 h-64 z-[5000];
+  @apply min-w-64 h-64 z-[5000] mt-10;
 }
 
 .slick-list {
@@ -330,11 +339,11 @@ header nav ul li a span {
 /* LIBRARY COMPONENT */
 
 .library-search {
-  @apply opacity-80 transition-all ease-in-out duration-500 my-4 p-2 h-8 max-w-[55rem] focus:text-xl w-[calc(100vw-1rem)] rounded-2xl border border-gray-500 focus:border-teal-200 focus:outline-none;
+  @apply opacity-80 mt-12 transition-all ease-in-out duration-500 my-4 p-2 h-8 max-w-[55rem] focus:text-xl w-[calc(100vw-1rem)] rounded-2xl border border-gray-500 focus:border-teal-200 focus:outline-none;
 }
 
 .expand-container {
-  @apply transition-all shadow-inner-2 md:m-2 md:p-2 m-1 p-1 flex flex-col bg-white w-full max-w-[55rem] h-auto bg-opacity-10 rounded-2xl shadow-md;
+  @apply hover:bg-white hover:bg-opacity-30 transition-all shadow-inner-2 md:m-2 md:p-2 m-1 p-1 flex flex-col bg-white w-full max-w-[55rem] lg:min-w-[55rem] sm:min-w-[40rem] min-w-80 h-auto bg-opacity-10 rounded-2xl shadow-md;
 }
 
 .expand-info {
@@ -342,7 +351,7 @@ header nav ul li a span {
 }
 
 .expand-header {
-  @apply md:text-xl text-lg h-16 flex items-center bg-white bg-opacity-5 rounded-r-2xl;
+  @apply md:text-xl hover:text-2xl transition-all text-lg h-16 flex items-center bg-white bg-opacity-5 rounded-r-2xl;
 }
 
 .expand-text {
@@ -375,7 +384,24 @@ header nav ul li a span {
 .export-button {
   @apply rounded-xl text-sm text-white transition-all duration-300 p-2.5 hover:text-black absolute top-0 right-0 bg-gradient-to-r border-teal-800 border-2 bg-black hover:from-white hover:to-white;
 }
+.export-button:disabled {
+  @apply hover:bg-none hover:text-white;
+}
 
 .hidden {
   display: none;
+}
+
+.tutorialslider {
+  @apply bg-black min-h-screen grid-cols-2 items-center;
+}
+
+@media screen and (min-width: 800px) {
+  .tutorialslider {
+    display: grid !important;
+  }
+}
+
+.no-horizontal-scroll {
+  overflow-x: hidden;
 }

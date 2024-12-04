@@ -1,14 +1,13 @@
-import React, { use, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store/store';
 import { useOutputFetch } from '@/hooks/outputFetch';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
-import Loader from '../loader';
+import Loader from '../ui/loader';
 import { motion } from 'framer-motion';
 import * as htmlToImage from 'html-to-image';
-import toPng from 'html-to-image';
 
 const OutputModal = () => {
   const [isExporting, setIsExporting] = useState(false);
@@ -21,7 +20,12 @@ const OutputModal = () => {
     (state: RootState) => state.gridStateReducer.activeCells
   );
 
-  const { technologyGroups, isLoading } = useOutputFetch(features, outputModal);
+  const { technologyGroups, isLoading, tutorials } = useOutputFetch(
+    features,
+    outputModal
+  );
+
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const settings = {
     className: 'center',
@@ -32,6 +36,9 @@ const OutputModal = () => {
     speed: 500,
     useTransform: true,
     useCSS: true,
+    afterChange: (currentSlide: number) => {
+      setActiveIndex(currentSlide);
+    },
   };
 
   const refs = useRef<HTMLDivElement[]>([]);
@@ -54,7 +61,7 @@ const OutputModal = () => {
             link.href = dataUrl;
             link.download = 'output-image.png';
             link.click();
-            resolve(); // Resolve the promise when the image export is complete
+            resolve();
           })
           .catch((err: any) => console.error(err));
       }
@@ -83,14 +90,21 @@ const OutputModal = () => {
                 <h3 className="output-option-header">Option {index + 1}</h3>
                 <div className="grid grid-cols-2 md:ml-[20%] ml-[10%] mb-4">
                   {Object.entries(group).map(([category, techs]) => {
-                    // Check if techs is an array or single technology
                     const techArray = Array.isArray(techs) ? techs : [techs];
+                    // If firebase is not selected it does not recommend firebase
+                    // or or tutorials related to Firebase! :-)
+                    if (category === 'Service') {
+                      const filteredTechs = techArray.filter(
+                        (tech) => tech.totalWeight > 1
+                      );
+                      // Skip rendering this category if no techs match the filter
+                      if (filteredTechs.length === 0) return null;
+                    }
                     return (
                       <div key={category} className="text-left mt-4 text-xs">
                         <p className="pl-1 pt-1 font-bold border-t border-l border-teal-500">
                           {category}
                         </p>
-
                         <ul>
                           {techArray.map((tech, i) => (
                             <li className="ml-1" key={i}>
@@ -109,7 +123,7 @@ const OutputModal = () => {
                         setIsExporting(false);
                       });
                     }}
-                    disabled={isExporting}
+                    disabled={isExporting || index !== activeIndex}
                     className={isExporting ? 'hidden' : 'export-button'}
                   >
                     Export PNG
@@ -129,6 +143,44 @@ const OutputModal = () => {
                         </div>
                       )
                   )}
+                  {/* Tutorials Section */}
+                  <div className="mt-4">
+                    <h4 className="text-left ml-2 mt-4 font-bold">Tutorials</h4>
+                    <ul className="text-left ml-4">
+                      {tutorials
+                        .filter(
+                          (tutorial, index, self) =>
+                            self.findIndex(
+                              (t) => t.TutorialLink === tutorial.TutorialLink
+                            ) === index
+                        )
+                        .filter((tutorial) =>
+                          Object.values(group)
+                            .flat()
+                            .some(
+                              (tech) =>
+                                tech.technology === tutorial.Technology &&
+                                (tech.technology !== 'Firebase' ||
+                                  (tech.technology === 'Firebase' &&
+                                    tech.totalWeight > 1))
+                            )
+                        )
+                        .map((tutorial, idx) => (
+                          <li key={idx} className="mb-2">
+                            <a
+                              href={tutorial.TutorialLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              tabIndex={index === activeIndex ? 0 : -1}
+                              className="text-blue-500 underline"
+                            >
+                              {tutorial.TutorialName}
+                            </a>{' '}
+                            - For feature: {tutorial.Feature}
+                          </li>
+                        ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
             ))}

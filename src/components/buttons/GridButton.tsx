@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal } from '../../redux/reducers/gridModalReducer';
 import { RootState } from '@/redux/store/store';
+import { toggleTutorial } from '@/redux/reducers/tutorialReducer';
 
 // Define the interface for the props that the GridButton component will receive
 // What values they can take (number, boolean, string etc.)
@@ -28,8 +29,32 @@ const GridButton: React.FC<GridButtonProps> = ({
   onClick, // Function to handle the button click (passed from parent component)
   id,
 }) => {
+  //state from redux store for tutorial
+  const tutorialModalState = useSelector(
+    (state: RootState) => state.tutorialReducer.isOpen
+  );
+
+  const [isTutorialModalOpen, setIsTutorialModalOpen] =
+    useState(tutorialModalState);
+
+  useEffect(() => {
+    if (tutorialModalState === true) {
+      setIsTutorialModalOpen(true);
+    } else {
+      setIsTutorialModalOpen(false);
+    }
+  }, [tutorialModalState]);
+
   // Render button component with appropriate styling and behaviour
   const dispatch = useDispatch();
+
+  const isOutputModalOpen = useSelector(
+    (state: RootState) => state.outputReducer.value
+  );
+
+  const isGridModalOpen = useSelector(
+    (state: RootState) => state.gridModalReducer.value
+  );
 
   let selectedCell = useSelector(
     (state: RootState) => state.gridStateReducer.selectedCell
@@ -137,7 +162,6 @@ const GridButton: React.FC<GridButtonProps> = ({
       setSelectState('pointer-events-none'); // Set to no interaction if button is not active or choosable
     }
   }, [isActive, isChoosable]); // Trigger this effect whenever 'isActive' or 'isChoosable' changes
-
   // Function to handle modal opening
   const handleOpenModal = () => {
     if (isChoosable || isActive) {
@@ -153,6 +177,7 @@ const GridButton: React.FC<GridButtonProps> = ({
       className={`${color} ${selectState} grid-button `} // Dynamically set styling
       style={{ opacity }} // Set the button's opacity dynamically based on the 'opacity' prop
       tabIndex={isActive || isChoosable ? 0 : -1}
+      disabled={isGridModalOpen || isOutputModalOpen || isTutorialModalOpen}
       onClick={() => {
         handleOpenModal(); // Open the modal on button click
         handleButtonClick(); // Handle button click logic

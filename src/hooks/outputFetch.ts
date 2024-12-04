@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getTechsForFeature } from '@/utils/neo4j/neo4j';
+import { getTutorialsForTechAndFeatures } from '@/utils/neo4j/neo4j';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store/store';
 import { Weight } from '@/utils/interface/weight';
@@ -7,7 +8,7 @@ import { Feature } from '@/utils/interface/feature';
 import { Technology } from '@/utils/interface/technology';
 import { TechnologyGroup } from '@/utils/interface/technologyGroup';
 import { CategoryNewNames } from '@/utils/interface/categoryNewNames';
-
+import { Tutorial } from '@/utils/interface/tutorial';
 export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
   // State for storing techgroups
   const [technologyGroups, setTechnologyGroups] = useState<TechnologyGroup[]>(
@@ -15,7 +16,7 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
   );
   // State for loading status
   const [isLoading, setIsLoading] = useState(true);
-
+  const [tutorials, setTutorials] = useState<Tutorial[]>([]);
   // Technology weights from redux store
   const techsAndWeights = useSelector(
     (state: RootState) => state.libraryDataReducer.value
@@ -43,7 +44,7 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
         // Making Tech objects,
         // Each object have the tech,label/category and the weight
         const featureNames = features.map((feature) => feature.item[0].name);
-        console.log(featureNames);
+
         const techObject = allTechs.flat().map((tech) => {
           const techData = techsAndWeights.find(
             (t) => t.name === tech.technology
@@ -143,8 +144,15 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
           groups.push(group as TechnologyGroup);
         }
 
+        const techNames = techObject.map((tech) => tech.technology);
+        const tutorialsData = (await getTutorialsForTechAndFeatures(
+          techNames,
+          featureNames
+        )) as Tutorial[];
+        console.log(tutorialsData);
         // Updating the state with techGroups
         setTechnologyGroups(groups);
+        setTutorials(tutorialsData);
       } catch (error) {
         // If errors are occured the fetch fails
         console.error('Error fetching technologies:', error);
@@ -158,7 +166,7 @@ export const useOutputFetch = (features: Feature[], outputModal: boolean) => {
     fetchTechnologies();
   }, [features, outputModal, techsAndWeights]);
 
-  return { technologyGroups, isLoading };
+  return { technologyGroups, isLoading, tutorials };
 };
 
 export default useOutputFetch;

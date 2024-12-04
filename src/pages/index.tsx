@@ -1,11 +1,31 @@
 import type { PageLayout } from './_app';
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
 import { InfiniteScroller } from '@/components/ui/infinitehorizontalscroller';
 import { motion } from 'framer-motion';
+import TutorialModal from '@/components/modals/TutorialModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/redux/store/store';
+import { toggleTutorial } from '@/redux/reducers/tutorialReducer';
+
+const isTutorialTemp = false; //väliaikainen poistetaan kuhan reduceri lähtee toimii
 
 const Page: PageLayout = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const tutorialModalState = useSelector(
+    (state: RootState) => state.tutorialReducer.isOpen
+  );
+
+  const [isTutorialModalOpen, setIsTutorialModalOpen] =
+    useState(tutorialModalState);
+
+  const toggleTutorialModal = () => {
+    dispatch(toggleTutorial(!isTutorialModalOpen));
+    setIsTutorialModalOpen(!isTutorialModalOpen);
+  };
+
   // The greeter works as page title and
   // greets the user based on time of day
   function greeter() {
@@ -84,7 +104,11 @@ const Page: PageLayout = () => {
       </h2>
       <div className="w-full flex  mb-16">
         <div className=" flex xl:flex-row flex-col gap-4 text-center mb-16">
-          <Link href={'/stackbuilder'} className="indexcard indexcard-glow2">
+          <Link
+            href={'/stackbuilder'}
+            className="indexcard indexcard-glow2"
+            tabIndex={isTutorialModalOpen ? -1 : 0}
+          >
             <Image
               src={'/indexcard-stackbuilder.webp'}
               className="indexcard-image"
@@ -94,7 +118,11 @@ const Page: PageLayout = () => {
             />
             <span>PACKY StackBuilder</span>
           </Link>
-          <Link href={'/about'} className="indexcard indexcard-glow1">
+          <Link
+            href={'/about'}
+            className="indexcard indexcard-glow1"
+            tabIndex={isTutorialModalOpen ? -1 : 0}
+          >
             <Image
               src={'/indexcard-about.webp'}
               className="indexcard-image"
@@ -104,8 +132,24 @@ const Page: PageLayout = () => {
             />
             <span>Learn more</span>
           </Link>
+          <button
+            className="indexcard indexcard-glow3"
+            onClick={toggleTutorialModal}
+            tabIndex={isTutorialModalOpen ? -1 : 0}
+          >
+            <Image
+              src={'/tutoriaalinappula.webp'}
+              className="indexcard-image"
+              width={1000}
+              height={1000}
+              alt={'Tutorial'}
+            />
+            <span>Tutorial</span>
+          </button>
         </div>
       </div>
+      {/* Render the TutorialModal if isModalOpen is true */}
+      {isTutorialModalOpen && <TutorialModal onClose={toggleTutorialModal} />}
     </motion.div>
   );
 };
