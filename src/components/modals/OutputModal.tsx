@@ -139,6 +139,7 @@ const OutputModal = () => {
                           key={i}
                           className="text-left max-w-64 text-xs ml-2 mt-2"
                         >
+                          {feature.item[0].name}
                           <p>- {feature.item[0].tips}</p>
                         </div>
                       )
