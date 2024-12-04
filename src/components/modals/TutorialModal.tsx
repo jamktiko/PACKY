@@ -18,18 +18,6 @@ const TutorialModal = ({ onClose }: { onClose: () => void }) => {
 
   const router = useRouter();
 
-  const customStyles = {
-    content: {
-      className: 'center',
-      centerMode: true,
-      infinite: false,
-      centerPadding: '500px',
-      slidesToShow: 1,
-      speed: 500,
-      useTransform: true,
-      useCSS: true,
-    },
-  };
   const [isOpen, setIsOpen] = useState(tutorialState.isOpen);
 
   const handleToggle = () => {
@@ -55,7 +43,7 @@ const TutorialModal = ({ onClose }: { onClose: () => void }) => {
   return (
     <>
       {isOpen && (
-        <div className="fixed z-50 left-0 top-16 w-screen h-screen bg-black backdrop-blur bg-opacity-80">
+        <div className='fixed z-50 left-0 top-16 w-screen h-screen bg-black backdrop-blur bg-opacity-80'>
           <button
             onClick={handleToggle}
             style={{
@@ -71,13 +59,13 @@ const TutorialModal = ({ onClose }: { onClose: () => void }) => {
             <motion.div
               initial={{ x: 100 }}
               animate={{ x: 0 }}
-              className="rounded border border-teal-500 p-3 m-2 bg-teal-800"
+              className='rounded border border-teal-500 p-3 m-2 bg-teal-800'
             >
               Close tutorial
             </motion.div>
           </button>
           <motion.div
-            className="text-sm sm:text-base mt-20 sm:mt-3 flex flex-col text-left overflow-y-scroll"
+            className='text-sm sm:text-base mt-20 sm:mt-3 flex flex-col text-left overflow-y-scroll'
             style={{
               height: 'calc(100vh - 100px)', // adjust the height to your needs
               overflowY: 'auto',
@@ -86,8 +74,8 @@ const TutorialModal = ({ onClose }: { onClose: () => void }) => {
             animate={{ opacity: 1, y: 0 }}
           >
             {/* Rivi 1 */}
-            <div className="flex lg:flex-row flex-col justify-evenly">
-              <div className="bg-black border border-teal-500 rounded m-1 p-2 min-w-96 min-h-96 w-full">
+            <div className='flex lg:flex-row flex-col justify-evenly'>
+              <div className='bg-black border border-teal-500 rounded m-1 p-2 min-w-96 min-h-96 w-full'>
                 <b>Overview</b>
                 <p>
                   PACKY StackBuilder has 3: Tech library, Feature grid and
@@ -103,7 +91,7 @@ const TutorialModal = ({ onClose }: { onClose: () => void }) => {
                   technologies.
                 </p>
               </div>
-              <div className="border border-teal-500 rounded m-1 p-2 min-w-96 min-h-96 w-full flex flex-row justify-evenly">
+              <div className='border border-teal-500 rounded m-1 p-2 min-w-96 min-h-96 w-full flex flex-row justify-evenly'>
                 <div>
                   {' '}
                   <b>Tech Library</b>
@@ -118,17 +106,17 @@ const TutorialModal = ({ onClose }: { onClose: () => void }) => {
                   </p>
                 </div>
                 <Image
-                  className=" -z-10 sm:max-w-full max-w-52 bg-black opacity-50"
+                  className=' -z-10 sm:max-w-full max-w-52 bg-black opacity-50'
                   src={'/images/tutorial/library.png'}
-                  alt="library"
+                  alt='library'
                   width={imageSize}
                   height={imageSize}
                 />
               </div>
             </div>
             {/* Rivi 2 */}
-            <div className=" flex lg:flex-row flex-col justify-evenly">
-              <div className=" border border-teal-500 rounded m-1 p-2 min-w-96 min-h-96 w-full flex flex-row justify-evenly">
+            <div className=' flex lg:flex-row flex-col justify-evenly'>
+              <div className=' border border-teal-500 rounded m-1 p-2 min-w-96 min-h-96 w-full flex flex-row justify-evenly'>
                 <div>
                   <b>Feature Grid</b>
                   <p>
@@ -139,14 +127,14 @@ const TutorialModal = ({ onClose }: { onClose: () => void }) => {
                 </div>
 
                 <Image
-                  className=" -z-10 sm:max-w-full max-w-52 bg-black opacity-50"
+                  className=' -z-10 sm:max-w-full max-w-52 bg-black opacity-50'
                   src={'/images/tutorial/grid.png'}
-                  alt="grid"
+                  alt='grid'
                   width={imageSize}
                   height={imageSize}
                 />
               </div>
-              <div className="border border-teal-500 rounded m-1 p-2 min-w-96 min-h-96 w-full flex flex-row justify-evenly">
+              <div className='border border-teal-500 rounded m-1 p-2 min-w-96 min-h-96 w-full flex flex-row justify-evenly'>
                 <div>
                   <b>Output</b>
                   <p>
@@ -160,9 +148,9 @@ const TutorialModal = ({ onClose }: { onClose: () => void }) => {
                   </p>
                 </div>
                 <Image
-                  className="-z-10 sm:max-w-full max-w-52 bg-black opacity-50"
+                  className='-z-10 sm:max-w-full max-w-52 bg-black opacity-50'
                   src={'/images/tutorial/output.png'}
-                  alt="output"
+                  alt='output'
                   width={imageSize}
                   height={imageSize}
                 />

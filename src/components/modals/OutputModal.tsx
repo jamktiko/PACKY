@@ -45,7 +45,7 @@ const OutputModal = () => {
 
   if (isLoading) {
     return (
-      <div className="slider-container outputmodal-loader-center">
+      <div className='slider-container outputmodal-loader-center'>
         <Loader />
       </div>
     );
@@ -74,9 +74,9 @@ const OutputModal = () => {
         <motion.div
           initial={{ opacity: 0, y: 200 }}
           animate={{ opacity: 1, y: 0 }}
-          className="slider-container output-container"
+          className='slider-container output-container'
         >
-          <Slider {...settings} className="carousel">
+          <Slider {...settings} className='carousel'>
             {technologyGroups.map((group, index) => (
               <div
                 ref={(ref) => {
@@ -84,11 +84,11 @@ const OutputModal = () => {
                     refs.current[index] = ref;
                   }
                 }}
-                className="carousel-item"
+                className='carousel-item'
                 key={index}
               >
-                <h3 className="output-option-header">Option {index + 1}</h3>
-                <div className="grid grid-cols-2 md:ml-[20%] ml-[10%] mb-4">
+                <h3 className='output-option-header'>Option {index + 1}</h3>
+                <div className='grid grid-cols-2 md:ml-[20%] ml-[10%] mb-4'>
                   {Object.entries(group).map(([category, techs]) => {
                     const techArray = Array.isArray(techs) ? techs : [techs];
                     // If firebase is not selected it does not recommend firebase
@@ -101,15 +101,14 @@ const OutputModal = () => {
                       if (filteredTechs.length === 0) return null;
                     }
                     return (
-                      <div key={category} className="text-left mt-4 text-xs">
-                        <p className="pl-1 pt-1 font-bold border-t border-l border-teal-500">
+                      <div key={category} className='text-left mt-4 text-xs'>
+                        <p className='pl-1 pt-1 font-bold border-t border-l border-teal-500'>
                           {category}
                         </p>
                         <ul>
                           {techArray.map((tech, i) => (
-                            <li className="ml-1" key={i}>
+                            <li className='ml-1' key={i}>
                               <b>Technology:</b> {tech.technology}
-                              <p>Total Weight: {tech.totalWeight.toFixed(1)}</p>
                             </li>
                           ))}
                         </ul>
@@ -129,9 +128,9 @@ const OutputModal = () => {
                     Export PNG
                   </button>
                 </div>
-                <div className="border-t border-l mt-6 md:ml-[20%] ml-[10%] border-cyan-500">
-                  <h3 className="text-left ml-2 mt-1 font-bold">Tips</h3>
-                  <div className="grid grid-cols-2">
+                <div className='border-t border-l mt-6 md:ml-[20%] ml-[10%] border-cyan-500'>
+                  <h3 className='text-left ml-2 mt-1 font-bold'>Tips</h3>
+                  <div className='grid grid-cols-2'>
                     {features
                       .filter(
                         (feature) =>
@@ -142,7 +141,7 @@ const OutputModal = () => {
                       .map((feature, i) => (
                         <div
                           key={i}
-                          className="text-left max-w-64 text-xs ml-2 mt-2"
+                          className='text-left max-w-64 text-xs ml-2 mt-2'
                         >
                           {feature.item[0].name}
                           <p>- {feature.item[0].tips}</p>
@@ -151,9 +150,9 @@ const OutputModal = () => {
                   </div>
 
                   {/* Tutorials Section */}
-                  <div className="mt-4">
-                    <h4 className="text-left ml-2 mt-4 font-bold">Tutorials</h4>
-                    <ul className="text-left ml-4 grid grid-cols-2">
+                  <div className='mt-4'>
+                    <h4 className='text-left ml-2 mt-4 font-bold'>Tutorials</h4>
+                    <ul className='text-left ml-4 grid grid-cols-2'>
                       {tutorials
                         .filter(
                           (tutorial, index, self) =>
@@ -174,13 +173,13 @@ const OutputModal = () => {
                         )
                         .slice(0, 4)
                         .map((tutorial, idx) => (
-                          <li key={idx} className="mb-2 text-sm">
+                          <li key={idx} className='mb-2 text-sm'>
                             <a
                               href={tutorial.TutorialLink}
-                              target="_blank"
-                              rel="noopener noreferrer"
+                              target='_blank'
+                              rel='noopener noreferrer'
                               tabIndex={index === activeIndex ? 0 : -1}
-                              className="text-blue-500 underline"
+                              className='text-blue-500 underline'
                             >
                               {tutorial.TutorialName}
                             </a>{' '}
