@@ -55,19 +55,24 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
     if (isGridVisible) {
       const centerView = () => {
         const gridButtonElement = document.getElementById('grid-button-4-4');
+
         if (gridButtonElement) {
           const rect = gridButtonElement.getBoundingClientRect();
+          const scale = 1; // Adjust based on your known scale
+
           const scrollTop =
             window.scrollY +
-            rect.top +
-            rect.height / 2 -
+            rect.top / scale +
+            rect.height / (2 * scale) -
             window.innerHeight / 2;
           const scrollLeft =
-            window.scrollX + rect.left + rect.width / 2 - window.innerWidth / 2;
+            window.scrollX +
+            rect.left / scale +
+            rect.width / (2 * scale) -
+            window.innerWidth / 2;
 
-          // Adjust scroll to center the element
           window.scrollTo({
-            top: Math.max(0, scrollTop), // Avoid negative scroll
+            top: Math.max(0, scrollTop),
             left: Math.max(0, scrollLeft),
             behavior: 'smooth',
           });
@@ -75,7 +80,7 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
       };
 
       // Execute the centering logic with a delay
-      const timeoutId = setTimeout(centerView, 100);
+      const timeoutId = setTimeout(centerView, 200);
 
       // Cleanup on unmount
       return () => clearTimeout(timeoutId);
@@ -94,12 +99,12 @@ const Grid: React.FC<GridProps> = ({ setIsModalOpen }) => {
 
   return (
     <motion.div
-      className='w-screen flex justify-center'
+      className='w-screen flex'
       ref={gridRef}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-      <h1 className='absolute z-50 top-20 text-center text-2xl ml-16'>
+      <h1 className='fixed w-screen z-50 top-20 text-center text-2xl md:ml-0 ml-8'>
         Tap on buttons to choose features
       </h1>
       <div

@@ -192,6 +192,13 @@ header nav ul li a span {
   @apply gap-2 mt-24 z-0 overflow-x-auto;
 }
 
+/* @media screen and (max-width: 1350px) {
+  .grid-container {
+    transform: scale(0.75);
+    width: calc(100vw / 0.75);
+  }
+} */
+
 .grid-button {
   @apply font-bold shadow-inner-2 transition-all text-white border border-teal-600 hover:bg-white hover:text-black px-2 rounded hover:opacity-10 w-40 h-[4.25rem];
 }
@@ -393,4 +400,8 @@ mitä jos poistaa arrowit kokonaan mobiilinäkymästä?
   .tutorialslider {
     display: grid !important;
   }
+}
+
+.no-horizontal-scroll {
+  overflow-x: hidden;
 }
