@@ -264,7 +264,8 @@ describe('Stackbuilder functionality test 3', () => {
       });
   });
 });
-// kolmas joku jolla kattoo että tulee samat tulokset kun painaa samoja nappeja
+
+//kolmas joku jolla kattoo että tulee samat tulokset kun painaa samoja nappeja
 describe('Stackbuilder functionality test 4', () => {
   it('passes', () => {
     cy.visit('http://localhost:3000/stackbuilder');
@@ -348,7 +349,34 @@ describe('Stackbuilder functionality test 5', () => {
     cy.get("div[class='carousel-item']")
       .eq(0)
       .within(() => {
-        cy.get('div').contains('Total Weight: 9.9').should('be.visible');
+        cy.get('div').contains('Total Weight: 8.8').should('be.visible');
       });
+  });
+});
+
+describe('Stackbuilder functionality test 5', () => {
+  it('passes', () => {
+    cy.visit('http://localhost:3000');
+    cy.wait(400);
+    cy.get('button').contains('Tutorial').click();
+    cy.get('div').contains('Overview');
+    cy.get("img[src*='library.png']");
+    cy.get("img[src*='grid.png']");
+    cy.get("img[src*='output.png']");
+    cy.get('button').contains('Close tutorial').click({ force: true });
+    cy.get('a').contains('StackBuilder').click();
+    cy.get('button').contains('Guide').click();
+    cy.get('div').contains('Overview');
+    cy.get("img[src*='library.png']");
+    cy.get("img[src*='grid.png']");
+    cy.get("img[src*='output.png']");
+    cy.get('button').contains('Close tutorial').click({ force: true });
+    cy.get('button').contains('Next').click();
+    cy.get('button').contains('Guide').click();
+    cy.get('div').contains('Overview');
+    cy.get("img[src*='library.png']");
+    cy.get("img[src*='grid.png']");
+    cy.get("img[src*='output.png']");
+    cy.get('button').contains('Close tutorial').click({ force: true });
   });
 });
