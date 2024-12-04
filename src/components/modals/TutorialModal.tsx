@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -8,12 +8,15 @@ import Image from 'next/image';
 import { RootState } from '@/redux/store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleTutorial } from '@/redux/reducers/tutorialReducer';
+import { useRouter } from 'next/router';
 
 const TutorialModal = ({ onClose }: { onClose: () => void }) => {
   const dispatch = useDispatch();
   const tutorialState = useSelector(
     (state: RootState) => state.tutorialReducer
   );
+
+  const router = useRouter();
 
   const customStyles = {
     content: {
@@ -34,6 +37,19 @@ const TutorialModal = ({ onClose }: { onClose: () => void }) => {
     dispatch(toggleTutorial(!isOpen));
     onClose();
   };
+
+  //useEffect to close the modal when the route changes
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setIsOpen(false);
+      dispatch(toggleTutorial(false));
+    };
+    router.events.on('routeChangeStart', handleRouteChange);
+
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+    };
+  }, [dispatch, router.events]);
 
   const imageSize: number = 300;
   return (
