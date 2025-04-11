@@ -8,7 +8,7 @@
 - **Petri Paasila**       - *Stage Management, Lead Developer*  -  AD1782@student.jamk.fi
 - **Matias Juvonen**      - *Testing lead, Developer*  -  AD2069@student.jamk.fi
 - **Arttu Henriksson**    - *Database Specialist, Developer, SCRUM Master*  -  AD1820@student.jamk.fi
-- **Aatu Mäenpää**        - *Business Manager, Frontend Developer*  -  AD1741@student.jamk.fi
+- **Aatu Mäenpää**        - *Business Manager, Developer*  -  AD1741@student.jamk.fi
 
 ## About PACKY
 > PACKY is designed with starting developers in mind. The idea was born out of a need we and our peer students had when we first started to learn web development.
